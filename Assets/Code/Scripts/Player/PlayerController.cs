@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 // Controller class to handle player movement buttons.
 public class PlayerController : MonoBehaviour
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour
             handleSelection(multiselect, switchMain);
         }
 
-        if (Input.GetKeyDown("h"))
+        if (Input.GetKeyDown("n"))
         {
             if (VulturaInstance.selectorList.mainSelected != null)
             {
@@ -81,6 +83,11 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void BeginWarp(InputAction.CallbackContext context)
+    {
+        Debug.Log("Warping!");
     }
 
     void handleSelection(bool multiSelect = false, bool switchMain = false)

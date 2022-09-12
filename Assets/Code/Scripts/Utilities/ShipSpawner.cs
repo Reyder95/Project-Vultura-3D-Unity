@@ -24,11 +24,22 @@ public class ShipSpawner : MonoBehaviour
 
         mainShipPrefab.GetComponent<PrefabHandler>().SetShipColor(fleetColor);
 
-        if (!fleet.FleetCommander.IsAI)
+       
+        try
         {
-            mainShipPrefab.GetComponent<PrefabHandler>().InitialPlayer();
-            VulturaInstance.currentPlayer = mainShipPrefab;
+            if (!fleet.FleetCommander.IsAI)
+            {
+                mainShipPrefab.GetComponent<PrefabHandler>().SwitchControl(VulturaInstance.currentPlayer);
+            }
+        } catch
+        {
+            if (!fleet.FleetCommander.IsAI)
+            {
+                mainShipPrefab.GetComponent<PrefabHandler>().InitialPlayer();
+            }
         }
+        
+        
         
 
 

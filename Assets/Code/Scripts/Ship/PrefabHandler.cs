@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class PrefabHandler : MonoBehaviour
     // When no player is initialized, set up the inital player.
     public void InitialPlayer()
     {
+        VulturaInstance.currentPlayer = this.gameObject;
         Camera.main.gameObject.GetComponent<CameraHandler>().ReinitializeCamera(this.gameObject);
         //AddMainCamera();
         AddMovement();
@@ -59,10 +61,13 @@ public class PrefabHandler : MonoBehaviour
 
     public GameObject SwitchControl(GameObject oldPrefab)
     {
+        
         VulturaInstance.currentPlayer = this.gameObject;
-
+        
         SwitchMainCamera(oldPrefab);
+        
         SwitchMovement(oldPrefab);
+        
 
         return this.gameObject;
     }
