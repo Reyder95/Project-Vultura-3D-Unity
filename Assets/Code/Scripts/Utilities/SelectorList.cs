@@ -26,6 +26,8 @@ public class SelectorList
                 if (doesExist && selected.Count == 1)
                 {
                     DeselectObject(selectedObject, multiSelect);
+                    
+                    EventManager.TriggerEvent("Selection Changed");
                     return;
                 }
 
@@ -37,6 +39,7 @@ public class SelectorList
                     {
                         // Deselect the object
                         DeselectObject(selectedObject, multiSelect);
+                        EventManager.TriggerEvent("Selection Changed");
                         return;
                     }
                     else
@@ -44,6 +47,7 @@ public class SelectorList
                         // If CTRL is not held, deselect all objects and only select that one.
                         DeselectAllObjects();
                         SelectObject(selectedObject, multiSelect);
+                        EventManager.TriggerEvent("Selection Changed");
                         return;
                     }
 
@@ -60,6 +64,7 @@ public class SelectorList
                     }
 
                     SetMainSelected(selectedObject);
+                    EventManager.TriggerEvent("Selection Changed");
                     return;
                 }
             }
@@ -67,7 +72,8 @@ public class SelectorList
             // if none of the above, that means we're just trying to add an object to the selections.
             SelectObject(selectedObject, multiSelect);
             }
-        
+
+        EventManager.TriggerEvent("Selection Changed");
     }
 
     private void SelectObject(BaseSelectable selectedObject, bool multiSelect)
