@@ -51,7 +51,7 @@ public class CameraHandler : MonoBehaviour
         SetCameraPosition();
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         // Makes target follow the player
         _target.position = _player.position;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 // Handles all functions related to ship prefabs
 public class PrefabHandler : MonoBehaviour
@@ -14,9 +15,47 @@ public class PrefabHandler : MonoBehaviour
 
     public GameObject shipContainer;
 
+    public bool warping = false;
+    public bool turning = false;
+
+    public GameObject warpTarget;
+
     void Start()
     {
         shipStats = GetShipStats();
+    }
+
+    void FixedUpdate()
+    {
+        if (turning)
+        {
+            Quaternion rotTarget = Quaternion.LookRotation(warpTarget.transform.position - transform.position);
+            this.transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, 0.5f * Time.deltaTime);
+
+            // transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(98f, ), 100 * Time.deltaTime);
+            Debug.Log(Quaternion.Angle(transform.rotation, rotTarget));
+
+            if (Quaternion.Angle(transform.rotation, rotTarget) <= 3.0f)
+            {
+                transform.LookAt(warpTarget.transform);
+                turning = false;
+                warping = true;
+            }
+
+
+        }
+
+        if (warping)
+        {
+            // Vector3 relativePos = warpTarget.transform.position - transform.position;
+            // this.gameObject.GetComponent<Rigidbody>().AddForce(1000f * relativePos.normalized);
+            transform.position = Vector3.MoveTowards(transform.position, warpTarget.transform.position, 1000f * Time.deltaTime);
+            if (Vector3.Distance(transform.position, warpTarget.transform.position) < 100f)
+            {
+                warping = false;
+                Debug.Log("Done!");
+            }
+        }
     }
 
     // When no player is initialized, set up the inital player.
@@ -24,6 +63,7 @@ public class PrefabHandler : MonoBehaviour
     {
         VulturaInstance.currentPlayer = this.gameObject;
         Camera.main.gameObject.GetComponent<CameraHandler>().ReinitializeCamera(this.gameObject);
+        AddInput();
         //AddMainCamera();
         AddMovement();
     }
@@ -53,10 +93,32 @@ public class PrefabHandler : MonoBehaviour
         this.gameObject.transform.gameObject.GetComponent<PlayerController>().enabled = false;
     }
 
+    private void AddInput()
+    {
+        this.gameObject.GetComponent<PlayerInput>().enabled = true;
+    }
+
+    private void RemoveInput()
+    {
+        this.gameObject.GetComponent<PlayerInput>().enabled = false;
+    }
+
+    private void SwitchInput(GameObject oldPrefab)
+    {
+        oldPrefab.GetComponent<PrefabHandler>().RemoveInput();
+        AddInput();
+    }
+
     private void SwitchMovement(GameObject oldPrefab)
     {
         oldPrefab.GetComponent<PrefabHandler>().RemoveMovement();
         AddMovement();
+    }
+
+    public void BeginWarp(GameObject target)
+    {
+        warpTarget = target;
+        turning = true;
     }
 
     public GameObject SwitchControl(GameObject oldPrefab)
@@ -66,6 +128,8 @@ public class PrefabHandler : MonoBehaviour
         
         SwitchMainCamera(oldPrefab);
         
+        SwitchMovement(oldPrefab);
+
         SwitchMovement(oldPrefab);
         
 

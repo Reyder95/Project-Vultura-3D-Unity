@@ -85,9 +85,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void BeginWarp(InputAction.CallbackContext context)
+    public void WarpHandler(InputAction.CallbackContext context)
     {
-        Debug.Log("Warping!");
+        if (context.started)
+        {
+            this.gameObject.GetComponent<PrefabHandler>().BeginWarp(VulturaInstance.selectorList.mainSelected.selectableObject);
+        }
     }
 
     void handleSelection(bool multiSelect = false, bool switchMain = false)
