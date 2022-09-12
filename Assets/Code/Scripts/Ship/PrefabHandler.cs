@@ -44,7 +44,10 @@ public class PrefabHandler : MonoBehaviour
                 if (VulturaInstance.CalculateDistance(this.gameObject, warpTarget) < 25.0f)
                     traveling = true;
                 else
+                {
                     warping = true;
+                    this.gameObject.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
+                }
             }
 
 
@@ -55,8 +58,9 @@ public class PrefabHandler : MonoBehaviour
             // Vector3 relativePos = warpTarget.transform.position - transform.position;
             // this.gameObject.GetComponent<Rigidbody>().AddForce(1000f * relativePos.normalized);
             transform.position = Vector3.MoveTowards(transform.position, warpTarget.transform.position, 1000f * Time.deltaTime);
-            if (VulturaInstance.CalculateDistance(this.gameObject, warpTarget) < 100f)
+            if (VulturaInstance.CalculateDistance(this.gameObject, warpTarget) < 2.0f)
             {
+                this.gameObject.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
                 warping = false;
                 Debug.Log("Done!");
             }
