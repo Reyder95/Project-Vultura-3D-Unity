@@ -9,7 +9,7 @@ using UnityEngine.Events;
 using UnityEngine.UIElements;
 using System.Threading.Tasks;
 
-public class UI_EntityList : MonoBehaviour
+public class UI_MainEntityList : MonoBehaviour
 {
     private ListView entityListView;
     private Button entityButton;
@@ -18,11 +18,7 @@ public class UI_EntityList : MonoBehaviour
     public StyleSheet entityMainSelected;
     public StyleSheet entitySelected;
     public VisualTreeAsset listItem;
-    public VisualElement rootVisualElement;
-
-    private UnityAction fleetListener;
-    private UnityAction deselectedListener;
-    private bool refreshed = false;
+    public UnityAction selectionChanged;
 
     public struct DataStruct {
         public int entityIndex;
@@ -33,34 +29,14 @@ public class UI_EntityList : MonoBehaviour
 
     void Awake()
     {
-        fleetListener = new UnityAction(SortAndPopulate);
-        deselectedListener = new UnityAction(Deselected);
-    }
-
-    void Update()
-    {
-        if (rootVisualElement != null)
-        {
-            if (!rootVisualElement.visible && entities.Length > 0)
-                rootVisualElement.visible = true;
-            else if (rootVisualElement.visible && entities.Length == 0)
-                rootVisualElement.visible = false;
-        }
-        
-    }
-    
-    void OnDisable()
-    {
-        EventManager.StopListening("Fleet Added", fleetListener);
-        EventManager.StopListening("Deselect Ship", deselectedListener);
+        selectionChanged = new UnityAction(SortAndPopulate);
     }
 
     private void OnEnable()
     {
-        EventManager.StartListening("Fleet Added", fleetListener);
-        EventManager.StartListening("Deselect Ship", deselectedListener);
-        rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
-        entityListView = rootVisualElement.Q<ListView>("fleet-list");
+        EventManager.StartListening("Selection Changed", selectionChanged);
+        var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
+        entityListView = rootVisualElement.Q<ListView>("entity-list");
         entityButton = rootVisualElement.Q<Button>("list-button");
 
         Func<VisualElement> makeItem = () => listItem.Instantiate();
@@ -69,13 +45,13 @@ public class UI_EntityList : MonoBehaviour
             try
             {
                 var faction = e.Q<Label>("faction");
-                faction.text = VulturaInstance.fleetSelectables[entities[i].entityIndex].Faction;
+                faction.text = VulturaInstance.systemSelectables[entities[i].entityIndex].Faction;
 
                 var name = e.Q<Label>("name");
-                name.text = VulturaInstance.fleetSelectables[entities[i].entityIndex].SelectableName;
+                name.text = VulturaInstance.systemSelectables[entities[i].entityIndex].SelectableName;
 
                 var type = e.Q<Label>("type");
-                type.text = VulturaInstance.fleetSelectables[entities[i].entityIndex].Type;
+                type.text = VulturaInstance.systemSelectables[entities[i].entityIndex].Type;
 
                 var distance = e.Q<Label>("distance");
                 distance.text = entities[i].distance.ToString();
@@ -83,43 +59,44 @@ public class UI_EntityList : MonoBehaviour
             {
                 Debug.Log("LOL");
             }
-            
 
-            e.RegisterCallback<ClickEvent>(ev => {
+        e.RegisterCallback<ClickEvent>(ev => {
                 try
                 {
-                    if (entities[i].entityIndex < VulturaInstance.fleetSelectables.Count)
+                    if (entities[i].entityIndex < VulturaInstance.systemSelectables.Count)
                     {
                         if (Input.GetKey("left ctrl"))
                         {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.fleetSelectables[entities[i].entityIndex], true, false);
+                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemSelectables[entities[i].entityIndex], true, false);
                         }
                         else if (Input.GetKey("left alt"))
                         {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.fleetSelectables[entities[i].entityIndex], false, true);
+                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemSelectables[entities[i].entityIndex], false, true);
                         }
                         else
                         {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.fleetSelectables[entities[i].entityIndex]);
+                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemSelectables[entities[i].entityIndex]);
                         }
                     }
+
+                    SortAndPopulate();
                 } catch (ArgumentOutOfRangeException ex)
                 {
                     Debug.Log("RIP!");
                 }
             });
-            
-            try
+
+        try
             {
-                if (entities[i].entityIndex < VulturaInstance.fleetSelectables.Count)
+                if (entities[i].entityIndex < VulturaInstance.systemSelectables.Count)
                 {
-                    if (VulturaInstance.fleetSelectables[entities[i].entityIndex].MainSelected)
+                    if (VulturaInstance.systemSelectables[entities[i].entityIndex].MainSelected)
                     {
                         e.EnableInClassList("normal", false);
                         e.EnableInClassList("main-selected-element", true);
                         e.EnableInClassList("selected-element", false);
                     }
-                    else if (VulturaInstance.fleetSelectables[entities[i].entityIndex].Selected)
+                    else if (VulturaInstance.systemSelectables[entities[i].entityIndex].Selected)
                     {
                         e.EnableInClassList("normal", false);
                         e.EnableInClassList("main-selected-element", false);
@@ -136,7 +113,7 @@ public class UI_EntityList : MonoBehaviour
             {
                 Debug.Log("RIP!!2");
             }
-            
+
         };
 
         entityListView.makeItem = makeItem;
@@ -150,12 +127,13 @@ public class UI_EntityList : MonoBehaviour
     {
         float initial = Time.realtimeSinceStartup;
         NativeList<DataStruct> newList = new NativeList<DataStruct>(Allocator.TempJob);
+        Debug.Log("Test!");
 
-        for (int i = 0; i < VulturaInstance.fleetSelectables.Count; i++)
+        for (int i = 0; i < VulturaInstance.systemSelectables.Count; i++)
         {
             DataStruct newDistance = new DataStruct {
                 entityIndex = i,
-                distance = VulturaInstance.CalculateDistance(VulturaInstance.currentPlayer, VulturaInstance.fleetSelectables[i].selectableObject),
+                distance = VulturaInstance.CalculateDistance(VulturaInstance.currentPlayer, VulturaInstance.systemSelectables[i].selectableObject),
             };
 
             newList.Add(newDistance);
