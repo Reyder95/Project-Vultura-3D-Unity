@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 // Controller class to handle player movement buttons.
 public class PlayerController : MonoBehaviour
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour
             handleSelection(multiselect, switchMain);
         }
 
-        if (Input.GetKeyDown("h"))
+        if (Input.GetKeyDown("n"))
         {
             if (VulturaInstance.selectorList.mainSelected != null)
             {
@@ -80,6 +82,23 @@ public class PlayerController : MonoBehaviour
                     VulturaInstance.selectorList.mainSelected.selectableObject.GetComponent<StationComponent>().EnterStation();
                 }
             }
+        }
+    }
+
+    public void WarpHandler(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            this.gameObject.GetComponent<PrefabHandler>().BeginWarp(VulturaInstance.selectorList.mainSelected.selectableObject);
+        }
+    }
+
+    public void CancelWarp(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            Debug.Log("Test");
+            this.gameObject.GetComponent<PrefabHandler>().CancelWarp();
         }
     }
 
