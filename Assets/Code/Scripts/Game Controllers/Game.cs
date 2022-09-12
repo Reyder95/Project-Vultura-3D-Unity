@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Game : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class Game : MonoBehaviour
 
     // UI Elements
     public GameObject entityList;
+
+    // Debugging Elements
+    public GameObject GRAPHY;
+    
 
     //int prefabCount = 0;
 
@@ -55,6 +60,68 @@ public class Game : MonoBehaviour
 
         VulturaInstance.InitializeSelectableObjects();
         //entityList.GetComponent<EntityList>().DisplayItems(VulturaInstance.systemSelectables);
+    }
+
+    public void ToggleFPS(InputAction.CallbackContext context)
+    {
+        Tayx.Graphy.GraphyManager Module = GRAPHY.GetComponent<Tayx.Graphy.GraphyManager>();
+        
+        if (Module.FpsModuleState == Tayx.Graphy.GraphyManager.ModuleState.OFF)
+            Module.FpsModuleState = Tayx.Graphy.GraphyManager.ModuleState.FULL;
+        else
+            Module.FpsModuleState = Tayx.Graphy.GraphyManager.ModuleState.OFF;
+    }
+
+    public void ToggleRAM(InputAction.CallbackContext context)
+    {
+        Tayx.Graphy.GraphyManager Module = GRAPHY.GetComponent<Tayx.Graphy.GraphyManager>();
+        
+        if (Module.RamModuleState == Tayx.Graphy.GraphyManager.ModuleState.OFF)
+            Module.RamModuleState = Tayx.Graphy.GraphyManager.ModuleState.FULL;
+        else
+            Module.RamModuleState = Tayx.Graphy.GraphyManager.ModuleState.OFF;
+    }
+
+    public void ToggleAUDIO(InputAction.CallbackContext context)
+    {
+        Tayx.Graphy.GraphyManager Module = GRAPHY.GetComponent<Tayx.Graphy.GraphyManager>();
+        
+        if (Module.AudioModuleState == Tayx.Graphy.GraphyManager.ModuleState.OFF)
+            Module.AudioModuleState = Tayx.Graphy.GraphyManager.ModuleState.FULL;
+        else
+            Module.AudioModuleState = Tayx.Graphy.GraphyManager.ModuleState.OFF;
+    }
+
+    public void ToggleAdvanced(InputAction.CallbackContext context)
+    {
+        Tayx.Graphy.GraphyManager Module = GRAPHY.GetComponent<Tayx.Graphy.GraphyManager>();
+        
+        if (Module.AdvancedModuleState == Tayx.Graphy.GraphyManager.ModuleState.OFF)
+            Module.AdvancedModuleState = Tayx.Graphy.GraphyManager.ModuleState.FULL;
+        else
+            Module.AdvancedModuleState = Tayx.Graphy.GraphyManager.ModuleState.OFF;
+    }
+
+    public void EnableAll(InputAction.CallbackContext context)
+    {
+        Tayx.Graphy.GraphyManager Module = GRAPHY.GetComponent<Tayx.Graphy.GraphyManager>();
+        Tayx.Graphy.GraphyManager.ModuleState off = Tayx.Graphy.GraphyManager.ModuleState.OFF;
+        Tayx.Graphy.GraphyManager.ModuleState on = Tayx.Graphy.GraphyManager.ModuleState.FULL;
+
+        if (Module.FpsModuleState == off || Module.RamModuleState == off || Module.AudioModuleState == off || Module.AdvancedModuleState == off)
+        {
+            Module.FpsModuleState = on;
+            Module.RamModuleState = on;
+            Module.AudioModuleState = on;
+            Module.AdvancedModuleState = on;
+        }
+        else
+        {
+            Module.FpsModuleState = off;
+            Module.RamModuleState = off;
+            Module.AudioModuleState = off;
+            Module.AdvancedModuleState = off;
+        }
     }
 
     // Generates a numShip number of ships. Fleet commander included
