@@ -16,6 +16,7 @@ public class PrefabHandler : MonoBehaviour
     public GameObject shipContainer;
 
     public bool warping = false;
+    public bool traveling = false;
     public bool turning = false;
 
     public GameObject warpTarget;
@@ -39,7 +40,11 @@ public class PrefabHandler : MonoBehaviour
             {
                 transform.LookAt(warpTarget.transform);
                 turning = false;
-                warping = true;
+
+                if (VulturaInstance.CalculateDistance(this.gameObject, warpTarget) < 25.0f)
+                    traveling = true;
+                else
+                    warping = true;
             }
 
 
@@ -50,12 +55,28 @@ public class PrefabHandler : MonoBehaviour
             // Vector3 relativePos = warpTarget.transform.position - transform.position;
             // this.gameObject.GetComponent<Rigidbody>().AddForce(1000f * relativePos.normalized);
             transform.position = Vector3.MoveTowards(transform.position, warpTarget.transform.position, 1000f * Time.deltaTime);
-            if (Vector3.Distance(transform.position, warpTarget.transform.position) < 100f)
+            if (VulturaInstance.CalculateDistance(this.gameObject, warpTarget) < 100f)
             {
                 warping = false;
                 Debug.Log("Done!");
             }
         }
+        else if (traveling)
+        {
+            this.gameObject.GetComponent<ShipMovement>().MoveShip(1.0f);
+            
+             if (VulturaInstance.CalculateDistance(this.gameObject, warpTarget) < 2.0f)
+            {
+                traveling = false;
+                Debug.Log("Done!");
+            }
+        }
+    }
+
+    public void CancelWarp()
+    {
+        if (turning == true)
+            turning = false;
     }
 
     // When no player is initialized, set up the inital player.

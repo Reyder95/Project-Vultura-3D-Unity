@@ -93,6 +93,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void CancelWarp(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            Debug.Log("Test");
+            this.gameObject.GetComponent<PrefabHandler>().CancelWarp();
+        }
+    }
+
     void handleSelection(bool multiSelect = false, bool switchMain = false)
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
