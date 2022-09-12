@@ -39,13 +39,18 @@ public class UI_EntityList : MonoBehaviour
 
     void Update()
     {
-        if (rootVisualElement != null)
+        
+        try
         {
             if (!rootVisualElement.visible && entities.Length > 0)
                 rootVisualElement.visible = true;
             else if (rootVisualElement.visible && entities.Length == 0)
                 rootVisualElement.visible = false;
+        } catch (NullReferenceException ex)
+        {
+            Debug.Log("Root visual element not initialized " + ex);
         }
+        
         
     }
     
@@ -136,6 +141,8 @@ public class UI_EntityList : MonoBehaviour
             {
                 Debug.Log("RIP!!2");
             }
+            
+
             
         };
 
