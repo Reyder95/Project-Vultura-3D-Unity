@@ -21,7 +21,6 @@ public class UI_EntityList : MonoBehaviour
 
     private UnityAction fleetListener;
     private UnityAction deselectedListener;
-    private bool refreshed = false;
 
     public struct DataStruct {
         public int entityIndex;
@@ -34,12 +33,6 @@ public class UI_EntityList : MonoBehaviour
     {
         fleetListener = new UnityAction(SortAndPopulate);
         deselectedListener = new UnityAction(Deselected);
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown("b"))
-            refreshed = false;
     }
     
     void OnDisable()

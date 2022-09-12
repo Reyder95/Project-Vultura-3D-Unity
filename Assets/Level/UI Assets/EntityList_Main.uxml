@@ -1,6 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Assets/entityListOverall.uss?fileID=7433441132597879392&amp;guid=c64e622810b6b45419a517c0ddcc5bea&amp;type=3#entityListOverall" />
-    <ui:VisualElement style="position: absolute; height: 600px; right: 0; width: 20%; opacity: 1; -unity-background-image-tint-color: rgb(197, 155, 155); background-color: rgba(202, 202, 202, 0.41); top: 611px;">
-        <ui:ListView focusable="true" name="entity-list" virtualization-method="FixedHeight" fixed-item-height="45" selection-type="None" style="position: absolute; width: 512px; left: 1px; height: 600px; overflow: hidden; -unity-background-image-tint-color: rgba(231, 231, 231, 0); top: 0;" />
-    </ui:VisualElement>
-</ui:UXML>
