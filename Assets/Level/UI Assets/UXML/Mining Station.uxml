@@ -1,5 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="position: absolute; left: 25%; right: 25%; top: 25%; bottom: 25%; background-color: rgba(70, 70, 70, 255); border-left-color: rgba(255, 138, 30, 255); border-right-color: rgba(255, 138, 30, 255); border-top-color: rgba(255, 138, 30, 255); border-bottom-color: rgba(255, 138, 30, 255); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px;">
-        <ui:Label text="Karol Mining Station" display-tooltip-when-elided="true" style="-unity-font-style: bold; font-size: 40px; padding-left: 30px; padding-top: 20px;" />
-    </ui:VisualElement>
-</ui:UXML>
