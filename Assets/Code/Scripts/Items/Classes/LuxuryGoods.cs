@@ -7,6 +7,6 @@ public class LuxuryGoods : TradeGood
 {
     public LuxuryGoods() : base(1, "Luxury Goods", "Luxury goods that the people of the galaxy enjoy partaking in.", new Texture2D(128, 128))
     {
-        Addressables.LoadAssetAsync<GameObject>("TestPrefab").Completed += base.OnLoadDone;
+        //Addressables.LoadAssetAsync<GameObject>("TestPrefab").Completed += base.OnLoadDone;
     }
 }
