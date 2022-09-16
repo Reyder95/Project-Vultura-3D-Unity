@@ -59,10 +59,30 @@ public static class VulturaInstance
     public static GameObject currentPlayer;     // A reference to the current player character in the game. Since a player can switch ships, this needs to be kept track of.
 
     public enum ContactType {
-        Station_Head,
-        Bounty_Hunter,
-        Commander,
-        Wandering_Trader
+        Station_Head,                   // The head of the station. Lets you manage faction diplomacy, or help the station which can increase faction rep
+        Bounty_Contractor,              // Has up to 3 bounties you can partake in. Usually involving killing or stealing something.
+        Commander,                      // Can be hired to be the captain of a fleet. Each fleet needs at least one commander to function.
+        Wandering_Trader,               // Very rare. Can have the best weapons, or best prices of goods. Can be used to play the market to your advantage, or rarely have insane weapons to purchase.
+        Crew_Manager,                   // Can be used to crew your ships. Your fleets need crew to maintain
+        Station_Administrator,          // Can be hired to run your stations busywork, which means you get a bonus in income from that station.
+        Underground_Ship_Dealer,        // Similar to a wandering trader, but just for ships. Ships here are solid and usually better than those from a shipyard. Usually come with some kind of bonus.
+        Underground_Weapons_Dealer,     // Similar to a wandering trader, the weapons are not as good but this is more common so easier to gain access to.
+        Saboteur                        // Can be used to spy and/or sabotage other factions. Useful to turn the tides of the battlefield if needed, or those who wish to deceive you if they are allies.
+    }
+
+    public enum ItemType {
+        Trade_Good,
+        Ammo,
+        Active_Module,
+        Passive_Module
+    }
+
+    public enum ItemRarity {
+        Common,
+        Uncommon,
+        Rare,
+        Epic,
+        Legendary
     }
 
     public static string enumStringParser(string enumString)

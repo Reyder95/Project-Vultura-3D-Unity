@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.unity.addressables": "1.19.19",
     "com.unity.collab-proxy": "1.17.2",
     "com.unity.entities": "0.51.0-preview.32",
     "com.unity.ide.rider": "3.0.15",

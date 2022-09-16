@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,16 @@ using UnityEngine.InputSystem;
 
 public class Game : MonoBehaviour
 {
+    [Serializable]
+    public struct ItemPairing
+    {
+        public int id;
+        public BaseItem item;
+    }
+
+
+    public ItemPairing[] items;
+
     // Handles all the station prefabs in the level
     public GameObject[] stationPrefabs;
 
@@ -32,7 +43,7 @@ public class Game : MonoBehaviour
         // For each station prefab found
         foreach (GameObject station in stationPrefabs)
         {
-            float randValue = Random.Range(-10.0f, 10.0f);
+            float randValue = UnityEngine.Random.Range(-10.0f, 10.0f);
             // Create a new mining station
             BaseStation newStation = new MiningStation("Station Faction", "Station Name", "Mining Station");
 
@@ -128,17 +139,17 @@ public class Game : MonoBehaviour
     private Fleet FleetGenerator(int numShips)
     {
         System.Guid fleetGUID = System.Guid.NewGuid();
-        GameObject commanderPrefab = shipPrefabs[Random.Range(0, shipPrefabs.Length)];
+        GameObject commanderPrefab = shipPrefabs[UnityEngine.Random.Range(0, shipPrefabs.Length)];
         ShipStats commanderStats = commanderPrefab.GetComponent<PrefabHandler>().GetShipStats();
-        string faction = "AI Faction " + Random.Range(0, 100);
+        string faction = "AI Faction " + UnityEngine.Random.Range(0, 100);
 
-        InstantiatedShip commander = new InstantiatedShip(faction.ToString(), "Commander " + Random.Range(0, 100), "Fleet Commander", commanderStats.baseHealth, commanderStats.baseArmor, commanderStats.baseHull, commanderStats, true, commanderPrefab);
+        InstantiatedShip commander = new InstantiatedShip(faction.ToString(), "Commander " + UnityEngine.Random.Range(0, 100), "Fleet Commander", commanderStats.baseHealth, commanderStats.baseArmor, commanderStats.baseHull, commanderStats, true, commanderPrefab);
 
         List<InstantiatedShip> fleetShips = new List<InstantiatedShip>();
 
         for (int i = 0; i < numShips - 1; i++)
         {
-            GameObject fleetShipPrefab = shipPrefabs[Random.Range(0, shipPrefabs.Length)];
+            GameObject fleetShipPrefab = shipPrefabs[UnityEngine.Random.Range(0, shipPrefabs.Length)];
             ShipStats fleetShipStats = fleetShipPrefab.GetComponent<PrefabHandler>().GetShipStats();
             fleetShips.Add(new InstantiatedShip(faction.ToString(), "Ship # " + (i + 1), "Ship", fleetShipStats.baseHealth, fleetShipStats.baseArmor, fleetShipStats.baseHull, fleetShipStats, true, fleetShipPrefab));
         }
