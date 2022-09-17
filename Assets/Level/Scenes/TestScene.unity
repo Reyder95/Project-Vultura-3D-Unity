@@ -923,7 +923,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - id: 0
-    item: {fileID: 0}
   stationPrefabs: []
   shipPrefabs:
   - {fileID: 8669284861915232250, guid: 35a943d8955ec4240b8d799ce322f83e, type: 3}
