@@ -23,6 +23,13 @@ abstract public class BaseItem
         this.icon = icon;
     }
 
+    public int Id {
+        get
+        {
+            return this.id;
+        }
+    }
+
     public string Name
     {
         get
