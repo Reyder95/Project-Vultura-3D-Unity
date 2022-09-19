@@ -40,6 +40,8 @@ public class Game : MonoBehaviour
         // Finds all the station prefabs (station prefabs are tagged with "Station")
         stationPrefabs = GameObject.FindGameObjectsWithTag("Station");
 
+        Debug.Log(ItemFactoryComponent.Instance.ItemFactoryDict[4].Create().Rarity);
+
         // For each station prefab found
         foreach (GameObject station in stationPrefabs)
         {
