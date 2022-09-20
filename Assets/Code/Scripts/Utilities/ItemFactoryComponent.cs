@@ -29,6 +29,8 @@ public class ItemFactoryComponent : MonoBehaviour
         itemFactoryDict.Add(6, new CargoExpanderFactory());
     }
 
+
+
     public Dictionary<int, BaseItemFactory> ItemFactoryDict
     {
         get

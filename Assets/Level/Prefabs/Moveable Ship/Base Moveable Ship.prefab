@@ -300,6 +300,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 95ca93db-9819-4ce3-a93b-947d47d37625
     m_ActionName: Debug/ALL[/Keyboard/leftCtrl,/Keyboard/5]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 562452446014717035}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OpenInventory
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 253ccb9b-804c-4bab-a997-6e8bdcc0c979
+    m_ActionName: Player/Inventory[/Keyboard/i]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
