@@ -24,12 +24,5 @@ public class BaseStation : BaseSelectable
         }
 
         stationHead = new Contact("Akane Mioka", "SomeFaction", VulturaInstance.ContactType.Station_Head);
-
-        foreach (Contact contact in contacts)
-        {
-            Debug.Log(VulturaInstance.enumStringParser(contact.Type.ToString()));
-        }
-
-        Debug.Log("Station Initialized");
     }
 }

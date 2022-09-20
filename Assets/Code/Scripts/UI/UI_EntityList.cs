@@ -22,7 +22,6 @@ public class UI_EntityList : MonoBehaviour
 
     private UnityAction fleetListener;
     private UnityAction deselectedListener;
-    private bool refreshed = false;
 
     public struct DataStruct {
         public int entityIndex;
@@ -46,9 +45,8 @@ public class UI_EntityList : MonoBehaviour
                 rootVisualElement.visible = true;
             else if (rootVisualElement.visible && entities.Length == 0)
                 rootVisualElement.visible = false;
-        } catch (NullReferenceException ex)
+        } catch (NullReferenceException)
         {
-            Debug.Log("Root visual element not initialized " + ex);
         }
         
         
@@ -84,9 +82,8 @@ public class UI_EntityList : MonoBehaviour
 
                 var distance = e.Q<Label>("distance");
                 distance.text = entities[i].distance.ToString();
-            } catch (ArgumentOutOfRangeException ex)
+            } catch (ArgumentOutOfRangeException)
             {
-                Debug.Log("LOL");
             }
             
 
@@ -108,9 +105,8 @@ public class UI_EntityList : MonoBehaviour
                             VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.fleetSelectables[entities[i].entityIndex]);
                         }
                     }
-                } catch (ArgumentOutOfRangeException ex)
+                } catch (ArgumentOutOfRangeException)
                 {
-                    Debug.Log("RIP!");
                 }
             });
             
@@ -137,9 +133,8 @@ public class UI_EntityList : MonoBehaviour
                         e.EnableInClassList("selected-element", false);
                     }
                 }
-            } catch (ArgumentOutOfRangeException ex)
+            } catch (ArgumentOutOfRangeException)
             {
-                Debug.Log("RIP!!2");
             }
             
 
@@ -155,7 +150,6 @@ public class UI_EntityList : MonoBehaviour
 
     private async void SortAndPopulate()
     {
-        float initial = Time.realtimeSinceStartup;
         NativeList<DataStruct> newList = new NativeList<DataStruct>(Allocator.TempJob);
 
         for (int i = 0; i < VulturaInstance.fleetSelectables.Count; i++)
@@ -177,7 +171,6 @@ public class UI_EntityList : MonoBehaviour
         entities = newList.ToArray();
         newList.Dispose();
         Refresh();
-        Debug.Log("Time elapsed: " + (Time.realtimeSinceStartup - initial) * 1000);
     }
 
     private void Deselected()

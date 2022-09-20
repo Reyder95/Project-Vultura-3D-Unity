@@ -95,8 +95,6 @@ public class SelectorList
             if (!containsFleet)
                 LoadFleetIntoFleetList(selectedObject.selectableObject);
 
-            Debug.Log("Test!");
-
             EventManager.TriggerEvent("Fleet Added");
         }
         selectedObject.Selected = true;
@@ -112,21 +110,17 @@ public class SelectorList
             {
                 if(selectedItem.selectableObject.GetComponent<PrefabHandler>().fleetAssociation.FleetGUID.CompareTo(fleet.FleetGUID) == 0)
                 {
-                    Debug.Log("Contains fleet!");
                     return true;
                 }
                     
             }
         }
-
-        Debug.Log("Does not contain fleet!");
         return false;
     }
 
     private void LoadFleetIntoFleetList(GameObject shipPrefab)
     {
         
-        Debug.Log("Loading fleet into fleet list!");
         Fleet fleet = shipPrefab.GetComponent<PrefabHandler>().fleetAssociation;
 
         VulturaInstance.fleetSelectables.Add(fleet.FleetCommander);
@@ -135,18 +129,14 @@ public class SelectorList
         {
             VulturaInstance.fleetSelectables.Add(ship);
         }
-
-        Debug.Log("Counting Fleet" + VulturaInstance.fleetSelectables.Count);
     }
 
     private bool ContainsShip()
     {
-        Debug.Log("Checking selectables for ship");
         foreach (BaseSelectable item in selected)
         {
             if (item.GetType() == typeof(InstantiatedShip))
             {
-                Debug.Log("Test!aaaaaaa");
                 return true;
             }
         }
@@ -180,10 +170,8 @@ public class SelectorList
 
                 if (!ContainsShip())
                 {
-                    Debug.Log("HUH?!");
                     VulturaInstance.fleetSelectables.Clear();
                     EventManager.TriggerEvent("Deselect Ship");
-                    Debug.Log("Clearing fleet selectables!");
                 }
                 else 
                 {
@@ -220,7 +208,6 @@ public class SelectorList
                             //     VulturaInstance.fleetSelectables.Remove(removedShips[i]);
                             // }
 
-                            Debug.Log(VulturaInstance.fleetSelectables.Count);
                             EventManager.TriggerEvent("Deselect Ship");
                             EventManager.TriggerEvent("Fleet Added");
                         }
@@ -294,8 +281,6 @@ public class SelectorList
         
             EventManager.TriggerEvent("Deselect Ship");
         }
-        
-        Debug.Log("Deselecting all objects, so deselecting all fleet selectables");
 
         for (int i = 0; i < selected.Count; i++)
         {

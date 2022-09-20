@@ -34,7 +34,6 @@ public class PrefabHandler : MonoBehaviour
             this.transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, 0.5f * Time.deltaTime);
 
             // transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(98f, ), 100 * Time.deltaTime);
-            Debug.Log(Quaternion.Angle(transform.rotation, rotTarget));
 
             if (Quaternion.Angle(transform.rotation, rotTarget) <= 3.0f)
             {
@@ -62,7 +61,6 @@ public class PrefabHandler : MonoBehaviour
             {
                 this.gameObject.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
                 warping = false;
-                Debug.Log("Done!");
             }
         }
         else if (traveling)
@@ -72,7 +70,6 @@ public class PrefabHandler : MonoBehaviour
              if (VulturaInstance.CalculateDistance(this.gameObject, warpTarget) < 2.0f)
             {
                 traveling = false;
-                Debug.Log("Done!");
             }
         }
     }

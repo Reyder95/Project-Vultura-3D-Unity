@@ -40,12 +40,7 @@ public class Game : MonoBehaviour
         // Finds all the station prefabs (station prefabs are tagged with "Station")
         stationPrefabs = GameObject.FindGameObjectsWithTag("Station");
 
-        Inventory myInventory = new Inventory();
 
-        myInventory.Add(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[3].Create(), 10));
-        myInventory.Add(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[3].Create(), 8));
-        myInventory.Add(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[6].Create(), 11));
-        myInventory.PrintContents();
 
 
         // For each station prefab found
@@ -61,11 +56,13 @@ public class Game : MonoBehaviour
 
         //Generate player ship
         ShipStats shipStatsComponent = shipPrefabs[0].GetComponent<PrefabHandler>().GetShipStats();
-        InstantiatedShip newShip = new InstantiatedShip("Player Faction", "Player Fleet", "Non AI Fleet", shipStatsComponent.baseHealth, shipStatsComponent.baseArmor, shipStatsComponent.baseHull, shipStatsComponent, false, shipPrefabs[0]);
+        InstantiatedShip newShip = new InstantiatedShip("Player Faction", "Player Fleet", "Non AI Fleet", shipStatsComponent.baseHealth, shipStatsComponent.baseArmor, shipStatsComponent.baseHull, shipStatsComponent, false, shipPrefabs[0], new Inventory());
         Fleet playerFleet = new Fleet(System.Guid.NewGuid(), "Player Faction", newShip, new List<InstantiatedShip>());
+        newShip.AddToCargo(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[3].Create(), 10));
+        newShip.AddToCargo(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[6].Create(), 2));
         
         shipStatsComponent = shipPrefabs[1].GetComponent<PrefabHandler>().GetShipStats();
-        newShip = new InstantiatedShip("Player Faction", "Player Fleet", "Non AI Fleet", shipStatsComponent.baseHealth, shipStatsComponent.baseArmor, shipStatsComponent.baseHull, shipStatsComponent, true, shipPrefabs[1]);
+        newShip = new InstantiatedShip("Player Faction", "Player Fleet", "Non AI Fleet", shipStatsComponent.baseHealth, shipStatsComponent.baseArmor, shipStatsComponent.baseHull, shipStatsComponent, true, shipPrefabs[1], new Inventory());
         playerFleet.AddOneShip(newShip);
 
         shipSpawner.SpawnFleet(playerFleet, new Vector3(0, 0, 0));
@@ -151,7 +148,7 @@ public class Game : MonoBehaviour
         ShipStats commanderStats = commanderPrefab.GetComponent<PrefabHandler>().GetShipStats();
         string faction = "AI Faction " + UnityEngine.Random.Range(0, 100);
 
-        InstantiatedShip commander = new InstantiatedShip(faction.ToString(), "Commander " + UnityEngine.Random.Range(0, 100), "Fleet Commander", commanderStats.baseHealth, commanderStats.baseArmor, commanderStats.baseHull, commanderStats, true, commanderPrefab);
+        InstantiatedShip commander = new InstantiatedShip(faction.ToString(), "Commander " + UnityEngine.Random.Range(0, 100), "Fleet Commander", commanderStats.baseHealth, commanderStats.baseArmor, commanderStats.baseHull, commanderStats, true, commanderPrefab, new Inventory());
 
         List<InstantiatedShip> fleetShips = new List<InstantiatedShip>();
 
@@ -159,7 +156,7 @@ public class Game : MonoBehaviour
         {
             GameObject fleetShipPrefab = shipPrefabs[UnityEngine.Random.Range(0, shipPrefabs.Length)];
             ShipStats fleetShipStats = fleetShipPrefab.GetComponent<PrefabHandler>().GetShipStats();
-            fleetShips.Add(new InstantiatedShip(faction.ToString(), "Ship # " + (i + 1), "Ship", fleetShipStats.baseHealth, fleetShipStats.baseArmor, fleetShipStats.baseHull, fleetShipStats, true, fleetShipPrefab));
+            fleetShips.Add(new InstantiatedShip(faction.ToString(), "Ship # " + (i + 1), "Ship", fleetShipStats.baseHealth, fleetShipStats.baseArmor, fleetShipStats.baseHull, fleetShipStats, true, fleetShipPrefab, new Inventory()));
         }
 
         return new Fleet(fleetGUID, faction.ToString(), commander, fleetShips);

@@ -12,6 +12,5 @@ public class MiningStation : BaseStation
     public override void InitializeStation()
     {
         base.InitializeStation();   // Let the base station code initialize first.
-        Debug.Log("Mining Station Initialized");
     }
 }

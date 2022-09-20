@@ -9,6 +9,8 @@ public class InstantiatedShip : BaseSelectable
     private int currHull;
     private bool isAI;
 
+    private Inventory cargo;
+
     private GameObject shipReference;
 
     // Modules of the ship currently installed into this instance. The shipPrefab will contain all the base data for the ship, which
@@ -19,13 +21,14 @@ public class InstantiatedShip : BaseSelectable
     // The ship stats of the particular item
     public ShipStats shipStats;
     
-    public InstantiatedShip(string faction, string selectableName, string type, int shield, int armor, int hull, ShipStats shipStats, bool isAI, GameObject shipReference) : base(faction, selectableName, type)
+    public InstantiatedShip(string faction, string selectableName, string type, int shield, int armor, int hull, ShipStats shipStats, bool isAI, GameObject shipReference, Inventory cargo) : base(faction, selectableName, type)
     {
         this.currShield = shield;
         this.currArmor = armor;
         this.currHull = hull;
         this.isAI = isAI;
         this.shipReference = shipReference;
+        this.cargo = cargo;
 
         this.shipStats = shipStats;
     }
@@ -35,6 +38,14 @@ public class InstantiatedShip : BaseSelectable
     {
         if (activeModules.Count < 5)
             activeModules.Add(newActiveModule);
+    }
+
+    public void AddToCargo(InventoryItem item)
+    {
+        float futureCargo = (item.quantity * item.item.Weight) + cargo.currCargo;
+
+        if (futureCargo < shipStats.baseCargo)
+            cargo.Add(item);
     }
 
     // Adds a passive module to the list, stopped by a maximum # of modules for a ship
@@ -143,6 +154,14 @@ public class InstantiatedShip : BaseSelectable
         get
         {
             return this.shipReference;
+        }
+    }
+
+    public Inventory Cargo
+    {
+        get
+        {
+            return this.cargo;
         }
     }
 }

@@ -15,7 +15,8 @@ public class RocketLauncher : OffenseModule
         true,
         0,
         0,
-        0
+        0,
+        10.18f
     )
     {
 

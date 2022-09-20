@@ -23,6 +23,8 @@ public class Inventory
 {
     public List<InventoryItem> itemList = new List<InventoryItem>();
 
+    public float currCargo = 0;
+
     public void Add(InventoryItem item)
     {
         ExistsStruct value = ContainsItem(item.item);
@@ -35,6 +37,8 @@ public class Inventory
         {
             itemList.Add(item);
         }
+
+        currCargo += (item.quantity * item.item.Weight);
     }
 
     public ExistsStruct ContainsItem(BaseItem item)

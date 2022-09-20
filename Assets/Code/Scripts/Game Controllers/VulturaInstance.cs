@@ -26,11 +26,6 @@ public static class VulturaInstance
         {
             systems.Add("System" + (i + 1));
         }
-
-        foreach (string system in systems)
-        {
-            Debug.Log(system);
-        }
     }
 
     public static float CalculateDistance(GameObject object1, GameObject object2)

@@ -10,7 +10,7 @@ abstract public class OffenseModule : ActiveModule
     private int ammoAmount;
     private int possibleAmmoType;
 
-    public OffenseModule(int id, string name, string description, VulturaInstance.ItemRarity rarity, Texture2D icon, List<int> bonusModifiers, bool usesAmmo, int currAmmoType, int ammoAmount, int possibleAmmoType) : base(id, name, description, rarity, icon, bonusModifiers)
+    public OffenseModule(int id, string name, string description, VulturaInstance.ItemRarity rarity, Texture2D icon, List<int> bonusModifiers, bool usesAmmo, int currAmmoType, int ammoAmount, int possibleAmmoType, float weight) : base(id, name, description, rarity, icon, bonusModifiers, weight)
     {
         this.usesAmmo = usesAmmo;
         this.currAmmoType = currAmmoType;
