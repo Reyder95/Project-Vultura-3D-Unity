@@ -63,6 +63,13 @@ public class Inventory
         return value;
     }
 
+    public void Swap(int idx1, int idx2)
+    {
+        InventoryItem temp = itemList[idx1];
+        itemList[idx1] = itemList[idx2];
+        itemList[idx2] = temp;
+    }
+
     // Debug check the contents of the inventory
     public void PrintContents()
     {

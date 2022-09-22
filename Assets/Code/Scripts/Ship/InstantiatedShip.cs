@@ -86,6 +86,12 @@ public class InstantiatedShip : BaseSelectable
         return 0;
     }
 
+    public int GetMaxCargo()
+    {
+        Debug.Log("Get max cargo based on modules on top of base ship stats");
+        return 0;
+    }
+
     // -- Properties
 
     public int CurrHull

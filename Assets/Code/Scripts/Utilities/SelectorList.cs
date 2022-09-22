@@ -192,22 +192,6 @@ public class SelectorList
                                     counter++;
                             }
 
-                            // List<InstantiatedShip> removedShips = new List<InstantiatedShip>();
-
-                            // Debug.Log(VulturaInstance.fleetSelectables.Count);
-                            // foreach (InstantiatedShip ship in VulturaInstance.fleetSelectables)
-                            // {
-                            //     if (ship.selectableObject.GetComponent<PrefabHandler>().fleetAssociation.FleetGUID.CompareTo(selectedObject.selectableObject.GetComponent<PrefabHandler>().fleetAssociation.FleetGUID) == 0)
-                            //     {
-                            //         removedShips.Add(ship);
-                            //     }
-                            // }
-
-                            // for (int i = 0; i < removedShips.Count; i++)
-                            // {
-                            //     VulturaInstance.fleetSelectables.Remove(removedShips[i]);
-                            // }
-
                             EventManager.TriggerEvent("Deselect Ship");
                             EventManager.TriggerEvent("Fleet Added");
                         }

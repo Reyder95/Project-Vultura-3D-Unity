@@ -60,6 +60,7 @@ public class Game : MonoBehaviour
         Fleet playerFleet = new Fleet(System.Guid.NewGuid(), "Player Faction", newShip, new List<InstantiatedShip>());
         newShip.AddToCargo(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[3].Create(), 10));
         newShip.AddToCargo(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[6].Create(), 2));
+        newShip.AddToCargo(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[1].Create(), 25));
         
         shipStatsComponent = shipPrefabs[1].GetComponent<PrefabHandler>().GetShipStats();
         newShip = new InstantiatedShip("Player Faction", "Player Fleet", "Non AI Fleet", shipStatsComponent.baseHealth, shipStatsComponent.baseArmor, shipStatsComponent.baseHull, shipStatsComponent, true, shipPrefabs[1], new Inventory());
