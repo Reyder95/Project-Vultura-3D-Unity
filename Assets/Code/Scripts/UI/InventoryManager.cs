@@ -65,8 +65,12 @@ public class InventoryManager : MonoBehaviour
                 }
             }
 
-            rootVisualElement.Remove(visualDragger);
-            visualDragger = null;
+            if (visualDragger != null)
+            {
+                rootVisualElement.Remove(visualDragger);
+                visualDragger = null;
+            }
+            
 
             Debug.Log("SCOTLAND!!");
         });
