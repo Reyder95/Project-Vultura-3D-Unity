@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
 public class MiningStationUI : MonoBehaviour
 {
     public VisualTreeAsset contactCard;
+    public VisualTreeAsset inventoryRow;
 
     public GameObject homeGameobject;
     public GameObject contactGameobject;
@@ -13,11 +16,15 @@ public class MiningStationUI : MonoBehaviour
     public VisualElement homeRoot;
     public VisualElement contactRoot;
 
+    // Storage stuff
+    public VisualElement storagePane;
+    public ListView inventoryList;
+    public ListView storageList;
+
     public BaseStation station;
 
     void OnEnable()
     {
-
         homeGameobject.SetActive(false);
         contactGameobject.SetActive(false);
     }
@@ -41,10 +48,40 @@ public class MiningStationUI : MonoBehaviour
         contactGameobject.SetActive(false);
 
         homeRoot = homeGameobject.GetComponent<UIDocument>().rootVisualElement;
+        storagePane = homeRoot.Q<VisualElement>("storage-element");
+        inventoryList = homeRoot.Q<ListView>("inventory-list");
+        storageList = homeRoot.Q<ListView>("storage-list");
+
+        storagePane.style.display = DisplayStyle.None;
+
+        Func<VisualElement> makeItemInventory = () => inventoryRow.Instantiate();
+        Action<VisualElement, int> bindItemInventory = (e, i) => {
+            var itemName = e.Q<Label>("item-name");
+            itemName.text = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].item.Name;
+
+            var itemQuantity = e.Q<Label>("item-quantity");
+            itemQuantity.text = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].quantity.ToString();
+        };
+
+        inventoryList.makeItem = makeItemInventory;
+        inventoryList.bindItem = bindItemInventory;
+        inventoryList.itemsSource = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList;
+
+        storageList.makeItem = makeItemInventory;
+        storageList.bindItem = bindItemInventory;
+        storageList.itemsSource = station.storage.itemList;;
+
 
         homeRoot.Q<Button>("button-exit").RegisterCallback<ClickEvent>(ev => { Exit();});
         homeRoot.Q<Button>("button-contacts").RegisterCallback<ClickEvent>(ev => {
             InitializeContacts();
+        });
+        homeRoot.Q<Button>("storage-open").RegisterCallback<ClickEvent>(ev => {
+            
+            if (storagePane.style.display == DisplayStyle.None)
+                storagePane.style.display = DisplayStyle.Flex;
+            else
+                storagePane.style.display = DisplayStyle.None;
         });
         homeRoot.Q<Label>("station-name").text = station.SelectableName;
     }

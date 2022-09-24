@@ -52,6 +52,23 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
+            <ui:Button text="Open Storage" display-tooltip-when-elided="true" name="storage-open" style="position: absolute; left: 45%; right: 45%; bottom: 2%;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="storage-element" style="position: absolute; top: 1094px; left: 640px; right: 640px; bottom: 73px; background-color: rgb(70, 70, 70); border-left-color: rgb(207, 120, 39); border-right-color: rgb(207, 120, 39); border-top-color: rgb(207, 120, 39); border-bottom-color: rgb(207, 120, 39); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; flex-direction: row;">
+        <ui:VisualElement name="inventory-items" style="height: 100%; width: 50%; background-color: rgb(51, 51, 51); padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; margin-right: 5px;">
+            <ui:VisualElement style="align-items: flex-end; padding-right: 0; padding-top: 0; flex-direction: row-reverse; justify-content: space-between;">
+                <ui:TextField picking-mode="Ignore" value="filler text" text="Search" style="width: 210px; justify-content: flex-start;" />
+                <ui:Label text="Inventory" display-tooltip-when-elided="true" style="-unity-font-style: bold; font-size: 17px;" />
+            </ui:VisualElement>
+            <ui:ListView focusable="true" name="inventory-list" style="height: 220px; margin-top: 10px; background-color: rgb(101, 101, 101); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="inventory-items" style="height: 100%; width: 50%; background-color: rgb(51, 51, 51); padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; margin-left: 5px;">
+            <ui:VisualElement style="align-items: flex-end; padding-right: 0; padding-top: 0; flex-direction: row-reverse; justify-content: space-between;">
+                <ui:TextField picking-mode="Ignore" value="filler text" text="Search" style="width: 210px; justify-content: flex-start;" />
+                <ui:Label text="Storage" display-tooltip-when-elided="true" style="-unity-font-style: bold; font-size: 17px;" />
+            </ui:VisualElement>
+            <ui:ListView focusable="true" name="storage-list" style="height: 220px; margin-top: 10px; background-color: rgb(101, 101, 101); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
