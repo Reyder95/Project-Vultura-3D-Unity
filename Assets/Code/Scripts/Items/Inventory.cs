@@ -70,6 +70,13 @@ public class Inventory
         itemList[idx2] = temp;
     }
 
+    public InventoryItem Pop(int index)
+    {
+        InventoryItem item = itemList[index];
+        itemList.RemoveAt(index);
+        return item;
+    }
+
     // Debug check the contents of the inventory
     public void PrintContents()
     {
