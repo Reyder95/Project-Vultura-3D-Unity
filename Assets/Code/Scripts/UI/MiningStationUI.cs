@@ -18,8 +18,10 @@ public class MiningStationUI : MonoBehaviour
 
     // Storage stuff
     public VisualElement storagePane;
+    public VisualElement shipPane;
     public ListView inventoryList;
     public ListView storageList;
+    public ListView shipList;
 
     public BaseStation station;
 
@@ -66,10 +68,39 @@ public class MiningStationUI : MonoBehaviour
 
         homeRoot = homeGameobject.GetComponent<UIDocument>().rootVisualElement;
         storagePane = homeRoot.Q<VisualElement>("storage-element");
+        shipPane = homeRoot.Q<VisualElement>("ship-storage");
         inventoryList = homeRoot.Q<ListView>("inventory-list");
         storageList = homeRoot.Q<ListView>("storage-list");
+        shipList = homeRoot.Q<ListView>("ship-list");
 
         storagePane.style.display = DisplayStyle.None;
+        shipPane.style.display = DisplayStyle.None;
+
+        Func<VisualElement> makeItemShip = () => new Label();
+        Action<VisualElement, int> bindItemShip = (e, i) => {
+            (e as Label).text = station.shipStorage[i].ShipStats.name;
+
+            e.RegisterCallback<ClickEvent>(ev => {
+                InstantiatedShip selectedShip = station.shipStorage[i];
+                Quaternion shipQuaternion = VulturaInstance.currentPlayer.transform.rotation;
+                Vector3 shipPosition = VulturaInstance.currentPlayer.transform.position;
+                Fleet playerFleet = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().fleetAssociation;
+                GameObject newShip = selectedShip.ShipReference;
+                GameObject originalPlayer = VulturaInstance.currentPlayer;
+                station.shipStorage.RemoveAt(i);
+                station.shipStorage.Add(originalPlayer.GetComponent<PrefabHandler>().currShip);
+                Destroy(originalPlayer);
+                GameObject instantiatedShip = Instantiate(newShip, shipPosition, shipQuaternion);
+                instantiatedShip.GetComponent<PrefabHandler>().InitialPlayer();
+                instantiatedShip.GetComponent<PrefabHandler>().currShip = selectedShip;
+                VulturaInstance.currentPlayer = instantiatedShip;
+                inventoryList.itemsSource = instantiatedShip.GetComponent<PrefabHandler>().currShip.Cargo.itemList;
+                shipList.Rebuild();
+                inventoryList.Rebuild();
+                storageList.Rebuild();
+                //station.SwitchShip(i);
+            });
+        };
 
         Func<VisualElement> makeItemInventory = () => inventoryRow.Instantiate();
         Action<VisualElement, int> bindItemInventory = (e, i) => {
@@ -104,6 +135,10 @@ public class MiningStationUI : MonoBehaviour
         storageList.bindItem = bindItemStorage;
         storageList.itemsSource = station.storage.itemList;
 
+        shipList.makeItem = makeItemShip;
+        shipList.bindItem = bindItemShip;
+        shipList.itemsSource = station.shipStorage;
+
 
         homeRoot.Q<Button>("button-exit").RegisterCallback<ClickEvent>(ev => { Exit();});
         homeRoot.Q<Button>("button-contacts").RegisterCallback<ClickEvent>(ev => {
@@ -115,6 +150,12 @@ public class MiningStationUI : MonoBehaviour
                 storagePane.style.display = DisplayStyle.Flex;
             else
                 storagePane.style.display = DisplayStyle.None;
+        });
+        homeRoot.Q<Button>("ship-storage-button").RegisterCallback<ClickEvent>(ev => {
+            if (shipPane.style.display == DisplayStyle.None)
+                shipPane.style.display = DisplayStyle.Flex;
+            else
+                shipPane.style.display = DisplayStyle.None;
         });
         homeRoot.Q<Label>("station-name").text = station.SelectableName;
     }
