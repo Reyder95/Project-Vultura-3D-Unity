@@ -10,6 +10,7 @@ public class BaseStation : BaseSelectable
 
     public Inventory storage = new Inventory();
     public List<InstantiatedShip> shipStorage = new List<InstantiatedShip>();
+    public Market market = new Market();
 
     // Constructor
     public BaseStation(string faction, string selectableName, string type) : base(faction, selectableName, type)

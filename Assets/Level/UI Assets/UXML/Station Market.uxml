@@ -1,6 +1,19 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="main-body" style="position: absolute; left: 25%; top: 25%; right: 25%; bottom: 25%; background-color: rgba(70, 70, 70, 255); border-left-color: rgba(255, 138, 30, 255); border-right-color: rgba(255, 138, 30, 255); border-top-color: rgba(255, 138, 30, 255); border-bottom-color: rgba(255, 138, 30, 255); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px;">
-        <ui:VisualElement name="market-board" style="height: 60%; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px; background-color: rgba(48, 48, 48, 255);" />
-        <ui:VisualElement style="height: 30%;" />
+        <ui:VisualElement name="header-element" style="width: 100%; flex-direction: row; justify-content: space-between;">
+            <ui:Label text="Karol Mining Station" display-tooltip-when-elided="true" name="station-name" style="-unity-font-style: bold; font-size: 40px; padding-left: 30px; padding-top: 10px; justify-content: center; padding-bottom: 10px; color: rgb(214, 214, 214);" />
+            <ui:Label text="Tri-Tachyon" display-tooltip-when-elided="true" name="station-faction" style="-unity-font-style: bold; font-size: 40px; padding-left: 0; padding-top: 10px; justify-content: center; padding-bottom: 10px; padding-right: 30px; color: rgb(118, 175, 197);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="market-board" style="height: 60%; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px; background-color: rgba(48, 48, 48, 255);">
+            <ui:ListView focusable="true" style="height: 100%;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="height: 20%; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px; background-color: rgba(48, 48, 48, 255); flex-direction: row; align-items: center;">
+            <ui:Label text="Item Name" display-tooltip-when-elided="true" name="item-name" style="width: 16.6%;" />
+            <ui:Label text="&lt;color=&quot;green&quot;&gt;+35.8%" display-tooltip-when-elided="true" name="item-difference" style="width: 16.6%;" />
+            <ui:Label text="$156" display-tooltip-when-elided="true" name="item-price" style="width: 16.6%;" />
+            <ui:SliderInt picking-mode="Ignore" value="42" high-value="100" style="width: 16.6%;" />
+            <ui:Button text="Buy" display-tooltip-when-elided="true" name="buy-button" style="width: 16.6%;" />
+            <ui:Button text="Sell" display-tooltip-when-elided="true" name="sell-button" style="width: 190px;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
