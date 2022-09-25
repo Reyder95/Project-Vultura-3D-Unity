@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="main-body" style="position: absolute; left: 25%; top: 25%; right: 25%; bottom: 25%; background-color: rgba(70, 70, 70, 255); border-left-color: rgba(255, 138, 30, 255); border-right-color: rgba(255, 138, 30, 255); border-top-color: rgba(255, 138, 30, 255); border-bottom-color: rgba(255, 138, 30, 255); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px;">
+        <ui:VisualElement name="market-board" style="height: 60%; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px; background-color: rgba(48, 48, 48, 255);" />
+        <ui:VisualElement style="height: 30%;" />
+    </ui:VisualElement>
+</ui:UXML>
