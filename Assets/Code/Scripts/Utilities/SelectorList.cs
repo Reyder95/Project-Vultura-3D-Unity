@@ -62,7 +62,6 @@ public class SelectorList
                     {
                         EventManager.TriggerEvent("Fleet Added");
                     }
-
                     SetMainSelected(selectedObject);
                     EventManager.TriggerEvent("Selection Changed");
                     return;
@@ -91,7 +90,6 @@ public class SelectorList
 
         if (selectedObject.GetType() == typeof(InstantiatedShip))
         {
-            Debug.Log(selectedObject.selectableObject.GetComponent<PrefabHandler>().fleetAssociation.FleetGUID.ToString());
             if (!containsFleet)
                 LoadFleetIntoFleetList(selectedObject.selectableObject);
 

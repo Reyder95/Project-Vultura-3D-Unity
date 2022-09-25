@@ -56,6 +56,18 @@ public static class VulturaInstance
         }
     }
 
+    public static void AddToSystem(BaseSelectable item)
+    {
+        systemSelectables.Add(item);
+        EventManager.TriggerEvent("Selectable Added");
+    }
+
+    public static void RemoveFromSystem(BaseSelectable item)
+    {
+        systemSelectables.Remove(item);
+        EventManager.TriggerEvent("Selectable Removed"); 
+    }
+
     
 
     public enum ContactType {

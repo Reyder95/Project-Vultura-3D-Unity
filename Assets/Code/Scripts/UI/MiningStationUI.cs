@@ -89,11 +89,16 @@ public class MiningStationUI : MonoBehaviour
                 GameObject originalPlayer = VulturaInstance.currentPlayer;
                 station.shipStorage.RemoveAt(i);
                 station.shipStorage.Add(originalPlayer.GetComponent<PrefabHandler>().currShip);
+                VulturaInstance.RemoveFromSystem(originalPlayer.GetComponent<PrefabHandler>().currShip);
                 Destroy(originalPlayer);
                 GameObject instantiatedShip = Instantiate(newShip, shipPosition, shipQuaternion);
                 instantiatedShip.GetComponent<PrefabHandler>().InitialPlayer();
                 instantiatedShip.GetComponent<PrefabHandler>().currShip = selectedShip;
+                VulturaInstance.AddToSystem(instantiatedShip.GetComponent<PrefabHandler>().currShip);
+                playerFleet.FleetCommander = instantiatedShip.GetComponent<PrefabHandler>().currShip;
                 VulturaInstance.currentPlayer = instantiatedShip;
+                instantiatedShip.GetComponent<PrefabHandler>().currShip.selectableObject = VulturaInstance.currentPlayer;
+                instantiatedShip.GetComponent<PrefabHandler>().fleetAssociation = playerFleet;
                 inventoryList.itemsSource = instantiatedShip.GetComponent<PrefabHandler>().currShip.Cargo.itemList;
                 shipList.Rebuild();
                 inventoryList.Rebuild();
