@@ -8,6 +8,9 @@ public class BaseStation : BaseSelectable
     public List<Contact> contacts = new List<Contact>();
     public Contact stationHead;
 
+    public Inventory storage = new Inventory();
+    public List<InstantiatedShip> shipStorage = new List<InstantiatedShip>();
+
     // Constructor
     public BaseStation(string faction, string selectableName, string type) : base(faction, selectableName, type)
     {

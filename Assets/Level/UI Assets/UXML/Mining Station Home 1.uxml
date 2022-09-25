@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI%20Assets/USS/station.uss?fileID=7433441132597879392&amp;guid=05aee3c6c1ebc1b4fbc97e06ba474bae&amp;type=3#station" />
     <ui:VisualElement name="main-visual" style="position: absolute; left: 25%; right: 25%; top: 25%; bottom: 25%; background-color: rgb(70, 70, 70); border-left-color: rgb(255, 138, 30); border-right-color: rgb(255, 138, 30); border-top-color: rgb(255, 138, 30); border-bottom-color: rgb(255, 138, 30); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px;">
         <ui:VisualElement name="header-element" style="width: 100%; flex-direction: row; justify-content: space-between;">
             <ui:Label text="Karol Mining Station" display-tooltip-when-elided="true" name="station-name" style="-unity-font-style: bold; font-size: 40px; padding-left: 30px; padding-top: 10px; justify-content: center; padding-bottom: 10px; color: rgb(214, 214, 214);" />
@@ -52,6 +53,33 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
+            <ui:Button text="Open Storage" display-tooltip-when-elided="true" name="storage-open" style="position: absolute; left: 45%; right: 45%; bottom: 2%;" />
+            <ui:Button text="Ship Storage" display-tooltip-when-elided="true" name="ship-storage-button" style="position: absolute; right: 1%; top: 10px; width: 10%; height: 10px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="storage-element" style="position: absolute; top: 76%; left: 25%; right: 25%; bottom: 5%; background-color: rgb(70, 70, 70); border-left-color: rgb(255, 138, 30); border-right-color: rgb(255, 138, 30); border-top-color: rgb(255, 138, 30); border-bottom-color: rgb(255, 138, 30); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; flex-direction: row;">
+        <ui:VisualElement name="inventory-items" style="height: 100%; width: 50%; background-color: rgb(51, 51, 51); padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; margin-right: 5px;">
+            <ui:VisualElement style="align-items: flex-end; padding-right: 0; padding-top: 0; flex-direction: row-reverse; justify-content: space-between;">
+                <ui:TextField picking-mode="Ignore" value="filler text" text="Search" style="width: 210px; justify-content: flex-start;" />
+                <ui:Label text="Inventory" display-tooltip-when-elided="true" style="-unity-font-style: bold; font-size: 17px;" />
+            </ui:VisualElement>
+            <ui:ListView focusable="true" name="inventory-list" selection-type="None" style="height: 220px; margin-top: 10px; background-color: rgb(101, 101, 101); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="inventory-items" style="height: 100%; width: 50%; background-color: rgb(51, 51, 51); padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; margin-left: 5px;">
+            <ui:VisualElement style="align-items: flex-end; padding-right: 0; padding-top: 0; flex-direction: row-reverse; justify-content: space-between;">
+                <ui:TextField picking-mode="Ignore" value="filler text" text="Search" style="width: 210px; justify-content: flex-start;" />
+                <ui:Label text="Storage" display-tooltip-when-elided="true" style="-unity-font-style: bold; font-size: 17px;" />
+            </ui:VisualElement>
+            <ui:ListView focusable="true" name="storage-list" selection-type="None" style="height: 220px; margin-top: 10px; background-color: rgb(101, 101, 101); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="ship-storage" style="position: absolute; left: 76%; top: 25%; right: 5%; bottom: 25%; background-color: rgb(70, 70, 70); border-left-color: rgb(255, 138, 30); border-right-color: rgb(255, 138, 30); border-top-color: rgb(255, 138, 30); border-bottom-color: rgb(255, 138, 30); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+        <ui:VisualElement style="height: 100%; width: 100%; background-color: rgb(51, 51, 51);">
+            <ui:VisualElement style="align-items: flex-end; padding-right: 0; padding-top: 0; flex-direction: row-reverse; justify-content: space-between; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:TextField picking-mode="Ignore" value="filler text" text="Search" style="width: 210px; justify-content: flex-start;" />
+                <ui:Label text="Ships" display-tooltip-when-elided="true" style="-unity-font-style: bold; font-size: 17px;" />
+            </ui:VisualElement>
+            <ui:ListView focusable="true" name="ship-list" selection-type="None" style="height: 100%; margin-top: 5px; background-color: rgb(101, 101, 101); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 5px; margin-right: 5px; margin-bottom: 5px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -32,7 +32,10 @@ public static class VulturaInstance
 
     public static float CalculateDistance(GameObject object1, GameObject object2)
     {
-        return Vector3.Distance(object1.transform.position, object2.transform.position) / 100;
+        if (object1 != null && object2 != null)
+            return Vector3.Distance(object1.transform.position, object2.transform.position) / 100;
+
+        return 0;
     }
 
     public static void InitializeSelectableObjects()

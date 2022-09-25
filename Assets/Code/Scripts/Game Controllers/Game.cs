@@ -40,9 +40,6 @@ public class Game : MonoBehaviour
         // Finds all the station prefabs (station prefabs are tagged with "Station")
         stationPrefabs = GameObject.FindGameObjectsWithTag("Station");
 
-
-
-
         // For each station prefab found
         foreach (GameObject station in stationPrefabs)
         {
@@ -52,6 +49,8 @@ public class Game : MonoBehaviour
 
             station.GetComponent<StationComponent>().SetStation(newStation);    // Set this new mining station into each prefab.
             newStation.selectableObject = station;
+            ShipStats shipStatsStorageComponent = shipPrefabs[1].GetComponent<PrefabHandler>().GetShipStats();
+            newStation.shipStorage.Add(new InstantiatedShip("Extra ship", "N/A", "Non AI Fleet", shipStatsStorageComponent.baseHealth, shipStatsStorageComponent.baseArmor, shipStatsStorageComponent.baseHull, shipStatsStorageComponent, false, shipPrefabs[1], new Inventory()));
         }
 
         //Generate player ship
