@@ -77,6 +77,18 @@ public class Inventory
         return item;
     }
 
+    // Primarily used for station stockpiles
+    public void ReduceWithoutRemove(int index, int quantity)
+    {
+        if (itemList.Count > index)
+        {
+            itemList[index].quantity = itemList[index].quantity - quantity;
+
+            if (itemList[index].quantity < 0)
+                itemList[index].quantity = 0;
+        }
+    }
+
     // Debug check the contents of the inventory
     public void PrintContents()
     {
