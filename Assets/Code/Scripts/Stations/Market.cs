@@ -22,17 +22,18 @@ public class Market
 {
     public List<MarketItem> itemList = new List<MarketItem>();
 
-    public void Add(MarketItem item)
+    public void Add(BaseItem item, int quantity)
     {
-        ExistsStruct value = ContainsItem(item.item);
+        ExistsStruct value = ContainsItem(item);
 
         if (value.exists)
         {
-            itemList[value.index].quantity += item.quantity;
+            itemList[value.index].quantity += quantity;
+            //change buy and sell price
         }
         else
         {
-            itemList.Add(item);
+            itemList.Add(new MarketItem(item, quantity, item.GalacticPrice, (int)Mathf.Floor(item.GalacticPrice * 0.75f)));
         }
     }
 

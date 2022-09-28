@@ -9,12 +9,15 @@ public class MiningStationUI : MonoBehaviour
 {
     public VisualTreeAsset contactCard;
     public VisualTreeAsset inventoryRow;
+    public VisualTreeAsset marketRow;
 
     public GameObject homeGameobject;
     public GameObject contactGameobject;
+    public GameObject marketGameobject;
 
     public VisualElement homeRoot;
     public VisualElement contactRoot;
+    public VisualElement marketRoot;
 
     // Storage stuff
     public VisualElement storagePane;
@@ -23,12 +26,16 @@ public class MiningStationUI : MonoBehaviour
     public ListView storageList;
     public ListView shipList;
 
+    // Market stuff
+    public ListView marketList;
+
     public BaseStation station;
 
     void OnEnable()
     {
         homeGameobject.SetActive(false);
         contactGameobject.SetActive(false);
+        marketGameobject.SetActive(false);
     }
 
     public void Exit()
@@ -65,6 +72,7 @@ public class MiningStationUI : MonoBehaviour
     {
         homeGameobject.SetActive(true);
         contactGameobject.SetActive(false);
+        marketGameobject.SetActive(false);
 
         homeRoot = homeGameobject.GetComponent<UIDocument>().rootVisualElement;
         storagePane = homeRoot.Q<VisualElement>("storage-element");
@@ -149,6 +157,11 @@ public class MiningStationUI : MonoBehaviour
         homeRoot.Q<Button>("button-contacts").RegisterCallback<ClickEvent>(ev => {
             InitializeContacts();
         });
+
+        homeRoot.Q<Button>("button-market").RegisterCallback<ClickEvent>(ev => {
+            InitializeMarket();
+        });
+
         homeRoot.Q<Button>("storage-open").RegisterCallback<ClickEvent>(ev => {
             
             if (storagePane.style.display == DisplayStyle.None)
@@ -168,7 +181,9 @@ public class MiningStationUI : MonoBehaviour
     public void InitializeContacts()
     {
         homeGameobject.SetActive(false);
+        marketGameobject.SetActive(false);
         contactGameobject.SetActive(true);
+
         contactRoot = contactGameobject.GetComponent<UIDocument>().rootVisualElement;
         contactRoot.Q<Label>("station-name").text = station.SelectableName;
 
@@ -190,5 +205,78 @@ public class MiningStationUI : MonoBehaviour
             contactInstance.Q<Label>("contact-type").text = VulturaInstance.enumStringParser(contactObject.Type.ToString());
             contactVisual.Add(contactInstance);
         }
+    }
+
+    public void InitializeMarket()
+    {
+        homeGameobject.SetActive(false);
+        contactGameobject.SetActive(false);
+        marketGameobject.SetActive(true);
+
+        marketRoot = marketGameobject.GetComponent<UIDocument>().rootVisualElement;
+
+        inventoryList = marketRoot.Q<ListView>("inventory-list");
+        storageList = marketRoot.Q<ListView>("storage-list");
+        marketList = marketRoot.Q<ListView>("market-list");
+
+        Func<VisualElement> makeItemMarket = () => marketRow.Instantiate();
+        Action<VisualElement, int> bindItemMarket = (e, i) => {
+            var itemName = e.Q<Label>("item-name");
+            itemName.text = station.market.itemList[i].item.Name;
+
+            var itemType = e.Q<Label>("item-type");
+            itemType.text = VulturaInstance.enumStringParser(station.market.itemList[i].item.Type.ToString());
+
+            var itemQuantity = e.Q<Label>("item-quantity");
+            itemQuantity.text = station.market.itemList[i].quantity.ToString();
+
+            var itemBuy = e.Q<Label>("item-buy");
+            itemBuy.text = "$" + station.market.itemList[i].buyPrice.ToString();
+
+            var itemSell = e.Q<Label>("item-sell");
+            itemSell.text = "$" + station.market.itemList[i].sellPrice.ToString();
+        };
+
+        Func<VisualElement> makeItemInventory = () => inventoryRow.Instantiate();
+        Action<VisualElement, int> bindItemInventory = (e, i) => {
+            var itemName = e.Q<Label>("item-name");
+            itemName.text = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].item.Name;
+
+            var itemQuantity = e.Q<Label>("item-quantity");
+            itemQuantity.text = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].quantity.ToString();
+
+            e.RegisterCallback<ClickEvent>(ev => {
+                
+            });
+        };
+
+        Action<VisualElement, int> bindItemStorage = (e, i) => {
+            var itemName = e.Q<Label>("item-name");
+            itemName.text = station.storage.itemList[i].item.Name;
+
+            var itemQuantity = e.Q<Label>("item-quantity");
+            itemQuantity.text = station.storage.itemList[i].quantity.ToString();
+
+            e.RegisterCallback<ClickEvent>(ev => {
+                
+            });
+        };
+
+        marketList.makeItem = makeItemMarket;
+        marketList.bindItem = bindItemMarket;
+        marketList.itemsSource = station.market.itemList;
+
+        inventoryList.makeItem = makeItemInventory;
+        inventoryList.bindItem = bindItemInventory;
+        inventoryList.itemsSource = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList;
+
+        storageList.makeItem = makeItemInventory;
+        storageList.bindItem = bindItemStorage;
+        storageList.itemsSource = station.storage.itemList;
+
+        marketRoot.Q<Button>("back-button").RegisterCallback<ClickEvent>(ev => {
+            InitializeHome();
+        });
+
     }
 }

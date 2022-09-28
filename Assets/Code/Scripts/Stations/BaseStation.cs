@@ -70,7 +70,7 @@ public class BaseStation : BaseSelectable
 
             foreach (InventoryItem producedItem in producedItems)
             {
-                market.Add(new MarketItem(producedItem.item, producedItem.quantity, 35, 23));
+                market.Add(producedItem.item, producedItem.quantity);
             }
 
             stockpile = facility.Consume(stockpile);
