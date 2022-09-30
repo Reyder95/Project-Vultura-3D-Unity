@@ -40,7 +40,6 @@ public class Market
     public InventoryItem Purchase(int index, int quantity)
     {
         BaseItem item;
-        int purchaseQuantity = quantity;
 
         if (itemList.Count > index)
         {
@@ -51,7 +50,12 @@ public class Market
                 return null;
             }
 
-            return new InventoryItem(item, purchaseQuantity);
+            itemList[index].quantity -= quantity;
+
+            if (itemList[index].quantity == 0)
+                itemList.RemoveAt(index);
+
+            return new InventoryItem(item, quantity);
         }
         else
         {

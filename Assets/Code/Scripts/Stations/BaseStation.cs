@@ -35,10 +35,7 @@ public class BaseStation : BaseSelectable
 
         InitializeFacilities();
         InitializeBaseStockpile();
-        Debug.Log(stockpile.itemList[0].quantity);
         RunProductionChain();
-        Debug.Log(stockpile.itemList[0].quantity);
-
         foreach (Facility facility in facilities)
             Debug.Log(facility);
 

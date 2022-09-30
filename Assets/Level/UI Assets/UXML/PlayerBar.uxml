@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="position: absolute; bottom: 0; right: 0; left: 90%; top: 95%; background-color: rgba(53, 53, 53, 0.71);">
+        <ui:Label text="$20000" display-tooltip-when-elided="true" name="money-label" style="margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; -unity-font-style: bold; font-size: 25px; color: rgb(212, 212, 212);" />
+    </ui:VisualElement>
+</ui:UXML>

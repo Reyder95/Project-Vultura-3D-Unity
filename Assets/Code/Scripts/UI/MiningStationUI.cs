@@ -26,8 +26,12 @@ public class MiningStationUI : MonoBehaviour
     public ListView storageList;
     public ListView shipList;
 
+    public int selectedIndex = -1;
+    public int currQuantity = 1;
+
     // Market stuff
     public ListView marketList;
+    public SliderInt quantitySlider;
 
     public BaseStation station;
 
@@ -218,6 +222,16 @@ public class MiningStationUI : MonoBehaviour
         inventoryList = marketRoot.Q<ListView>("inventory-list");
         storageList = marketRoot.Q<ListView>("storage-list");
         marketList = marketRoot.Q<ListView>("market-list");
+        quantitySlider = marketRoot.Q<SliderInt>("bottom-slider");
+
+        quantitySlider.RegisterValueChangedCallback(ev => {
+            currQuantity = ev.newValue;
+            marketRoot.Q<Label>("bottom-item-quantity").text = ev.newValue.ToString();
+            marketRoot.Q<Label>("bottom-item-buy-price").text = "$" + (station.market.itemList[selectedIndex].buyPrice * currQuantity).ToString();
+        });
+
+        marketRoot.Q<VisualElement>("none-display").style.display = DisplayStyle.Flex;
+        marketRoot.Q<VisualElement>("purchase-display").style.display = DisplayStyle.None;
 
         Func<VisualElement> makeItemMarket = () => marketRow.Instantiate();
         Action<VisualElement, int> bindItemMarket = (e, i) => {
@@ -235,6 +249,25 @@ public class MiningStationUI : MonoBehaviour
 
             var itemSell = e.Q<Label>("item-sell");
             itemSell.text = "$" + station.market.itemList[i].sellPrice.ToString();
+
+            e.RegisterCallback<PointerDownEvent>(ev => {
+                selectedIndex = i;
+
+                marketRoot.Q<VisualElement>("none-display").style.display = DisplayStyle.None;
+                marketRoot.Q<VisualElement>("purchase-display").style.display = DisplayStyle.Flex;
+
+                marketRoot.Q<Label>("bottom-item-name").text = station.market.itemList[i].item.Name;
+                marketRoot.Q<Label>("bottom-item-difference").text = "<color=\"red\">-35.8%</color>";
+                marketRoot.Q<Label>("bottom-item-buy-price").text = "$" + station.market.itemList[i].buyPrice.ToString();
+                marketRoot.Q<Button>("buy-button").RegisterCallback<ClickEvent>(ev => {
+                    Debug.Log("Test!!!");
+                    BuyItem();
+                    quantitySlider.highValue = station.market.itemList[selectedIndex].quantity;
+                });
+                quantitySlider.lowValue = 1;
+                quantitySlider.highValue = station.market.itemList[i].quantity;
+                quantitySlider.value = 1;   
+            });
         };
 
         Func<VisualElement> makeItemInventory = () => inventoryRow.Instantiate();
@@ -278,5 +311,29 @@ public class MiningStationUI : MonoBehaviour
             InitializeHome();
         });
 
+    }
+
+    void BuyItem()
+    {
+        int totalCost = station.market.itemList[selectedIndex].buyPrice * currQuantity;
+
+        if (VulturaInstance.playerMoney >= totalCost)
+        {
+            InventoryItem purchasedItem = station.market.Purchase(selectedIndex, currQuantity);
+            
+            if (purchasedItem != null)
+            {
+                Debug.Log(purchasedItem.item);
+                bool successfulAdd = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.AddToCargo(purchasedItem);
+
+                if (!successfulAdd)
+                    station.storage.Add(purchasedItem);
+                inventoryList.Rebuild();
+                marketList.Rebuild();
+
+                VulturaInstance.playerMoney -= totalCost;
+
+            }
+        }
     }
 }
