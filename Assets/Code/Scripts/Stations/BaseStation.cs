@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Timers;
 
 // Base station class. Each type of station will be derived from this one
 public class BaseStation : BaseSelectable
@@ -15,6 +16,8 @@ public class BaseStation : BaseSelectable
     public Inventory stockpile = new Inventory();
 
     public List<Facility> facilities = new List<Facility>();
+
+    public bool stopProduction = false;
 
     // Constructor
     public BaseStation(string faction, string selectableName, string type) : base(faction, selectableName, type)
@@ -35,14 +38,14 @@ public class BaseStation : BaseSelectable
 
         InitializeFacilities();
         InitializeBaseStockpile();
-        RunProductionChain();
         foreach (Facility facility in facilities)
             Debug.Log(facility);
 
         foreach (MarketItem marketItem in market.itemList)
             Debug.Log(marketItem.item);
-    }
 
+        RunProductionChain();
+    }
     public void InitializeFacilities()
     {
         facilities.Add(new LuxuryGoodsFacility());
@@ -59,8 +62,18 @@ public class BaseStation : BaseSelectable
         }
     }
 
+    public void HandleProduction()
+    {
+        while (!stopProduction)
+        {
+            System.Threading.Thread.Sleep(5);
+            Debug.Log("Test!");
+        }
+    }
+
     public void RunProductionChain()
     {
+
         foreach (Facility facility in facilities)
         {
             List<InventoryItem> producedItems = facility.Produce();

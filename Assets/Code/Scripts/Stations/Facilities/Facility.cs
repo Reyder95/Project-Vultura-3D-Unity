@@ -22,7 +22,10 @@ public abstract class Facility
     {
         List<InventoryItem> produced = new List<InventoryItem>();
         foreach (FacilityItem item in producing)
+        {
+            Debug.Log(item.itemExec);
             produced.Add(new InventoryItem(item.itemExec(), item.quantity));
+        }
 
         return produced;
     }
