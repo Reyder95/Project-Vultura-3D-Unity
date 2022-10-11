@@ -22,6 +22,22 @@ public class Market
 {
     public List<MarketItem> itemList = new List<MarketItem>();
 
+    public float CalculateRelativeDemand(int basePrice, int demand)
+    {
+        return (float)demand / (basePrice + demand);
+    }
+
+    public float CalculateRelativeSupply(int basePrice, int supply)
+    {
+        return (float)supply / (basePrice + supply);
+    }
+
+    public float CalculatePrice(int basePrice, int supply, int demand)
+    {
+        Debug.Log(CalculateRelativeSupply(basePrice, supply));
+        return basePrice * (CalculateRelativeSupply(basePrice, supply) / CalculateRelativeDemand(basePrice, demand));
+    }
+
     public void Add(BaseItem item, int quantity)
     {
         ExistsStruct value = ContainsItem(item);
@@ -29,7 +45,7 @@ public class Market
         if (value.exists)
         {
             itemList[value.index].quantity += quantity;
-            //change buy and sell price
+            itemList[value.index].buyPrice = (int)Mathf.Floor(CalculatePrice(item.GalacticPrice, itemList[value.index].quantity, 5));
         }
         else
         {

@@ -55,14 +55,13 @@ public class BaseStation : BaseSelectable
         {
             foreach (FacilityItem consumer in facility.consuming)
             {
-                stockpile.Add(new InventoryItem(consumer.itemExec(), Random.Range(25, 50)));
+                stockpile.Add(new InventoryItem(consumer.itemExec(), Random.Range(30, 50)));
             }
         }
     }
 
     public void RunProductionChain()
     {
-
         foreach (Facility facility in facilities)
         {
             List<InventoryItem> producedItems = facility.Produce();
@@ -73,6 +72,8 @@ public class BaseStation : BaseSelectable
             }
 
             stockpile = facility.Consume(stockpile);
+
+            stockpile.PrintContents();
         }
     }
 }
