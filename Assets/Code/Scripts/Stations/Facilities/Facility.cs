@@ -13,7 +13,6 @@ public abstract class Facility
 
     public Facility(FacilityItem[] producing, FacilityItem[] consuming)
     {
-        Debug.Log(producing[0].itemExec);
         this.producing = producing;
         this.consuming = consuming;
     }
@@ -23,7 +22,6 @@ public abstract class Facility
         List<InventoryItem> produced = new List<InventoryItem>();
         foreach (FacilityItem item in producing)
         {
-            Debug.Log(item.itemExec);
             produced.Add(new InventoryItem(item.itemExec(), item.quantity));
         }
 

@@ -13,11 +13,15 @@ public class Game : MonoBehaviour
         public BaseItem item;
     }
 
+    public static Game Instance {get; private set; }
+
 
     public ItemPairing[] items;
 
     // Handles all the station prefabs in the level
     public GameObject[] stationPrefabs;
+
+    public List<BaseStation> stations = new List<BaseStation>();
 
     public GameObject[] shipPrefabs;
 
@@ -35,10 +39,23 @@ public class Game : MonoBehaviour
     void Start() 
     {
         DontDestroyOnLoad(this.gameObject);
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         VulturaInstance.InitializeFleetList();
         VulturaInstance.InitializeSystems();
+
         // Finds all the station prefabs (station prefabs are tagged with "Station")
         stationPrefabs = GameObject.FindGameObjectsWithTag("Station");
+
+        RefreshTimer.Instance.StartTimer(10f, true);
 
         // For each station prefab found
         foreach (GameObject station in stationPrefabs)
@@ -46,6 +63,7 @@ public class Game : MonoBehaviour
             float randValue = UnityEngine.Random.Range(-10.0f, 10.0f);
             // Create a new mining station
             BaseStation newStation = new MiningStation("Station Faction", "Station Name", "Mining Station");
+            stations.Add(newStation);
 
             station.GetComponent<StationComponent>().SetStation(newStation);    // Set this new mining station into each prefab.
             newStation.selectableObject = station;

@@ -17,8 +17,6 @@ public class BaseStation : BaseSelectable
 
     public List<Facility> facilities = new List<Facility>();
 
-    public bool stopProduction = false;
-
     // Constructor
     public BaseStation(string faction, string selectableName, string type) : base(faction, selectableName, type)
     {
@@ -38,11 +36,11 @@ public class BaseStation : BaseSelectable
 
         InitializeFacilities();
         InitializeBaseStockpile();
-        foreach (Facility facility in facilities)
-            Debug.Log(facility);
+        // foreach (Facility facility in facilities)
+        //     Debug.Log(facility);
 
-        foreach (MarketItem marketItem in market.itemList)
-            Debug.Log(marketItem.item);
+        // foreach (MarketItem marketItem in market.itemList)
+        //     Debug.Log(marketItem.item);
 
         RunProductionChain();
     }
@@ -59,15 +57,6 @@ public class BaseStation : BaseSelectable
             {
                 stockpile.Add(new InventoryItem(consumer.itemExec(), Random.Range(25, 50)));
             }
-        }
-    }
-
-    public void HandleProduction()
-    {
-        while (!stopProduction)
-        {
-            System.Threading.Thread.Sleep(5);
-            Debug.Log("Test!");
         }
     }
 

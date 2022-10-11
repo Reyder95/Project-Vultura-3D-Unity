@@ -38,6 +38,11 @@ public class BaseSelectable
         {
             return this.selectableName;
         }
+
+        set
+        {
+            this.selectableName = value;
+        }
     }
 
     public string Type
