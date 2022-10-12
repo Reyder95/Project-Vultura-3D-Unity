@@ -38,7 +38,7 @@ public abstract class Facility
         return produced;
     }
 
-    public void Consume()
+    public bool Consume()
     {
         foreach (FacilityItem item in consuming)
         {
@@ -55,12 +55,15 @@ public abstract class Facility
                         if(CheckIfDemand(stockpile, i, item))
                         {
                             demand = true;
+                            return true;
                         }
                     }
                 }
 
             }
         }
+
+        return false;
     }
 
     public bool CheckIfAnyDemand()

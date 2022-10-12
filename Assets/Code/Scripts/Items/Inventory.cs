@@ -89,6 +89,17 @@ public class Inventory
         }
     }
 
+    public InventoryItem FindItem(BaseItem item)
+    {
+        foreach (InventoryItem invItem in itemList)
+        {
+            if (invItem.id == item.id)
+                return invItem;
+        }
+
+        return null;
+    }
+
     // Debug check the contents of the inventory
     public void PrintContents()
     {

@@ -8,13 +8,15 @@ public class MarketItem
     public int quantity;
     public int buyPrice;
     public int sellPrice;
+    public bool sellOnly;
 
-    public MarketItem(BaseItem item, int quantity, int buyPrice, int sellPrice)
+    public MarketItem(BaseItem item, int quantity, int buyPrice, int sellPrice, bool sellOnly = false)
     {
         this.item = item;
         this.quantity = quantity;
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
+        this.sellOnly = sellOnly;
     }
 }
 
@@ -52,11 +54,23 @@ public class Market
         }
     }
 
+    public void AddDemandSeller(BaseItem item)
+    {
+        ExistsStruct value = ContainsItem(item);
+
+        if (value.exists)
+        {
+            return;
+        }
+
+        itemList.Add(new MarketItem(item, 0, 0, item.GalacticPrice + (int)Mathf.Floor(item.GalacticPrice * 0.30f), true));
+    }
+
     public InventoryItem Purchase(int index, int quantity)
     {
         BaseItem item;
 
-        if (itemList.Count > index)
+        if (itemList.Count > index && !itemList[index].sellOnly)
         {
             item = itemList[index].item;
             
@@ -76,6 +90,11 @@ public class Market
         {
             return null;
         }
+    }
+
+    public InventoryItem Sell(BaseItem item, int quantity)
+    {
+        
     }
 
     public bool Sell(int index, int quantity)

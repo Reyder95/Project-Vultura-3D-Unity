@@ -71,7 +71,16 @@ public class BaseStation : BaseSelectable
                 market.Add(producedItem.item, producedItem.quantity);
             }
 
-            facility.Consume();
+            bool inDemand = facility.Consume();
+
+            if (inDemand)
+            {
+                foreach (FacilityItem item in facility.consuming)
+                {
+                    market.AddDemandSeller(item.itemExec());
+                }
+            }
+            
 
             facility.stockpile.PrintContents();
         }

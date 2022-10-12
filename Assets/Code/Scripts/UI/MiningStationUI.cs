@@ -257,13 +257,45 @@ public class MiningStationUI : MonoBehaviour
                 marketRoot.Q<VisualElement>("purchase-display").style.display = DisplayStyle.Flex;
 
                 marketRoot.Q<Label>("bottom-item-name").text = station.market.itemList[i].item.Name;
-                marketRoot.Q<Label>("bottom-item-difference").text = "<color=\"red\">-35.8%</color>";
-                marketRoot.Q<Label>("bottom-item-buy-price").text = "$" + station.market.itemList[i].buyPrice.ToString();
-                marketRoot.Q<Button>("buy-button").RegisterCallback<ClickEvent>(ev => {
-                    Debug.Log("Test!!!");
-                    BuyItem();
-                    quantitySlider.highValue = station.market.itemList[selectedIndex].quantity;
-                });
+                
+                
+                Button buyButton = marketRoot.Q<Button>("buy-button");
+
+                if (!station.market.itemList[i].sellOnly)
+                {
+                    float currentPercentDeviation = Mathf.Abs(((float)station.market.itemList[i].item.GalacticPrice - (float)station.market.itemList[i].buyPrice) / (float)station.market.itemList[i].buyPrice * 100.0f);
+                    marketRoot.Q<Label>("bottom-item-buy-price").text = "$" + station.market.itemList[i].buyPrice.ToString();
+                    if (station.market.itemList[i].item.GalacticPrice > station.market.itemList[i].buyPrice)
+                        marketRoot.Q<Label>("bottom-item-difference").text = "<color=\"green\">-" + currentPercentDeviation.ToString("N2") + "%</color>";
+                    else
+                        marketRoot.Q<Label>("bottom-item-difference").text = "<color=\"red\">+" + currentPercentDeviation.ToString("N2") + "%</color>";
+                    buyButton.text = "Buy";
+                    buyButton.RegisterCallback<ClickEvent>(ev => {
+                        BuyItem();
+                        quantitySlider.highValue = station.market.itemList[selectedIndex].quantity;
+                    });
+                }
+                else
+                {
+                    float currentPercentDeviation = Mathf.Abs(((float)station.market.itemList[i].item.GalacticPrice - (float)station.market.itemList[i].sellPrice) / (float)station.market.itemList[i].sellPrice * 100.0f);
+                    buyButton.text = "Sell";
+                    if (station.market.itemList[i].item.GalacticPrice > station.market.itemList[i].sellPrice)
+                        marketRoot.Q<Label>("bottom-item-difference").text = "<color=\"red\">-" + currentPercentDeviation.ToString("N2") + "%</color>";
+                    else
+                        marketRoot.Q<Label>("bottom-item-difference").text = "<color=\"green\">+" + currentPercentDeviation.ToString("N2") + "%</color>";
+                    marketRoot.Q<Label>("bottom-item-buy-price").text = "$" + station.market.itemList[i].sellPrice.ToString();
+                    
+                    buyButton.RegisterCallback<ClickEvent>(ev => {
+                        SellItem();
+                        InventoryItem itemInInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.FindItem(station.market.itemList[i].item);
+
+                        if (itemInInventory != null)
+                        {
+                            quantitySlider.highValue = itemInInventory.quantity;
+                        }
+                    });
+                }
+                
                 quantitySlider.lowValue = 1;
                 quantitySlider.highValue = station.market.itemList[i].quantity;
                 quantitySlider.value = 1;   
@@ -311,6 +343,11 @@ public class MiningStationUI : MonoBehaviour
             InitializeHome();
         });
 
+    }
+
+    void SellItem()
+    {
+        int totalSellCost = station.market.itemList[selectedIndex].sellPrice * currQuantity;
     }
 
     void BuyItem()
