@@ -10,6 +10,10 @@ public abstract class Facility
     public FacilityItem[] producing;
     public FacilityItem[] consuming;
 
+    public Inventory stockpile = new Inventory();
+
+    public bool demand = false;
+
     public Facility(FacilityItem[] producing, FacilityItem[] consuming)
     {
         this.producing = producing;
@@ -21,22 +25,20 @@ public abstract class Facility
         List<InventoryItem> produced = new List<InventoryItem>();
         foreach (FacilityItem item in producing)
         {
-            if (!CheckIfAnyDemand())
+            if (!demand)
             {
                 produced.Add(new InventoryItem(item.itemExec(), item.quantity));
-                Debug.Log("Produced " + item.quantity.ToString());
             }
             else
             {
                 produced.Add(new InventoryItem(item.itemExec(), (int)Mathf.Floor(item.quantity / 3)));
-                Debug.Log("Produced " + Mathf.Floor(item.quantity / 3).ToString() + " instead of " + item.quantity.ToString());
             }
         }
 
         return produced;
     }
 
-    public Inventory Consume(Inventory stockpile)
+    public void Consume()
     {
         foreach (FacilityItem item in consuming)
         {
@@ -47,13 +49,18 @@ public abstract class Facility
                 if (stockpile.itemList[i].item.Id == execItem.Id)
                 {
                     stockpile.ReduceWithoutRemove(i, item.quantity);
-                    item.demand = CheckIfDemand(stockpile, i, item);
-                    return stockpile;
+
+                    if (!demand)
+                    {
+                        if(CheckIfDemand(stockpile, i, item))
+                        {
+                            demand = true;
+                        }
+                    }
                 }
 
             }
         }
-        return null;
     }
 
     public bool CheckIfAnyDemand()

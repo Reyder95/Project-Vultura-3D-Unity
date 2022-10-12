@@ -13,7 +13,7 @@ public class BaseStation : BaseSelectable
     public List<InstantiatedShip> shipStorage = new List<InstantiatedShip>();
     public Market market = new Market();
 
-    public Inventory stockpile = new Inventory();
+    //public Inventory stockpile = new Inventory();
 
     public List<Facility> facilities = new List<Facility>();
 
@@ -55,7 +55,7 @@ public class BaseStation : BaseSelectable
         {
             foreach (FacilityItem consumer in facility.consuming)
             {
-                stockpile.Add(new InventoryItem(consumer.itemExec(), Random.Range(30, 50)));
+                facility.stockpile.Add(new InventoryItem(consumer.itemExec(), Random.Range(30, 50)));
             }
         }
     }
@@ -71,9 +71,9 @@ public class BaseStation : BaseSelectable
                 market.Add(producedItem.item, producedItem.quantity);
             }
 
-            stockpile = facility.Consume(stockpile);
+            facility.Consume();
 
-            stockpile.PrintContents();
+            facility.stockpile.PrintContents();
         }
     }
 }

@@ -34,9 +34,6 @@ public class Market
 
     public float CalculatePrice(int basePrice, int supply, int demand)
     {
-        Debug.Log("Base Price: " + basePrice.ToString());
-        Debug.Log("Relative Supply: " + CalculateRelativeSupply(basePrice, supply));
-        Debug.Log("Relative Demand: " + CalculateRelativeDemand(basePrice, demand));
         return basePrice * (CalculateRelativeDemand(basePrice, demand) / CalculateRelativeSupply(basePrice, supply));
     }
 
