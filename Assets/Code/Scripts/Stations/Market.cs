@@ -92,33 +92,6 @@ public class Market
         }
     }
 
-    public InventoryItem Sell(BaseItem item, int quantity)
-    {
-        
-    }
-
-    public bool Sell(int index, int quantity)
-    {
-        if (itemList.Count > index)
-        {
-            if (itemList[index].quantity < quantity)
-            {
-                return false;
-            }
-
-            itemList[index].quantity = itemList[index].quantity - quantity;
-
-            if (itemList[index].quantity == 0)
-                itemList.RemoveAt(index);
-            
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public ExistsStruct ContainsItem(BaseItem item)
     {
         // Create new exists struct value. Defaults are a false exists, and index is 0. Index does not matter if exists is false.

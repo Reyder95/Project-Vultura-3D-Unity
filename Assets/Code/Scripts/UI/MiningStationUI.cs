@@ -263,6 +263,10 @@ public class MiningStationUI : MonoBehaviour
 
                 if (!station.market.itemList[i].sellOnly)
                 {
+                    quantitySlider.lowValue = 1;
+                    quantitySlider.highValue = station.market.itemList[i].quantity;
+                    quantitySlider.value = 1; 
+                    
                     float currentPercentDeviation = Mathf.Abs(((float)station.market.itemList[i].item.GalacticPrice - (float)station.market.itemList[i].buyPrice) / (float)station.market.itemList[i].buyPrice * 100.0f);
                     marketRoot.Q<Label>("bottom-item-buy-price").text = "$" + station.market.itemList[i].buyPrice.ToString();
                     if (station.market.itemList[i].item.GalacticPrice > station.market.itemList[i].buyPrice)
@@ -272,7 +276,7 @@ public class MiningStationUI : MonoBehaviour
                     buyButton.text = "Buy";
                     buyButton.RegisterCallback<ClickEvent>(ev => {
                         BuyItem();
-                        quantitySlider.highValue = station.market.itemList[selectedIndex].quantity;
+                        //quantitySlider.highValue = station.market.itemList[selectedIndex].quantity;
                     });
                 }
                 else
@@ -285,20 +289,25 @@ public class MiningStationUI : MonoBehaviour
                         marketRoot.Q<Label>("bottom-item-difference").text = "<color=\"green\">+" + currentPercentDeviation.ToString("N2") + "%</color>";
                     marketRoot.Q<Label>("bottom-item-buy-price").text = "$" + station.market.itemList[i].sellPrice.ToString();
                     
+                    InventoryItem itemInInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.FindItem(station.market.itemList[i].item);
+
+                    if (itemInInventory != null)
+                    {
+                        quantitySlider.lowValue = 1;
+                        quantitySlider.value = 1; 
+                        quantitySlider.highValue = itemInInventory.quantity;
+                    }
+                    else
+                    {
+                        quantitySlider.lowValue = 0;
+                    }
+
                     buyButton.RegisterCallback<ClickEvent>(ev => {
                         SellItem();
-                        InventoryItem itemInInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.FindItem(station.market.itemList[i].item);
-
-                        if (itemInInventory != null)
-                        {
-                            quantitySlider.highValue = itemInInventory.quantity;
-                        }
                     });
                 }
                 
-                quantitySlider.lowValue = 1;
-                quantitySlider.highValue = station.market.itemList[i].quantity;
-                quantitySlider.value = 1;   
+  
             });
         };
 
@@ -342,12 +351,27 @@ public class MiningStationUI : MonoBehaviour
         marketRoot.Q<Button>("back-button").RegisterCallback<ClickEvent>(ev => {
             InitializeHome();
         });
-
     }
 
     void SellItem()
     {
         int totalSellCost = station.market.itemList[selectedIndex].sellPrice * currQuantity;
+
+        bool success = station.InsertIntoStockpile(station.market.itemList[selectedIndex].item, currQuantity);
+
+        if (success)
+        {
+            Inventory cargo = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;
+
+            int itemIndex = cargo.FindItemIndex(station.market.itemList[selectedIndex].item);
+
+            if (itemIndex != -1)
+            {
+                cargo.PopAmount(itemIndex, currQuantity);
+                VulturaInstance.playerMoney += totalSellCost;
+            }
+            
+        }
     }
 
     void BuyItem()

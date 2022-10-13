@@ -85,4 +85,26 @@ public class BaseStation : BaseSelectable
             facility.stockpile.PrintContents();
         }
     }
+
+    public bool InsertIntoStockpile(BaseItem item, int quantity)
+    {
+        foreach (Facility facility in facilities)
+        {
+            if (facility.demand)
+            {
+                foreach (FacilityItem consumer in facility.consuming)
+                {
+                    BaseItem consumerItem = consumer.itemExec();
+
+                    if (consumerItem.Id == item.Id)
+                    {
+                        facility.stockpile.Add(new InventoryItem(item, quantity));
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 }
