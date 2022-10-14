@@ -32,6 +32,7 @@ public class MiningStationUI : MonoBehaviour
     // Market stuff
     public ListView marketList;
     public SliderInt quantitySlider;
+    public VisualElement currentSelected;
 
     public BaseStation station;
 
@@ -235,6 +236,10 @@ public class MiningStationUI : MonoBehaviour
 
         Func<VisualElement> makeItemMarket = () => marketRow.Instantiate();
         Action<VisualElement, int> bindItemMarket = (e, i) => {
+
+            e.Q<VisualElement>("main-visual").EnableInClassList("non-active", true);
+            e.Q<VisualElement>("main-visual").EnableInClassList("active", false);
+
             var itemName = e.Q<Label>("item-name");
             itemName.text = station.market.itemList[i].item.Name;
 
@@ -251,7 +256,21 @@ public class MiningStationUI : MonoBehaviour
             itemSell.text = "$" + station.market.itemList[i].sellPrice.ToString();
 
             e.RegisterCallback<PointerDownEvent>(ev => {
+            
+                if (currentSelected != null)
+                {
+                    currentSelected.Q<VisualElement>("main-visual").EnableInClassList("non-active", true);
+                    currentSelected.Q<VisualElement>("main-visual").EnableInClassList("active", false);
+                }
+
                 selectedIndex = i;
+
+                currentSelected = e;
+
+
+
+                e.Q<VisualElement>("main-visual").EnableInClassList("non-active", false);
+                e.Q<VisualElement>("main-visual").EnableInClassList("active", true);
 
                 marketRoot.Q<VisualElement>("none-display").style.display = DisplayStyle.None;
                 marketRoot.Q<VisualElement>("purchase-display").style.display = DisplayStyle.Flex;
