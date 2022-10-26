@@ -98,6 +98,38 @@ public static class VulturaInstance
         Legendary
     }
 
+    public enum MoveType {
+        SINGLE,
+        ALL,
+        SPECIFY
+    }
+
+    public static bool SwapInventory(int index, Inventory invFrom, Inventory invTo, MoveType moveType, int quantity = 0)
+    {
+        InventoryItem inventoryItem = null;
+
+        if (moveType == MoveType.SINGLE)
+        {
+            inventoryItem = invFrom.PopAmount(index, 1);
+        }
+        else if (moveType == MoveType.ALL)
+        {
+            inventoryItem = invFrom.Pop(index);
+        }
+        else if (moveType == MoveType.SPECIFY)
+        {
+            inventoryItem = invFrom.PopAmount(index, quantity);
+        }
+
+        if (inventoryItem != null)
+        {
+            invTo.Add(inventoryItem);
+            return true;
+        }
+
+        return false;
+    }
+
     public static ItemRarity GenerateItemRarity()
     {
         float randomNum = Random.Range(0, 100);

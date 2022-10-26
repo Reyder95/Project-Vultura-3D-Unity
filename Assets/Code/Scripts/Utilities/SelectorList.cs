@@ -266,9 +266,13 @@ public class SelectorList
 
         for (int i = 0; i < selected.Count; i++)
         {
-            selected[i].selectableObject.GetComponent<Outline>().enabled = false;
-            selected[i].Selected = false;
-            selected[i].MainSelected = false;
+            if (selected[i].selectableObject != null)
+            {
+                selected[i].selectableObject.GetComponent<Outline>().enabled = false;
+                selected[i].Selected = false;
+                selected[i].MainSelected = false;
+            }
+            
         }
 
         selected.Clear();
