@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="inventory-item" src="project://database/Assets/Level/UI%20Assets/UXML/inventory-item.uxml?fileID=9197481963319205126&amp;guid=a7198d505c6a6c5409b329994b03c251&amp;type=3#inventory-item" />
     <Style src="project://database/Assets/Level/UI%20Assets/USS/inventoryBar.uss?fileID=7433441132597879392&amp;guid=1545214767507ff4f8626fe0e83d71bf&amp;type=3#inventoryBar" />
     <ui:VisualElement name="outer-check-inventory" style="height: 1440px;" />
     <ui:VisualElement name="base-content" style="position: absolute; left: 25%; top: 25%; right: 25%; bottom: 25%; background-color: rgb(77, 77, 77); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; border-left-color: rgb(154, 85, 0); border-right-color: rgb(154, 85, 0); border-top-color: rgb(154, 85, 0); border-bottom-color: rgb(154, 85, 0);">
@@ -13,4 +14,5 @@
             <ui:ScrollView name="inventory-scroller" style="height: 548px;" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:Instance template="inventory-item" name="ghost-item" style="position: absolute;" />
 </ui:UXML>

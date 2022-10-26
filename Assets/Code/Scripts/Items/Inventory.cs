@@ -77,6 +77,59 @@ public class Inventory
         return item;
     }
 
+    public InventoryItem PopAmount(int index, int quantity)
+    {
+        if (itemList.Count > index)
+        {
+            if (itemList[index].quantity >= quantity)
+            {
+                itemList[index].quantity -= quantity;
+                InventoryItem item = new InventoryItem(itemList[index].item, quantity);
+                
+                if (itemList[index].quantity == 0)
+                    itemList.RemoveAt(index);
+
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    // Primarily used for station stockpiles
+    public void ReduceWithoutRemove(int index, int quantity)
+    {
+        if (itemList.Count > index)
+        {
+            itemList[index].quantity = itemList[index].quantity - quantity;
+
+            if (itemList[index].quantity < 0)
+                itemList[index].quantity = 0;
+        }
+    }
+    
+    public int FindItemIndex(BaseItem item)
+    {
+        for (int i = 0; i < itemList.Count; i++)
+        {
+            if (itemList[i].item.Id == item.Id)
+                return i;
+        }
+
+        return -1;
+    }
+
+    public InventoryItem FindItem(BaseItem item)
+    {
+        foreach (InventoryItem invItem in itemList)
+        {
+            if (invItem.item.Id == item.Id)
+                return invItem;
+        }
+
+        return null;
+    }
+
     // Debug check the contents of the inventory
     public void PrintContents()
     {

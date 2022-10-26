@@ -40,12 +40,17 @@ public class InstantiatedShip : BaseSelectable
             activeModules.Add(newActiveModule);
     }
 
-    public void AddToCargo(InventoryItem item)
+    public bool AddToCargo(InventoryItem item)
     {
         float futureCargo = (item.quantity * item.item.Weight) + cargo.currCargo;
 
         if (futureCargo < shipStats.baseCargo)
+        {
             cargo.Add(item);
+            return true;
+        }
+
+        return false;
     }
 
     // Adds a passive module to the list, stopped by a maximum # of modules for a ship

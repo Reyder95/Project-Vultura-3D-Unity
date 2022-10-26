@@ -11,10 +11,11 @@ abstract public class BaseItem
     [SerializeField] private VulturaInstance.ItemType type;
     [SerializeField] private string description;
     [SerializeField] private VulturaInstance.ItemRarity rarity;
+    [SerializeField] private int galacticPrice;
     [SerializeField] private Texture2D icon;
 
     // Base Constructor
-    public BaseItem(int id, string name, VulturaInstance.ItemType type, string description, VulturaInstance.ItemRarity rarity, Texture2D icon, float weight)
+    public BaseItem(int id, string name, VulturaInstance.ItemType type, string description, VulturaInstance.ItemRarity rarity, Texture2D icon, float weight, int galacticPrice)
     {
         this.id = id;
         this.name = name;
@@ -23,6 +24,7 @@ abstract public class BaseItem
         this.rarity = rarity;
         this.icon = icon;
         this.weight = weight;
+        this.galacticPrice = galacticPrice;
     }
 
     public int Id {
@@ -83,6 +85,14 @@ abstract public class BaseItem
         get
         {
             return this.weight;
+        }
+    }
+
+    public int GalacticPrice
+    {
+        get
+        {
+            return this.galacticPrice;
         }
     }
 }

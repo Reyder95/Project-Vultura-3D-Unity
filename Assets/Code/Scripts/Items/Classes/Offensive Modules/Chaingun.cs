@@ -17,7 +17,8 @@ public class Chaingun : OffenseModule
         0,
         0,
         0,
-        11.15f
+        11.15f, 
+        1580
     )
     {
 

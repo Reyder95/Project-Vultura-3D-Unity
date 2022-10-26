@@ -6,6 +6,7 @@ using UnityEngine;
 public static class VulturaInstance
 {
     public static GameObject currentPlayer;     // A reference to the current player character in the game. Since a player can switch ships, this needs to be kept track of.
+    public static int playerMoney = 60000;
 
     public static List<string> systems = new List<string>();
     public static List<ShipWrapper> ships = new List<ShipWrapper>();

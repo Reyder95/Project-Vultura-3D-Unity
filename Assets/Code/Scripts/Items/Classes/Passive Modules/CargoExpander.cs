@@ -13,7 +13,8 @@ public class CargoExpander : PassiveModule
         new Texture2D(128, 128),
         new List<int>(),
         new List<int>(),
-        7.11f
+        7.11f,
+        576
     )
     {
 

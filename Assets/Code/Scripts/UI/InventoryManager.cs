@@ -45,11 +45,13 @@ public class InventoryManager : MonoBehaviour
         inventory.RegisterCallback<MouseUpEvent>(ev => {
             print("Test!!!!!");
         });
-        rootVisualElement.RegisterCallback<MouseUpEvent>(ev => {
+        rootVisualElement.RegisterCallback<PointerUpEvent>(ev => {
 
             if (isDragging)
             {
                 isDragging = false;
+
+                visualDragger.Q<VisualElement>("inventory-item").style.visibility = Visibility.Hidden;
 
                 VisualElement overlappingElement = FindOverlappingItem();
 
@@ -64,12 +66,6 @@ public class InventoryManager : MonoBehaviour
                         currentDraggedElement.Q<VisualElement>("inventory-item").visible = true;
                 }
             }
-
-            if (visualDragger != null)
-            {
-                rootVisualElement.Remove(visualDragger);
-                visualDragger = null;
-            }
             
 
             Debug.Log("SCOTLAND!!");
@@ -81,15 +77,16 @@ public class InventoryManager : MonoBehaviour
 
     void Update()
     {
-        if (visualDragger != null)
-        {
-            Debug.Log(visualDragger.worldBound);
-            Vector3 pos = Input.mousePosition;
-            visualDragger.style.top =  Screen.height - pos.y - (visualDragger.resolvedStyle.width / 2);
-            visualDragger.style.left = pos.x - (visualDragger.resolvedStyle.height / 2);
-            if (!visualDragger.Q<VisualElement>("inventory-item").visible)
-                visualDragger.Q<VisualElement>("inventory-item").visible = true;
-        }
+        // if (visualDragger != null)
+        // {
+        //     Debug.Log(visualDragger.worldBound);
+        //     Vector3 pos = Input.mousePosition;
+        //     //Debug.Log(visualDragger.resolvedStyle.width);
+        //     visualDragger.style.top =  Screen.height - pos.y - (visualDragger.resolvedStyle.width / 2);
+        //     visualDragger.style.left = pos.x - (visualDragger.resolvedStyle.height / 2);
+        //     if (!visualDragger.Q<VisualElement>("inventory-item").visible)
+        //         visualDragger.Q<VisualElement>("inventory-item").visible = true;
+        // }
     }
 
     public void HandleInventory()
@@ -118,6 +115,8 @@ public class InventoryManager : MonoBehaviour
         items.Clear();
         inventoryScroller.Clear();
         Inventory playerInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;
+        visualDragger = rootVisualElement.Q<VisualElement>("ghost-item");
+
 
         //GetComponent<UIDocument>().enabled = true;
         
@@ -146,23 +145,40 @@ public class InventoryManager : MonoBehaviour
             item.userData = i;
             item.Q<Label>("item-quantity").text = playerInventory.itemList[i].quantity.ToString();
             item.Q<Label>("item-name").text = playerInventory.itemList[i].item.Name;
-            item.RegisterCallback<MouseDownEvent>(ev => {
+            item.RegisterCallback<PointerDownEvent>(ev => {
                 currentDraggedElement = item;
                 currentDraggedElement.Q<VisualElement>("inventory-item").visible = false;
-                visualDragger = inventoryItem.Instantiate();
 
                 visualDragger.Q<Label>("item-quantity").text = item.Q<Label>("item-quantity").text;
                 visualDragger.Q<Label>("item-name").text = item.Q<Label>("item-name").text;
 
-
-                rootVisualElement.Add(visualDragger);  
                 visualDragger.pickingMode = PickingMode.Ignore;
                 visualDragger.Q<VisualElement>("inventory-item").pickingMode = PickingMode.Ignore;              
                 visualDragger.style.position = Position.Absolute;
                 Vector3 pos = Input.mousePosition;
-                visualDragger.style.top = Screen.height - pos.y - (visualDragger.resolvedStyle.width - 10);
-                visualDragger.style.left = pos.x - (visualDragger.resolvedStyle.height - 10);
+                Debug.Log(visualDragger.Q<VisualElement>("inventory-item").resolvedStyle.width);
+                visualDragger.Q<VisualElement>("inventory-item").style.visibility = Visibility.Visible;
+                visualDragger.style.top = ev.position.y - visualDragger.layout.height / 2;
+                visualDragger.style.left = ev.position.x - visualDragger.layout.width / 2;
                 isDragging = true;
+
+                visualDragger.RegisterCallback<PointerMoveEvent>(ev => {
+                    if (!isDragging)
+                        return;
+                    visualDragger.style.top = ev.position.y - visualDragger.layout.height / 2;
+                    visualDragger.style.left = ev.position.x - visualDragger.layout.width / 2;
+                });
+
+                visualDragger.RegisterCallback<PointerLeaveEvent>(ev => {
+                    if (!isDragging)
+                        return;
+                    visualDragger.style.top = ev.position.y - visualDragger.layout.height / 2;
+                    visualDragger.style.left = ev.position.x - visualDragger.layout.width / 2;
+                });
+
+                visualDragger.RegisterCallback<PointerUpEvent>(ev => {
+                    visualDragger.Q<VisualElement>("inventory-item").style.visibility = Visibility.Hidden;
+                });
                 //visualDragger.Q<VisualElement>("inventory-item").visible = true;
             });
             item.RegisterCallback<PointerEnterEvent>(ev => {

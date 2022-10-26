@@ -5,7 +5,7 @@ using UnityEngine;
 public class TradeGood : UnuseableItem
 {
     //private GameObject prefab;
-    public TradeGood(int id, string name, string description, Texture2D icon, float weight) : base(id, name, VulturaInstance.ItemType.Trade_Good, description, VulturaInstance.ItemRarity.Common, icon, weight)
+    public TradeGood(int id, string name, string description, Texture2D icon, float weight, int galacticPrice) : base(id, name, VulturaInstance.ItemType.Trade_Good, description, VulturaInstance.ItemRarity.Common, icon, weight, galacticPrice)
     {
 
     }

@@ -40,6 +40,13 @@ public class StationComponent : MonoBehaviour
         // Initializes the station then displays the contacts in the contacts page
         station.InitializeStation();
         DisplayContacts();
+        StartCoroutine("RunProductionChain");
+    }
+
+    private IEnumerator RunProductionChain()
+    {
+        station.RunProductionChain();
+        yield return new WaitForSeconds(2);
     }
 
     // When a player enters the station proximity
