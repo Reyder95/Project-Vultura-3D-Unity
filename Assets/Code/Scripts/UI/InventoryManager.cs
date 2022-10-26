@@ -169,6 +169,13 @@ public class InventoryManager : MonoBehaviour
                     visualDragger.style.left = ev.position.x - visualDragger.layout.width / 2;
                 });
 
+                visualDragger.RegisterCallback<PointerLeaveEvent>(ev => {
+                    if (!isDragging)
+                        return;
+                    visualDragger.style.top = ev.position.y - visualDragger.layout.height / 2;
+                    visualDragger.style.left = ev.position.x - visualDragger.layout.width / 2;
+                });
+
                 visualDragger.RegisterCallback<PointerUpEvent>(ev => {
                     visualDragger.Q<VisualElement>("inventory-item").style.visibility = Visibility.Hidden;
                 });

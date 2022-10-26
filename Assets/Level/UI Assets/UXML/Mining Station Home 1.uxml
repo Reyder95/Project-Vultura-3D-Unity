@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Item Transfer" src="project://database/Assets/Level/UI%20Assets/UXML/Item%20Transfer.uxml?fileID=9197481963319205126&amp;guid=2fd1afea440a556458e3be429ed77398&amp;type=3#Item Transfer" />
     <Style src="project://database/Assets/Level/UI%20Assets/USS/station.uss?fileID=7433441132597879392&amp;guid=05aee3c6c1ebc1b4fbc97e06ba474bae&amp;type=3#station" />
     <ui:VisualElement name="main-visual" style="position: absolute; left: 25%; right: 25%; top: 25%; bottom: 25%; background-color: rgb(70, 70, 70); border-left-color: rgb(255, 138, 30); border-right-color: rgb(255, 138, 30); border-top-color: rgb(255, 138, 30); border-bottom-color: rgb(255, 138, 30); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px;">
         <ui:VisualElement name="header-element" style="width: 100%; flex-direction: row; justify-content: space-between;">
@@ -82,4 +83,6 @@
             <ui:ListView focusable="true" name="ship-list" selection-type="None" style="height: 100%; margin-top: 5px; background-color: rgb(101, 101, 101); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 5px; margin-right: 5px; margin-bottom: 5px;" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:Instance template="Item Transfer" name="item-transfer" style="position: absolute; display: flex; visibility: hidden;" />
+    <ui:Instance template="Item Transfer" name="item-transfer-storage" style="visibility: hidden;" />
 </ui:UXML>

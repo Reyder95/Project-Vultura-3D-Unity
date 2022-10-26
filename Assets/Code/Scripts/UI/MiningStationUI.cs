@@ -16,7 +16,6 @@ public class MiningStationUI : MonoBehaviour
     public VisualTreeAsset contactCard;
     public VisualTreeAsset inventoryRow;
     public VisualTreeAsset marketRow;
-    public VisualTreeAsset inventorySplit;
 
     public GameObject homeGameobject;
     public GameObject contactGameobject;
@@ -32,6 +31,8 @@ public class MiningStationUI : MonoBehaviour
     public ListView inventoryList;
     public ListView storageList;
     public ListView shipList;
+    public VisualElement inventorySplit;
+    public VisualElement storageSplit;
 
     public int selectedIndex = -1;
     public int currQuantity = 1;
@@ -42,6 +43,8 @@ public class MiningStationUI : MonoBehaviour
     public VisualElement currentSelected;
 
     public BaseStation station;
+
+    public bool inSpecify = false;
 
     void OnEnable()
     {
@@ -74,11 +77,11 @@ public class MiningStationUI : MonoBehaviour
         }
         else if (moveType == MoveType.ALL)
         {
-            inventoryItem = station.storage.Pop(index);
+            inventoryItem = playerCargo.Pop(index);
         }
         else if (moveType == MoveType.SPECIFY)
         {
-            inventoryItem = station.storage.PopAmount(index, quantity);
+            inventoryItem = playerCargo.PopAmount(index, quantity);
         }
 
         if (inventoryItem != null)
@@ -124,12 +127,16 @@ public class MiningStationUI : MonoBehaviour
         contactGameobject.SetActive(false);
         marketGameobject.SetActive(false);
 
+        inSpecify = false;
+
         homeRoot = homeGameobject.GetComponent<UIDocument>().rootVisualElement;
         storagePane = homeRoot.Q<VisualElement>("storage-element");
         shipPane = homeRoot.Q<VisualElement>("ship-storage");
         inventoryList = homeRoot.Q<ListView>("inventory-list");
         storageList = homeRoot.Q<ListView>("storage-list");
         shipList = homeRoot.Q<ListView>("ship-list");
+        inventorySplit = homeRoot.Q<VisualElement>("item-transfer");
+        storageSplit = homeRoot.Q<VisualElement>("item-transfer-storage");
 
         storagePane.style.display = DisplayStyle.None;
         shipPane.style.display = DisplayStyle.None;
@@ -173,8 +180,48 @@ public class MiningStationUI : MonoBehaviour
             var itemQuantity = e.Q<Label>("item-quantity");
             itemQuantity.text = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].quantity.ToString();
 
-            e.RegisterCallback<ClickEvent>(ev => {
-                InventoryToStorage(i, MoveType.SINGLE);
+            e.RegisterCallback<PointerDownEvent>(ev => {
+                if (Input.GetKey("left shift"))
+                {
+                    if (!inSpecify)
+                        InventoryToStorage(i, MoveType.ALL);
+                }
+                else if (Input.GetKey("left ctrl"))
+                {
+                    inSpecify = true;
+                    inventorySplit.style.top = ev.position.y - inventorySplit.layout.height;
+                    inventorySplit.style.left = ev.position.x;
+                    inventorySplit.Q<Label>("item-name").text = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].item.Name;
+                    Label transferAmount = inventorySplit.Q<Label>("transfer-amount");
+                    transferAmount.text = "1";
+                    SliderInt swapSlider = inventorySplit.Q<SliderInt>("transfer-slider");
+                    swapSlider.highValue = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].quantity;
+                    swapSlider.lowValue = 1;
+                    swapSlider.value = 1;
+                    
+                    swapSlider.RegisterValueChangedCallback(ev => {
+                        transferAmount.text = ev.newValue.ToString();
+                    });
+
+                    inventorySplit.Q<Button>("ok-button").RegisterCallback<ClickEvent>(ev => {
+                        InventoryToStorage(i, MoveType.SPECIFY, swapSlider.value);
+                        inSpecify = false;
+
+                        inventorySplit.style.visibility = Visibility.Hidden;
+                    });
+
+                    inventorySplit.Q<Button>("cancel-button").RegisterCallback<ClickEvent>(ev => {
+                        inventorySplit.style.visibility = Visibility.Hidden;
+                    });
+
+                    inventorySplit.style.visibility = Visibility.Visible;   
+                }
+                else
+                {
+                    if(!inSpecify)
+                        InventoryToStorage(i, MoveType.SINGLE);
+                }
+                
             });
         };
 
@@ -185,8 +232,47 @@ public class MiningStationUI : MonoBehaviour
             var itemQuantity = e.Q<Label>("item-quantity");
             itemQuantity.text = station.storage.itemList[i].quantity.ToString();
 
-            e.RegisterCallback<ClickEvent>(ev => {
-                StorageToInventory(i, MoveType.SINGLE);
+            e.RegisterCallback<PointerDownEvent>(ev => {
+                if (Input.GetKey("left shift"))
+                {
+                    if (!inSpecify)
+                        StorageToInventory(i, MoveType.ALL);
+                }
+                else if (Input.GetKey("left ctrl"))
+                {
+                    inSpecify = true;
+                    storageSplit.style.top = ev.position.y - storageSplit.layout.height;
+                    storageSplit.style.left = ev.position.x;
+                    storageSplit.Q<Label>("item-name").text = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].item.Name;
+                    Label transferAmount = storageSplit.Q<Label>("transfer-amount");
+                    transferAmount.text = "1";
+                    SliderInt swapSlider = storageSplit.Q<SliderInt>("transfer-slider");
+                    swapSlider.highValue = station.storage.itemList[i].quantity;
+                    swapSlider.lowValue = 1;
+                    swapSlider.value = 1;
+                    
+                    swapSlider.RegisterValueChangedCallback(ev => {
+                        transferAmount.text = ev.newValue.ToString();
+                    });
+
+                    storageSplit.Q<Button>("ok-button").RegisterCallback<ClickEvent>(ev => {
+                        StorageToInventory(i, MoveType.SPECIFY, swapSlider.value);
+                        inSpecify = false;
+
+                        storageSplit.style.visibility = Visibility.Hidden;
+                    });
+
+                    storageSplit.Q<Button>("cancel-button").RegisterCallback<ClickEvent>(ev => {
+                        storageSplit.style.visibility = Visibility.Hidden;
+                    });
+
+                    storageSplit.style.visibility = Visibility.Visible;   
+                }
+                else
+                {
+                    if (!inSpecify)
+                        StorageToInventory(i, MoveType.SINGLE);
+                }
             });
         };
 
