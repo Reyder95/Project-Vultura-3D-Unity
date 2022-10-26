@@ -84,7 +84,12 @@ public class Inventory
             if (itemList[index].quantity >= quantity)
             {
                 itemList[index].quantity -= quantity;
-                return new InventoryItem(itemList[index].item, quantity);
+                InventoryItem item = new InventoryItem(itemList[index].item, quantity);
+                
+                if (itemList[index].quantity == 0)
+                    itemList.RemoveAt(index);
+
+                return item;
             }
         }
 

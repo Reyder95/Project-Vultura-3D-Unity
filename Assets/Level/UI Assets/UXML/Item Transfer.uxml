@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="width: 592px; background-color: rgb(70, 70, 70); height: 200px;">
+        <ui:VisualElement style="flex-direction: row;">
+            <ui:VisualElement style="width: 64px; height: 64px; margin-left: 10px; margin-top: 10px; background-color: rgb(255, 255, 255);" />
+            <ui:Label text="Item Name" display-tooltip-when-elided="true" name="item-name" style="-unity-text-align: upper-left; margin-left: 10px; -unity-font-style: bold; margin-top: 10px;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="position: absolute; left: 20%; top: 40%; right: 20%; bottom: 20%;">
+            <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                <ui:Label text="How many would you like to transfer?" display-tooltip-when-elided="true" name="transfer-text" />
+                <ui:Label text="18" display-tooltip-when-elided="true" name="transfer-amount" style="-unity-font-style: bold;" />
+            </ui:VisualElement>
+            <ui:SliderInt picking-mode="Ignore" value="42" high-value="100" name="transfer-slider" direction="Horizontal" inverted="false" style="margin-top: 10px;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="position: absolute; left: 80%; bottom: 0; right: 0; top: 90%; flex-direction: row; justify-content: space-between;">
+            <ui:Button text="OK" display-tooltip-when-elided="true" name="ok-button" style="width: 40%;" />
+            <ui:Button text="Cancel" display-tooltip-when-elided="true" name="cancel-button" style="width: 40%;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

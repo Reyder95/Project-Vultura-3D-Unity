@@ -7,9 +7,16 @@ using UnityEngine.UIElements;
 
 public class MiningStationUI : MonoBehaviour
 {
+    public enum MoveType {
+        SINGLE,
+        ALL,
+        SPECIFY
+    }
+
     public VisualTreeAsset contactCard;
     public VisualTreeAsset inventoryRow;
     public VisualTreeAsset marketRow;
+    public VisualTreeAsset inventorySplit;
 
     public GameObject homeGameobject;
     public GameObject contactGameobject;
@@ -56,19 +63,57 @@ public class MiningStationUI : MonoBehaviour
 
     }
 
-    public void InventoryToStorage(int index)
+    public void InventoryToStorage(int index, MoveType moveType, int quantity = 0)
     {
-        InventoryItem inventoryItem = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.Pop(index);
-        station.storage.Add(inventoryItem);
+        Inventory playerCargo = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;
+        InventoryItem inventoryItem = null;
+
+        if (moveType == MoveType.SINGLE)
+        {
+            inventoryItem = playerCargo.PopAmount(index, 1);
+        }
+        else if (moveType == MoveType.ALL)
+        {
+            inventoryItem = station.storage.Pop(index);
+        }
+        else if (moveType == MoveType.SPECIFY)
+        {
+            inventoryItem = station.storage.PopAmount(index, quantity);
+        }
+
+        if (inventoryItem != null)
+            station.storage.Add(inventoryItem);
+
+        // InventoryItem inventoryItem = station.storage.Pop(index);
+        // VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.Add(inventoryItem);
         inventoryList.Rebuild();
         storageList.Rebuild();
     
     }
 
-    public void StorageToInventory(int index)
+    public void StorageToInventory(int index, MoveType moveType, int quantity = 0)
     {
-        InventoryItem inventoryItem = station.storage.Pop(index);
-        VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.Add(inventoryItem);
+        Inventory playerCargo = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;
+        InventoryItem inventoryItem = null;
+
+        if (moveType == MoveType.SINGLE)
+        {
+            inventoryItem = station.storage.PopAmount(index, 1);
+        }
+        else if (moveType == MoveType.ALL)
+        {
+            inventoryItem = station.storage.Pop(index);
+        }
+        else if (moveType == MoveType.SPECIFY)
+        {
+            inventoryItem = station.storage.PopAmount(index, quantity);
+        }
+
+        if (inventoryItem != null)
+            playerCargo.Add(inventoryItem);
+
+        // InventoryItem inventoryItem = station.storage.Pop(index);
+        // VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.Add(inventoryItem);
         inventoryList.Rebuild();
         storageList.Rebuild();
     }
@@ -129,7 +174,7 @@ public class MiningStationUI : MonoBehaviour
             itemQuantity.text = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].quantity.ToString();
 
             e.RegisterCallback<ClickEvent>(ev => {
-                InventoryToStorage(i);
+                InventoryToStorage(i, MoveType.SINGLE);
             });
         };
 
@@ -141,7 +186,7 @@ public class MiningStationUI : MonoBehaviour
             itemQuantity.text = station.storage.itemList[i].quantity.ToString();
 
             e.RegisterCallback<ClickEvent>(ev => {
-                StorageToInventory(i);
+                StorageToInventory(i, MoveType.SINGLE);
             });
         };
 
@@ -266,8 +311,6 @@ public class MiningStationUI : MonoBehaviour
                 selectedIndex = i;
 
                 currentSelected = e;
-
-
 
                 e.Q<VisualElement>("main-visual").EnableInClassList("non-active", false);
                 e.Q<VisualElement>("main-visual").EnableInClassList("active", true);

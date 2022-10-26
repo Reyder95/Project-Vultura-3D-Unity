@@ -24,19 +24,30 @@ public class Market
 {
     public List<MarketItem> itemList = new List<MarketItem>();
 
-    public float CalculateRelativeDemand(int basePrice, int demand)
+    public float CalculateRelativeValue(int basePrice, int value)
     {
-        return (float)demand / (basePrice + demand);
+        return ((0.6f) / (1.0f + Mathf.Exp(-(value/10) + 1.0f))) + 0.7f;
     }
 
-    public float CalculateRelativeSupply(int basePrice, int supply)
-    {
-        return (float)supply / (basePrice + supply);
-    }
+    // public float CalculateRelativeDemand(int basePrice, int demand)
+    // {
+    //     return (float)demand / (basePrice + demand);
+    // }
+
+    // public float CalculateRelativeSupply(int basePrice, int supply)
+    // {
+    //     return (float)supply / (basePrice + supply);
+    // }
 
     public float CalculatePrice(int basePrice, int supply, int demand)
     {
-        return basePrice * (CalculateRelativeDemand(basePrice, demand) / CalculateRelativeSupply(basePrice, supply));
+        Debug.Log(1.0f + Mathf.Exp(-supply + 1));
+        Debug.Log("Base price is " + basePrice.ToString());
+        Debug.Log("Supply is " + supply.ToString());
+        Debug.Log("Demand is " + demand.ToString());
+        Debug.Log("Relative Supply is " + CalculateRelativeValue(basePrice, supply));
+        Debug.Log("Relative Demand is " + CalculateRelativeValue(basePrice, demand));
+        return basePrice * (CalculateRelativeValue(basePrice, demand) / CalculateRelativeValue(basePrice, supply));
     }
 
     public void Add(BaseItem item, int quantity)
@@ -46,7 +57,30 @@ public class Market
         if (value.exists)
         {
             itemList[value.index].quantity += quantity;
-            itemList[value.index].buyPrice = (int)Mathf.Floor(CalculatePrice(item.GalacticPrice, itemList[value.index].quantity, 5));
+            itemList[value.index].buyPrice = (int)Mathf.Floor(CalculatePrice(item.GalacticPrice, itemList[value.index].quantity, 0));
+
+            float currentPercentDeviation = Mathf.Abs(((float)itemList[value.index].item.GalacticPrice - (float)itemList[value.index].buyPrice) / (float)itemList[value.index].buyPrice * 100.0f);
+
+            Debug.Log("TEST!" + Mathf.Abs((18.0f - 12.0f) / 12.0f * 100.0f).ToString());
+            Debug.Log("TEST!" + Mathf.Abs((18.0f - (18.0f + 18.0f)) / (18.0f + 18.0f) * 100.0f).ToString());
+
+            if (currentPercentDeviation > 50.0f)
+            {
+                Debug.Log("WE'RE IN!");
+                int differenceValue = (int)Mathf.Floor((100.0f * (float)itemList[value.index].item.GalacticPrice) / (100.0f + 50.00f));
+                Debug.Log("Difference!" + differenceValue.ToString());
+                Debug.Log(itemList[value.index].item.GalacticPrice);
+                if (itemList[value.index].buyPrice >= itemList[value.index].item.GalacticPrice)
+                {
+                    itemList[value.index].buyPrice = itemList[value.index].item.GalacticPrice * 2;
+                }
+                else
+                {
+                    itemList[value.index].buyPrice = differenceValue;
+                }
+                    
+            }
+            
         }
         else
         {
