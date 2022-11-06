@@ -15,6 +15,11 @@ public class Contact
         this.type = type;
     }
 
+    public void LoadConversation()
+    {
+        // TODO
+    }
+
     public string Name {
         get
         {
