@@ -37,6 +37,10 @@ public class MiningStationUI : MonoBehaviour
     public SliderInt quantitySlider;
     public VisualElement currentSelected;
 
+    //Contact stuff
+    public ConversationStack convoStack;
+    public VisualElement selectedContact;
+
     // The station of this UI
     public BaseStation station;
 
@@ -44,6 +48,7 @@ public class MiningStationUI : MonoBehaviour
     public int selectedIndex = -1;  // The selected market index
     public int currQuantity = 1;    // The current quantity selected of the particular market item
     public bool inSpecify = false;  // State which determines whether or not a user is in the "specify" mode for moving an item between storage and inventory
+    public Inventory playerInventory;
 
 
     // On enable, start every game object as inactive, and activate them when needed
@@ -62,22 +67,28 @@ public class MiningStationUI : MonoBehaviour
         marketGameobject.SetActive(false);
     }
 
+    // When entering a station
     public void OpenUI(BaseStation stationObject)
     {
-        station = stationObject;
-        InitializeHome();
+        station = stationObject;    // Retrieve and set the current station
+        playerInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;   // Set the player inventory variable to the current player ship's cargo
+        InitializeHome();   // Initialize the homepage and display it
 
     }
 
+    // Initialize the homepage and display it
     public void InitializeHome()
     {
+        // Set the home game object to true, and the rest to false
         homeGameobject.SetActive(true);
         contactGameobject.SetActive(false);
         marketGameobject.SetActive(false);
 
-        inSpecify = false;
+        inSpecify = false;  // Since the homescreen is where we use this variable for station storage, we set it initially to false.
 
-        homeRoot = homeGameobject.GetComponent<UIDocument>().rootVisualElement;
+        homeRoot = homeGameobject.GetComponent<UIDocument>().rootVisualElement;     // Set the root visual element of the homepage
+
+        // Initialize a lot more visual elements underneath the home root.
         storagePane = homeRoot.Q<VisualElement>("storage-element");
         shipPane = homeRoot.Q<VisualElement>("ship-storage");
         inventoryList = homeRoot.Q<ListView>("inventory-list");
@@ -86,33 +97,45 @@ public class MiningStationUI : MonoBehaviour
         inventorySplit = homeRoot.Q<VisualElement>("item-transfer");
         storageSplit = homeRoot.Q<VisualElement>("item-transfer-storage");
 
+        // Set the side panes to be hidden
         storagePane.style.display = DisplayStyle.None;
         shipPane.style.display = DisplayStyle.None;
 
+        // Make the ship item display in the listview (will need adjustment for final UI)
         Func<VisualElement> makeItemShip = () => new Label();
-        Action<VisualElement, int> bindItemShip = (e, i) => {
-            (e as Label).text = station.shipStorage[i].ShipStats.name;
 
+        // For the ship listview, each item gets displayed as such
+        Action<VisualElement, int> bindItemShip = (e, i) => {
+            (e as Label).text = station.shipStorage[i].ShipStats.name;  // Set the label to the name of the ship
+
+            // When the ship is clicked, run through the following code.
             e.RegisterCallback<ClickEvent>(ev => {
-                InstantiatedShip selectedShip = station.shipStorage[i];
-                Quaternion shipQuaternion = VulturaInstance.currentPlayer.transform.rotation;
-                Vector3 shipPosition = VulturaInstance.currentPlayer.transform.position;
-                Fleet playerFleet = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().fleetAssociation;
-                GameObject newShip = selectedShip.ShipReference;
-                GameObject originalPlayer = VulturaInstance.currentPlayer;
-                station.shipStorage.RemoveAt(i);
-                station.shipStorage.Add(originalPlayer.GetComponent<PrefabHandler>().currShip);
-                VulturaInstance.RemoveFromSystem(originalPlayer.GetComponent<PrefabHandler>().currShip);
-                Destroy(originalPlayer);
-                GameObject instantiatedShip = Instantiate(newShip, shipPosition, shipQuaternion);
+                // Initialize initial variables to prepare for switching the ship
+                InstantiatedShip selectedShip = station.shipStorage[i];     // Grab the proper ship out of storage
+                Fleet playerFleet = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().fleetAssociation;       // Grab the fleet associated with the current player's ship
+                GameObject originalPlayer = VulturaInstance.currentPlayer;  // Hold the reference to the original "current player"
+                
+                station.shipStorage.RemoveAt(i);        // Remove the selected ship from the storage
+                station.shipStorage.Add(originalPlayer.GetComponent<PrefabHandler>().currShip);     // Add the current player ship to the station's storage
+                VulturaInstance.RemoveFromSystem(originalPlayer.GetComponent<PrefabHandler>().currShip);        // Remove the player's ship from the current system, as we are putting it in storage and removing it from the environment
+
+                Destroy(originalPlayer);        // Destroy the player from the system
+
+                GameObject instantiatedShip = Instantiate(selectedShip.ShipReference, VulturaInstance.currentPlayer.transform.position, VulturaInstance.currentPlayer.transform.rotation);
                 instantiatedShip.GetComponent<PrefabHandler>().InitialPlayer();
                 instantiatedShip.GetComponent<PrefabHandler>().currShip = selectedShip;
+
                 VulturaInstance.AddToSystem(instantiatedShip.GetComponent<PrefabHandler>().currShip);
+
                 playerFleet.FleetCommander = instantiatedShip.GetComponent<PrefabHandler>().currShip;
                 VulturaInstance.currentPlayer = instantiatedShip;
+                playerInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;
+
                 instantiatedShip.GetComponent<PrefabHandler>().currShip.selectableObject = VulturaInstance.currentPlayer;
                 instantiatedShip.GetComponent<PrefabHandler>().fleetAssociation = playerFleet;
+
                 inventoryList.itemsSource = instantiatedShip.GetComponent<PrefabHandler>().currShip.Cargo.itemList;
+
                 shipList.Rebuild();
                 inventoryList.Rebuild();
                 storageList.Rebuild();
@@ -123,27 +146,27 @@ public class MiningStationUI : MonoBehaviour
         Func<VisualElement> makeItemInventory = () => inventoryRow.Instantiate();
         Action<VisualElement, int> bindItemInventory = (e, i) => {
             var itemName = e.Q<Label>("item-name");
-            itemName.text = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].item.Name;
+            itemName.text = playerInventory.itemList[i].item.Name;
 
             var itemQuantity = e.Q<Label>("item-quantity");
-            itemQuantity.text = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].quantity.ToString();
+            itemQuantity.text = playerInventory.itemList[i].quantity.ToString();
 
             e.RegisterCallback<PointerDownEvent>(ev => {
                 if (Input.GetKey("left shift"))
                 {
                     if (!inSpecify)
-                        VulturaInstance.SwapInventory(i, VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo, station.storage, VulturaInstance.MoveType.ALL);
+                        VulturaInstance.SwapInventory(i, playerInventory, station.storage, VulturaInstance.MoveType.ALL);
                 }
                 else if (Input.GetKey("left ctrl"))
                 {
                     inSpecify = true;
                     inventorySplit.style.top = ev.position.y - inventorySplit.layout.height;
                     inventorySplit.style.left = ev.position.x;
-                    inventorySplit.Q<Label>("item-name").text = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].item.Name;
+                    inventorySplit.Q<Label>("item-name").text = playerInventory.itemList[i].item.Name;
                     Label transferAmount = inventorySplit.Q<Label>("transfer-amount");
                     transferAmount.text = "1";
                     SliderInt swapSlider = inventorySplit.Q<SliderInt>("transfer-slider");
-                    swapSlider.highValue = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].quantity;
+                    swapSlider.highValue = playerInventory.itemList[i].quantity;
                     swapSlider.lowValue = 1;
                     swapSlider.value = 1;
                     
@@ -152,7 +175,7 @@ public class MiningStationUI : MonoBehaviour
                     });
 
                     inventorySplit.Q<Button>("ok-button").RegisterCallback<ClickEvent>(ev => {
-                        VulturaInstance.SwapInventory(i, VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo, station.storage, VulturaInstance.MoveType.SPECIFY, swapSlider.value);
+                        VulturaInstance.SwapInventory(i, playerInventory, station.storage, VulturaInstance.MoveType.SPECIFY, swapSlider.value);
                         inSpecify = false;
 
                         inventoryList.Rebuild();
@@ -171,7 +194,7 @@ public class MiningStationUI : MonoBehaviour
                 else
                 {
                     if(!inSpecify)
-                        VulturaInstance.SwapInventory(i, VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo, station.storage, VulturaInstance.MoveType.SINGLE);
+                        VulturaInstance.SwapInventory(i, playerInventory, station.storage, VulturaInstance.MoveType.SINGLE);
                 }
 
                 inventoryList.Rebuild();
@@ -191,14 +214,14 @@ public class MiningStationUI : MonoBehaviour
                 if (Input.GetKey("left shift"))
                 {
                     if (!inSpecify)
-                        VulturaInstance.SwapInventory(i, station.storage, VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo, VulturaInstance.MoveType.ALL);
+                        VulturaInstance.SwapInventory(i, station.storage, playerInventory, VulturaInstance.MoveType.ALL);
                 }
                 else if (Input.GetKey("left ctrl"))
                 {
                     inSpecify = true;
                     storageSplit.style.top = ev.position.y - storageSplit.layout.height;
                     storageSplit.style.left = ev.position.x;
-                    storageSplit.Q<Label>("item-name").text = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].item.Name;
+                    storageSplit.Q<Label>("item-name").text = playerInventory.itemList[i].item.Name;
                     Label transferAmount = storageSplit.Q<Label>("transfer-amount");
                     transferAmount.text = "1";
                     SliderInt swapSlider = storageSplit.Q<SliderInt>("transfer-slider");
@@ -211,7 +234,7 @@ public class MiningStationUI : MonoBehaviour
                     });
 
                     storageSplit.Q<Button>("ok-button").RegisterCallback<ClickEvent>(ev => {
-                        VulturaInstance.SwapInventory(i, station.storage, VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo, VulturaInstance.MoveType.SPECIFY, swapSlider.value);
+                        VulturaInstance.SwapInventory(i, station.storage, playerInventory, VulturaInstance.MoveType.SPECIFY, swapSlider.value);
                         inSpecify = false;
 
                         inventoryList.Rebuild();
@@ -231,7 +254,7 @@ public class MiningStationUI : MonoBehaviour
                 else
                 {
                     if (!inSpecify)
-                        VulturaInstance.SwapInventory(i, station.storage, VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo, VulturaInstance.MoveType.SINGLE);
+                        VulturaInstance.SwapInventory(i, station.storage, playerInventory, VulturaInstance.MoveType.SINGLE);
                 }
 
                 inventoryList.Rebuild();
@@ -241,7 +264,7 @@ public class MiningStationUI : MonoBehaviour
 
         inventoryList.makeItem = makeItemInventory;
         inventoryList.bindItem = bindItemInventory;
-        inventoryList.itemsSource = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList;
+        inventoryList.itemsSource = playerInventory.itemList;
 
         storageList.makeItem = makeItemInventory;
         storageList.bindItem = bindItemStorage;
@@ -295,6 +318,27 @@ public class MiningStationUI : MonoBehaviour
         var stationHeadInstance = contactCard.Instantiate();
         stationHeadInstance.Q<Label>("contact-name").text = station.stationHead.Name;
         stationHeadInstance.Q<Label>("contact-type").text = VulturaInstance.enumStringParser(station.stationHead.Type.ToString());
+        stationHeadInstance.userData = station.stationHead;
+        stationHeadInstance.RegisterCallback<ClickEvent>(ev => {
+                if (selectedContact == null)
+                {
+                    stationHeadInstance.EnableInClassList("selected", true);
+                    selectedContact = stationHeadInstance;
+                }
+                else if (stationHeadInstance == selectedContact)
+                {
+                    selectedContact.EnableInClassList("selected", false);
+                    selectedContact = null;
+                }
+                else
+                {
+                    selectedContact.EnableInClassList("selected", false);
+                    stationHeadInstance.EnableInClassList("selected", true);
+                    selectedContact = stationHeadInstance;
+                }
+
+                InitializeConversationStack();
+        });
         contactVisual.Add(stationHeadInstance);
 
         foreach (Contact contactObject in station.contacts)
@@ -302,7 +346,146 @@ public class MiningStationUI : MonoBehaviour
             var contactInstance = contactCard.Instantiate();
             contactInstance.Q<Label>("contact-name").text = contactObject.Name;
             contactInstance.Q<Label>("contact-type").text = VulturaInstance.enumStringParser(contactObject.Type.ToString());
+            contactInstance.userData = contactObject;
+            contactInstance.RegisterCallback<ClickEvent>(ev => {
+                if (selectedContact == null)
+                {
+                    contactInstance.EnableInClassList("selected", true);
+                    selectedContact = contactInstance;
+                }
+                else if (selectedContact == contactInstance)
+                {
+                    selectedContact.EnableInClassList("selected", false);
+                    selectedContact = null;
+                }
+                else
+                {
+                    selectedContact.EnableInClassList("selected", false);
+                    contactInstance.EnableInClassList("selected", true);
+                    selectedContact = contactInstance;
+                }
+
+                if ((selectedContact.userData as Contact).Conversation != null)
+                    InitializeConversationStack();
+            });
+
             contactVisual.Add(contactInstance);
+        }
+    }
+
+    public void InitializeConversationStack()
+    {
+        if (selectedContact == null)
+        {
+            convoStack = null;
+        }
+        else
+        {
+            convoStack = new ConversationStack();
+            convoStack.Push((selectedContact.userData as Contact).Conversation);
+        }
+
+        DisplayConvo();
+
+        // if (selectedContact == null)
+        // {
+        //     contactRoot.Q<Label>("contact-empty").style.display = DisplayMode.Flex;
+
+        //     contactRoot.Q<VisualElement>("contact-text-top").style.display = DisplayMode.None;
+        //     contactRoot.Q<VisualElement>("contact-text-body").style.display = DisplayMode.None;
+        //     contactRoot.Q<VisualElement>("contact-text-body").style.display = DisplayMode.None;
+        // }
+        // else
+        // {
+        //     contactRoot.Q<Label>("contact-text-name").text = (selectedContact.userData as Contact).Conversation
+        // }
+    }
+
+    public void DisplayConvo()
+    {
+        if (convoStack == null)
+        {
+            contactRoot.Q<Label>("contact-empty").style.display = DisplayStyle.Flex;
+
+            contactRoot.Q<VisualElement>("contact-text-top").style.display = DisplayStyle.None;
+            contactRoot.Q<VisualElement>("contact-text-body").style.display = DisplayStyle.None;
+            contactRoot.Q<VisualElement>("contact-text-footer").style.display = DisplayStyle.None;
+        }
+        else
+        {
+            Debug.Log(convoStack.Convos[0].Prompt);
+
+            Contact currContact = selectedContact.userData as Contact;
+
+            contactRoot.Q<Label>("contact-text-name").text = currContact.Name;
+            contactRoot.Q<Label>("contact-text-faction").text = currContact.Faction;
+            contactRoot.Q<VisualElement>("contact-text-top").style.display = DisplayStyle.Flex;
+
+            contactRoot.Q<Label>("contact-text-paragraph").text = convoStack.Top().Prompt;
+            contactRoot.Q<VisualElement>("contact-text-body").style.display = DisplayStyle.Flex;
+
+            for (int i = 0; i < 3; i++)
+            {
+                Conversation topConvo = convoStack.Top();
+
+                if (i < topConvo.Responses.Count)
+                {
+                    BaseResponse currResponse = convoStack.Top().Responses[i];
+                    contactRoot.Q<Label>("contact-choice" + (i+1)).text = (i+1).ToString() + ". " + convoStack.Top().Responses[i].Prompt;
+                    contactRoot.Q<Label>("contact-choice" + (i+1)).userData = currResponse;
+                    contactRoot.Q<Label>("contact-choice" + (i+1)).UnregisterCallback<ClickEvent>(ResponseClick);
+                    contactRoot.Q<Label>("contact-choice" + (i+1)).RegisterCallback<ClickEvent>(ResponseClick);
+                    contactRoot.Q<Label>("contact-choice" + (i+1)).style.display = DisplayStyle.Flex;
+                }
+                else
+                {
+                    contactRoot.Q<Label>("contact-choice" + (i+1)).style.display = DisplayStyle.None;
+                }
+                
+            }
+
+            contactRoot.Q<VisualElement>("contact-text-footer").style.display = DisplayStyle.Flex;
+
+            contactRoot.Q<Label>("contact-empty").style.display = DisplayStyle.None;
+        }
+    }
+
+    public void ResponseClick(ClickEvent ev)
+    {
+        Label contactLabel = ev.currentTarget as Label;
+        Debug.Log(contactLabel.userData);
+        HandleResponses(contactLabel.userData as BaseResponse);
+    }
+
+    public void HandleResponses(BaseResponse response)
+    {
+        Debug.Log("Handling Responses");
+        if (response.Type == VulturaInstance.ResponseType.Basic)
+        {
+            BasicResponse currResponse = response as BasicResponse;
+            if (currResponse.GoBack)
+            {
+                convoStack.Pop();
+
+                if (convoStack.IsEmpty())
+                {
+                    convoStack = null;
+                    selectedContact.EnableInClassList("selected", false);
+                    selectedContact = null;
+                }  
+            }
+            else
+            {
+                if (currResponse.Conversation != null)
+                {
+                    Debug.Log("Pushing convo");
+                    Debug.Log(currResponse.Prompt);
+                    convoStack.Push(currResponse.Conversation);
+                    convoStack.DisplayConvoStack();
+                } 
+            }
+            
+            DisplayConvo();
         }
     }
 
@@ -400,7 +583,7 @@ public class MiningStationUI : MonoBehaviour
                         marketRoot.Q<Label>("bottom-item-difference").text = "<color=\"green\">+" + currentPercentDeviation.ToString("N2") + "%</color>";
                     marketRoot.Q<Label>("bottom-item-buy-price").text = "$" + station.market.itemList[i].sellPrice.ToString();
                     
-                    InventoryItem itemInInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.FindItem(station.market.itemList[i].item);
+                    InventoryItem itemInInventory = playerInventory.FindItem(station.market.itemList[i].item);
 
                     if (itemInInventory != null)
                     {
@@ -427,10 +610,10 @@ public class MiningStationUI : MonoBehaviour
         Func<VisualElement> makeItemInventory = () => inventoryRow.Instantiate();
         Action<VisualElement, int> bindItemInventory = (e, i) => {
             var itemName = e.Q<Label>("item-name");
-            itemName.text = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].item.Name;
+            itemName.text = playerInventory.itemList[i].item.Name;
 
             var itemQuantity = e.Q<Label>("item-quantity");
-            itemQuantity.text = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[i].quantity.ToString();
+            itemQuantity.text = playerInventory.itemList[i].quantity.ToString();
 
             e.RegisterCallback<ClickEvent>(ev => {
                 
@@ -455,7 +638,7 @@ public class MiningStationUI : MonoBehaviour
 
         inventoryList.makeItem = makeItemInventory;
         inventoryList.bindItem = bindItemInventory;
-        inventoryList.itemsSource = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList;
+        inventoryList.itemsSource = playerInventory.itemList;
 
         storageList.makeItem = makeItemInventory;
         storageList.bindItem = bindItemStorage;
@@ -474,13 +657,12 @@ public class MiningStationUI : MonoBehaviour
 
         if (success)
         {
-            Inventory cargo = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;
 
-            int itemIndex = cargo.FindItemIndex(station.market.itemList[selectedIndex].item);
+            int itemIndex = playerInventory.FindItemIndex(station.market.itemList[selectedIndex].item);
 
             if (itemIndex != -1)
             {
-                cargo.PopAmount(itemIndex, currQuantity);
+                playerInventory.PopAmount(itemIndex, currQuantity);
                 VulturaInstance.playerMoney += totalSellCost;
 
                 inventoryList.Rebuild();

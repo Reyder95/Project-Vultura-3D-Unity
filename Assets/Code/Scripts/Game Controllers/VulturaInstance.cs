@@ -104,6 +104,13 @@ public static class VulturaInstance
         SPECIFY
     }
 
+    public enum ResponseType {
+        Back,
+        Shop,
+        Basic,
+        Commander
+    }
+
     public static bool SwapInventory(int index, Inventory invFrom, Inventory invTo, MoveType moveType, int quantity = 0)
     {
         InventoryItem inventoryItem = null;

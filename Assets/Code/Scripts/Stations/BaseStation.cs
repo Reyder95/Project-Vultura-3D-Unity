@@ -33,6 +33,7 @@ public class BaseStation : BaseSelectable
         }
 
         stationHead = new Contact("Akane Mioka", "SomeFaction", VulturaInstance.ContactType.Station_Head);
+        stationHead.LoadConversation();
 
         InitializeFacilities();
         InitializeBaseStockpile();

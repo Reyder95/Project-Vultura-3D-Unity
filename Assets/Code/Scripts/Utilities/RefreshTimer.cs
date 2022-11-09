@@ -71,7 +71,6 @@ public class RefreshTimer : MonoBehaviour
 
     public void OnRefreshComplete()
     {
-        Debug.Log("Running production chains!");
         foreach (BaseStation station in Game.Instance.stations)
         {
             station.RunProductionChain();
