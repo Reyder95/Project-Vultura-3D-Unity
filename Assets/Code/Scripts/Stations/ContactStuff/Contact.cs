@@ -7,6 +7,7 @@ public class Contact
     private string name;
     private string faction;
     private VulturaInstance.ContactType type;
+    private Conversation conversation;
 
     public Contact(string name, string faction, VulturaInstance.ContactType type)
     {
@@ -17,7 +18,14 @@ public class Contact
 
     public void LoadConversation()
     {
-        // TODO
+        Debug.Log("Loaded conversation");
+        if (GlobalConvoHolder.conversationList.ContainsKey(this.type))
+        {
+            Debug.Log("Inside conversation");
+            List<Conversation> convos = GlobalConvoHolder.conversationList[this.type];
+
+            conversation = convos[Random.Range(0, convos.Count - 1)];
+        }
     }
 
     public string Name {
@@ -39,6 +47,14 @@ public class Contact
         get
         {
             return this.type;
+        }
+    }
+
+    public Conversation Conversation
+    {
+        get
+        {
+            return this.conversation;
         }
     }
 }

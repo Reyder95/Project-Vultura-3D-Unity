@@ -40,13 +40,7 @@ public class Market
     // }
 
     public float CalculatePrice(int basePrice, int supply, int demand)
-    {
-        Debug.Log(1.0f + Mathf.Exp(-supply + 1));
-        Debug.Log("Base price is " + basePrice.ToString());
-        Debug.Log("Supply is " + supply.ToString());
-        Debug.Log("Demand is " + demand.ToString());
-        Debug.Log("Relative Supply is " + CalculateRelativeValue(basePrice, supply));
-        Debug.Log("Relative Demand is " + CalculateRelativeValue(basePrice, demand));
+    {   
         return basePrice * (CalculateRelativeValue(basePrice, demand) / CalculateRelativeValue(basePrice, supply));
     }
 
@@ -61,15 +55,9 @@ public class Market
 
             float currentPercentDeviation = Mathf.Abs(((float)itemList[value.index].item.GalacticPrice - (float)itemList[value.index].buyPrice) / (float)itemList[value.index].buyPrice * 100.0f);
 
-            Debug.Log("TEST!" + Mathf.Abs((18.0f - 12.0f) / 12.0f * 100.0f).ToString());
-            Debug.Log("TEST!" + Mathf.Abs((18.0f - (18.0f + 18.0f)) / (18.0f + 18.0f) * 100.0f).ToString());
-
             if (currentPercentDeviation > 50.0f)
             {
-                Debug.Log("WE'RE IN!");
                 int differenceValue = (int)Mathf.Floor((100.0f * (float)itemList[value.index].item.GalacticPrice) / (100.0f + 50.00f));
-                Debug.Log("Difference!" + differenceValue.ToString());
-                Debug.Log(itemList[value.index].item.GalacticPrice);
                 if (itemList[value.index].buyPrice >= itemList[value.index].item.GalacticPrice)
                 {
                     itemList[value.index].buyPrice = itemList[value.index].item.GalacticPrice * 2;

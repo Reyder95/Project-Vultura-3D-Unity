@@ -13,11 +13,19 @@ abstract public class BaseResponse
         this.type = type;
     }   
 
-    private string Prompt
+    public string Prompt
     {
         get
         {
             return this.prompt;
+        }
+    }
+
+    public VulturaInstance.ResponseType Type 
+    {
+        get
+        {
+            return this.type;
         }
     }
 }

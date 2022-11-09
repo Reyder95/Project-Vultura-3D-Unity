@@ -1,12 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement name="contact-1" style="height: 100%; flex-direction: row; align-items: center; margin-top: 10px; margin-bottom: 10px;">
+    <Style src="project://database/Assets/Level/UI%20Assets/USS/contactCard.uss?fileID=7433441132597879392&amp;guid=9eca58cf713928b418d724c74133a6ed&amp;type=3#contactCard" />
+    <ui:VisualElement name="contact-1" class="contact-card" style="height: 100%; flex-direction: row; align-items: center; margin-top: 10px; margin-bottom: 10px;">
         <ui:VisualElement name="contact-portrait" style="background-color: rgb(103, 103, 103); width: 64px; height: 64px; margin-left: 15px;" />
         <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
             <ui:VisualElement name="contact-info" style="margin-left: 15px; height: 64px; width: 529px; background-color: rgba(166, 93, 93, 0);">
-                <ui:Label text="Akane Mikasa" display-tooltip-when-elided="true" name="contact-name" style="-unity-font-style: bold; height: 33%; align-items: center; justify-content: center; -unity-text-align: middle-left; font-size: 20px; position: absolute; top: 0; color: rgba(152, 152, 152, 255);" />
-                <ui:Label text="Station Head" display-tooltip-when-elided="true" name="contact-type" style="height: 33%; -unity-text-align: middle-left; -unity-font-style: bold; bottom: 0; position: absolute; color: rgba(159, 159, 159, 255);" />
+                <ui:Label text="Akane Mikasa" display-tooltip-when-elided="true" name="contact-name" style="-unity-font-style: bold; height: 33%; align-items: center; justify-content: center; -unity-text-align: middle-left; font-size: 20px; position: absolute; top: 0; color: rgb(152, 152, 152);" />
+                <ui:Label text="Station Head" display-tooltip-when-elided="true" name="contact-type" style="height: 33%; -unity-text-align: middle-left; -unity-font-style: bold; bottom: 0; position: absolute; color: rgb(159, 159, 159);" />
             </ui:VisualElement>
-            <ui:VisualElement style="width: 32px; height: 32px; justify-content: flex-start; background-color: rgba(159, 159, 159, 255); margin-right: 15px;" />
+            <ui:VisualElement style="width: 32px; height: 32px; justify-content: flex-start; background-color: rgb(159, 159, 159); margin-right: 15px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

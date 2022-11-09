@@ -49,6 +49,8 @@ public class Game : MonoBehaviour
             Instance = this;
         }
 
+        GlobalConvoHolder.LoadStationHeadConversations();
+
         VulturaInstance.InitializeFleetList();
         VulturaInstance.InitializeSystems();
 

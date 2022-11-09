@@ -37,6 +37,10 @@ public class MiningStationUI : MonoBehaviour
     public SliderInt quantitySlider;
     public VisualElement currentSelected;
 
+    //Contact stuff
+    public ConversationStack convoStack;
+    public VisualElement selectedContact;
+
     // The station of this UI
     public BaseStation station;
 
@@ -314,6 +318,27 @@ public class MiningStationUI : MonoBehaviour
         var stationHeadInstance = contactCard.Instantiate();
         stationHeadInstance.Q<Label>("contact-name").text = station.stationHead.Name;
         stationHeadInstance.Q<Label>("contact-type").text = VulturaInstance.enumStringParser(station.stationHead.Type.ToString());
+        stationHeadInstance.userData = station.stationHead;
+        stationHeadInstance.RegisterCallback<ClickEvent>(ev => {
+                if (selectedContact == null)
+                {
+                    stationHeadInstance.EnableInClassList("selected", true);
+                    selectedContact = stationHeadInstance;
+                }
+                else if (stationHeadInstance == selectedContact)
+                {
+                    selectedContact.EnableInClassList("selected", false);
+                    selectedContact = null;
+                }
+                else
+                {
+                    selectedContact.EnableInClassList("selected", false);
+                    stationHeadInstance.EnableInClassList("selected", true);
+                    selectedContact = stationHeadInstance;
+                }
+
+                InitializeConversationStack();
+        });
         contactVisual.Add(stationHeadInstance);
 
         foreach (Contact contactObject in station.contacts)
@@ -321,7 +346,146 @@ public class MiningStationUI : MonoBehaviour
             var contactInstance = contactCard.Instantiate();
             contactInstance.Q<Label>("contact-name").text = contactObject.Name;
             contactInstance.Q<Label>("contact-type").text = VulturaInstance.enumStringParser(contactObject.Type.ToString());
+            contactInstance.userData = contactObject;
+            contactInstance.RegisterCallback<ClickEvent>(ev => {
+                if (selectedContact == null)
+                {
+                    contactInstance.EnableInClassList("selected", true);
+                    selectedContact = contactInstance;
+                }
+                else if (selectedContact == contactInstance)
+                {
+                    selectedContact.EnableInClassList("selected", false);
+                    selectedContact = null;
+                }
+                else
+                {
+                    selectedContact.EnableInClassList("selected", false);
+                    contactInstance.EnableInClassList("selected", true);
+                    selectedContact = contactInstance;
+                }
+
+                if ((selectedContact.userData as Contact).Conversation != null)
+                    InitializeConversationStack();
+            });
+
             contactVisual.Add(contactInstance);
+        }
+    }
+
+    public void InitializeConversationStack()
+    {
+        if (selectedContact == null)
+        {
+            convoStack = null;
+        }
+        else
+        {
+            convoStack = new ConversationStack();
+            convoStack.Push((selectedContact.userData as Contact).Conversation);
+        }
+
+        DisplayConvo();
+
+        // if (selectedContact == null)
+        // {
+        //     contactRoot.Q<Label>("contact-empty").style.display = DisplayMode.Flex;
+
+        //     contactRoot.Q<VisualElement>("contact-text-top").style.display = DisplayMode.None;
+        //     contactRoot.Q<VisualElement>("contact-text-body").style.display = DisplayMode.None;
+        //     contactRoot.Q<VisualElement>("contact-text-body").style.display = DisplayMode.None;
+        // }
+        // else
+        // {
+        //     contactRoot.Q<Label>("contact-text-name").text = (selectedContact.userData as Contact).Conversation
+        // }
+    }
+
+    public void DisplayConvo()
+    {
+        if (convoStack == null)
+        {
+            contactRoot.Q<Label>("contact-empty").style.display = DisplayStyle.Flex;
+
+            contactRoot.Q<VisualElement>("contact-text-top").style.display = DisplayStyle.None;
+            contactRoot.Q<VisualElement>("contact-text-body").style.display = DisplayStyle.None;
+            contactRoot.Q<VisualElement>("contact-text-footer").style.display = DisplayStyle.None;
+        }
+        else
+        {
+            Debug.Log(convoStack.Convos[0].Prompt);
+
+            Contact currContact = selectedContact.userData as Contact;
+
+            contactRoot.Q<Label>("contact-text-name").text = currContact.Name;
+            contactRoot.Q<Label>("contact-text-faction").text = currContact.Faction;
+            contactRoot.Q<VisualElement>("contact-text-top").style.display = DisplayStyle.Flex;
+
+            contactRoot.Q<Label>("contact-text-paragraph").text = convoStack.Top().Prompt;
+            contactRoot.Q<VisualElement>("contact-text-body").style.display = DisplayStyle.Flex;
+
+            for (int i = 0; i < 3; i++)
+            {
+                Conversation topConvo = convoStack.Top();
+
+                if (i < topConvo.Responses.Count)
+                {
+                    BaseResponse currResponse = convoStack.Top().Responses[i];
+                    contactRoot.Q<Label>("contact-choice" + (i+1)).text = (i+1).ToString() + ". " + convoStack.Top().Responses[i].Prompt;
+                    contactRoot.Q<Label>("contact-choice" + (i+1)).userData = currResponse;
+                    contactRoot.Q<Label>("contact-choice" + (i+1)).UnregisterCallback<ClickEvent>(ResponseClick);
+                    contactRoot.Q<Label>("contact-choice" + (i+1)).RegisterCallback<ClickEvent>(ResponseClick);
+                    contactRoot.Q<Label>("contact-choice" + (i+1)).style.display = DisplayStyle.Flex;
+                }
+                else
+                {
+                    contactRoot.Q<Label>("contact-choice" + (i+1)).style.display = DisplayStyle.None;
+                }
+                
+            }
+
+            contactRoot.Q<VisualElement>("contact-text-footer").style.display = DisplayStyle.Flex;
+
+            contactRoot.Q<Label>("contact-empty").style.display = DisplayStyle.None;
+        }
+    }
+
+    public void ResponseClick(ClickEvent ev)
+    {
+        Label contactLabel = ev.currentTarget as Label;
+        Debug.Log(contactLabel.userData);
+        HandleResponses(contactLabel.userData as BaseResponse);
+    }
+
+    public void HandleResponses(BaseResponse response)
+    {
+        Debug.Log("Handling Responses");
+        if (response.Type == VulturaInstance.ResponseType.Basic)
+        {
+            BasicResponse currResponse = response as BasicResponse;
+            if (currResponse.GoBack)
+            {
+                convoStack.Pop();
+
+                if (convoStack.IsEmpty())
+                {
+                    convoStack = null;
+                    selectedContact.EnableInClassList("selected", false);
+                    selectedContact = null;
+                }  
+            }
+            else
+            {
+                if (currResponse.Conversation != null)
+                {
+                    Debug.Log("Pushing convo");
+                    Debug.Log(currResponse.Prompt);
+                    convoStack.Push(currResponse.Conversation);
+                    convoStack.DisplayConvoStack();
+                } 
+            }
+            
+            DisplayConvo();
         }
     }
 

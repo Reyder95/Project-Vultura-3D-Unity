@@ -20,4 +20,12 @@ public class BasicResponse : BaseResponse
             return this.conversation;
         }
     }
+
+    public bool GoBack
+    {
+        get
+        {
+            return this.goBack;
+        }
+    }
 }
