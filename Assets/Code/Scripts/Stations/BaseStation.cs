@@ -13,6 +13,8 @@ public class BaseStation : BaseSelectable
     public List<InstantiatedShip> shipStorage = new List<InstantiatedShip>();
     public Market market = new Market();
 
+    public List<Contract> contracts = new List<Contract>();
+
     //public Inventory stockpile = new Inventory();
 
     public List<Facility> facilities = new List<Facility>();
@@ -34,6 +36,21 @@ public class BaseStation : BaseSelectable
 
         stationHead = new Contact("Akane Mioka", "SomeFaction", VulturaInstance.ContactType.Station_Head);
         stationHead.LoadConversation();
+
+        int randomContractCount = Random.Range(2, 6);
+
+        for (int i = 0; i < randomContractCount; i++)
+        {
+            Inventory contractInventory = new Inventory();
+            int itemCount = Random.Range(1, 4);
+
+            for (int j = 0; j < itemCount; j++)
+            {
+                contractInventory.Add(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[Random.Range(1, 5)].Create(), Random.Range(1, 8)));
+            }
+            
+            this.AddContract(contractInventory, "system2", "some-faction");
+        }
 
         InitializeFacilities();
         InitializeBaseStockpile();
@@ -59,6 +76,11 @@ public class BaseStation : BaseSelectable
                 facility.stockpile.Add(new InventoryItem(consumer.itemExec(), Random.Range(30, 50)));
             }
         }
+    }
+
+    public void AddContract(Inventory contractInventory, string destination, string faction)
+    {
+        this.contracts.Add(new Contract(destination, contractInventory, faction));
     }
 
     public void RunProductionChain()
