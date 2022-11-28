@@ -444,6 +444,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9197481963319205126, guid: 2fd1afea440a556458e3be429ed77398,
         type: 3}
+    - target: {fileID: 1531591943555440989, guid: f2ed7b2c574fc734f8ef93a1d04e83b4,
+        type: 3}
+      propertyPath: cargoGameobject
+      value: 
+      objectReference: {fileID: 7320494214470249477}
     - target: {fileID: 4558018476785709543, guid: f2ed7b2c574fc734f8ef93a1d04e83b4,
         type: 3}
       propertyPath: m_Name
@@ -515,6 +520,12 @@ Transform:
 --- !u!1 &5072070906981274135 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4558018476785709543, guid: f2ed7b2c574fc734f8ef93a1d04e83b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 8728759180611871728}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7320494214470249477 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2068654752463441909, guid: f2ed7b2c574fc734f8ef93a1d04e83b4,
     type: 3}
   m_PrefabInstance: {fileID: 8728759180611871728}
   m_PrefabAsset: {fileID: 0}

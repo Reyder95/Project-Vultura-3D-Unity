@@ -12,16 +12,20 @@ public class MiningStationUI : MonoBehaviour
     public VisualTreeAsset contactCard;
     public VisualTreeAsset inventoryRow;
     public VisualTreeAsset marketRow;
+    public VisualTreeAsset contractItem;
+    public VisualTreeAsset currentContractItem;
 
     // Game objects for the different station windows
     public GameObject homeGameobject;
     public GameObject contactGameobject;
     public GameObject marketGameobject;
+    public GameObject cargoGameobject;
 
     // Roots for each window
     public VisualElement homeRoot;
     public VisualElement contactRoot;
     public VisualElement marketRoot;
+    public VisualElement cargoRoot;
 
     // Storage stuff
     public VisualElement storagePane;
@@ -41,6 +45,9 @@ public class MiningStationUI : MonoBehaviour
     public ConversationStack convoStack;
     public VisualElement selectedContact;
 
+    // Cargo stuff
+    public VisualElement selectedContract;
+
     // The station of this UI
     public BaseStation station;
 
@@ -57,6 +64,7 @@ public class MiningStationUI : MonoBehaviour
         homeGameobject.SetActive(false);
         contactGameobject.SetActive(false);
         marketGameobject.SetActive(false);
+        cargoGameobject.SetActive(false);
     }
 
     // When exiting the station, set every game object to false
@@ -65,6 +73,7 @@ public class MiningStationUI : MonoBehaviour
         homeGameobject.SetActive(false);
         contactGameobject.SetActive(false);
         marketGameobject.SetActive(false);
+        cargoGameobject.SetActive(false);
     }
 
     // When entering a station
@@ -83,6 +92,7 @@ public class MiningStationUI : MonoBehaviour
         homeGameobject.SetActive(true);
         contactGameobject.SetActive(false);
         marketGameobject.SetActive(false);
+        cargoGameobject.SetActive(false);
 
         inSpecify = false;  // Since the homescreen is where we use this variable for station storage, we set it initially to false.
 
@@ -284,6 +294,10 @@ public class MiningStationUI : MonoBehaviour
             InitializeMarket();
         });
 
+        homeRoot.Q<Button>("button-contracts").RegisterCallback<ClickEvent>(ev => {
+            InitializeCargo();
+        });
+
         homeRoot.Q<Button>("storage-open").RegisterCallback<ClickEvent>(ev => {
             
             if (storagePane.style.display == DisplayStyle.None)
@@ -305,6 +319,7 @@ public class MiningStationUI : MonoBehaviour
         homeGameobject.SetActive(false);
         marketGameobject.SetActive(false);
         contactGameobject.SetActive(true);
+        cargoGameobject.SetActive(false);
 
         contactRoot = contactGameobject.GetComponent<UIDocument>().rootVisualElement;
         contactRoot.Q<Label>("station-name").text = station.SelectableName;
@@ -494,6 +509,7 @@ public class MiningStationUI : MonoBehaviour
         homeGameobject.SetActive(false);
         contactGameobject.SetActive(false);
         marketGameobject.SetActive(true);
+        cargoGameobject.SetActive(false);
 
         marketRoot = marketGameobject.GetComponent<UIDocument>().rootVisualElement;
 
@@ -692,6 +708,96 @@ public class MiningStationUI : MonoBehaviour
                 VulturaInstance.playerMoney -= totalCost;
 
             }
+        }
+    }
+
+    void InitializeCargo()
+    {
+        marketGameobject.SetActive(false);
+        cargoGameobject.SetActive(true);
+        contactGameobject.SetActive(false);
+        homeGameobject.SetActive(false);
+
+        cargoRoot = cargoGameobject.GetComponent<UIDocument>().rootVisualElement;
+
+        cargoRoot.Q<Button>("button-back").RegisterCallback<ClickEvent>(ev => {
+            InitializeHome();
+        });
+
+        DisplayContract();
+
+        VisualElement cargoList = cargoRoot.Q<VisualElement>("contract-list");
+
+        foreach (Contract contract in station.contracts)
+        {
+            VisualElement cargoInstance = contractItem.Instantiate();
+            string title = "";
+
+            foreach (InventoryItem item in contract.Items.itemList)
+            {
+                if (title == "")
+                {
+                    title += item.quantity.ToString() + " " + item.item.Name;
+                }
+                else
+                {
+                    title += ", " + item.quantity.ToString() + " " + item.item.Name;
+                }
+            }
+
+            cargoInstance.Q<Label>("contract-title").text = title;
+            cargoInstance.Q<Label>("contract-distance").text = UnityEngine.Random.Range(2, 17).ToString() + " jumps away";
+            cargoInstance.userData = contract;
+
+            cargoInstance.RegisterCallback<ClickEvent>(ev => {
+                if (selectedContract == null)
+                {
+                    cargoInstance.EnableInClassList("selected", true);
+                    selectedContract = cargoInstance;
+                }
+                else if (selectedContract == cargoInstance)
+                {
+                    selectedContract.EnableInClassList("selected", false);
+                    selectedContract = null;
+                }
+                else
+                {
+                    selectedContract.EnableInClassList("selected", false);
+                    cargoInstance.EnableInClassList("selected", true);
+                    selectedContract = cargoInstance;
+                }
+
+                DisplayContract();
+            });
+            
+            cargoList.Add(cargoInstance);
+        }
+    }
+
+    void DisplayContract()
+    {
+        if (selectedContract == null)
+        {
+            cargoRoot.Q<Label>("contract-empty").style.display = DisplayStyle.Flex;
+            cargoRoot.Q<VisualElement>("contract-selected").style.display = DisplayStyle.None;
+        }
+        else
+        {
+            cargoRoot.Q<Label>("contract-empty").style.display = DisplayStyle.None;
+
+            VisualElement itemList = cargoRoot.Q<VisualElement>("contract-items");
+            itemList.Clear();
+
+            foreach (InventoryItem item in (selectedContract.userData as Contract).Items.itemList)
+            {
+                VisualElement itemInstance = currentContractItem.Instantiate();
+                itemInstance.Q<Label>("item-name").text = item.quantity.ToString() + " " + item.item.Name;
+                itemList.Add(itemInstance);
+            }
+
+            cargoRoot.Q<Label>("contract-destination").text = "Destination: " + (selectedContract.userData as Contract).Destination;
+
+            cargoRoot.Q<VisualElement>("contract-selected").style.display = DisplayStyle.Flex;
         }
     }
 }
