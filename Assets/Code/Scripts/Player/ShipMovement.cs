@@ -29,10 +29,8 @@ public class ShipMovement : MonoBehaviour
         try {
             m_Rigidbody.AddForce(transform.forward * verticalAxis * Time.fixedDeltaTime * thrust);  // W - S | Moves ship forward and backwards. --TODO-- Need to work on speeds via top speeds.
         }
-        catch (NullReferenceException ex)
+        catch (NullReferenceException)
         {
-            Debug.Log("Vertical axis - Still initializing Prefab");
-            Debug.Log(ex);
         }
         
     }
@@ -43,10 +41,8 @@ public class ShipMovement : MonoBehaviour
         {
             m_Rigidbody.AddTorque(transform.up * horizontalAxis * Time.fixedDeltaTime * rotationSpeed);     // A - D | Turns ship left and right.
         }
-        catch (NullReferenceException ex)
+        catch (NullReferenceException)
         {
-            Debug.Log("Horizontal axis - Still initializing Prefab"); 
-            Debug.Log(ex);
         }
         
     }
@@ -57,10 +53,8 @@ public class ShipMovement : MonoBehaviour
         {
             m_Rigidbody.AddTorque(-transform.right * pitchAxis * Time.fixedDeltaTime * rotationSpeed);      // R - F | Turns ship up and down.
         }
-        catch (NullReferenceException ex)
+        catch (NullReferenceException)
         {
-            Debug.Log("Pitch axis - Still initializing Prefab"); 
-            Debug.Log(ex);
         }
 
         
@@ -72,10 +66,8 @@ public class ShipMovement : MonoBehaviour
         {
             m_Rigidbody.AddTorque(-transform.forward * rollAxis * Time.fixedDeltaTime * rotationSpeed);     // Q - E | Rolls ship left and right
         }
-        catch (NullReferenceException ex)
+        catch (NullReferenceException)
         {
-            Debug.Log("Roll axis - Still initializing Prefab"); 
-            Debug.Log(ex);
         }
         
     }

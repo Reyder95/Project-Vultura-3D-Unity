@@ -97,9 +97,14 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started)
         {
-            Debug.Log("Test");
             this.gameObject.GetComponent<PrefabHandler>().CancelWarp();
         }
+    }
+
+    public void OpenInventory(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            InventoryManager.Instance.HandleInventory();
     }
 
     void handleSelection(bool multiSelect = false, bool switchMain = false)

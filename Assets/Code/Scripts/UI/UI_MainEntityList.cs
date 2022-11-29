@@ -55,9 +55,8 @@ public class UI_MainEntityList : MonoBehaviour
 
                 var distance = e.Q<Label>("distance");
                 distance.text = entities[i].distance.ToString();
-            } catch (ArgumentOutOfRangeException ex)
+            } catch (ArgumentOutOfRangeException)
             {
-                Debug.Log("LOL");
             }
 
         e.RegisterCallback<ClickEvent>(ev => {
@@ -80,9 +79,8 @@ public class UI_MainEntityList : MonoBehaviour
                     }
 
                     SortAndPopulate();
-                } catch (ArgumentOutOfRangeException ex)
+                } catch (ArgumentOutOfRangeException)
                 {
-                    Debug.Log("RIP!");
                 }
             });
 
@@ -109,9 +107,8 @@ public class UI_MainEntityList : MonoBehaviour
                         e.EnableInClassList("selected-element", false);
                     }
                 }
-            } catch (ArgumentOutOfRangeException ex)
+            } catch (ArgumentOutOfRangeException)
             {
-                Debug.Log("RIP!!2");
             }
 
         };
@@ -125,9 +122,7 @@ public class UI_MainEntityList : MonoBehaviour
 
     private async void SortAndPopulate()
     {
-        float initial = Time.realtimeSinceStartup;
         NativeList<DataStruct> newList = new NativeList<DataStruct>(Allocator.TempJob);
-        Debug.Log("Test!");
 
         for (int i = 0; i < VulturaInstance.systemSelectables.Count; i++)
         {
@@ -148,7 +143,6 @@ public class UI_MainEntityList : MonoBehaviour
         entities = newList.ToArray();
         newList.Dispose();
         Refresh();
-        Debug.Log("Time elapsed: " + (Time.realtimeSinceStartup - initial) * 1000);
     }
 
     private void Deselected()

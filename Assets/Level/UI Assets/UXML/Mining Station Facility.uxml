@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="main-visual" style="position: absolute; left: 25%; right: 25%; top: 25%; bottom: 25%; background-color: rgb(70, 70, 70); border-left-color: rgb(255, 138, 30); border-right-color: rgb(255, 138, 30); border-top-color: rgb(255, 138, 30); border-bottom-color: rgb(255, 138, 30); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px;">
+        <ui:VisualElement name="header-element" style="width: 100%; flex-direction: row; justify-content: space-between;">
+            <ui:Label text="Karol Mining Station" display-tooltip-when-elided="true" name="station-name" style="-unity-font-style: bold; font-size: 40px; padding-left: 30px; padding-top: 10px; justify-content: center; padding-bottom: 10px; color: rgb(214, 214, 214);" />
+            <ui:Label text="Tri-Tachyon" display-tooltip-when-elided="true" name="station-faction" style="-unity-font-style: bold; font-size: 40px; padding-left: 0; padding-top: 10px; justify-content: center; padding-bottom: 10px; padding-right: 30px; color: rgb(118, 175, 197);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="facility-header" style="height: 30%; justify-content: flex-start; background-color: rgb(55, 55, 55); border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(60, 60, 60); border-right-color: rgb(60, 60, 60); border-top-color: rgb(60, 60, 60); border-bottom-color: rgb(60, 60, 60); flex-direction: row; align-items: center;">
+            <ui:VisualElement name="facility-head-text" style="height: 128px; margin-left: 25px; width: 100%; overflow: hidden;">
+                <ui:Label text="Industrial - &lt;color=&quot;red&quot;&gt;In Demand&lt;/color&gt;" display-tooltip-when-elided="true" name="facility-name" style="-unity-font-style: bold; font-size: 25px; color: rgb(219, 219, 219);" />
+                <ui:Label text="Producing ore and metals" display-tooltip-when-elided="true" name="facility-production" style="margin-top: 10px; font-size: 20px; height: 74px; white-space: normal; color: rgb(209, 209, 209);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="height: 444px; justify-content: center; align-items: center;">
+            <ui:Label text="Work in progress page" display-tooltip-when-elided="true" style="font-size: 30px; -unity-font-style: bold; color: rgb(219, 219, 219);" />
+            <ui:Button text="Back" display-tooltip-when-elided="true" name="back-button" style="-unity-text-align: middle-center; align-items: center; position: absolute; top: 85%; left: 2%;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
