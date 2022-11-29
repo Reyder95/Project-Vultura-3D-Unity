@@ -14,10 +14,11 @@ public abstract class Facility
 
     public bool demand = false;
 
-    public Facility(FacilityItem[] producing, FacilityItem[] consuming)
+    public Facility(FacilityItem[] producing, FacilityItem[] consuming, string facilityName)
     {
         this.producing = producing;
         this.consuming = consuming;
+        this.facilityName = facilityName;
     }
 
     public List<InventoryItem> Produce()
