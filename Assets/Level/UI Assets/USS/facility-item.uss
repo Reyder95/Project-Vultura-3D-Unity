@@ -1,0 +1,4 @@
+.facility-item:hover {
+    background-color: #9BA3A0;
+    backgroud-opacity: 0.8;
+}

@@ -23,36 +23,7 @@
                 <ui:Button text="Exit" display-tooltip-when-elided="true" name="button-exit" style="position: absolute; top: auto; left: 10px; width: 88px; bottom: 10px; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; height: 29px; font-size: 20px; -unity-font-style: bold;" />
             </ui:VisualElement>
             <ui:VisualElement name="facility-content" style="width: 50%;">
-                <ui:VisualElement name="facility-inner" style="position: absolute; left: 10%; top: 10%; right: 10%; bottom: 10%; background-color: rgb(51, 51, 51); flex-direction: row; align-items: center;">
-                    <ui:VisualElement name="facility-item1" style="height: 50%; width: 25%; align-items: center; padding-left: 5px; padding-right: 5px; justify-content: space-between;">
-                        <ui:VisualElement name="facility-image" style="width: 64px; height: 64px; background-color: rgb(255, 255, 255); margin-top: 10px;" />
-                        <ui:Label text="Industrial Lab" display-tooltip-when-elided="true" name="facility-name" style="white-space: normal; align-items: center; -unity-text-align: upper-center; -unity-font-style: bold; margin-top: 5px; color: rgb(204, 204, 204);" />
-                        <ui:VisualElement name="facility-status-element" style="justify-content: center; align-items: center; height: 63px; width: 81px;">
-                            <ui:Label text="&lt;color=&quot;green&quot;&gt;OK&lt;/color&gt;" display-tooltip-when-elided="true" name="facility-status" style="height: auto; -unity-text-align: upper-center; align-items: center; justify-content: center; width: auto; color: rgb(214, 214, 214);" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="facility-item2" style="height: 50%; width: 25%; align-items: center; padding-left: 5px; padding-right: 5px; justify-content: space-between;">
-                        <ui:VisualElement name="facility-image" style="width: 64px; height: 64px; background-color: rgb(255, 255, 255); margin-top: 10px;" />
-                        <ui:Label text="Mining Division" display-tooltip-when-elided="true" name="facility-name" style="white-space: normal; align-items: center; -unity-text-align: upper-center; -unity-font-style: bold; margin-top: 5px; color: rgb(217, 217, 217);" />
-                        <ui:VisualElement name="facility-status-element" style="justify-content: center; align-items: center; height: 63px; width: 81px;">
-                            <ui:Label text="In &lt;color=&quot;red&quot;&gt;Demand&lt;/color&gt;" display-tooltip-when-elided="true" name="facility-status" style="height: auto; -unity-text-align: upper-center; align-items: center; justify-content: center; width: auto; color: rgb(209, 209, 209);" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="facility-item1" style="height: 50%; width: 25%; align-items: center; padding-left: 5px; padding-right: 5px; justify-content: space-between;">
-                        <ui:VisualElement name="facility-image" style="width: 64px; height: 64px; background-color: rgb(255, 255, 255); margin-top: 10px;" />
-                        <ui:Label text="Medical Bay" display-tooltip-when-elided="true" name="facility-name" style="white-space: normal; align-items: center; -unity-text-align: upper-center; -unity-font-style: bold; margin-top: 5px; color: rgb(214, 214, 214);" />
-                        <ui:VisualElement name="facility-status-element" style="justify-content: center; align-items: center; height: 63px; width: 81px;">
-                            <ui:Label text="&lt;color=&quot;green&quot;&gt;OK&lt;/color&gt;" display-tooltip-when-elided="true" name="facility-status" style="height: auto; -unity-text-align: upper-center; align-items: center; justify-content: center; width: auto; color: rgb(212, 212, 212);" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="facility-item1" style="height: 50%; width: 25%; align-items: center; padding-left: 5px; padding-right: 5px; justify-content: space-between;">
-                        <ui:VisualElement name="facility-image" style="width: 64px; height: 64px; background-color: rgb(255, 255, 255); margin-top: 10px;" />
-                        <ui:Label text="Commerce" display-tooltip-when-elided="true" name="facility-name" style="white-space: normal; align-items: center; -unity-text-align: upper-center; -unity-font-style: bold; margin-top: 5px; color: rgb(214, 214, 214);" />
-                        <ui:VisualElement name="facility-status-element" style="justify-content: center; align-items: center; height: 63px; width: 81px;">
-                            <ui:Label text="In &lt;color=&quot;red&quot;&gt;Supply&lt;/color&gt;" display-tooltip-when-elided="true" name="facility-status" style="height: auto; -unity-text-align: upper-center; align-items: center; justify-content: center; width: auto; color: rgb(217, 217, 217);" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                </ui:VisualElement>
+                <ui:VisualElement name="facility-inner" style="position: absolute; left: 10%; top: 10%; right: 10%; bottom: 10%; background-color: rgb(51, 51, 51); flex-direction: row; align-items: center;" />
             </ui:VisualElement>
             <ui:Button text="Open Storage" display-tooltip-when-elided="true" name="storage-open" style="position: absolute; left: 45%; right: 45%; bottom: 2%;" />
             <ui:Button text="Ship Storage" display-tooltip-when-elided="true" name="ship-storage-button" style="position: absolute; right: 1%; top: 10px; width: 10%; height: 10px;" />

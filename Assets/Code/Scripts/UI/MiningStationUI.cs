@@ -14,18 +14,21 @@ public class MiningStationUI : MonoBehaviour
     public VisualTreeAsset marketRow;
     public VisualTreeAsset contractItem;
     public VisualTreeAsset currentContractItem;
+    public VisualTreeAsset facilityItem;
 
     // Game objects for the different station windows
     public GameObject homeGameobject;
     public GameObject contactGameobject;
     public GameObject marketGameobject;
     public GameObject cargoGameobject;
+    public GameObject facilityGameobject;
 
     // Roots for each window
     public VisualElement homeRoot;
     public VisualElement contactRoot;
     public VisualElement marketRoot;
     public VisualElement cargoRoot;
+    public VisualElement facilityRoot;
 
     // Storage stuff
     public VisualElement storagePane;
@@ -48,6 +51,9 @@ public class MiningStationUI : MonoBehaviour
     // Cargo stuff
     public VisualElement selectedContract;
 
+    // Facility stuff
+    public Facility currentFacility;
+
     // The station of this UI
     public BaseStation station;
 
@@ -65,6 +71,7 @@ public class MiningStationUI : MonoBehaviour
         contactGameobject.SetActive(false);
         marketGameobject.SetActive(false);
         cargoGameobject.SetActive(false);
+        facilityGameobject.SetActive(false);
     }
 
     // When exiting the station, set every game object to false
@@ -74,6 +81,7 @@ public class MiningStationUI : MonoBehaviour
         contactGameobject.SetActive(false);
         marketGameobject.SetActive(false);
         cargoGameobject.SetActive(false);
+        facilityGameobject.SetActive(false);
     }
 
     // When entering a station
@@ -85,6 +93,34 @@ public class MiningStationUI : MonoBehaviour
 
     }
 
+    public void PopulateFacilities()
+    {
+        for (int i = 0; i < station.facilities.Count; i++)
+        {
+            VisualElement facilityInstance = facilityItem.Instantiate();
+            facilityInstance.userData = station.facilities[i];
+            facilityInstance.style.width = Length.Percent(16.6f);
+
+            facilityInstance.Q<Label>("facility-name").text = station.facilities[i].facilityName;
+
+            if (!station.facilities[i].demand)
+            {
+                facilityInstance.Q<Label>("facility-status").text = "<color=\"green\">OK</color>";
+            }
+            else
+            {
+                facilityInstance.Q<Label>("facility-status").text = "<color=\"red\">In Demand</color>";
+            }
+
+            facilityInstance.RegisterCallback<ClickEvent>(ev => {
+                currentFacility = (ev.currentTarget as VisualElement).userData as Facility;
+                InitializeFacility();
+            });
+
+            homeRoot.Q<VisualElement>("facility-inner").Add(facilityInstance);
+        }
+    }
+
     // Initialize the homepage and display it
     public void InitializeHome()
     {
@@ -93,6 +129,7 @@ public class MiningStationUI : MonoBehaviour
         contactGameobject.SetActive(false);
         marketGameobject.SetActive(false);
         cargoGameobject.SetActive(false);
+        facilityGameobject.SetActive(false);
 
         inSpecify = false;  // Since the homescreen is where we use this variable for station storage, we set it initially to false.
 
@@ -106,6 +143,8 @@ public class MiningStationUI : MonoBehaviour
         shipList = homeRoot.Q<ListView>("ship-list");
         inventorySplit = homeRoot.Q<VisualElement>("item-transfer");
         storageSplit = homeRoot.Q<VisualElement>("item-transfer-storage");
+
+        PopulateFacilities();
 
         // Set the side panes to be hidden
         storagePane.style.display = DisplayStyle.None;
@@ -314,12 +353,51 @@ public class MiningStationUI : MonoBehaviour
         homeRoot.Q<Label>("station-name").text = station.SelectableName;
     }
 
+    public void InitializeFacility()
+    {
+        homeGameobject.SetActive(false);
+        marketGameobject.SetActive(false);
+        contactGameobject.SetActive(false);
+        cargoGameobject.SetActive(false);
+        facilityGameobject.SetActive(true);
+
+        facilityRoot = facilityGameobject.GetComponent<UIDocument>().rootVisualElement;
+        facilityRoot.Q<Label>("facility-name").text = currentFacility.facilityName + " - ";
+
+        facilityRoot.Q<Label>("facility-production").text = "Producing ";
+
+        for (int i = 0; i < currentFacility.producing.Length; i++)
+        {
+            BaseItem item = currentFacility.producing[i].itemExec();
+            if (i == 0)
+                facilityRoot.Q<Label>("facility-production").text += item.Name;
+            else if (i < i - 1 && currentFacility.producing.Length > 1)
+                facilityRoot.Q<Label>("facility-production").text += ", " + item.Name;
+            else
+                facilityRoot.Q<Label>("facility-production").text += " and " + item.Name;
+        }
+
+        if (currentFacility.demand)
+        {
+            facilityRoot.Q<Label>("facility-name").text += " <color=\"red\">In Demand</color>";
+        }
+        else
+        {
+            facilityRoot.Q<Label>("facility-name").text += " <color=\"green\">OK</color>";
+        }
+
+        facilityRoot.Q<Button>("back-button").RegisterCallback<ClickEvent>(ev => {
+            InitializeHome();
+        });
+    }
+
     public void InitializeContacts()
     {
         homeGameobject.SetActive(false);
         marketGameobject.SetActive(false);
         contactGameobject.SetActive(true);
         cargoGameobject.SetActive(false);
+        facilityGameobject.SetActive(false);
 
         contactRoot = contactGameobject.GetComponent<UIDocument>().rootVisualElement;
         contactRoot.Q<Label>("station-name").text = station.SelectableName;
@@ -510,6 +588,7 @@ public class MiningStationUI : MonoBehaviour
         contactGameobject.SetActive(false);
         marketGameobject.SetActive(true);
         cargoGameobject.SetActive(false);
+        facilityGameobject.SetActive(false);
 
         marketRoot = marketGameobject.GetComponent<UIDocument>().rootVisualElement;
 
@@ -717,6 +796,7 @@ public class MiningStationUI : MonoBehaviour
         cargoGameobject.SetActive(true);
         contactGameobject.SetActive(false);
         homeGameobject.SetActive(false);
+        facilityGameobject.SetActive(false);
 
         cargoRoot = cargoGameobject.GetComponent<UIDocument>().rootVisualElement;
 
