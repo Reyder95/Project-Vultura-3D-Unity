@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Trade goods. Their only purpose is for providing to stations or trading between stations.
 public class TradeGood : UnuseableItem
 {
     //private GameObject prefab;
@@ -9,17 +10,4 @@ public class TradeGood : UnuseableItem
     {
 
     }
-
-    // public void OnLoadDone(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle<GameObject> obj)
-    // {
-    //     this.prefab = obj.Result;
-    // }
-
-    // public GameObject Prefab
-    // {
-    //     get
-    //     {
-    //         return this.prefab;
-    //     }
-    // }
 }

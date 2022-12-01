@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     private ShipMovement shipMovement;  // The shipmovement script of the current prefab
     
-    private Camera myCamera;
+    private Camera myCamera;    // The camera on the player
 
     //public SelectorList selectorList = new SelectorList();  // A list of selected objects. Handles the selecting and deselecting of objects.
     private int mainSelected;           // The main selected index
@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-
         if (shipMovement != null)
         {
             shipMovement.MoveShip(Input.GetAxis("Vertical"));
@@ -40,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // Left CTRL lets you select multiple items
         if (Input.GetKey("left ctrl"))
         {
             multiselect = true;
@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
             multiselect = false;
         }
 
+        // Left Alt switches the main selection out of the list of currently selected items
         if (Input.GetKey("left alt"))
         {
             switchMain = true;
@@ -58,16 +59,19 @@ public class PlayerController : MonoBehaviour
             switchMain = false;
         }
 
+        // Tab lets you switch between items you have selected
         if (Input.GetKeyDown("tab"))
         {
             VulturaInstance.selectorList.CycleOne();
         }
 
+        // When clicking on an item, it will handle a selection.
         if (Input.GetMouseButtonDown(0))
         {
             handleSelection(multiselect, switchMain);
         }
 
+        // Activate the item that is main selected
         if (Input.GetKeyDown("n"))
         {
             if (VulturaInstance.selectorList.mainSelected != null)
@@ -85,6 +89,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Handle the warp when warp button is pressed
     public void WarpHandler(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -93,6 +98,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Cancel the warp
     public void CancelWarp(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -101,12 +107,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Open the inventory
     public void OpenInventory(InputAction.CallbackContext context)
     {
         if (context.started)
             InventoryManager.Instance.HandleInventory();
     }
 
+    // Select the item requested based on boolean values
     void handleSelection(bool multiSelect = false, bool switchMain = false)
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

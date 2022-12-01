@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// The base response class
 abstract public class BaseResponse
 {
     private string prompt;

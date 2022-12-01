@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Handles spawning ships in the world
 public class ShipSpawner : MonoBehaviour
 {
     void Awake()

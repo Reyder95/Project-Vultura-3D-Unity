@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Handles a single threaded timer on the game thread. Is used for production chains and may also be used for AI simulations
 public class RefreshTimer : MonoBehaviour
 {
 

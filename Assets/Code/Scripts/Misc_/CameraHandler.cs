@@ -29,13 +29,7 @@ public class CameraHandler : MonoBehaviour
 
     //private float _smoothTime = 3.0f;   // --TODO-- Use for zooming
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Calculates initial rotation based on null X and Y values --TODO-- Needs adjustment - X and Y values are null. Could use this to fix initial camera rotation
-        // SetCameraPosition();
-    }
-
+    // Sets camera position behind ship. Lets you switch from ship to ship and it will place the camera accordingly
     void SetCameraPosition()
     {
         Vector3 _currentRotation = new Vector3(_rotationX, _rotationY);
@@ -43,6 +37,7 @@ public class CameraHandler : MonoBehaviour
         transform.position = _target.position - transform.right * _distanceFromTarget;
     }
 
+    // Reinitialize the camera behind the new player ship
     public void ReinitializeCamera(GameObject newPlayer)
     {
         _player = newPlayer.transform;
@@ -51,6 +46,7 @@ public class CameraHandler : MonoBehaviour
         SetCameraPosition();
     }
 
+    // Makes camera follow the ship
     void FixedUpdate()
     {
         // Makes target follow the player

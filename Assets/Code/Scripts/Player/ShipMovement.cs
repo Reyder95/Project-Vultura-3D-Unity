@@ -24,6 +24,7 @@ public class ShipMovement : MonoBehaviour
         thrust = this.gameObject.transform.GetChild(0).GetChild(0).GetComponent<ShipStats>().thrust;
     }
 
+    // Move the actual ship
     public void MoveShip(float verticalAxis)
     {
         try {
@@ -35,6 +36,7 @@ public class ShipMovement : MonoBehaviour
         
     }
 
+    // Turn the ship left or right
     public void TurnShip(float horizontalAxis)
     {
         try
@@ -47,6 +49,7 @@ public class ShipMovement : MonoBehaviour
         
     }
 
+    // Pitch the ship up or down
     public void PitchShip(float pitchAxis)
     {
         try
@@ -60,6 +63,7 @@ public class ShipMovement : MonoBehaviour
         
     }
 
+    // Roll the ship to the left or right
     public void RollShip(float rollAxis)
     {
         try

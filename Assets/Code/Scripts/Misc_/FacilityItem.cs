@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// A facility's item. May be a producer or a consumer
 public class FacilityItem
 {
     public Func<BaseItem> itemExec;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Base class for all modules.
 abstract public class Module : UseableItem
 {
     private List<int> bonusModifiers = new List<int>();

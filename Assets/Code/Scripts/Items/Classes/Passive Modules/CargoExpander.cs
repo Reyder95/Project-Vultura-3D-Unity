@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// An expansion mod that increases the maximum cargo space of the vessel
 public class CargoExpander : PassiveModule
 {
     public CargoExpander(VulturaInstance.ItemRarity rarity) :

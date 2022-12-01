@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Handles a cargo contract
 public class Contract
 {
-    private string destination;
-    private Inventory items;
-    private string faction;
+    private string destination;     // The destination of the contract (which system it's in)
+    private Inventory items;        // The items that are to be delivered from the contract
+    private string faction;         // The faction requesting this to be done
 
     public Contract(string destination, Inventory items, string faction)
     {
