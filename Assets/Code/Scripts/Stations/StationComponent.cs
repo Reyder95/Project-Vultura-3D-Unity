@@ -43,12 +43,6 @@ public class StationComponent : MonoBehaviour
         StartCoroutine("RunProductionChain");
     }
 
-    private IEnumerator RunProductionChain()
-    {
-        station.RunProductionChain();
-        yield return new WaitForSeconds(2);
-    }
-
     // When a player enters the station proximity
     public void StationEnter()
     {

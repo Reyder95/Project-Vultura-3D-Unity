@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// A chaingun, minigun that shoots very fast
 public class Chaingun : OffenseModule
 {
     public Chaingun(VulturaInstance.ItemRarity rarity) : 

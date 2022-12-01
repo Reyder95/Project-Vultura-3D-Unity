@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Represents an instance of a ship. Gets attached to prefabs in the world
 public class InstantiatedShip : BaseSelectable
 {
-    private int currShield;
-    private int currArmor;
-    private int currHull;
-    private bool isAI;
+    private int currShield;     // The current shield of the ship
+    private int currArmor;      // The current armor of the ship
+    private int currHull;       // The current hull of the ship
+    private bool isAI;          // Is an AI (determines whether or not this ship will be controlled by AI)
 
-    private Inventory cargo;
+    private Inventory cargo;    // The cargo of this ship
 
-    private GameObject shipReference;
+    private GameObject shipReference;   // The game object in the world this ship belongs to
 
     // Modules of the ship currently installed into this instance. The shipPrefab will contain all the base data for the ship, which
     // we can use and modify to get this specific ship's maximum stats.
@@ -40,6 +41,7 @@ public class InstantiatedShip : BaseSelectable
             activeModules.Add(newActiveModule);
     }
 
+    // Add an item to the ship's cargo
     public bool AddToCargo(InventoryItem item)
     {
         float futureCargo = (item.quantity * item.item.Weight) + cargo.currCargo;

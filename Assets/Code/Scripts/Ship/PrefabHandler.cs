@@ -7,19 +7,18 @@ using UnityEngine.InputSystem;
 // Handles all functions related to ship prefabs
 public class PrefabHandler : MonoBehaviour
 {
-    public InstantiatedShip currShip;
-    public Fleet fleetAssociation;
-    public ShipStats shipStats;
+    public InstantiatedShip currShip;       // The instance and stats of this ship game object
+    public Fleet fleetAssociation;          // The fleet that this ship is association
+    public ShipStats shipStats;             // The base stats of this ship.
 
-    public Renderer shipRenderer;
+    public Renderer shipRenderer;           // -- Debug -- The renderer of this game object (to change the color)
 
-    public GameObject shipContainer;
-
+    // Warping mechanics and booleans to determine what a ship will do depending ond distance 
     public bool warping = false;
     public bool traveling = false;
     public bool turning = false;
 
-    public GameObject warpTarget;
+    public GameObject warpTarget;   // Where the ship will warp to
 
     void Start()
     {
@@ -28,6 +27,7 @@ public class PrefabHandler : MonoBehaviour
 
     void FixedUpdate()
     {
+        // If turning is active, turn the ship towards the objective
         if (turning)
         {
             Quaternion rotTarget = Quaternion.LookRotation(warpTarget.transform.position - transform.position);
@@ -52,6 +52,7 @@ public class PrefabHandler : MonoBehaviour
 
         }
 
+        // If we're warping, move the ship forward to the objective
         if (warping)
         {
             // Vector3 relativePos = warpTarget.transform.position - transform.position;
@@ -63,6 +64,7 @@ public class PrefabHandler : MonoBehaviour
                 warping = false;
             }
         }
+        // If traveling, move normally towards the objective
         else if (traveling)
         {
             this.gameObject.GetComponent<ShipMovement>().MoveShip(1.0f);
@@ -74,6 +76,7 @@ public class PrefabHandler : MonoBehaviour
         }
     }
 
+    // Actively cancel the warp
     public void CancelWarp()
     {
         if (turning == true)
@@ -90,59 +93,70 @@ public class PrefabHandler : MonoBehaviour
         AddMovement();
     }
 
+    // Switch the main camera to this prefab from an old prefab
     private void SwitchMainCamera(GameObject oldPrefab)
     {
         Camera.main.gameObject.GetComponent<CameraHandler>().ReinitializeCamera(this.gameObject);
     }
 
+    // Remove the main camera from this prefab
     public void RemoveMainCamera()
     {
         this.gameObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
     }
 
+    // Add the main camera to this prefab
     public void AddMainCamera()
     {
         this.gameObject.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
     }
 
+    // Add wasd movement to this ship prefab
     private void AddMovement()
     {
         this.gameObject.transform.gameObject.GetComponent<PlayerController>().enabled = true;
     }
 
+    //  Remove wasd movement from this ship prefab
     private void RemoveMovement()
     {
         this.gameObject.transform.gameObject.GetComponent<PlayerController>().enabled = false;
     }
 
+    // Add the input type to this ship prefab
     private void AddInput()
     {
         this.gameObject.GetComponent<PlayerInput>().enabled = true;
     }
 
+    // Remove the input type from this ship prefab
     private void RemoveInput()
     {
         this.gameObject.GetComponent<PlayerInput>().enabled = false;
     }
 
+    // Switch the input from the old ship to the new one (when switching ships)
     private void SwitchInput(GameObject oldPrefab)
     {
         oldPrefab.GetComponent<PrefabHandler>().RemoveInput();
         AddInput();
     }
 
+    // Switch movement from an old ship to a new ship
     private void SwitchMovement(GameObject oldPrefab)
     {
         oldPrefab.GetComponent<PrefabHandler>().RemoveMovement();
         AddMovement();
     }
 
+    // Begin the warp mechanic
     public void BeginWarp(GameObject target)
     {
         warpTarget = target;
         turning = true;
     }
 
+    // Switch control from an old ship to the new ship
     public GameObject SwitchControl(GameObject oldPrefab)
     {
         
@@ -158,11 +172,13 @@ public class PrefabHandler : MonoBehaviour
         return this.gameObject;
     }
 
+    // Get the ship stats from the ship component
     public ShipStats GetShipStats()
     {
         return this.gameObject.transform.GetChild(0).GetChild(0).GetComponent<ShipStats>();
     }
 
+    // Set the data associative 
     public void SetAssociativeData(InstantiatedShip currShip, Fleet fleet)
     {
         this.currShip = currShip;
@@ -173,9 +189,4 @@ public class PrefabHandler : MonoBehaviour
     {
         shipRenderer.material.SetColor("_BaseColor", color);
     }
-
-    // public void InstantiateBaseShip()
-    // {
-    //     currShip = new InstantiatedShip(shipStats.baseHealth, shipStats.baseArmor, shipStats.baseHull);
-    // }
 }

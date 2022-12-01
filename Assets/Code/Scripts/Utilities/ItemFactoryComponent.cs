@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Handles producing items in memory. Will be deprecated or at the very least modified for a new and improved item system
 public class ItemFactoryComponent : MonoBehaviour
 {
     private Dictionary<int, BaseItemFactory> itemFactoryDict = new Dictionary<int, BaseItemFactory>();

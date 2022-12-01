@@ -29,16 +29,6 @@ public class Market
         return ((0.6f) / (1.0f + Mathf.Exp(-(value/10) + 1.0f))) + 0.7f;
     }
 
-    // public float CalculateRelativeDemand(int basePrice, int demand)
-    // {
-    //     return (float)demand / (basePrice + demand);
-    // }
-
-    // public float CalculateRelativeSupply(int basePrice, int supply)
-    // {
-    //     return (float)supply / (basePrice + supply);
-    // }
-
     public float CalculatePrice(int basePrice, int supply, int demand)
     {   
         return basePrice * (CalculateRelativeValue(basePrice, demand) / CalculateRelativeValue(basePrice, supply));

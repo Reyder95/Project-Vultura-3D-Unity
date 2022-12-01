@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Rocket launcher gun. Shoots a rocket out
 public class RocketLauncher : OffenseModule
 {
     public RocketLauncher(VulturaInstance.ItemRarity rarity) :
