@@ -52,15 +52,16 @@ public static class VulturaInstance
         Saboteur                        // Can be used to spy and/or sabotage other factions. Useful to turn the tides of the battlefield if needed, or those who wish to deceive you if they are allies.
     }
 
+    // Describes the player's status
     public enum PlayerStatus {
-        SPACE,
-        STATION,
-        DEAD
+        SPACE,      // Roaming the world - actively playing the game
+        STATION,    // At a station
+        DEAD        // Was blown up. As the kids say "got rekt"
     }
 
     public static GameObject currentPlayer;     // A reference to the current player character in the game. Since a player can switch ships, this needs to be kept track of.
     public static int playerMoney = 60000;      // The player's starting balance
-    public static PlayerStatus playerStatus = PlayerStatus.SPACE;
+    public static PlayerStatus playerStatus = PlayerStatus.SPACE;   // The player's current status in the game. May be modified and evolved later on
 
     public static List<string> systems = new List<string>();    // The list of global systems
     public static List<ShipWrapper> ships = new List<ShipWrapper>();    // The list of ships in memory that will be worked through with AI
@@ -70,13 +71,6 @@ public static class VulturaInstance
     public static List<BaseSelectable> fleetSelectables = new List<BaseSelectable>();
 
     public static SelectorList selectorList = new SelectorList();   // The list of items that are selected by the user
-
-    //public static GameObject fleetList;
-
-    // public static void InitializeFleetList()
-    // {
-    //     fleetList = GameObject.FindWithTag("Fleet List");
-    // }
 
     // -- Debug -- The initialized list of systems
     public static void InitializeSystems()

@@ -1,5 +1,3 @@
-using System.Globalization;
-using System.Diagnostics;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -156,8 +154,6 @@ public class PrefabHandler : MonoBehaviour
     // Begin the warp mechanic
     public void BeginWarp(GameObject target)
     {
-        UnityEngine.Debug.Log(this.gameObject);
-
         warpTarget = target;
         turning = true;
     }

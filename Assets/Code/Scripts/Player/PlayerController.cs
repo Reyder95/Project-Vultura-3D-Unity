@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
+        // Move the ship if the player is allowed to move
         if (shipMovement != null && VulturaInstance.playerStatus == VulturaInstance.PlayerStatus.SPACE)
         {
             shipMovement.MoveShip(Input.GetAxis("Vertical"));
@@ -117,6 +118,7 @@ public class PlayerController : MonoBehaviour
     // Select the item requested based on boolean values
     void handleSelection(bool multiSelect = false, bool switchMain = false)
     {
+        // Let the player select objects in the world if they are not over a UI element (or they are in the world at all)
         if (!UI_Manager.IsPointerOverUI(Input.mousePosition) && VulturaInstance.playerStatus == VulturaInstance.PlayerStatus.SPACE)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

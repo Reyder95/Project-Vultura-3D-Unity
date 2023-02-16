@@ -35,6 +35,7 @@ public class Game : MonoBehaviour
             Instance = this;
         }
 
+        // Load all the main UI elements into the UI Manager
         UI_Manager.LoadUIElements();
 
         // -- Debug -- Automatically loads conversations for station heads. This kind of stuff will most likely be JSON, and will be changed.

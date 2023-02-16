@@ -160,6 +160,7 @@ public class UI_MainEntityList : MonoBehaviour
         Refresh();
     }
 
+    // A refresh that calls SortAndPopulate through an event (via tabbing)
     private void RefreshEvent()
     {
         SortAndPopulate();

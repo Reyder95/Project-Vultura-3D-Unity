@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+// Class to handle various UI elements (primarily the main UI elements)
 public static class UI_Manager
 {
+    // The main UI elements of the game
     public static List<UIDocument> mainUIElements = new List<UIDocument>();
 
+    // Load the main UI elements via the tag "MainUI"
     public static void LoadUIElements()
     {
         List<GameObject> UIObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("MainUI"));
@@ -21,6 +24,7 @@ public static class UI_Manager
         }
     }
 
+    // Checks if the pointer is over a UI element.
     public static bool IsPointerOverUI (Vector2 screenPos)
     {
         Debug.Log(Screen.height - screenPos.y);
@@ -39,12 +43,10 @@ public static class UI_Manager
                 if (bcol.a != 0 && ve.enabledInHierarchy)
                 {
                     return true;
-                    Debug.Log("Returning True!");
                 }
             }
         }
 
         return false;
-        Debug.Log("Returning False!");
     }
 }

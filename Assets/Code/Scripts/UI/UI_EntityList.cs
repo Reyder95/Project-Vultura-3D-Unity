@@ -184,6 +184,7 @@ public class UI_EntityList : MonoBehaviour
         Refresh();
     }
 
+    // A refresh that calls SortAndPopulate through an event (via tabbing)
     private void RefreshEvent()
     {
         SortAndPopulate();
