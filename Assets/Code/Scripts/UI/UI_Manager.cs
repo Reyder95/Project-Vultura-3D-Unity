@@ -23,12 +23,14 @@ public static class UI_Manager
 
     public static bool IsPointerOverUI (Vector2 screenPos)
     {
+        Debug.Log(Screen.height - screenPos.y);
         Vector2 pointerUiPos = new Vector2(screenPos.x, Screen.height - screenPos.y);
         
         foreach (UIDocument uiDoc in mainUIElements)
         {
+            Vector2 newPointerPos = RuntimePanelUtils.ScreenToPanel(uiDoc.rootVisualElement.panel, pointerUiPos);
             List<VisualElement> picked = new List<VisualElement>();
-            uiDoc.rootVisualElement.panel.PickAll(pointerUiPos, picked);
+            uiDoc.rootVisualElement.panel.PickAll(newPointerPos, picked);
 
             foreach (var ve in picked)
             {

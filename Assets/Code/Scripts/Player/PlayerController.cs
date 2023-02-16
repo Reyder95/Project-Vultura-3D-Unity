@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
     // Select the item requested based on boolean values
     void handleSelection(bool multiSelect = false, bool switchMain = false)
     {
-        if (!UI_Manager.IsPointerOverUI(Pointer.current.position.ReadValue()) && VulturaInstance.playerStatus == VulturaInstance.PlayerStatus.SPACE)
+        if (!UI_Manager.IsPointerOverUI(Input.mousePosition) && VulturaInstance.playerStatus == VulturaInstance.PlayerStatus.SPACE)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
