@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Represents an instance of a ship. Gets attached to prefabs in the world
 public class InstantiatedShip : BaseSelectable
 {
-    private int currShield;
-    private int currArmor;
-    private int currHull;
-    private bool isAI;
+    private int currShield;     // The current shield of the ship
+    private int currArmor;      // The current armor of the ship
+    private int currHull;       // The current hull of the ship
+    private bool isAI;          // Is an AI (determines whether or not this ship will be controlled by AI)
 
-    private GameObject shipReference;
+    private Inventory cargo;    // The cargo of this ship
+
+    private GameObject shipReference;   // The game object in the world this ship belongs to
 
     // Modules of the ship currently installed into this instance. The shipPrefab will contain all the base data for the ship, which
     // we can use and modify to get this specific ship's maximum stats.
@@ -19,13 +22,14 @@ public class InstantiatedShip : BaseSelectable
     // The ship stats of the particular item
     public ShipStats shipStats;
     
-    public InstantiatedShip(string faction, string selectableName, string type, int shield, int armor, int hull, ShipStats shipStats, bool isAI, GameObject shipReference) : base(faction, selectableName, type)
+    public InstantiatedShip(string faction, string selectableName, string type, int shield, int armor, int hull, ShipStats shipStats, bool isAI, GameObject shipReference, Inventory cargo) : base(faction, selectableName, type)
     {
         this.currShield = shield;
         this.currArmor = armor;
         this.currHull = hull;
         this.isAI = isAI;
         this.shipReference = shipReference;
+        this.cargo = cargo;
 
         this.shipStats = shipStats;
     }
@@ -35,6 +39,20 @@ public class InstantiatedShip : BaseSelectable
     {
         if (activeModules.Count < 5)
             activeModules.Add(newActiveModule);
+    }
+
+    // Add an item to the ship's cargo
+    public bool AddToCargo(InventoryItem item)
+    {
+        float futureCargo = (item.quantity * item.item.Weight) + cargo.currCargo;
+
+        if (futureCargo < shipStats.baseCargo)
+        {
+            cargo.Add(item);
+            return true;
+        }
+
+        return false;
     }
 
     // Adds a passive module to the list, stopped by a maximum # of modules for a ship
@@ -72,6 +90,12 @@ public class InstantiatedShip : BaseSelectable
     public int GetMaxHull()
     {
         Debug.Log("Get max hull based on modules on top of base ship stats");
+        return 0;
+    }
+
+    public int GetMaxCargo()
+    {
+        Debug.Log("Get max cargo based on modules on top of base ship stats");
         return 0;
     }
 
@@ -143,6 +167,14 @@ public class InstantiatedShip : BaseSelectable
         get
         {
             return this.shipReference;
+        }
+    }
+
+    public Inventory Cargo
+    {
+        get
+        {
+            return this.cargo;
         }
     }
 }

@@ -88,6 +88,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3088410564321852926, guid: 8f7be0b950db14a48a5b56d858a6faa8,
         type: 3}
+      propertyPath: name
+      value: Zenith
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088410564321852926, guid: 8f7be0b950db14a48a5b56d858a6faa8,
+        type: 3}
       propertyPath: thrust
       value: 856
       objectReference: {fileID: 0}

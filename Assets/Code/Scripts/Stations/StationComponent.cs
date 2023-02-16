@@ -14,20 +14,20 @@ public class StationComponent : MonoBehaviour
 
     public TMP_Text stationEnterText;   // Enter text at the top of the screen when player gets close to station
 
-    public Canvas stationGUI;           // The entire station GUI
-
     public GameObject guiHome;          // The home GUI layer
+
+    public GameObject GUIObject;
+
+    public MiningStationUI GUI;
 
     // All contact page information
     public GameObject contactPrefab;
-    public GameObject guiContacts;
-    public GameObject contactsList;
 
     public BaseStation station;    // The station associated with this prefab
 
-    void Awake()
+    void Start()
     {
-        stationGUI.enabled = false; // Immediately start with all station GUIs as disabled
+        GUI = GUIObject.GetComponent<MiningStationUI>();
     }
 
     // Sets the station and initializes its components. The idea is you should 
@@ -40,6 +40,7 @@ public class StationComponent : MonoBehaviour
         // Initializes the station then displays the contacts in the contacts page
         station.InitializeStation();
         DisplayContacts();
+        StartCoroutine("RunProductionChain");
     }
 
     // When a player enters the station proximity
@@ -54,7 +55,6 @@ public class StationComponent : MonoBehaviour
     {
         canEnter = false;
         stationEnterText.enabled = false;
-        stationGUI.enabled = false;
     }
 
     // When a player presses the enter station button, this function gets called
@@ -62,31 +62,18 @@ public class StationComponent : MonoBehaviour
     {
         if (canEnter)
         {
-            guiHome.SetActive(true);
-            guiContacts.SetActive(false);
-            stationGUI.enabled = true;
+            GUI.OpenUI(station);
         }
     }
 
     // When the exit button is pressed
     public void ExitStation()
     {
-        stationGUI.enabled = false;
     }
 
     // Loops and displays all contacts on the contacts screen
     public void DisplayContacts()
     {
-        GameObject stationHeadUI = Instantiate(contactPrefab, contactsList.transform.GetChild(0));
-        stationHeadUI.GetComponent<ContactCard>().ContactText(station.stationHead);
-        stationHeadUI.GetComponent<ContactCard>().stationComponent = this;
-
-        for (int i = 0; i < station.contacts.Count; i++)
-        {
-            GameObject stationContact = Instantiate(contactPrefab, contactsList.transform.GetChild(i + 1));
-            stationContact.GetComponent<ContactCard>().ContactText(station.contacts[i]);
-            stationContact.GetComponent<ContactCard>().stationComponent = this;
-        }
     }
 
     // When a contact is pressed, we send that contact back
@@ -98,15 +85,11 @@ public class StationComponent : MonoBehaviour
     // When the contact button is pressed, go to the contacts page
     public void GoContacts()
     {
-        guiHome.SetActive(false);
-        guiContacts.SetActive(true);
     }
 
     // If any "back" button is pressed, this will be called. 
     public void BackToHome()
     {
-        guiContacts.SetActive(false);
-        guiHome.SetActive(true);
     }
     
 }

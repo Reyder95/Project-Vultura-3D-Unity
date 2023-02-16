@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI%20Assets/USS/contractCard.uss?fileID=7433441132597879392&amp;guid=237c602e3da876e4988d7c077c235728&amp;type=3#contractCard" />
+    <ui:VisualElement name="contract" class="contract-card" style="height: 100%; flex-direction: row; align-items: center; margin-top: 10px; margin-bottom: 10px;">
+        <ui:VisualElement name="faction-portrait" style="background-color: rgb(103, 103, 103); width: 64px; height: 64px; margin-left: 15px;" />
+        <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center;">
+            <ui:VisualElement name="contract-info" style="margin-left: 15px; height: 64px; width: 529px; background-color: rgba(166, 93, 93, 0);">
+                <ui:Label text="12 Domestic Goods" display-tooltip-when-elided="true" name="contract-title" style="-unity-font-style: bold; height: 33%; align-items: center; justify-content: center; -unity-text-align: middle-left; font-size: 20px; position: absolute; top: 0; color: rgb(152, 152, 152);" />
+                <ui:Label text="13 jumps away" display-tooltip-when-elided="true" name="contract-distance" style="height: 33%; -unity-text-align: middle-left; -unity-font-style: bold; bottom: 0; position: absolute; color: rgb(159, 159, 159);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

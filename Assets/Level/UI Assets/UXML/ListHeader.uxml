@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="ListLabel" style="height: 48px;">
+        <Style src="project://database/Assets/Level/UI%20Assets/listElement.uss?fileID=7433441132597879392&amp;guid=9231239b282dfd94d8bfdc4750a9e830&amp;type=3#listElement" />
+        <ui:VisualElement name="main-visual" style="height: 100%; align-items: stretch; justify-content: center; background-color: rgba(176, 176, 176, 0.52); -unity-font-style: bold; border-bottom-width: 3px; border-bottom-color: rgb(0, 0, 0);">
+            <ui:VisualElement name="sub-visual" class="normal" style="flex-direction: row; justify-content: flex-start; align-items: stretch; flex-shrink: 0; margin-left: 0; padding-left: 15px; height: auto; flex-wrap: nowrap; overflow: hidden; font-size: 10px; background-color: rgba(176, 176, 176, 0);">
+                <ui:Label text="Faction" display-tooltip-when-elided="true" name="faction" style="width: 25%; flex-direction: row; justify-content: center; margin-left: 0; padding-left: 0; padding-right: 0; white-space: normal; align-items: stretch; font-size: 20px;" />
+                <ui:Label text="Name" display-tooltip-when-elided="true" name="name" style="width: 25%; margin-right: 0; margin-left: 0; padding-right: 0; padding-left: 0; white-space: normal; font-size: 20px;" />
+                <ui:Label text="Type" display-tooltip-when-elided="true" name="type" style="width: 25%; flex-direction: row; justify-content: flex-start; margin-left: 0; padding-left: 0; padding-right: 0; white-space: normal; font-size: 20px;" />
+                <ui:Label text="Distance" display-tooltip-when-elided="true" name="distance" style="width: 25%; flex-direction: row; justify-content: flex-start; margin-left: 0; padding-left: 0; padding-right: 0; white-space: normal; font-size: 20px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

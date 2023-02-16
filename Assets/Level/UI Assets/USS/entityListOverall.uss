@@ -1,0 +1,13 @@
+.unity-list-view__item:hover
+{
+    background-color: transparent;
+}
+
+.unity-list-view__item
+{
+    transition: 0.05s;
+}
+
+.unity-list-view__empty-label {
+    display: none;
+}

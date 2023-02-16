@@ -5,6 +5,8 @@ using UnityEngine;
 // Class that handles modification and adjustment of ship stats
 public class ShipStats : MonoBehaviour
 {
+    public string name;
+
     // Base stats for the ship. These are stats without ANY modifications. These get modified by various modules in the game.
     public int baseHealth;
     public int baseArmor;

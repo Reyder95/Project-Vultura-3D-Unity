@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Handles a ship fleet
 public class Fleet
 {
-    private System.Guid fleetGUID;
-    private InstantiatedShip fleetCommander;
-    private List<InstantiatedShip> fleetShips = new List<InstantiatedShip>();
-    private string task;
-    private string faction;
+    private System.Guid fleetGUID;  // The unique ID for the fleet to be accessible at any time
+    private InstantiatedShip fleetCommander;    // The fleet commander's ship
+    private List<InstantiatedShip> fleetShips = new List<InstantiatedShip>();   // The rest of the fleet
+    private string task;    // The task of the fleet (will be developed with its own object). Determines what the fleet will currently do
+    private string faction;     // The faction the fleet is a part of.
 
     public Fleet(System.Guid fleetGUID, string faction, InstantiatedShip fleetCommander, List<InstantiatedShip> fleetShips)
     {
@@ -17,6 +18,7 @@ public class Fleet
         this.fleetShips = fleetShips;
     }
 
+    // Add a ship to the fleet
     public void AddOneShip(InstantiatedShip ship)
     {
         fleetShips.Add(ship);
@@ -75,16 +77,6 @@ public class Fleet
         }
 
         return new Fleet(System.Guid.NewGuid(), this.faction, commander, shipList);
-    }
-
-    public void SpawnFleetInWorld(bool isPlayerFleet = false)
-    {
-        Debug.Log("Spawning Commander");
-
-        foreach (InstantiatedShip ship in fleetShips)
-        {
-            Debug.Log("Spawning " + ship.SelectableName);
-        }
     }
 
     // Checks if a ship exists within the fleet

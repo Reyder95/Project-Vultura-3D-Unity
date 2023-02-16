@@ -26,6 +26,8 @@ public class SelectorList
                 if (doesExist && selected.Count == 1)
                 {
                     DeselectObject(selectedObject, multiSelect);
+                    
+                    EventManager.TriggerEvent("Selection Changed");
                     return;
                 }
 
@@ -37,6 +39,7 @@ public class SelectorList
                     {
                         // Deselect the object
                         DeselectObject(selectedObject, multiSelect);
+                        EventManager.TriggerEvent("Selection Changed");
                         return;
                     }
                     else
@@ -44,6 +47,7 @@ public class SelectorList
                         // If CTRL is not held, deselect all objects and only select that one.
                         DeselectAllObjects();
                         SelectObject(selectedObject, multiSelect);
+                        EventManager.TriggerEvent("Selection Changed");
                         return;
                     }
 
@@ -58,8 +62,8 @@ public class SelectorList
                     {
                         EventManager.TriggerEvent("Fleet Added");
                     }
-
                     SetMainSelected(selectedObject);
+                    EventManager.TriggerEvent("Selection Changed");
                     return;
                 }
             }
@@ -67,7 +71,8 @@ public class SelectorList
             // if none of the above, that means we're just trying to add an object to the selections.
             SelectObject(selectedObject, multiSelect);
             }
-        
+
+        EventManager.TriggerEvent("Selection Changed");
     }
 
     private void SelectObject(BaseSelectable selectedObject, bool multiSelect)
@@ -85,11 +90,8 @@ public class SelectorList
 
         if (selectedObject.GetType() == typeof(InstantiatedShip))
         {
-            Debug.Log(selectedObject.selectableObject.GetComponent<PrefabHandler>().fleetAssociation.FleetGUID.ToString());
             if (!containsFleet)
                 LoadFleetIntoFleetList(selectedObject.selectableObject);
-
-            Debug.Log("Test!");
 
             EventManager.TriggerEvent("Fleet Added");
         }
@@ -106,21 +108,17 @@ public class SelectorList
             {
                 if(selectedItem.selectableObject.GetComponent<PrefabHandler>().fleetAssociation.FleetGUID.CompareTo(fleet.FleetGUID) == 0)
                 {
-                    Debug.Log("Contains fleet!");
                     return true;
                 }
                     
             }
         }
-
-        Debug.Log("Does not contain fleet!");
         return false;
     }
 
     private void LoadFleetIntoFleetList(GameObject shipPrefab)
     {
         
-        Debug.Log("Loading fleet into fleet list!");
         Fleet fleet = shipPrefab.GetComponent<PrefabHandler>().fleetAssociation;
 
         VulturaInstance.fleetSelectables.Add(fleet.FleetCommander);
@@ -129,18 +127,14 @@ public class SelectorList
         {
             VulturaInstance.fleetSelectables.Add(ship);
         }
-
-        Debug.Log("Counting Fleet" + VulturaInstance.fleetSelectables.Count);
     }
 
     private bool ContainsShip()
     {
-        Debug.Log("Checking selectables for ship");
         foreach (BaseSelectable item in selected)
         {
             if (item.GetType() == typeof(InstantiatedShip))
             {
-                Debug.Log("Test!aaaaaaa");
                 return true;
             }
         }
@@ -174,10 +168,8 @@ public class SelectorList
 
                 if (!ContainsShip())
                 {
-                    Debug.Log("HUH?!");
                     VulturaInstance.fleetSelectables.Clear();
                     EventManager.TriggerEvent("Deselect Ship");
-                    Debug.Log("Clearing fleet selectables!");
                 }
                 else 
                 {
@@ -198,23 +190,6 @@ public class SelectorList
                                     counter++;
                             }
 
-                            // List<InstantiatedShip> removedShips = new List<InstantiatedShip>();
-
-                            // Debug.Log(VulturaInstance.fleetSelectables.Count);
-                            // foreach (InstantiatedShip ship in VulturaInstance.fleetSelectables)
-                            // {
-                            //     if (ship.selectableObject.GetComponent<PrefabHandler>().fleetAssociation.FleetGUID.CompareTo(selectedObject.selectableObject.GetComponent<PrefabHandler>().fleetAssociation.FleetGUID) == 0)
-                            //     {
-                            //         removedShips.Add(ship);
-                            //     }
-                            // }
-
-                            // for (int i = 0; i < removedShips.Count; i++)
-                            // {
-                            //     VulturaInstance.fleetSelectables.Remove(removedShips[i]);
-                            // }
-
-                            Debug.Log(VulturaInstance.fleetSelectables.Count);
                             EventManager.TriggerEvent("Deselect Ship");
                             EventManager.TriggerEvent("Fleet Added");
                         }
@@ -231,6 +206,8 @@ public class SelectorList
     // When tab is pressed, cycle the main selection one up. if we're at the last element, go back to the beginning
     public void CycleOne()
     {
+        EventManager.TriggerEvent("Cycle Ship");    // Calls the "Cycle Ship" event which is received by the entity lists
+
         if (selected.Count > 0)
         {
             int mainIndex = selected.IndexOf(mainSelected);
@@ -288,14 +265,16 @@ public class SelectorList
         
             EventManager.TriggerEvent("Deselect Ship");
         }
-        
-        Debug.Log("Deselecting all objects, so deselecting all fleet selectables");
 
         for (int i = 0; i < selected.Count; i++)
         {
-            selected[i].selectableObject.GetComponent<Outline>().enabled = false;
-            selected[i].Selected = false;
-            selected[i].MainSelected = false;
+            if (selected[i].selectableObject != null)
+            {
+                selected[i].selectableObject.GetComponent<Outline>().enabled = false;
+                selected[i].Selected = false;
+                selected[i].MainSelected = false;
+            }
+            
         }
 
         selected.Clear();

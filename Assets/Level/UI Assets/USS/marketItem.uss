@@ -1,0 +1,15 @@
+.active {
+    background-color: #b38546;
+}
+
+.active:hover {
+    background-color: #634b28;
+}
+
+.non-active {
+    background-color: #919191;
+}
+
+.non-active:hover {
+    background-color: #525252;
+}

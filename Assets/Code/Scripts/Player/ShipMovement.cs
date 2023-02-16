@@ -24,58 +24,54 @@ public class ShipMovement : MonoBehaviour
         thrust = this.gameObject.transform.GetChild(0).GetChild(0).GetComponent<ShipStats>().thrust;
     }
 
+    // Move the actual ship
     public void MoveShip(float verticalAxis)
     {
         try {
             m_Rigidbody.AddForce(transform.forward * verticalAxis * Time.fixedDeltaTime * thrust);  // W - S | Moves ship forward and backwards. --TODO-- Need to work on speeds via top speeds.
         }
-        catch (NullReferenceException ex)
+        catch (NullReferenceException)
         {
-            Debug.Log("Vertical axis - Still initializing Prefab");
-            Debug.Log(ex);
         }
         
     }
 
+    // Turn the ship left or right
     public void TurnShip(float horizontalAxis)
     {
         try
         {
             m_Rigidbody.AddTorque(transform.up * horizontalAxis * Time.fixedDeltaTime * rotationSpeed);     // A - D | Turns ship left and right.
         }
-        catch (NullReferenceException ex)
+        catch (NullReferenceException)
         {
-            Debug.Log("Horizontal axis - Still initializing Prefab"); 
-            Debug.Log(ex);
         }
         
     }
 
+    // Pitch the ship up or down
     public void PitchShip(float pitchAxis)
     {
         try
         {
             m_Rigidbody.AddTorque(-transform.right * pitchAxis * Time.fixedDeltaTime * rotationSpeed);      // R - F | Turns ship up and down.
         }
-        catch (NullReferenceException ex)
+        catch (NullReferenceException)
         {
-            Debug.Log("Pitch axis - Still initializing Prefab"); 
-            Debug.Log(ex);
         }
 
         
     }
 
+    // Roll the ship to the left or right
     public void RollShip(float rollAxis)
     {
         try
         {
             m_Rigidbody.AddTorque(-transform.forward * rollAxis * Time.fixedDeltaTime * rotationSpeed);     // Q - E | Rolls ship left and right
         }
-        catch (NullReferenceException ex)
+        catch (NullReferenceException)
         {
-            Debug.Log("Roll axis - Still initializing Prefab"); 
-            Debug.Log(ex);
         }
         
     }
