@@ -224,15 +224,15 @@ public class SelectorList
     }
 
     // Set the new main selection
-    private void SetMainSelected(BaseSelectable newSelected)
+    private async void SetMainSelected(BaseSelectable newSelected)
     {
         // If no main selection exists
         if (mainSelected == null)
         {
             newSelected.MainSelected = true;
             mainSelected = newSelected;     // Set the new main selection
-            mainSelected.selectableObject.GetComponent<Outline>().enabled = true;    // Set the outline to true
             mainSelected.selectableObject.GetComponent<Outline>().OutlineColor = mainSelectedColor;  // Set the color
+            mainSelected.selectableObject.GetComponent<Outline>().enabled = true;    // Set the outline to true
             return;
         }
 
@@ -240,8 +240,8 @@ public class SelectorList
         mainSelected.selectableObject.GetComponent<Outline>().OutlineColor = normalSelectedColor;    // Set the current main selection to a normal color
         mainSelected.MainSelected = false;
         newSelected.MainSelected = true;
-        newSelected.selectableObject.GetComponent<Outline>().enabled = true;                         // Set the outline on the new object to enabled
         newSelected.selectableObject.GetComponent<Outline>().OutlineColor = mainSelectedColor;       // Give the new object a main selection color
+        newSelected.selectableObject.GetComponent<Outline>().enabled = true;                         // Set the outline on the new object to enabled
         mainSelected = newSelected; // Set the new object as the main selection
     }
 

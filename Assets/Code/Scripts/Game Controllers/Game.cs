@@ -35,6 +35,8 @@ public class Game : MonoBehaviour
             Instance = this;
         }
 
+        UI_Manager.LoadUIElements();
+
         // -- Debug -- Automatically loads conversations for station heads. This kind of stuff will most likely be JSON, and will be changed.
         GlobalConvoHolder.LoadStationHeadConversations();
 

@@ -84,6 +84,7 @@ public class MiningStationUI : MonoBehaviour
         marketGameobject.SetActive(false);
         cargoGameobject.SetActive(false);
         facilityGameobject.SetActive(false);
+        VulturaInstance.playerStatus = VulturaInstance.PlayerStatus.SPACE;
     }
 
     // When entering a station
@@ -92,6 +93,7 @@ public class MiningStationUI : MonoBehaviour
         station = stationObject;    // Retrieve and set the current station
         playerInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;   // Set the player inventory variable to the current player ship's cargo
         InitializeHome();   // Initialize the homepage and display it
+        VulturaInstance.playerStatus = VulturaInstance.PlayerStatus.STATION;
 
     }
 

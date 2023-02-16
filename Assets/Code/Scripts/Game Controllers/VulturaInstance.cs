@@ -52,8 +52,15 @@ public static class VulturaInstance
         Saboteur                        // Can be used to spy and/or sabotage other factions. Useful to turn the tides of the battlefield if needed, or those who wish to deceive you if they are allies.
     }
 
+    public enum PlayerStatus {
+        SPACE,
+        STATION,
+        DEAD
+    }
+
     public static GameObject currentPlayer;     // A reference to the current player character in the game. Since a player can switch ships, this needs to be kept track of.
     public static int playerMoney = 60000;      // The player's starting balance
+    public static PlayerStatus playerStatus = PlayerStatus.SPACE;
 
     public static List<string> systems = new List<string>();    // The list of global systems
     public static List<ShipWrapper> ships = new List<ShipWrapper>();    // The list of ships in memory that will be worked through with AI

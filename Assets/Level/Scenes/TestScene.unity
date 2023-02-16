@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 98609325}
   m_Layer: 5
   m_Name: PlayerBar
-  m_TagString: Untagged
+  m_TagString: MainUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196,6 +196,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EntityList
+      objectReference: {fileID: 0}
+    - target: {fileID: 1216902417810693162, guid: b25e32ead72f63b4a91be05f66a16954,
+        type: 3}
+      propertyPath: m_TagString
+      value: MainUI
       objectReference: {fileID: 0}
     - target: {fileID: 5444362408438351149, guid: b25e32ead72f63b4a91be05f66a16954,
         type: 3}
@@ -343,6 +348,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1216902417810693162, guid: b25e32ead72f63b4a91be05f66a16954,
+        type: 3}
+      propertyPath: m_TagString
+      value: MainUI
       objectReference: {fileID: 0}
     - target: {fileID: 5444362408438351149, guid: b25e32ead72f63b4a91be05f66a16954,
         type: 3}
@@ -1142,14 +1152,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec58f8506428234fa78d13bc63feef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - id: 0
   stationPrefabs: []
   shipPrefabs:
   - {fileID: 8669284861915232250, guid: 35a943d8955ec4240b8d799ce322f83e, type: 3}
   - {fileID: 862449370239526636, guid: 874bd00514b06dd4e92065dc1cef3748, type: 3}
   shipSpawner: {fileID: 1744308518}
-  entityList: {fileID: 0}
   GRAPHY: {fileID: 1263185295}
 --- !u!114 &1308678482
 MonoBehaviour:
