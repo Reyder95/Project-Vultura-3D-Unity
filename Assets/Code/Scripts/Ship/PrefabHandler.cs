@@ -115,12 +115,14 @@ public class PrefabHandler : MonoBehaviour
     private void AddMovement()
     {
         this.gameObject.transform.gameObject.GetComponent<PlayerController>().enabled = true;
+        this.gameObject.transform.gameObject.GetComponent<PlayerInput>().enabled = true;
     }
 
     //  Remove wasd movement from this ship prefab
     private void RemoveMovement()
     {
         this.gameObject.transform.gameObject.GetComponent<PlayerController>().enabled = false;
+        this.gameObject.transform.gameObject.GetComponent<PlayerInput>().enabled = false;
     }
 
     // Add the input type to this ship prefab

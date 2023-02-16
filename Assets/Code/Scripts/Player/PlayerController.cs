@@ -27,7 +27,8 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (shipMovement != null)
+        // Move the ship if the player is allowed to move
+        if (shipMovement != null && VulturaInstance.playerStatus == VulturaInstance.PlayerStatus.SPACE)
         {
             shipMovement.MoveShip(Input.GetAxis("Vertical"));
             shipMovement.TurnShip(Input.GetAxis("Horizontal"));
@@ -117,30 +118,35 @@ public class PlayerController : MonoBehaviour
     // Select the item requested based on boolean values
     void handleSelection(bool multiSelect = false, bool switchMain = false)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        // Let the player select objects in the world if they are not over a UI element (or they are in the world at all)
+        if (!UI_Manager.IsPointerOverUI(Input.mousePosition) && VulturaInstance.playerStatus == VulturaInstance.PlayerStatus.SPACE)
         {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (hitInfo.collider.gameObject.GetComponent<Selectable>() != null)
+            if (Physics.Raycast(ray, out RaycastHit hitInfo))
             {
-                if (hitInfo.collider.gameObject.tag == "Ship")
-                {
 
-                    if (hitInfo.collider.gameObject.GetComponent<PrefabHandler>().currShip != null)
+                if (hitInfo.collider.gameObject.GetComponent<Selectable>() != null)
+                {
+                    if (hitInfo.collider.gameObject.tag == "Ship")
                     {
 
-                        VulturaInstance.selectorList.ConfirmSelection(hitInfo.collider.gameObject.GetComponent<PrefabHandler>().currShip, multiSelect, switchMain);
+                        if (hitInfo.collider.gameObject.GetComponent<PrefabHandler>().currShip != null)
+                        {
+
+                            VulturaInstance.selectorList.ConfirmSelection(hitInfo.collider.gameObject.GetComponent<PrefabHandler>().currShip, multiSelect, switchMain);
+                        }
+                    
                     }
+                    else if (hitInfo.collider.gameObject.tag == "Station")
+                    {
                     
-                }
-                else if (hitInfo.collider.gameObject.tag == "Station")
-                {
-                    
-                    VulturaInstance.selectorList.ConfirmSelection(hitInfo.collider.gameObject.GetComponent<StationComponent>().station, multiSelect, switchMain);
-                }
+                        VulturaInstance.selectorList.ConfirmSelection(hitInfo.collider.gameObject.GetComponent<StationComponent>().station, multiSelect, switchMain);
+                    }
                 
+                }
             }
         }
+        
     }
 }

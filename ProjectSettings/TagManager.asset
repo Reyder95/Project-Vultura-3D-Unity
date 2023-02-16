@@ -8,6 +8,7 @@ TagManager:
   - Ship
   - Fleet Commander
   - Fleet List
+  - MainUI
   layers:
   - Default
   - TransparentFX
