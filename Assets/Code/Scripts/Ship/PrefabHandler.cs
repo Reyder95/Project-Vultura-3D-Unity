@@ -1,3 +1,5 @@
+using System.Globalization;
+using System.Diagnostics;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -115,12 +117,14 @@ public class PrefabHandler : MonoBehaviour
     private void AddMovement()
     {
         this.gameObject.transform.gameObject.GetComponent<PlayerController>().enabled = true;
+        this.gameObject.transform.gameObject.GetComponent<PlayerInput>().enabled = true;
     }
 
     //  Remove wasd movement from this ship prefab
     private void RemoveMovement()
     {
         this.gameObject.transform.gameObject.GetComponent<PlayerController>().enabled = false;
+        this.gameObject.transform.gameObject.GetComponent<PlayerInput>().enabled = false;
     }
 
     // Add the input type to this ship prefab
@@ -152,6 +156,8 @@ public class PrefabHandler : MonoBehaviour
     // Begin the warp mechanic
     public void BeginWarp(GameObject target)
     {
+        UnityEngine.Debug.Log(this.gameObject);
+
         warpTarget = target;
         turning = true;
     }
