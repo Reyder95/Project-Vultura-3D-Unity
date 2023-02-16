@@ -44,10 +44,10 @@ public class BaseStation : BaseSelectable
             Inventory contractInventory = new Inventory();
             int itemCount = Random.Range(1, 4);
 
-            for (int j = 0; j < itemCount; j++)
-            {
-                contractInventory.Add(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[Random.Range(1, 5)].Create(), Random.Range(1, 8)));
-            }
+            // for (int j = 0; j < itemCount; j++)
+            // {
+            //     contractInventory.Add(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[Random.Range(1, 5)].Create(), Random.Range(1, 8)));
+            // }
             
             this.AddContract(contractInventory, "system2", "some-faction");
         }
@@ -64,7 +64,6 @@ public class BaseStation : BaseSelectable
     }
     public void InitializeFacilities()
     {
-        facilities.Add(new LuxuryGoodsFacility());
     }
 
     public void InitializeBaseStockpile()

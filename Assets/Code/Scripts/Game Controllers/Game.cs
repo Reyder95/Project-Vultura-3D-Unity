@@ -70,10 +70,7 @@ public class Game : MonoBehaviour
         Fleet playerFleet = new Fleet(System.Guid.NewGuid(), "Player Faction", newShip, new List<InstantiatedShip>());
 
         // -- Debug -- Add items to inventory
-        newShip.AddToCargo(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[3].Create(), 10));
-        newShip.AddToCargo(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[6].Create(), 2));
-        newShip.AddToCargo(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[1].Create(), 25));
-        newShip.AddToCargo(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[2].Create(), 25));
+        // TODO: Do with new system
         
         // -- Debug -- Add a second ship to the player fleet
         shipStatsComponent = shipPrefabs[1].GetComponent<PrefabHandler>().GetShipStats();
