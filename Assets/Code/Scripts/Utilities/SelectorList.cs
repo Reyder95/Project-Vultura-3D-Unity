@@ -206,6 +206,9 @@ public class SelectorList
     // When tab is pressed, cycle the main selection one up. if we're at the last element, go back to the beginning
     public void CycleOne()
     {
+        EventManager.TriggerEvent("Cycle Ship");
+        Debug.Log("Test!");
+
         if (selected.Count > 0)
         {
             int mainIndex = selected.IndexOf(mainSelected);

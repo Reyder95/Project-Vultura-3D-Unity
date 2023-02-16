@@ -22,6 +22,7 @@ public class UI_EntityList : MonoBehaviour
 
     private UnityAction fleetListener;
     private UnityAction deselectedListener;
+    private UnityAction cycleListener;
 
     public struct DataStruct {
         public int entityIndex;
@@ -34,6 +35,7 @@ public class UI_EntityList : MonoBehaviour
     {
         fleetListener = new UnityAction(SortAndPopulate);
         deselectedListener = new UnityAction(Deselected);
+        cycleListener = new UnityAction(RefreshEvent);
     }
 
     void Update()
@@ -56,12 +58,15 @@ public class UI_EntityList : MonoBehaviour
     {
         EventManager.StopListening("Fleet Added", fleetListener);
         EventManager.StopListening("Deselect Ship", deselectedListener);
+        EventManager.StopListening("Cycle Ship", cycleListener);
     }
 
     private void OnEnable()
     {
         EventManager.StartListening("Fleet Added", fleetListener);
         EventManager.StartListening("Deselect Ship", deselectedListener);
+        EventManager.StartListening("Cycle Ship", cycleListener);
+
         rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
         entityListView = rootVisualElement.Q<ListView>("fleet-list");
         entityButton = rootVisualElement.Q<Button>("list-button");
@@ -177,6 +182,11 @@ public class UI_EntityList : MonoBehaviour
     {
         SortAndPopulate();
         Refresh();
+    }
+
+    private void RefreshEvent()
+    {
+        SortAndPopulate();
     }
 
     private void Refresh()

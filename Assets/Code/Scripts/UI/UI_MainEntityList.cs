@@ -19,6 +19,7 @@ public class UI_MainEntityList : MonoBehaviour
     public StyleSheet entitySelected;
     public VisualTreeAsset listItem;
     public UnityAction selectionChanged;
+    public UnityAction cycleList;
 
     public struct DataStruct {
         public int entityIndex;
@@ -30,11 +31,19 @@ public class UI_MainEntityList : MonoBehaviour
     void Awake()
     {
         selectionChanged = new UnityAction(SortAndPopulate);
+        cycleList = new UnityAction(RefreshEvent);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening("Selection Changed", selectionChanged);
+        EventManager.StopListening("Cycle Ship", cycleList);
     }
 
     private void OnEnable()
     {
         EventManager.StartListening("Selection Changed", selectionChanged);
+        EventManager.StartListening("Cycle Ship", cycleList);
         var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
         entityListView = rootVisualElement.Q<ListView>("entity-list");
         entityButton = rootVisualElement.Q<Button>("list-button");
@@ -149,6 +158,11 @@ public class UI_MainEntityList : MonoBehaviour
     {
         SortAndPopulate();
         Refresh();
+    }
+
+    private void RefreshEvent()
+    {
+        SortAndPopulate();
     }
 
     private void Refresh()
