@@ -75,6 +75,13 @@ public class MiningStationUI : MonoBehaviour
         facilityGameobject.SetActive(false);
     }
 
+    void Update()
+    {
+        
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Exit();
+    }
+
     // When exiting the station, set every game object to false
     public void Exit()
     {
@@ -90,10 +97,14 @@ public class MiningStationUI : MonoBehaviour
     // When entering a station
     public void OpenUI(BaseStation stationObject)
     {
-        station = stationObject;    // Retrieve and set the current station
-        playerInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;   // Set the player inventory variable to the current player ship's cargo
-        InitializeHome();   // Initialize the homepage and display it
-        VulturaInstance.playerStatus = VulturaInstance.PlayerStatus.STATION;
+        if (VulturaInstance.playerStatus != VulturaInstance.PlayerStatus.STATION)
+        {
+            station = stationObject;    // Retrieve and set the current station
+            playerInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;   // Set the player inventory variable to the current player ship's cargo
+            InitializeHome();   // Initialize the homepage and display it
+            VulturaInstance.playerStatus = VulturaInstance.PlayerStatus.STATION;
+        }
+        
 
     }
 
