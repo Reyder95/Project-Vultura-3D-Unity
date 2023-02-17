@@ -23,8 +23,6 @@ public static class JSONDataHandler
         ParseItemJSON("JSON/Items/Trade Goods/FreshWater");
         ParseItemJSON("JSON/Items/Trade Goods/LuxuryGoods");
         
-        Debug.Log(Items.data.Length);
-        
     }
 
     public static void ParseItemJSON(string filepath)
