@@ -88,6 +88,26 @@ public class Game : MonoBehaviour
         shipSpawner.SpawnFleet(FleetGenerator(1000), new Vector3(-600, 0, 0));
 
         VulturaInstance.InitializeSelectableObjects();  // Find all selectable objects in the system for the entity list UI.
+
+        GenerateInventory();
+    }
+
+    public void GenerateInventory()
+    {
+        int randSize = UnityEngine.Random.Range(3, 10);
+
+        for (int i = 0; i < randSize; i++)
+        {
+            BaseItem tempItem = ItemManager.GenerateRandomItem();
+            int quantity = 1;
+            
+            if (tempItem.Stackable)
+                quantity = UnityEngine.Random.Range(1, 100);
+
+            InventoryItem tempInventoryItem = new InventoryItem(tempItem, quantity);
+
+            VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.Add(tempInventoryItem);
+        }
     }
 
     // -- Debug -- Show FPS display

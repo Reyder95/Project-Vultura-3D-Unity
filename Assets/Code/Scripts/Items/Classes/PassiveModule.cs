@@ -7,7 +7,7 @@ abstract public class PassiveModule : Module
 {
 
     public PassiveModule(
-        int id, 
+        string key, 
         string name, 
         string description, 
         VulturaInstance.ItemRarity rarity, 
@@ -20,7 +20,7 @@ abstract public class PassiveModule : Module
         float weight, 
         int galacticPrice
         ) : base(
-            id, 
+            key, 
             name, 
             VulturaInstance.ItemType.Passive_Module, 
             description,  

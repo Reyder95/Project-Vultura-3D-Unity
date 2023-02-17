@@ -6,7 +6,7 @@ using UnityEngine;
 public class RocketLauncher : OffenseModule
 {
     public RocketLauncher(
-        int id, 
+        string key, 
         string name, 
         string description, 
         VulturaInstance.ItemRarity rarity, 
@@ -19,7 +19,7 @@ public class RocketLauncher : OffenseModule
         float weight, 
         int galacticPrice
         ) : base(
-            id, 
+            key, 
             name, 
             description, 
             rarity, icon,

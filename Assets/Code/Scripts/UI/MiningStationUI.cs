@@ -765,12 +765,12 @@ public class MiningStationUI : MonoBehaviour
                 buyButton.text = "Buy";
                 // If buy is clicked on, buy the item
                 buyButton.RegisterCallback<ClickEvent>(ev => {
-                    int itemId = station.market.itemList[i].item.Id;
+                    string itemId = station.market.itemList[i].item.Key;
                     BuyItem();
 
                     quantitySlider.highValue = station.market.itemList[i].quantity;
 
-                    if (itemId != station.market.itemList[i].item.Id)
+                    if (itemId != station.market.itemList[i].item.Key)
                     {
                         marketRoot.Q<VisualElement>("none-display").style.display = DisplayStyle.Flex;
                         marketRoot.Q<VisualElement>("purchase-display").style.display = DisplayStyle.None;

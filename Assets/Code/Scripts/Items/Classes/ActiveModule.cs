@@ -6,7 +6,7 @@ using UnityEngine;
 abstract public class ActiveModule : Module
 {
     public ActiveModule(
-        int id, 
+        string key, 
         string name, 
         string description, 
         VulturaInstance.ItemRarity rarity, 
@@ -19,7 +19,7 @@ abstract public class ActiveModule : Module
         float weight, 
         int galacticPrice
         ) : base(
-            id, 
+            key, 
             name, 
             VulturaInstance.ItemType.Active_Module, 
             description, 

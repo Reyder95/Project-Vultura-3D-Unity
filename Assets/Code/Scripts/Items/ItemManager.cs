@@ -22,6 +22,16 @@ public static class ItemManager
         }
     }
 
+    public static BaseItem GenerateRandomItem()
+    {
+        int randInt = Random.Range(0, JSONDataHandler.Items.data.Length);
+        ItemData itemData = JSONDataHandler.Items.data[randInt];
+        Category categoryData = JSONDataHandler.FindCategoryByKey(itemData.linking_key);
+
+
+        return GenerateItem(categoryData, itemData);
+    }
+
     public static BaseItem GenerateRandomBaseFromCategory(string categoryKey)
     {
         try
@@ -75,7 +85,7 @@ public static class ItemManager
             int weight = Random.Range(itemData.weight.min, itemData.weight.max);
 
             BaseItem generatedItem = new Chaingun(
-                0, 
+                itemData.key, 
                 itemData.name, 
                 categoryData.description, 
                 itemRarity, 
@@ -97,7 +107,7 @@ public static class ItemManager
             int weight = Random.Range(itemData.weight.min, itemData.weight.max);
 
             BaseItem generatedItem = new RocketLauncher(
-                0, 
+                itemData.key, 
                 itemData.name, 
                 categoryData.description, 
                 itemRarity, 
@@ -119,7 +129,7 @@ public static class ItemManager
             int weight = Random.Range(itemData.weight.min, itemData.weight.max);
 
             BaseItem generatedItem = new CargoExpander(
-                0, 
+                itemData.key, 
                 itemData.name, 
                 categoryData.description, 
                 itemRarity, 
@@ -140,7 +150,7 @@ public static class ItemManager
             int weight = Random.Range(itemData.weight.min, itemData.weight.max);
 
             BaseItem generatedItem = new TradeGood(
-                0, 
+                itemData.key, 
                 itemData.name, 
                 categoryData.description, 
                 null,  

@@ -7,7 +7,7 @@ public class TradeGood : UnuseableItem
 {
     //private GameObject prefab;
     public TradeGood(
-        int id, 
+        string key, 
         string name, 
         string description, 
         Texture2D icon, 
@@ -15,7 +15,7 @@ public class TradeGood : UnuseableItem
         int galacticPrice, 
         bool stackable
         ) : base(
-            id, 
+            key, 
             name, 
             VulturaInstance.
             ItemType.Trade_Good, 

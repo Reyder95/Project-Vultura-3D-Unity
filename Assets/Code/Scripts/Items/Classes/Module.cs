@@ -7,7 +7,7 @@ abstract public class Module : UseableItem
 {
 
     public Module(
-        int id, 
+        string key, 
         string name, 
         VulturaInstance.ItemType type, 
         string description, 
@@ -21,7 +21,7 @@ abstract public class Module : UseableItem
         float weight, 
         int galacticPrice
         ) : base(
-            id, 
+            key, 
             name, 
             type, 
             description, 

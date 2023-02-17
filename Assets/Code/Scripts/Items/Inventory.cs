@@ -31,18 +31,42 @@ public class Inventory
     // Add an item to the inventory
     public void Add(InventoryItem item)
     {
-        ExistsStruct value = ContainsItem(item.item);
-
-        if (value.exists)
+        if (!CargoFull(item))
         {
-            itemList[value.index].quantity += item.quantity;
+            ExistsStruct value = ContainsItem(item.item);
+
+            if (value.exists && item.item.Stackable)
+            {
+                itemList[value.index].quantity += item.quantity;
+            }
+            else
+            {
+                itemList.Add(item);
+            }
+
+            currCargo += (item.quantity * item.item.Weight);
         }
         else
         {
-            itemList.Add(item);
+            Debug.Log("Inventory full!");
         }
 
-        currCargo += (item.quantity * item.item.Weight);
+    }
+
+    public void ClearInventory()
+    {
+        itemList.Clear();
+        currCargo = 0;
+    }
+
+    public bool CargoFull(InventoryItem item)
+    {
+        float theoreticalMaxCargo = item.item.Weight + currCargo;
+
+        if (VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.ShipStats.baseCargo >= theoreticalMaxCargo)
+            return false;
+        
+        return true;
     }
 
     // Check if an item exists within the inventory
@@ -57,7 +81,7 @@ public class Inventory
         // Loop through array to find if the value exists. If it does, set the struct and break.
         for (int i = 0; i < itemList.Count; i++)
         {
-            if (itemList[i].item.Id == item.Id)
+            if (itemList[i].item.Key == item.Key)
             {
                 value.exists = true;
                 value.index = i;
@@ -130,7 +154,7 @@ public class Inventory
     {
         for (int i = 0; i < itemList.Count; i++)
         {
-            if (itemList[i].item.Id == item.Id)
+            if (itemList[i].item.Key == item.Key)
                 return i;
         }
 
@@ -142,7 +166,7 @@ public class Inventory
     {
         foreach (InventoryItem invItem in itemList)
         {
-            if (invItem.item.Id == item.Id)
+            if (invItem.item.Key == item.Key)
                 return invItem;
         }
 

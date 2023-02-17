@@ -118,7 +118,7 @@ public class BaseStation : BaseSelectable
                 {
                     BaseItem consumerItem = consumer.itemExec();
 
-                    if (consumerItem.Id == item.Id)
+                    if (consumerItem.Key == item.Key)
                     {
                         facility.stockpile.Add(new InventoryItem(item, quantity));
                         return true;

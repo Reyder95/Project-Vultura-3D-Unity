@@ -6,7 +6,7 @@ using UnityEngine;
 public class CargoExpander : PassiveModule
 {
     public CargoExpander(
-        int id, 
+        string key, 
         string name, 
         string description, 
         VulturaInstance.ItemRarity rarity, 
@@ -19,7 +19,7 @@ public class CargoExpander : PassiveModule
         float weight, 
         int galacticPrice
         ) : base(
-            id, 
+            key, 
             name, 
             description,  
             rarity, 

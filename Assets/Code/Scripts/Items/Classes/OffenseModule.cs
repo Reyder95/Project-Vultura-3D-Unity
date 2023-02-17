@@ -19,7 +19,7 @@ abstract public class OffenseModule : ActiveModule
 
 
     public OffenseModule(
-        int id, 
+        string key, 
         string name, 
         string description, 
         VulturaInstance.ItemRarity rarity, 
@@ -32,7 +32,7 @@ abstract public class OffenseModule : ActiveModule
         float weight, 
         int galacticPrice
         ) : base(
-            id, 
+            key, 
             name, 
             description, 
             rarity, 

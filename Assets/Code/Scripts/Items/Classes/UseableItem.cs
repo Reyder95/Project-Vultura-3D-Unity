@@ -11,7 +11,7 @@ abstract public class UseableItem : BaseItem
 
     // Maybe don't need this?
     public UseableItem(
-        int id, 
+        string key, 
         string name, 
         VulturaInstance.ItemType type, 
         string description, 
@@ -21,7 +21,7 @@ abstract public class UseableItem : BaseItem
         int galacticPrice, 
         bool stackable
         ) : base(
-            id, 
+            key, 
             name, 
             type, 
             description, 

@@ -53,11 +53,8 @@ public class PlayerController : MonoBehaviour
         // DEBUG
         if (Input.GetKeyDown("y"))
         {
-            for (int i = 0; i < 10; i++)
-            {
-                BaseItem testItem = ItemManager.GenerateRandomBaseFromType("trade_good");
-                Debug.Log(testItem.Name);
-            }
+            VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.ClearInventory();
+            Game.Instance.GenerateInventory();
         }
 
         // Left Alt switches the main selection out of the list of currently selected items

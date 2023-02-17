@@ -6,7 +6,7 @@ using UnityEngine;
 abstract public class BaseItem
 {
     [Header("Item Information")]
-    [SerializeField] int id;    // The identification of the item itself
+    [SerializeField] string key;    // The identification of the item itself
     [SerializeField] string name;   // The name of the item
     [SerializeField] float weight;  // The weight of the item itself, for storage purposes
     [SerializeField] private VulturaInstance.ItemType type;     // The type of the item
@@ -17,9 +17,9 @@ abstract public class BaseItem
     [SerializeField] private bool stackable;            // Is the item stackable?
 
     // Base Constructor
-    public BaseItem(int id, string name, VulturaInstance.ItemType type, string description, VulturaInstance.ItemRarity rarity, Texture2D icon, float weight, int galacticPrice, bool stackable)
+    public BaseItem(string key, string name, VulturaInstance.ItemType type, string description, VulturaInstance.ItemRarity rarity, Texture2D icon, float weight, int galacticPrice, bool stackable)
     {
-        this.id = id;
+        this.key = key;
         this.name = name;
         this.type = type;
         this.description = description;
@@ -30,10 +30,10 @@ abstract public class BaseItem
         this.stackable = stackable;
     }
 
-    public int Id {
+    public string Key {
         get
         {
-            return this.id;
+            return this.key;
         }
     }
 
@@ -96,6 +96,14 @@ abstract public class BaseItem
         get
         {
             return this.galacticPrice;
+        }
+    }
+
+    public bool Stackable
+    {
+        get
+        {
+            return this.stackable;
         }
     }
 }

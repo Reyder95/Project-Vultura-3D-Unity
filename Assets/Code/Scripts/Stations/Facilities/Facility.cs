@@ -50,7 +50,7 @@ public abstract class Facility
 
             for (int i = 0; i < stockpile.itemList.Count; i++)
             {
-                if (stockpile.itemList[i].item.Id == execItem.Id)
+                if (stockpile.itemList[i].item.Key == execItem.Key)
                 {
                     stockpile.ReduceWithoutRemove(i, item.quantity);
 
