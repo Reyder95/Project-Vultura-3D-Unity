@@ -22,6 +22,51 @@ public static class ItemManager
         }
     }
 
+    public static BaseItem GenerateRandomBaseFromCategory(string categoryKey)
+    {
+        try
+        {
+            Category categoryData = JSONDataHandler.FindCategoryByKey(categoryKey);
+            List<ItemData> categoryBases = JSONDataHandler.FindBasesByCategory(categoryData);
+
+            int randIndex = Random.Range(0, categoryBases.Count);
+
+            return GenerateItem(categoryData, categoryBases[randIndex]);
+        }
+        catch (System.NullReferenceException ex)
+        {
+            Debug.Log("Item was not found. Check if the correct category key was provided.");
+            Debug.Log(ex);
+
+            return null;
+        }
+    }
+
+    public static BaseItem GenerateRandomBaseFromType(string typeKey)
+    {
+        try 
+        {
+            Type typeData = JSONDataHandler.FindTypeByKey(typeKey);
+            List<Category> typeCategories = JSONDataHandler.FindCategoriesByType(typeData);
+
+            int randIntCat = Random.Range(0, typeCategories.Count);
+
+            List<ItemData> itemData = JSONDataHandler.FindBasesByCategory(typeCategories[randIntCat]);
+
+            int randIntItem = Random.Range(0, itemData.Count);
+
+            return GenerateItem(typeCategories[randIntCat], itemData[randIntItem]);
+
+        }
+        catch (System.NullReferenceException ex)
+        {
+            Debug.Log("Item was not found. Check if the correct category key was provided.");
+            Debug.Log(ex);
+
+            return null;
+        }
+    }
+
     public static BaseItem GenerateItem(Category categoryData, ItemData itemData)
     {
         if (itemData.linking_key == "chaingun")

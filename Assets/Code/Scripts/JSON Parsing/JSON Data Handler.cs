@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// This seems a bit inefficient with the constant looping needing to be done across items. To make this more efficient, I might scrap the 3 types of variables
+// and instead grab data directly from the resources in each function since I can cut things down by their folder and category.
 public static class JSONDataHandler
 {
     public static JSONTypes Types;
@@ -28,6 +30,7 @@ public static class JSONDataHandler
         Items.linking_key = null;
         
     }
+    
 
     public static void ParseItemJSON(string filepath)
     {
@@ -60,6 +63,32 @@ public static class JSONDataHandler
         }
 
         return null;
+    }
+
+    public static List<ItemData> FindBasesByCategory(Category category)
+    {
+        List<ItemData> bases = new List<ItemData>();
+
+        foreach (ItemData itemData in Items.data)
+        {
+            if (itemData.linking_key == category.key)
+                bases.Add(itemData);
+        }
+
+        return bases;
+    }
+
+    public static List<Category> FindCategoriesByType(Type type)
+    {
+        List<Category> categories = new List<Category>();
+
+        foreach (Category category in Categories.data)
+        {
+            if (category.type == type.key)
+                categories.Add(category);
+        }
+
+        return categories;
     }
 
     public static Type FindTypeByKey(string key)
