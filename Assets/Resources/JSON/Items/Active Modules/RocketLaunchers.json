@@ -27,8 +27,10 @@
         },
         {
             "name": "Tri-Pod Launcher",
-            "weight_min": 350,
-            "weight_max": 500,
+            "weight": {
+                "min": 350,
+                "max": 500
+            },
             "galactic_price_modifier": 1.0,
             "icon_tag": "rocket_annihilator",
             "main_stats": [
