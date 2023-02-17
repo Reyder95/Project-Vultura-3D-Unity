@@ -64,6 +64,8 @@ public class BaseStation : BaseSelectable
     }
     public void InitializeFacilities()
     {
+        Facility newFacility = ItemManager.GenerateFacility("cookery");
+        facilities.Add(newFacility);
     }
 
     public void InitializeBaseStockpile()
@@ -72,7 +74,7 @@ public class BaseStation : BaseSelectable
         {
             foreach (FacilityItem consumer in facility.consuming)
             {
-                facility.stockpile.Add(new InventoryItem(consumer.itemExec(), Random.Range(30, 50)));
+                facility.stockpile.Add(new InventoryItem(ItemManager.GenerateSpecificBase(consumer.item.Key), Random.Range(30, 50)));
             }
         }
     }
@@ -99,7 +101,7 @@ public class BaseStation : BaseSelectable
             {
                 foreach (FacilityItem item in facility.consuming)
                 {
-                    market.AddDemandSeller(item.itemExec());
+                    market.AddDemandSeller(ItemManager.GenerateSpecificBase(item.item.Key));
                 }
             }
             
@@ -116,7 +118,7 @@ public class BaseStation : BaseSelectable
             {
                 foreach (FacilityItem consumer in facility.consuming)
                 {
-                    BaseItem consumerItem = consumer.itemExec();
+                    BaseItem consumerItem = ItemManager.GenerateSpecificBase(consumer.item.Key);
 
                     if (consumerItem.Key == item.Key)
                     {

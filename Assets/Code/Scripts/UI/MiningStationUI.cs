@@ -404,12 +404,12 @@ public class MiningStationUI : MonoBehaviour
         facilityRoot.Q<Label>("facility-production").text = "Producing ";
 
         // Write out every item this facility produces
-        for (int i = 0; i < currentFacility.producing.Length; i++)
+        for (int i = 0; i < currentFacility.producing.Count; i++)
         {
-            BaseItem item = currentFacility.producing[i].itemExec();
+            BaseItem item = ItemManager.GenerateSpecificBase(currentFacility.producing[i].item.Key);
             if (i == 0)
                 facilityRoot.Q<Label>("facility-production").text += item.Name;
-            else if (i < i - 1 && currentFacility.producing.Length > 1)
+            else if (i < i - 1 && currentFacility.producing.Count > 1)
                 facilityRoot.Q<Label>("facility-production").text += ", " + item.Name;
             else
                 facilityRoot.Q<Label>("facility-production").text += " and " + item.Name;

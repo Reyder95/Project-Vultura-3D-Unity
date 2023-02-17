@@ -9,6 +9,7 @@ public static class JSONDataHandler
     public static JSONTypes Types;
     public static JSONCategories Categories;
     public static JSONItems Items;
+    public static JSONFacilities Facilities;
 
     public static void LoadData()
     {
@@ -17,6 +18,9 @@ public static class JSONDataHandler
 
         jsonTextFile = Resources.Load<TextAsset>("JSON/Items/Categories");
         Categories = JsonUtility.FromJson<JSONCategories>(jsonTextFile.text);
+
+        jsonTextFile = Resources.Load<TextAsset>("JSON/Items/Facilities");
+        Facilities = JsonUtility.FromJson<JSONFacilities>(jsonTextFile.text);
 
         // TODO -- Use folder from categories to make this easier
 
@@ -52,6 +56,17 @@ public static class JSONDataHandler
         arr1.CopyTo(tempArray, 0);
         arr2.CopyTo(tempArray, arr1.Length);
         return tempArray;
+    }
+
+    public static FacilityData FindFacilityByKey(string key)
+    {
+        foreach (FacilityData facilityData in Facilities.data)
+        {
+            if (facilityData.key == key)
+                return facilityData;
+        }
+
+        return null;
     }
 
     public static Category FindCategoryByKey(string key)
