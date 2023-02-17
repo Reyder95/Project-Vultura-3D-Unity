@@ -6,13 +6,13 @@ using UnityEngine;
 // A facility's item. May be a producer or a consumer
 public class FacilityItem
 {
-    public Func<BaseItem> itemExec;
+    public BaseItem item;
     public int quantity;
     public bool demand;
 
-    public FacilityItem(Func<BaseItem> itemExec, int quantity)
+    public FacilityItem(BaseItem item, int quantity)
     {
-        this.itemExec = itemExec;
+        this.item = item;
         this.quantity = quantity;
         this.demand = false;
     }

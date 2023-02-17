@@ -164,4 +164,28 @@ public static class ItemManager
 
         return null;
     }
+
+    public static Facility GenerateFacility(string facilityKey)
+    {
+        FacilityData facilityData = JSONDataHandler.FindFacilityByKey(facilityKey);
+
+        List<FacilityItem> produce = new List<FacilityItem>();
+        List<FacilityItem> consume = new List<FacilityItem>();
+
+        foreach (FacilityValue facilityValue in facilityData.produce)
+        {
+            ItemData itemData = JSONDataHandler.FindBaseByKey(facilityValue.key);
+            Category categoryData = JSONDataHandler.FindCategoryByKey(itemData.linking_key);
+            produce.Add(new FacilityItem(GenerateItem(categoryData, itemData), facilityValue.value));
+        }
+
+        foreach (FacilityValue facilityValue in facilityData.consume)
+        {
+            ItemData itemData = JSONDataHandler.FindBaseByKey(facilityValue.key);
+            Category categoryData = JSONDataHandler.FindCategoryByKey(itemData.linking_key);
+            consume.Add(new FacilityItem(GenerateItem(categoryData, itemData), facilityValue.value));
+        }
+
+        return new Facility(facilityKey, produce, consume, facilityData.name);
+    }
 }

@@ -31,26 +31,16 @@ public class Inventory
     // Add an item to the inventory
     public void Add(InventoryItem item)
     {
-        if (!CargoFull(item))
+        ExistsStruct value = ContainsItem(item.item);
+        if (value.exists && item.item.Stackable)
         {
-            ExistsStruct value = ContainsItem(item.item);
-
-            if (value.exists && item.item.Stackable)
-            {
-                itemList[value.index].quantity += item.quantity;
-            }
-            else
-            {
-                itemList.Add(item);
-            }
-
-            currCargo += (item.quantity * item.item.Weight);
+            itemList[value.index].quantity += item.quantity;
         }
         else
         {
-            Debug.Log("Inventory full!");
+            itemList.Add(item);
         }
-
+        currCargo += (item.quantity * item.item.Weight);
     }
 
     public void ClearInventory()

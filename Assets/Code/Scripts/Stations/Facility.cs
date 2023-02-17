@@ -4,19 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // A station facility that conosumes and produces. The fundamental idea of this will be modified
-public abstract class Facility 
+public class Facility 
 {
+    public string key;
     public string facilityName;     // The name of the facility
 
-    public FacilityItem[] producing;    // The items the facility produces
-    public FacilityItem[] consuming;    // The items the facility consumes
+    public List<FacilityItem> producing = new List<FacilityItem>();    // The items the facility produces
+    public List<FacilityItem> consuming = new List<FacilityItem>();    // The items the facility consumes
 
     public Inventory stockpile = new Inventory();   // The current iteme that the station has stocked up. The station sells these.
 
     public bool demand = false;     // Is this facility in demand?
 
-    public Facility(FacilityItem[] producing, FacilityItem[] consuming, string facilityName)
+    public Facility(string key, List<FacilityItem> producing, List<FacilityItem> consuming, string facilityName)
     {
+        this.key = key;
         this.producing = producing;
         this.consuming = consuming;
         this.facilityName = facilityName;
@@ -30,11 +32,11 @@ public abstract class Facility
         {
             if (!demand)
             {
-                produced.Add(new InventoryItem(item.itemExec(), item.quantity));
+                produced.Add(new InventoryItem(ItemManager.GenerateSpecificBase(item.item.Key), item.quantity));
             }
             else
             {
-                produced.Add(new InventoryItem(item.itemExec(), (int)Mathf.Floor(item.quantity / 3)));
+                produced.Add(new InventoryItem(ItemManager.GenerateSpecificBase(item.item.Key), (int)Mathf.Floor(item.quantity / 3)));
             }
         }
 
@@ -46,11 +48,10 @@ public abstract class Facility
     {
         foreach (FacilityItem item in consuming)
         {
-            BaseItem execItem = item.itemExec();
 
             for (int i = 0; i < stockpile.itemList.Count; i++)
             {
-                if (stockpile.itemList[i].item.Key == execItem.Key)
+                if (stockpile.itemList[i].item.Key == item.item.Key)
                 {
                     stockpile.ReduceWithoutRemove(i, item.quantity);
 
