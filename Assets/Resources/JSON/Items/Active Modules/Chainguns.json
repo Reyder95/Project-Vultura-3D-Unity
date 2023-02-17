@@ -1,6 +1,8 @@
 {
+    "linking_key": "chaingun",
     "data": [
         {
+            "key": "rusty_chaingun",
             "name": "Rusty Chaingun",
             "weight": {
                 "min": 80,
@@ -26,6 +28,7 @@
             ]
         },
         {
+            "key": "minigun",
             "name": "Minigun",
             "weight": {
                 "min": 87,

@@ -6,7 +6,27 @@ using UnityEngine;
 abstract public class UnuseableItem : BaseItem
 {
     // Maybe don't need this?
-    public UnuseableItem(int id, string name, VulturaInstance.ItemType type, string description, VulturaInstance.ItemRarity rarity, Texture2D icon, float weight, int galacticPrice) : base(id, name, type, description, rarity, icon, weight, galacticPrice)
+    public UnuseableItem(
+        int id, 
+        string name, 
+        VulturaInstance.ItemType type, 
+        string description, 
+        VulturaInstance.ItemRarity rarity, 
+        Texture2D icon, 
+        float weight, 
+        int galacticPrice, 
+        bool stackable
+        ) : base(
+            id, 
+            name, 
+            type, 
+            description, 
+            rarity, 
+            icon,
+            weight, 
+            galacticPrice, 
+            stackable
+            )
     {
 
     }

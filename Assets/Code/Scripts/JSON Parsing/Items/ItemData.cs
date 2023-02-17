@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class ItemData
 {
+    public string key;
+    public string linking_key;
     public string name;
     public RangeValue weight;
     public float galactic_price_modifier;

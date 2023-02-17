@@ -5,10 +5,32 @@ using UnityEngine;
 // Base class for all modules.
 abstract public class Module : UseableItem
 {
-    private List<int> bonusModifiers = new List<int>();
 
-    public Module(int id, string name, VulturaInstance.ItemType type, string description, VulturaInstance.ItemRarity rarity, Texture2D icon, List<int> bonusModifiers, float weight, int galacticPrice) : base(id, name, type, description, rarity, icon, weight, galacticPrice)
+    public Module(
+        int id, 
+        string name, 
+        VulturaInstance.ItemType type, 
+        string description, 
+        VulturaInstance.ItemRarity rarity, 
+        Texture2D icon, 
+        StatisticValue[] category_stats, 
+        StatisticValue[] main_stats, 
+        BoolValue[] boolValues, 
+        ListValue[] listValues, 
+        Override overrides, 
+        float weight, 
+        int galacticPrice
+        ) : base(
+            id, 
+            name, 
+            type, 
+            description, 
+            rarity, 
+            icon, 
+            weight, 
+            galacticPrice,
+            false
+            )
     {
-        this.bonusModifiers = bonusModifiers;
     }
 }

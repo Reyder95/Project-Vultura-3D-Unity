@@ -1,6 +1,8 @@
 {
+    "linking_key": "rocket_launcher",
     "data": [
         {
+            "key": "rocket_annihilator",
             "name": "Rocket Annihilator",
             "weight": {
                 "min": 250,
@@ -26,6 +28,7 @@
             ]
         },
         {
+            "key": "tripod_launcher",
             "name": "Tri-Pod Launcher",
             "weight": {
                 "min": 350,

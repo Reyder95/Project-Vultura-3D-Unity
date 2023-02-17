@@ -18,12 +18,34 @@ abstract public class OffenseModule : ActiveModule
 
 
 
-    public OffenseModule(int id, string name, string description, VulturaInstance.ItemRarity rarity, Texture2D icon, List<int> bonusModifiers, bool usesAmmo, int currAmmoType, int ammoAmount, int possibleAmmoTypes, float weight, int galacticPrice) : base(id, name, description, rarity, icon, bonusModifiers, weight, galacticPrice)
+    public OffenseModule(
+        int id, 
+        string name, 
+        string description, 
+        VulturaInstance.ItemRarity rarity, 
+        Texture2D icon, 
+        StatisticValue[] category_stats, 
+        StatisticValue[] main_stats, 
+        BoolValue[] boolValues, 
+        ListValue[] listValues, 
+        Override overrides, 
+        float weight, 
+        int galacticPrice
+        ) : base(
+            id, 
+            name, 
+            description, 
+            rarity, 
+            icon, 
+            category_stats, 
+            main_stats, 
+            boolValues, 
+            listValues, 
+            overrides, 
+            weight, 
+            galacticPrice
+            )
     {
-        this.usesAmmo = usesAmmo;
-        this.currAmmoType = currAmmoType;
-        this.ammoAmount = ammoAmount;
-        this.possibleAmmoTypes = possibleAmmoTypes;
     }
 
     public bool UsesAmmo

@@ -14,9 +14,10 @@ abstract public class BaseItem
     [SerializeField] private VulturaInstance.ItemRarity rarity;     // The rarity of the item, changing the look of the tooltip and the color
     [SerializeField] private int galacticPrice;         // The base price of the item, changes how the market looks at the item
     [SerializeField] private Texture2D icon;            // The icon of the item used in the inventory and market
+    [SerializeField] private bool stackable;            // Is the item stackable?
 
     // Base Constructor
-    public BaseItem(int id, string name, VulturaInstance.ItemType type, string description, VulturaInstance.ItemRarity rarity, Texture2D icon, float weight, int galacticPrice)
+    public BaseItem(int id, string name, VulturaInstance.ItemType type, string description, VulturaInstance.ItemRarity rarity, Texture2D icon, float weight, int galacticPrice, bool stackable)
     {
         this.id = id;
         this.name = name;
@@ -26,6 +27,7 @@ abstract public class BaseItem
         this.icon = icon;
         this.weight = weight;
         this.galacticPrice = galacticPrice;
+        this.stackable = stackable;
     }
 
     public int Id {

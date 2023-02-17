@@ -1,6 +1,8 @@
 {
+    "linking_key": "cargo_expander",
     "data": [
         {
+            "key": "basic_cargo_expander",
             "name": "Basic Cargo Expander",
             "weight": {
                 "min": 25,
@@ -19,6 +21,7 @@
             ]
         },
         {
+            "key": "advanced_cargo_expander",
             "name": "Advanced Cargo Expander",
             "weight": {
                 "min": 27,

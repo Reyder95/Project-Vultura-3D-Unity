@@ -38,6 +38,11 @@ public class Game : MonoBehaviour
         // Load item data
         JSONDataHandler.LoadData();
 
+        BaseItem testItem = ItemManager.GenerateSpecificBase("luxury_goods");
+
+        if (testItem != null)
+            Debug.Log(testItem.Name);
+
         // Load all the main UI elements into the UI Manager
         UI_Manager.LoadUIElements();
 

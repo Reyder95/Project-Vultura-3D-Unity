@@ -1,6 +1,8 @@
 {
+    "linking_key": "luxury_goods",
     "data": [
         {
+            "key": "luxury_goods",
             "name": "Luxury Goods",
             "weight": {
                 "min": 1,

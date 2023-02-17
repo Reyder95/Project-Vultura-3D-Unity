@@ -1,6 +1,8 @@
 {
+    "linking_key": "fresh_water",
     "data": [
         {
+            "key": "fresh_water",
             "name": "Fresh Water",
             "weight": {
                 "min": 0.5,

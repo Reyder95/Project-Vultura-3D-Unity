@@ -1,6 +1,8 @@
 {
+    "linking_key": "fresh_food",
     "data": [
         {
+            "key": "fresh_food",
             "name": "Fresh Food",
             "weight": {
                 "min": 0.5,
