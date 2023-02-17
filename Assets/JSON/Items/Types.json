@@ -1,0 +1,19 @@
+{
+    "data": [
+        {
+            "key": "active_module",
+            "description": "A module that the user can activate to accomplish a task.",
+            "folder": "Active Modules"
+        },
+        {
+            "key": "passive_module",
+            "description": "A module that improves a ship or fleet 100% of the time via various stats. May have additional bonuses as well.",
+            "folder": "Passive Modules"
+        },
+        {
+            "key": "trade_good",
+            "description": "An item that has little no to use for a spacefaring captain, but has significant use for stations and civilization. Can be used to trade between stations for income.",
+            "folder": "Trade Goods"
+        }
+    ]
+}

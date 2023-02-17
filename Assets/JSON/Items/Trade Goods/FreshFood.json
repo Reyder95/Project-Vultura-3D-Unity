@@ -1,0 +1,13 @@
+{
+    "data": [
+        {
+            "name": "Fresh Food",
+            "weight": {
+                "min": 0.5,
+                "max": 0.5
+            },
+            "galactic_price_modifier": 1.0,
+            "icon_tag": "fresh_food"
+        }
+    ]
+}

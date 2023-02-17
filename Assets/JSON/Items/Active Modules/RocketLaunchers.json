@@ -1,0 +1,63 @@
+{
+    "data": [
+        {
+            "name": "Rocket Annihilator",
+            "weight": {
+                "min": 250,
+                "max": 290
+            },
+            "galactic_price_modifier": 0.7,
+            "icon_tag": "rocket_annihilator",
+            "main_stats": [
+                {
+                    "key": "fire_rate",
+                    "values": {
+                        "min": 10,
+                        "max": 35
+                    }
+                },
+                {
+                    "key": "damage",
+                    "values": {
+                        "min": 500,
+                        "max": 700
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Tri-Pod Launcher",
+            "weight_min": 350,
+            "weight_max": 500,
+            "galactic_price_modifier": 1.0,
+            "icon_tag": "rocket_annihilator",
+            "main_stats": [
+                {
+                    "key": "fire_rate",
+                    "values": {
+                        "min": 10,
+                        "max": 35
+                    }
+                },
+                {
+                    "key": "damage",
+                    "values": {
+                        "min": 250,
+                        "max": 500
+                    }
+                }
+            ],
+            "overrides": {
+                "stats": [
+                    {
+                        "key": "amount_fired",
+                        "values": {
+                            "min": 3,
+                            "max": 3
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

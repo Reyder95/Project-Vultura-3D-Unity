@@ -1,0 +1,40 @@
+{
+    "data": [
+        {
+            "name": "Basic Cargo Expander",
+            "weight": {
+                "min": 25,
+                "max": 38
+            },
+            "galactic_price_modifier": 0.7,
+            "icon_tag": "basic_cargo_expander",
+            "main_stats": [
+                {
+                    "key": "cargo_space",
+                    "values": {
+                        "min": 50,
+                        "max": 200
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Advanced Cargo Expander",
+            "weight": {
+                "min": 27,
+                "max": 45
+            },
+            "galactic_price_modifier": 1.1,
+            "icon_tag": "advanced_cargo_expander",
+            "main_stats": [
+                {
+                    "key": "cargo_space",
+                    "values": {
+                        "min": 225,
+                        "max": 400
+                    }
+                }
+            ]
+        }
+    ]
+}
