@@ -32,7 +32,6 @@ public static class JSONDataHandler
         ParseItemJSON("JSON/Items/Trade Goods/LuxuryGoods");
 
         Items.linking_key = null;
-        
     }
     
 

@@ -75,20 +75,6 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        // if (visualDragger != null)
-        // {
-        //     Debug.Log(visualDragger.worldBound);
-        //     Vector3 pos = Input.mousePosition;
-        //     //Debug.Log(visualDragger.resolvedStyle.width);
-        //     visualDragger.style.top =  Screen.height - pos.y - (visualDragger.resolvedStyle.width / 2);
-        //     visualDragger.style.left = pos.x - (visualDragger.resolvedStyle.height / 2);
-        //     if (!visualDragger.Q<VisualElement>("inventory-item").visible)
-        //         visualDragger.Q<VisualElement>("inventory-item").visible = true;
-        // }
-    }
-
     public void HandleInventory()
     {
         UIDocument inventoryDocument = GetComponent<UIDocument>();
@@ -116,18 +102,6 @@ public class InventoryManager : MonoBehaviour
         inventoryScroller.Clear();
         Inventory playerInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;
         visualDragger = rootVisualElement.Q<VisualElement>("ghost-item");
-
-
-        //GetComponent<UIDocument>().enabled = true;
-        
-        
-        
-        // VisualElement row = inventoryRow.Instantiate();
-
-        // inventoryScroller.Add(row);
-        // VisualElement item = inventoryItem.Instantiate();
-        // item.style.width = Length.Percent(16.6f);
-        // row.Add(item);
 
         VisualElement currentRow = inventoryRow.Instantiate();
 
@@ -179,7 +153,6 @@ public class InventoryManager : MonoBehaviour
                 visualDragger.RegisterCallback<PointerUpEvent>(ev => {
                     visualDragger.Q<VisualElement>("inventory-item").style.visibility = Visibility.Hidden;
                 });
-                //visualDragger.Q<VisualElement>("inventory-item").visible = true;
             });
             item.RegisterCallback<PointerEnterEvent>(ev => {
                 Debug.Log("Test!");
@@ -205,11 +178,6 @@ public class InventoryManager : MonoBehaviour
         rootVisualElement.Q<VisualElement>("bar-percent").style.width = Length.Percent(percentUsed);
 
         rootVisualElement.style.display = DisplayStyle.Flex;
-    }
-
-    public void DisplayInventory()
-    {
-
     }
 
     public void CloseInventory()
