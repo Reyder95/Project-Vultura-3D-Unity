@@ -50,6 +50,13 @@ public class PlayerController : MonoBehaviour
             multiselect = false;
         }
 
+        // DEBUG
+        if (Input.GetKeyDown("y"))
+        {
+            VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.ClearInventory();
+            Game.Instance.GenerateInventory();
+        }
+
         // Left Alt switches the main selection out of the list of currently selected items
         if (Input.GetKey("left alt"))
         {

@@ -1,0 +1,15 @@
+{
+    "linking_key": "fresh_water",
+    "data": [
+        {
+            "key": "fresh_water",
+            "name": "Fresh Water",
+            "weight": {
+                "min": 0.5,
+                "max": 0.5
+            },
+            "galactic_price_modifier": 1.0,
+            "icon_tag": "fresh_water"
+        }
+    ]
+}

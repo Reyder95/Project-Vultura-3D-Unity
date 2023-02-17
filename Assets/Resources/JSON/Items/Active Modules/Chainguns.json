@@ -1,0 +1,57 @@
+{
+    "linking_key": "chaingun",
+    "data": [
+        {
+            "key": "rusty_chaingun",
+            "name": "Rusty Chaingun",
+            "weight": {
+                "min": 80,
+                "max": 100
+            },
+            "galactic_price_modifier": 0.8,
+            "icon_tag": "rusty_chaingun",
+            "main_stats": [
+                {
+                    "key": "fire_rate",
+                    "values": {
+                        "min": 70,
+                        "max": 95
+                    }
+                },
+                {
+                    "key": "flat_damage",
+                    "values": {
+                        "min": 100,
+                        "max": 185
+                    }
+                }
+            ]
+        },
+        {
+            "key": "minigun",
+            "name": "Minigun",
+            "weight": {
+                "min": 87,
+                "max": 125
+            },
+            "galactic_price_modifier": 1.0,
+            "icon_tag": "minigun",
+            "main_stats": [
+                {
+                    "key": "fire_rate",
+                    "values": {
+                        "min": 85,
+                        "max": 95
+                    }
+                },
+                {
+                    "key": "flat_damage",
+                    "values": {
+                        "min": 135,
+                        "max": 215
+                    }
+                }
+            ]
+        } 
+    ]
+}

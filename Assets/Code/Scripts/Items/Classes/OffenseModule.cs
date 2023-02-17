@@ -5,18 +5,47 @@ using UnityEngine;
 // Offensive active module. Modules that do damage to the enemy
 abstract public class OffenseModule : ActiveModule
 {
-    // base Damage | range? Might need to go in the Active Module class.. at least the range portion
     private bool usesAmmo;      // Does the module use ammo?
     private int currAmmoType;   // What is the ammo type?
     private int ammoAmount;     // How much ammo is in the module?
-    private int possibleAmmoType;   // The possible ammo types that this module can input
+    private int possibleAmmoTypes;   // The possible ammo types that this module can input
+    private bool canMine;   // Whether or not this module has the ability to mine. Miners can do additional damage to asteroids
 
-    public OffenseModule(int id, string name, string description, VulturaInstance.ItemRarity rarity, Texture2D icon, List<int> bonusModifiers, bool usesAmmo, int currAmmoType, int ammoAmount, int possibleAmmoType, float weight, int galacticPrice) : base(id, name, description, rarity, icon, bonusModifiers, weight, galacticPrice)
+    // Basic stats (on every offense module)
+    private int fireRate;   // For beam weapons this will not matter
+    private int damage;     // The damage the module does to entities
+    private int amountFiredPerShot;
+
+
+
+    public OffenseModule(
+        string key, 
+        string name, 
+        string description, 
+        VulturaInstance.ItemRarity rarity, 
+        Texture2D icon, 
+        StatisticValue[] category_stats, 
+        StatisticValue[] main_stats, 
+        BoolValue[] boolValues, 
+        ListValue[] listValues, 
+        Override overrides, 
+        float weight, 
+        int galacticPrice
+        ) : base(
+            key, 
+            name, 
+            description, 
+            rarity, 
+            icon, 
+            category_stats, 
+            main_stats, 
+            boolValues, 
+            listValues, 
+            overrides, 
+            weight, 
+            galacticPrice
+            )
     {
-        this.usesAmmo = usesAmmo;
-        this.currAmmoType = currAmmoType;
-        this.ammoAmount = ammoAmount;
-        this.possibleAmmoType = possibleAmmoType;
     }
 
     public bool UsesAmmo
@@ -43,11 +72,11 @@ abstract public class OffenseModule : ActiveModule
         }
     }
 
-    public int PossibleAmmoType
+    public int PossibleAmmoTypes
     {
         get
         {
-            return this.possibleAmmoType;
+            return this.possibleAmmoTypes;
         }
     }
 }

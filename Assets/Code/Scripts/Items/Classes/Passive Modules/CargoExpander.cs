@@ -5,24 +5,39 @@ using UnityEngine;
 // An expansion mod that increases the maximum cargo space of the vessel
 public class CargoExpander : PassiveModule
 {
-    public CargoExpander(VulturaInstance.ItemRarity rarity) :
-    base(
-        6,
-        "Cargo Expander",
-        "A module attached to ships to virtualize additional cargo space. Useful to squeeze in a little bit more each trip.",
-        rarity,
-        new Texture2D(128, 128),
-        new List<int>(),
-        new List<int>(),
-        7.11f,
-        576
-    )
+    public CargoExpander(
+        string key, 
+        string name, 
+        string description, 
+        VulturaInstance.ItemRarity rarity, 
+        Texture2D icon,  
+        StatisticValue[] category_stats, 
+        StatisticValue[] main_stats, 
+        BoolValue[] boolValues, 
+        ListValue[] listValues, 
+        Override overrides, 
+        float weight, 
+        int galacticPrice
+        ) : base(
+            key, 
+            name, 
+            description,  
+            rarity, 
+            icon, 
+            category_stats, 
+            main_stats, 
+            boolValues, 
+            listValues, 
+            overrides,
+            weight, 
+            galacticPrice
+            )
     {
 
     }
 
     override public void Use()
     {
-        Debug.Log("Using Cargo Expander");
+        Debug.Log("Using " + base.Name);
     }
 }
