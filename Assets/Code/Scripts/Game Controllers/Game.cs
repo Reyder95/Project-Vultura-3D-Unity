@@ -35,6 +35,9 @@ public class Game : MonoBehaviour
             Instance = this;
         }
 
+        // Load item data
+        JSONDataHandler.LoadData();
+
         // Load all the main UI elements into the UI Manager
         UI_Manager.LoadUIElements();
 
