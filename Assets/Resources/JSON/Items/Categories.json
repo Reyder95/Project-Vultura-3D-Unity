@@ -78,7 +78,7 @@
             "key": "cargo_expander",
             "description": "A device that can shrink the size of items inside your cargo hold for more adequate storing",
             "stackable": false,
-            "galactic_base_price": 155,
+            "galactic_price_base": 155,
             "type": "passive_module",
             "bases_file": "CargoExpanders.json"
         },
@@ -86,7 +86,7 @@
             "key": "luxury_goods",
             "description": "Allows citizens to enjoy their leisure time. Provides items for the populace to indulge in.",
             "stackable": true,
-            "galactic_base_price": 30,
+            "galactic_price_base": 30,
             "type": "trade_good",
             "bases_file": "LuxuryGoods.json"
         },
@@ -94,7 +94,7 @@
             "key": "fresh_food",
             "description": "Provides nice and warm food for the citizens or workers to eat.",
             "stackable": true,
-            "galactic_base_price": 15,
+            "galactic_price_base": 15,
             "type": "trade_good",
             "bases_file": "FreshFood.json"
         },
@@ -102,7 +102,7 @@
             "key": "fresh_water",
             "description": "Provides water for the use of facilities, as well as citizen hydration.",
             "stackable": true,
-            "galactic_base_price": 25,
+            "galactic_price_base": 25,
             "type": "trade_good",
             "bases_file": "FreshWater.json"
         }
