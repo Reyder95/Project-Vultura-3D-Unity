@@ -19,7 +19,7 @@
                     }
                 },
                 {
-                    "key": "flat_damage",
+                    "key": "damage",
                     "values": {
                         "min": 100,
                         "max": 185
@@ -45,7 +45,7 @@
                     }
                 },
                 {
-                    "key": "flat_damage",
+                    "key": "damage",
                     "values": {
                         "min": 135,
                         "max": 215

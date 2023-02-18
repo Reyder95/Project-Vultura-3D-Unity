@@ -30,7 +30,7 @@ public class StatHandler
         return false;
     }
 
-    public void BuildStatList(VulturaInstance.ItemRarity itemRarity)
+    public void BuildStatList(VulturaInstance.ItemRarity itemRarity, StatisticValue[] mainStats)
     {
         int numStats = 0;
 
@@ -44,17 +44,11 @@ public class StatHandler
             numStats = 7;
 
         List<StatsData> remainingStats = new List<StatsData>(JSONDataHandler.Stats.data);
-
-        int prefixCount = 0;
-        int suffixCount = 0;
         
         int currStats = 0;
-        int limitCounter = 0;
 
         while (currStats < numStats)
         {
-            limitCounter++;
-            Debug.Log(limitCounter);
             int randInt = Random.Range(0, remainingStats.Count);
 
             string type = remainingStats[randInt].type;
@@ -76,8 +70,8 @@ public class StatHandler
 
                 if (success)
                 {
+                    remainingStats.RemoveAt(randInt);
                     currStats++;
-                    prefixCount++;
                 }
             }
             else if (type == "suffix")
@@ -86,13 +80,24 @@ public class StatHandler
 
                 if (success)
                 {
+                    remainingStats.RemoveAt(randInt);
                     currStats++;
-                    suffixCount++;
+
                 }
             }
 
-            Debug.Log(currStats);
+        }
 
+        foreach (StatisticValue mainStat in mainStats)
+        {
+            MainStat lookupStat = JSONDataHandler.FindMainStatByKey(mainStat.key);
+            int statValue = Random.Range(mainStat.values.min, mainStat.values.max);
+            Debug.Log(statValue);
+            Debug.Log(mainStat.key);
+            Debug.Log(lookupStat.display_text);
+            ItemStat newMainStat = new ItemStat(mainStat.key, null, null, null, lookupStat.display_text, statValue, 0);
+
+            main.Add(newMainStat);
         }
     }
 

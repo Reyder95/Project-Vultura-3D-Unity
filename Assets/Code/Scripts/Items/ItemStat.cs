@@ -31,6 +31,11 @@ public class ItemStat
         this.tier = tier;
     }
 
+    public string ReturnStatDescription()
+    {
+        return displayText.Replace("{{value}}", value.ToString());
+    }
+
     public string Key
     {
         get

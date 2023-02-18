@@ -85,7 +85,7 @@ public static class ItemManager
             int weight = Random.Range(itemData.weight.min, itemData.weight.max);
 
             StatHandler statHandler = new StatHandler();
-            statHandler.BuildStatList(itemRarity);
+            statHandler.BuildStatList(itemRarity, itemData.main_stats);
 
             BaseItem generatedItem = new Chaingun(
                 itemData.key, 
@@ -111,7 +111,7 @@ public static class ItemManager
             int weight = Random.Range(itemData.weight.min, itemData.weight.max);
 
             StatHandler statHandler = new StatHandler();
-            statHandler.BuildStatList(itemRarity);
+            statHandler.BuildStatList(itemRarity, itemData.main_stats);
 
             BaseItem generatedItem = new RocketLauncher(
                 itemData.key, 
@@ -137,7 +137,7 @@ public static class ItemManager
             int weight = Random.Range(itemData.weight.min, itemData.weight.max);
 
             StatHandler statHandler = new StatHandler();
-            statHandler.BuildStatList(itemRarity);
+            statHandler.BuildStatList(itemRarity, itemData.main_stats);
 
             BaseItem generatedItem = new CargoExpander(
                 itemData.key, 
