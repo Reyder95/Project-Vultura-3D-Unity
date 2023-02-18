@@ -12,6 +12,7 @@ abstract public class UseableItem : BaseItem
     // Maybe don't need this?
     public UseableItem(
         string key, 
+        string category,
         string name, 
         VulturaInstance.ItemType type, 
         string description, 
@@ -22,6 +23,7 @@ abstract public class UseableItem : BaseItem
         bool stackable
         ) : base(
             key, 
+            category,
             name, 
             type, 
             description, 

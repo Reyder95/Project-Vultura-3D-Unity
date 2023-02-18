@@ -20,6 +20,7 @@ public class RocketLauncher : OffenseModule
         int galacticPrice
         ) : base(
             key, 
+            "Rocket Launcher",
             name, 
             description, 
             rarity, icon,

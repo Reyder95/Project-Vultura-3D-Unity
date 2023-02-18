@@ -157,6 +157,16 @@ public class InventoryManager : MonoBehaviour
             });
             item.RegisterCallback<PointerEnterEvent>(ev => {
                 tempTooltip = itemTooltip.Instantiate();
+                Color32 rarityColor = VulturaInstance.GenerateItemColor(playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item.Rarity);
+                tempTooltip.Q<VisualElement>("item-tooltip").style.borderBottomColor = new StyleColor(rarityColor);
+                tempTooltip.Q<VisualElement>("item-tooltip").style.borderLeftColor = new StyleColor(rarityColor);
+                tempTooltip.Q<VisualElement>("item-tooltip").style.borderRightColor = new StyleColor(rarityColor);
+                tempTooltip.Q<VisualElement>("item-tooltip").style.borderTopColor = new StyleColor(rarityColor);
+                tempTooltip.Q<Label>("item-name").text = playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item.Name;
+                tempTooltip.Q<Label>("item-name").style.color = new StyleColor(rarityColor);
+                tempTooltip.Q<Label>("item-category").text = playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item.Category;
+                tempTooltip.Q<Label>("item-rarity").text = VulturaInstance.enumStringParser(playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item.Rarity.ToString());
+                tempTooltip.Q<Label>("item-rarity").style.color = new StyleColor(rarityColor);
                 tempTooltip.pickingMode = PickingMode.Ignore;
                 tempTooltip.style.position = Position.Absolute;
                 tempTooltip.style.top = ev.position.y;
@@ -167,6 +177,8 @@ public class InventoryManager : MonoBehaviour
             item.RegisterCallback<PointerMoveEvent>(ev => {
                 if (tempTooltip != null)
                 {
+
+
                     tempTooltip.style.top = ev.position.y;
                     tempTooltip.style.left = ev.position.x;
                 }

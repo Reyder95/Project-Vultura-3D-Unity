@@ -81,7 +81,7 @@ public static class ItemManager
     {
         if (itemData.linking_key == "chaingun")
         {
-            VulturaInstance.ItemRarity itemRarity = (VulturaInstance.ItemRarity)Random.Range(1, 4);
+            VulturaInstance.ItemRarity itemRarity = VulturaInstance.GenerateItemRarity();
             int weight = Random.Range(itemData.weight.min, itemData.weight.max);
 
             BaseItem generatedItem = new Chaingun(
