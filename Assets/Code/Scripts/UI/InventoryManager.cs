@@ -9,6 +9,7 @@ public class InventoryManager : MonoBehaviour
 
     public VisualTreeAsset inventoryRow;
     public VisualTreeAsset inventoryItem;
+    public VisualTreeAsset itemTooltip;
 
     bool isDragging = false;
 
@@ -22,6 +23,7 @@ public class InventoryManager : MonoBehaviour
     VisualElement currentElementOver;
 
     VisualElement visualDragger;
+    VisualElement tempTooltip;
 
     void Awake()
     {
@@ -130,7 +132,6 @@ public class InventoryManager : MonoBehaviour
                 visualDragger.Q<VisualElement>("inventory-item").pickingMode = PickingMode.Ignore;              
                 visualDragger.style.position = Position.Absolute;
                 Vector3 pos = Input.mousePosition;
-                Debug.Log(visualDragger.Q<VisualElement>("inventory-item").resolvedStyle.width);
                 visualDragger.Q<VisualElement>("inventory-item").style.visibility = Visibility.Visible;
                 visualDragger.style.top = ev.position.y - visualDragger.layout.height / 2;
                 visualDragger.style.left = ev.position.x - visualDragger.layout.width / 2;
@@ -155,11 +156,37 @@ public class InventoryManager : MonoBehaviour
                 });
             });
             item.RegisterCallback<PointerEnterEvent>(ev => {
-                Debug.Log("Test!");
-                currentElementOver = item;
+                tempTooltip = itemTooltip.Instantiate();
+                Color32 rarityColor = VulturaInstance.GenerateItemColor(playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item.Rarity);
+                tempTooltip.Q<VisualElement>("item-tooltip").style.borderBottomColor = new StyleColor(rarityColor);
+                tempTooltip.Q<VisualElement>("item-tooltip").style.borderLeftColor = new StyleColor(rarityColor);
+                tempTooltip.Q<VisualElement>("item-tooltip").style.borderRightColor = new StyleColor(rarityColor);
+                tempTooltip.Q<VisualElement>("item-tooltip").style.borderTopColor = new StyleColor(rarityColor);
+                tempTooltip.Q<Label>("item-name").text = playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item.Name;
+                tempTooltip.Q<Label>("item-name").style.color = new StyleColor(rarityColor);
+                tempTooltip.Q<Label>("item-category").text = playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item.Category;
+                tempTooltip.Q<Label>("item-rarity").text = VulturaInstance.enumStringParser(playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item.Rarity.ToString());
+                tempTooltip.Q<Label>("item-rarity").style.color = new StyleColor(rarityColor);
+                tempTooltip.pickingMode = PickingMode.Ignore;
+                tempTooltip.style.position = Position.Absolute;
+                tempTooltip.style.top = ev.position.y;
+                tempTooltip.style.left = ev.position.x;
+                Vector3 pos = Input.mousePosition;
+                rootVisualElement.Add(tempTooltip);
             });
-            item.RegisterCallback<MouseLeaveEvent>(ev => {
-                currentElementOver = null;
+            item.RegisterCallback<PointerMoveEvent>(ev => {
+                if (tempTooltip != null)
+                {
+
+
+                    tempTooltip.style.top = ev.position.y;
+                    tempTooltip.style.left = ev.position.x;
+                }
+
+            });
+            item.RegisterCallback<PointerLeaveEvent>(ev => {
+                rootVisualElement.Remove(tempTooltip);
+                tempTooltip = null;
             });
 
             item.RegisterCallback<PointerUpEvent>(ev => {

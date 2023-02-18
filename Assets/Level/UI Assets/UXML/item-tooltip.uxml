@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="item-tooltip" picking-mode="Ignore" style="height: auto; width: 287px; color: rgb(231, 217, 217); background-color: rgb(77, 77, 77); padding-right: 5px; padding-left: 5px; padding-top: 5px; padding-bottom: 5px; flex-shrink: 0; flex-grow: 1; border-left-color: rgba(255, 0, 0, 255); border-right-color: rgba(255, 0, 0, 255); border-top-color: rgba(255, 0, 0, 255); border-bottom-color: rgba(255, 0, 0, 255); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px;">
+        <ui:VisualElement name="header" style="margin-top: 0; margin-left: 0; flex-direction: row; flex-shrink: 0;">
+            <ui:VisualElement name="icon" style="width: 64px; height: 64px; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgb(255, 255, 255); flex-shrink: 0;" />
+            <ui:VisualElement style="margin-left: 5px; flex-shrink: 0; width: 153px;">
+                <ui:Label text="Destruction Chaingun of Wrath" display-tooltip-when-elided="true" name="item-name" style="margin-left: 0; -unity-font-style: bold; white-space: normal; -unity-text-align: upper-left; width: auto; padding-left: 1px; flex-shrink: 1; position: absolute; top: -10px;" />
+                <ui:Label text="Chaingun" display-tooltip-when-elided="true" name="item-category" style="position: absolute; bottom: -10px; -unity-font-style: bold;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="body" style="margin-left: 0; margin-top: 5px; flex-shrink: 0;">
+            <ui:Label text="Legendary" display-tooltip-when-elided="true" name="item-rarity" style="-unity-font-style: bold;" />
+            <ui:VisualElement name="main-stats" style="margin-top: 8px;">
+                <ui:Label text="37 Damage" display-tooltip-when-elided="true" style="margin-top: 3px; margin-bottom: 3px;" />
+                <ui:Label text="43 Fire Rate" display-tooltip-when-elided="true" style="margin-top: 3px; margin-bottom: 3px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="affixes" style="margin-right: 0; height: auto; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgb(63, 63, 63); padding-left: 5px; padding-top: 5px; padding-bottom: 5px; padding-right: 5px;">
+                <ui:Label text="+5% Increased Maximum Hull, Armor, and Shields" display-tooltip-when-elided="true" style="margin-top: 3px; margin-bottom: 3px; white-space: normal;" />
+                <ui:Label text="25% Chance to Burn On Hit" display-tooltip-when-elided="true" style="margin-top: 3px; margin-bottom: 3px; white-space: normal;" />
+                <ui:Label text="3.2% Increased Fire Rate" display-tooltip-when-elided="true" style="margin-top: 3px; margin-bottom: 3px; white-space: normal;" />
+                <ui:Label text="(fleet) +5% Damage Reduction For Each Enemy Burning" display-tooltip-when-elided="true" style="margin-top: 3px; margin-bottom: 3px; white-space: normal;" />
+                <ui:Label text="43 Fire Rate" display-tooltip-when-elided="true" style="margin-top: 3px; margin-bottom: 3px; white-space: normal;" />
+                <ui:Label text="37 Damage" display-tooltip-when-elided="true" style="margin-top: 3px; margin-bottom: 3px; white-space: normal;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

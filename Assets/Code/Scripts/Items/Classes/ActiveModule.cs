@@ -7,6 +7,7 @@ abstract public class ActiveModule : Module
 {
     public ActiveModule(
         string key, 
+        string category,
         string name, 
         string description, 
         VulturaInstance.ItemRarity rarity, 
@@ -20,6 +21,7 @@ abstract public class ActiveModule : Module
         int galacticPrice
         ) : base(
             key, 
+            category,
             name, 
             VulturaInstance.ItemType.Active_Module, 
             description, 

@@ -16,9 +16,9 @@ public class TradeGood : UnuseableItem
         bool stackable
         ) : base(
             key, 
+            "Trade Good",
             name, 
-            VulturaInstance.
-            ItemType.Trade_Good, 
+            VulturaInstance.ItemType.Trade_Good, 
             description, 
             VulturaInstance.ItemRarity.Common, 
             icon, 

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Chaingun : OffenseModule
 {
     public Chaingun(
-        string key, 
+        string key,
         string name, 
         string description, 
         VulturaInstance.ItemRarity rarity, 
@@ -19,7 +19,8 @@ public class Chaingun : OffenseModule
         float weight, 
         int galacticPrice
         ) : base(
-            key, 
+            key,
+            "Chaingun",
             name, 
             description, 
             rarity, icon,

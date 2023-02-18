@@ -167,6 +167,20 @@ public static class VulturaInstance
             return ItemRarity.Legendary;
     }
 
+    public static Color32 GenerateItemColor(ItemRarity rarity)
+    {
+        if (rarity == ItemRarity.Common)
+            return new Color32(128, 128, 128, 255);
+        else if (rarity == ItemRarity.Uncommon)
+            return new Color32(0, 153, 51, 255);
+        else if (rarity == ItemRarity.Rare)
+            return new Color32(204, 204, 0, 255);
+        else if (rarity == ItemRarity.Epic)
+            return new Color32(204, 0, 136, 255);
+        else
+            return new Color32(255, 128, 0, 255);
+    }
+
     // Parse an enum into a viewable string
     public static string enumStringParser(string enumString)
     {
