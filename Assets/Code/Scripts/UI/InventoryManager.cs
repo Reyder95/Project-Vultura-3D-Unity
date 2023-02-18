@@ -10,6 +10,7 @@ public class InventoryManager : MonoBehaviour
     public VisualTreeAsset inventoryRow;
     public VisualTreeAsset inventoryItem;
     public VisualTreeAsset itemTooltip;
+    public VisualTreeAsset itemTooltipStat;
 
     bool isDragging = false;
 
@@ -167,6 +168,44 @@ public class InventoryManager : MonoBehaviour
                 tempTooltip.Q<Label>("item-category").text = playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item.Category;
                 tempTooltip.Q<Label>("item-rarity").text = VulturaInstance.enumStringParser(playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item.Rarity.ToString());
                 tempTooltip.Q<Label>("item-rarity").style.color = new StyleColor(rarityColor);
+
+                BaseItem currItem = playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item;
+
+                VisualElement affixesElement = tempTooltip.Q<VisualElement>("affixes");
+                VisualElement mainStatElement = tempTooltip.Q<VisualElement>("main-stats");
+
+                if (currItem.Rarity == VulturaInstance.ItemRarity.Common)
+                {
+                    affixesElement.style.display = DisplayStyle.None;
+                }
+
+                if (currItem is Module)
+                {
+                    StatHandler itemStatHandler = (currItem as Module).StatHandler;
+
+                    foreach (ItemStat mainStat in itemStatHandler.Main)
+                    {
+                        
+                        VisualElement statLabel = itemTooltipStat.Instantiate();
+                        statLabel.Q<Label>("item-stat").text = mainStat.ReturnStatDescription();
+                        mainStatElement.Add(statLabel);
+                    }
+
+                    foreach (ItemStat prefixStat in itemStatHandler.Prefixes)
+                    {
+                        VisualElement statLabel = itemTooltipStat.Instantiate();
+                        statLabel.Q<Label>("item-stat").text = prefixStat.ReturnStatDescription();
+                        affixesElement.Add(statLabel);
+                    }
+
+                    foreach (ItemStat suffixStat in itemStatHandler.Suffixes)
+                    {
+                        VisualElement statLabel = itemTooltipStat.Instantiate();
+                        statLabel.Q<Label>("item-stat").text = suffixStat.ReturnStatDescription();
+                        affixesElement.Add(statLabel);
+                    }
+                }
+
                 tempTooltip.pickingMode = PickingMode.Ignore;
                 tempTooltip.style.position = Position.Absolute;
                 tempTooltip.style.top = ev.position.y;
@@ -177,8 +216,6 @@ public class InventoryManager : MonoBehaviour
             item.RegisterCallback<PointerMoveEvent>(ev => {
                 if (tempTooltip != null)
                 {
-
-
                     tempTooltip.style.top = ev.position.y;
                     tempTooltip.style.left = ev.position.x;
                 }

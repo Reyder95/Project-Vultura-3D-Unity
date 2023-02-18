@@ -17,7 +17,8 @@ public class Chaingun : OffenseModule
         ListValue[] listValues, 
         Override overrides, 
         float weight, 
-        int galacticPrice
+        int galacticPrice,
+        StatHandler statHandler
         ) : base(
             key,
             "Chaingun",
@@ -30,7 +31,8 @@ public class Chaingun : OffenseModule
             listValues,
             overrides, 
             weight, 
-            galacticPrice
+            galacticPrice,
+            statHandler
             )
     {
 

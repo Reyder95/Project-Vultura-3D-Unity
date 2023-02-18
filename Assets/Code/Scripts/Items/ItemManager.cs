@@ -84,6 +84,9 @@ public static class ItemManager
             VulturaInstance.ItemRarity itemRarity = VulturaInstance.GenerateItemRarity();
             int weight = Random.Range(itemData.weight.min, itemData.weight.max);
 
+            StatHandler statHandler = new StatHandler();
+            statHandler.BuildStatList(itemRarity, itemData.main_stats);
+
             BaseItem generatedItem = new Chaingun(
                 itemData.key, 
                 itemData.name, 
@@ -96,7 +99,8 @@ public static class ItemManager
                 categoryData.list_attributes, 
                 itemData.overrides, 
                 weight, 
-                (int)Mathf.Floor((float)categoryData.galactic_price_base * itemData.galactic_price_modifier)
+                (int)Mathf.Floor((float)categoryData.galactic_price_base * itemData.galactic_price_modifier),
+                statHandler
                 );
 
             return generatedItem;
@@ -105,6 +109,9 @@ public static class ItemManager
         {
             VulturaInstance.ItemRarity itemRarity = (VulturaInstance.ItemRarity)Random.Range(1, 4);
             int weight = Random.Range(itemData.weight.min, itemData.weight.max);
+
+            StatHandler statHandler = new StatHandler();
+            statHandler.BuildStatList(itemRarity, itemData.main_stats);
 
             BaseItem generatedItem = new RocketLauncher(
                 itemData.key, 
@@ -118,7 +125,8 @@ public static class ItemManager
                 categoryData.list_attributes, 
                 itemData.overrides, 
                 weight, 
-                (int)Mathf.Floor((float)categoryData.galactic_price_base * itemData.galactic_price_modifier)
+                (int)Mathf.Floor((float)categoryData.galactic_price_base * itemData.galactic_price_modifier),
+                statHandler
                 );
 
             return generatedItem;
@@ -127,6 +135,9 @@ public static class ItemManager
         {
             VulturaInstance.ItemRarity itemRarity = (VulturaInstance.ItemRarity)Random.Range(1, 4);
             int weight = Random.Range(itemData.weight.min, itemData.weight.max);
+
+            StatHandler statHandler = new StatHandler();
+            statHandler.BuildStatList(itemRarity, itemData.main_stats);
 
             BaseItem generatedItem = new CargoExpander(
                 itemData.key, 
@@ -140,7 +151,8 @@ public static class ItemManager
                 categoryData.list_attributes, 
                 itemData.overrides, 
                 weight, 
-                (int)Mathf.Floor((float)categoryData.galactic_price_base * itemData.galactic_price_modifier)
+                (int)Mathf.Floor((float)categoryData.galactic_price_base * itemData.galactic_price_modifier),
+                statHandler
                 );
 
             return generatedItem;

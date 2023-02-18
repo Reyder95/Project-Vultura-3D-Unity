@@ -17,7 +17,8 @@ public class CargoExpander : PassiveModule
         ListValue[] listValues, 
         Override overrides, 
         float weight, 
-        int galacticPrice
+        int galacticPrice,
+        StatHandler statHandler
         ) : base(
             key, 
             "Cargo Expander",
@@ -31,7 +32,8 @@ public class CargoExpander : PassiveModule
             listValues, 
             overrides,
             weight, 
-            galacticPrice
+            galacticPrice,
+            statHandler
             )
     {
 

@@ -1,0 +1,20 @@
+{
+    "data": [
+        {
+            "key": "damage",
+            "display_text": "{{value}} damage"
+        },
+        {
+            "key": "fire_rate",
+            "display_text": "{{value}} fire rate"
+        },
+        {
+            "key": "amount_fired",
+            "display_text": "{{value}} projectiles fired"
+        },
+        {
+            "key": "cargo_space",
+            "display_text": "+{{value}} additional cargo space"
+        }
+    ]
+}

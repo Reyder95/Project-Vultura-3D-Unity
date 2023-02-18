@@ -1,0 +1,463 @@
+{
+    "data": [
+        {
+            "key": "increased_damage",
+            "effector_key": "damage_multiplier",
+            "modifier": "percent",
+            "helper_text": "Gives a percent increased amount of damage to all of this ship's attacks.",
+            "display_text": "+{{value}}% increased damage",
+            "type": "prefix",
+            "numType": "int",
+            "tiers": [
+                {
+                    "tierIndex": 1,
+                    "values": {
+                        "min": 23,
+                        "max": 25
+                    }
+                },
+                {
+                    "tierIndex": 2,
+                    "values": {
+                        "min": 20,
+                        "max": 22
+                    }
+                },
+                {
+                    "tierIndex": 3,
+                    "values": {
+                        "min": 17,
+                        "max": 19
+                    }
+                },
+                {
+                    "tierIndex": 4,
+                    "values": {
+                        "min": 14,
+                        "max": 16
+                    }
+                },
+                {
+                    "tierIndex": 5,
+                    "values": {
+                        "min": 11,
+                        "max": 13
+                    }
+                },
+                {
+                    "tierIndex": 6,
+                    "values": {
+                        "min": 8,
+                        "max": 10
+                    }
+                },
+                {
+                    "tierIndex": 7,
+                    "values": {
+                        "min": 5,
+                        "max": 7
+                    }
+                },
+                {
+                    "tierIndex": 8,
+                    "values": {
+                        "min": 2,
+                        "max": 4
+                    }
+                }
+            ]
+        },
+        {
+            "key": "flat_damage",
+            "effector_key": "added_damage",
+            "modifier": "number",
+            "helper_text": "Gives a flat additional amount of damage to all of this ship's attacks",
+            "display_text": "+{{value}} additional damage",
+            "type": "prefix",
+            "numType": "int",
+            "tiers": [
+                {
+                    "tierIndex": 1,
+                    "values": {
+                        "min": 451,
+                        "max": 500
+                    }
+                },
+                {
+                    "tierIndex": 2,
+                    "values": {
+                        "min": 401,
+                        "max": 450
+                    }
+                },
+                {
+                    "tierIndex": 3,
+                    "values": {
+                        "min": 351,
+                        "max": 400
+                    }
+                },
+                {
+                    "tierIndex": 4,
+                    "values": {
+                        "min": 301,
+                        "max": 350
+                    }
+                },
+                {
+                    "tierIndex": 5,
+                    "values": {
+                        "min": 250,
+                        "max": 300
+                    }
+                }
+            ]
+        },
+        {
+            "key": "increased_fire_rate",
+            "effector_key": "fire_rate_multiplier",
+            "modifier": "percent",
+            "helper_text": "Increases the rate of fire at which this ship attacks.",
+            "display_text": "+{{value}}% increased fire rate",
+            "type": "prefix",
+            "numType": "float",
+            "tiers": [
+                {
+                    "tierIndex": 1,
+                    "values": {
+                        "min": 8,
+                        "max": 7
+                    }
+                },
+                {
+                    "tierIndex": 2,
+                    "values": {
+                        "min": 4,
+                        "max": 6
+                    }
+                },
+                {
+                    "tierIndex": 3,
+                    "values": {
+                        "min": 1,
+                        "max": 3
+                    }
+                }
+            ]
+        },
+        {
+            "key": "increased_shield_retention",
+            "effector_key": "shield_retention",
+            "modifier": "percent",
+            "helper_text": "Reduces damage taken to shields.",
+            "display_text": "+{{value}}% increased shield retention",
+            "type": "prefix",
+            "numType": "int",
+            "tiers": [
+                {
+                    "tierIndex": 1,
+                    "values": {
+                        "min": 10,
+                        "max": 9
+                    }
+                },
+                {
+                    "tierIndex": 2,
+                    "values": {
+                        "min": 7,
+                        "max": 8
+                    }
+                },
+                {
+                    "tierIndex": 3,
+                    "values": {
+                        "min": 5,
+                        "max": 6
+                    }
+                },
+                {
+                    "tierIndex": 4,
+                    "values": {
+                        "min": 3,
+                        "max": 4
+                    }
+                },
+                {
+                    "tierIndex": 5,
+                    "values": {
+                        "min": 1,
+                        "max": 2
+                    }
+                }
+            ]
+        },
+        {
+           "key":  "increased_armor",
+           "effector_key": "armor",
+           "modifier": "percent",
+           "helper_text": "Gives a percent increased amount of armor",
+           "display_text": "+{{value}}% increased armor",
+           "type": "suffix",
+           "numType": "int",
+           "tiers": [
+                {
+                    "tierIndex": 1,
+                    "values": {
+                        "min": 19,
+                        "max": 20
+                    }
+                },
+                {
+                    "tierIndex": 2,
+                    "values": {
+                        "min": 17,
+                        "max": 18
+                    }
+                },
+                {
+                    "tierIndex": 3,
+                    "values": {
+                        "min": 15,
+                        "max": 16
+                    }
+                },
+                {
+                    "tierIndex": 4,
+                    "values": {
+                        "min": 13,
+                        "max": 14
+                    }
+                },
+                {
+                    "tierIndex": 5,
+                    "values": {
+                        "min": 11,
+                        "max": 12
+                    }
+                },
+                {
+                    "tierIndex": 6,
+                    "values": {
+                        "min": 9,
+                        "max": 10
+                    }
+                },
+                {
+                    "tierIndex": 7,
+                    "values": {
+                        "min": 7,
+                        "max": 8
+                    }
+                },
+                {
+                    "tierIndex": 8,
+                    "values": {
+                        "min": 5,
+                        "max": 6
+                    }
+                }
+           ]
+        },
+        {
+            "key": "increased_hull",
+            "effector_key": "hull",
+            "modifier": "percent",
+            "helper_text": "Gives a percent increased amount of hull",
+            "display_text": "+{{value}}% increased hull",
+            "type": "suffix",
+            "numType": "int",
+            "tiers": [
+                {
+                    "tierIndex": 1,
+                    "values": {
+                        "min": 19,
+                        "max": 20
+                    }
+                },
+                {
+                    "tierIndex": 2,
+                    "values": {
+                        "min": 17,
+                        "max": 18
+                    }
+                },
+                {
+                    "tierIndex": 3,
+                    "values": {
+                        "min": 15,
+                        "max": 16
+                    }
+                },
+                {
+                    "tierIndex": 4,
+                    "values": {
+                        "min": 13,
+                        "max": 14
+                    }
+                },
+                {
+                    "tierIndex": 5,
+                    "values": {
+                        "min": 11,
+                        "max": 12
+                    }
+                },
+                {
+                    "tierIndex": 6,
+                    "values": {
+                        "min": 9,
+                        "max": 10
+                    }
+                },
+                {
+                    "tierIndex": 7,
+                    "values": {
+                        "min": 7,
+                        "max": 8
+                    }
+                },
+                {
+                    "tierIndex": 8,
+                    "values": {
+                        "min": 5,
+                        "max": 6
+                    }
+                }
+            ]
+        },
+        {
+            "key": "increased_shield",
+            "effector_key": "shield",
+            "modifier": "percent",
+            "helper_text": "Gives a percent increased amount of shield",
+            "display_text": "+{{value}}% increased shield",
+            "type": "suffix",
+            "numType": "int",
+            "tiers": [
+                {
+                    "tierIndex": 1,
+                    "values": {
+                        "min": 19,
+                        "max": 20
+                    }
+                },
+                {
+                    "tierIndex": 2,
+                    "values": {
+                        "min": 17,
+                        "max": 18
+                    }
+                },
+                {
+                    "tierIndex": 3,
+                    "values": {
+                        "min": 15,
+                        "max": 16
+                    }
+                },
+                {
+                    "tierIndex": 4,
+                    "values": {
+                        "min": 13,
+                        "max": 14
+                    }
+                },
+                {
+                    "tierIndex": 5,
+                    "values": {
+                        "min": 11,
+                        "max": 12
+                    }
+                },
+                {
+                    "tierIndex": 6,
+                    "values": {
+                        "min": 9,
+                        "max": 10
+                    }
+                },
+                {
+                    "tierIndex": 7,
+                    "values": {
+                        "min": 7,
+                        "max": 8
+                    }
+                },
+                {
+                    "tierIndex": 8,
+                    "values": {
+                        "min": 5,
+                        "max": 6
+                    }
+                }
+            ]
+        },
+        {
+            "key": "flat_cargo_capacity",
+            "effector_key": "cargo",
+            "modifier": "number",
+            "helper_text": "Increases the amount of cargo capacity your ship can hold.",
+            "display_text": "+{{value}} added cargo capacity",
+            "type": "suffix",
+            "numType": "int",
+            "tiers": [
+                {
+                    "tierIndex": 1,
+                    "values": {
+                        "min": 1801,
+                        "max": 2000
+                    }
+                },
+                {
+                    "tierIndex": 2,
+                    "values": {
+                        "min": 1501,
+                        "max": 1800
+                    }
+                },
+                {
+                    "tierIndex": 3,
+                    "values": {
+                        "min": 1201,
+                        "max": 1500
+                    }
+                },
+                {
+                    "tierIndex": 4,
+                    "values": {
+                        "min": 901,
+                        "max": 1200
+                    }
+                },
+                {
+                    "tierIndex": 5,
+                    "values": {
+                        "min": 601,
+                        "max": 900
+                    }
+                },
+                {
+                    "tierIndex": 6,
+                    "values": {
+                        "min": 301,
+                        "max": 600
+                    }
+                },
+                {
+                    "tierIndex": 7,
+                    "values": {
+                        "min": 201,
+                        "max": 300
+                    }
+                },
+                {
+                    "tierIndex": 8,
+                    "values": {
+                        "min": 100,
+                        "max": 200
+                    }
+                }
+            ]
+        }
+    ]
+}
