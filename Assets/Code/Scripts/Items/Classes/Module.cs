@@ -5,6 +5,7 @@ using UnityEngine;
 // Base class for all modules.
 abstract public class Module : UseableItem
 {
+    private StatHandler statHandler;
 
     public Module(
         string key, 
@@ -20,7 +21,8 @@ abstract public class Module : UseableItem
         ListValue[] listValues, 
         Override overrides, 
         float weight, 
-        int galacticPrice
+        int galacticPrice,
+        StatHandler statHandler
         ) : base(
             key,
             category, 
@@ -34,5 +36,14 @@ abstract public class Module : UseableItem
             false
             )
     {
+        this.statHandler = statHandler;
+    }
+
+    public StatHandler StatHandler
+    {
+        get
+        {
+            return this.statHandler;
+        }
     }
 }

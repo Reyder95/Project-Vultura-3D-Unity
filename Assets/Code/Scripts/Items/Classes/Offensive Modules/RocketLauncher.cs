@@ -17,7 +17,8 @@ public class RocketLauncher : OffenseModule
         ListValue[] listValues, 
         Override overrides, 
         float weight, 
-        int galacticPrice
+        int galacticPrice,
+        StatHandler statHandler
         ) : base(
             key, 
             "Rocket Launcher",
@@ -30,7 +31,8 @@ public class RocketLauncher : OffenseModule
             listValues,
             overrides, 
             weight, 
-            galacticPrice
+            galacticPrice,
+            statHandler
             )
     {
 

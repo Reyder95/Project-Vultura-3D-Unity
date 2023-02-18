@@ -31,7 +31,8 @@ abstract public class OffenseModule : ActiveModule
         ListValue[] listValues, 
         Override overrides, 
         float weight, 
-        int galacticPrice
+        int galacticPrice,
+        StatHandler statHandler
         ) : base(
             key, 
             category,
@@ -45,7 +46,8 @@ abstract public class OffenseModule : ActiveModule
             listValues, 
             overrides, 
             weight, 
-            galacticPrice
+            galacticPrice,
+            statHandler
             )
     {
     }

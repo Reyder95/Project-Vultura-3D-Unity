@@ -19,7 +19,8 @@ abstract public class PassiveModule : Module
         ListValue[] listValues, 
         Override overrides, 
         float weight, 
-        int galacticPrice
+        int galacticPrice,
+        StatHandler statHandler
         ) : base(
             key, 
             category,
@@ -34,7 +35,8 @@ abstract public class PassiveModule : Module
             listValues, 
             overrides,
             weight, 
-            galacticPrice
+            galacticPrice,
+            statHandler
             )
     {
     }
