@@ -150,23 +150,6 @@ public static class VulturaInstance
         return false;
     }
 
-    // Generate an item rarity for an item
-    public static ItemRarity GenerateItemRarity()
-    {
-        float randomNum = Random.Range(0, 100);
-
-        if (randomNum < 50)
-            return ItemRarity.Common;
-        else if (randomNum >= 50 && randomNum < 75)
-            return ItemRarity.Uncommon;
-        else if (randomNum >= 75 && randomNum < 90)
-            return ItemRarity.Rare;
-        else if (randomNum >= 90 && randomNum < 97)
-            return ItemRarity.Epic;
-        else
-            return ItemRarity.Legendary;
-    }
-
     public static Color32 GenerateItemColor(ItemRarity rarity)
     {
         if (rarity == ItemRarity.Common)

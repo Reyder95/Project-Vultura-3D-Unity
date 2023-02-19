@@ -81,7 +81,7 @@ public static class ItemManager
     {
         if (itemData.linking_key == "chaingun")
         {
-            VulturaInstance.ItemRarity itemRarity = VulturaInstance.GenerateItemRarity();
+            VulturaInstance.ItemRarity itemRarity = Randomizer.GenerateItemRarity();
             int weight = Random.Range(itemData.weight.min, itemData.weight.max);
 
             StatHandler statHandler = new StatHandler();
@@ -107,7 +107,7 @@ public static class ItemManager
         }
         else if (itemData.linking_key == "rocket_launcher")
         {
-            VulturaInstance.ItemRarity itemRarity = (VulturaInstance.ItemRarity)Random.Range(1, 4);
+            VulturaInstance.ItemRarity itemRarity = Randomizer.GenerateItemRarity();
             int weight = Random.Range(itemData.weight.min, itemData.weight.max);
 
             StatHandler statHandler = new StatHandler();
@@ -133,7 +133,7 @@ public static class ItemManager
         }
         else if (itemData.linking_key == "cargo_expander")
         {
-            VulturaInstance.ItemRarity itemRarity = (VulturaInstance.ItemRarity)Random.Range(1, 4);
+            VulturaInstance.ItemRarity itemRarity = Randomizer.GenerateItemRarity();
             int weight = Random.Range(itemData.weight.min, itemData.weight.max);
 
             StatHandler statHandler = new StatHandler();
