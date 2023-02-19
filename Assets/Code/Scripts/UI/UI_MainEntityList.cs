@@ -68,7 +68,7 @@ public class UI_MainEntityList : MonoBehaviour
             {
             }
 
-        e.RegisterCallback<ClickEvent>(ev => {
+        e.RegisterCallback<PointerDownEvent>(ev => {
                 try
                 {
                     if (entities[i].entityIndex < VulturaInstance.systemSelectables.Count)
