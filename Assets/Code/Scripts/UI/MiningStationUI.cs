@@ -219,12 +219,12 @@ public class MiningStationUI : MonoBehaviour
                         inventoryList.Rebuild();
                         storageList.Rebuild();
 
-                        (ev.currentTarget as VisualElement).style.visibility = Visibility.Hidden;
+                        inventorySplit.style.visibility = Visibility.Hidden;
                     });
 
                     inventorySplit.Q<Button>("cancel-button").RegisterCallback<ClickEvent>(ev => {
                         inSpecify = false;
-                        (ev.currentTarget as VisualElement).style.visibility = Visibility.Hidden;
+                        inventorySplit.style.visibility = Visibility.Hidden;
                     });
 
                     inventorySplit.style.visibility = Visibility.Visible;   
@@ -627,6 +627,7 @@ public class MiningStationUI : MonoBehaviour
         inventoryList = marketRoot.Q<ListView>("inventory-list");
         storageList = marketRoot.Q<ListView>("storage-list");
         marketList = marketRoot.Q<ListView>("market-list");
+        inventorySplit = marketRoot.Q<VisualElement>("item-transfer");
 
         // Grab the quantity slider
         quantitySlider = marketRoot.Q<SliderInt>("bottom-slider");
@@ -663,7 +664,39 @@ public class MiningStationUI : MonoBehaviour
             itemQuantity.text = playerInventory.itemList[i].quantity.ToString();
 
             e.RegisterCallback<ClickEvent>(ev => {
-                // TODO -- Create selling when item in inventory is clicked
+                inventorySplit.style.top = ev.position.y - inventorySplit.layout.height;
+                inventorySplit.style.left = ev.position.x;
+                inventorySplit.Q<Label>("item-name").text = playerInventory.itemList[i].item.Name;
+                Label transferAmount = inventorySplit.Q<Label>("transfer-amount");
+                transferAmount.text = "1";
+                SliderInt swapSlider = inventorySplit.Q<SliderInt>("transfer-slider");
+                swapSlider.highValue = playerInventory.itemList[i].quantity;
+                swapSlider.lowValue = 1;
+                swapSlider.value = 1;
+                    
+                swapSlider.RegisterValueChangedCallback(ev => {
+                    transferAmount.text = ev.newValue.ToString();
+                });
+
+                inventorySplit.Q<Button>("ok-button").RegisterCallback<ClickEvent>(ev => {
+
+                    inventoryList.Rebuild();
+                    storageList.Rebuild();
+
+                    inventorySplit.style.visibility = Visibility.Hidden;
+
+                    SellItemFromInventory(i, swapSlider.value);
+                });
+
+                inventorySplit.Q<Button>("cancel-button").RegisterCallback<ClickEvent>(ev => {
+                    inventorySplit.style.visibility = Visibility.Hidden;
+                });
+
+                inventorySplit.style.visibility = Visibility.Visible;   
+                
+
+                inventoryList.Rebuild();
+                storageList.Rebuild();
             });
         };
 
@@ -676,7 +709,6 @@ public class MiningStationUI : MonoBehaviour
             itemQuantity.text = station.storage.itemList[i].quantity.ToString();
 
             e.RegisterCallback<ClickEvent>(ev => {
-                // TODO -- Create selling when item in storage is clicked
             });
         };
 
@@ -815,6 +847,19 @@ public class MiningStationUI : MonoBehaviour
                 
   
         });
+    }
+
+    void SellItemFromInventory(int index, int quantity)
+    {
+        InventoryItem itemToSell = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[index];
+        
+        // Needs to be more advanced. Will return to this when redoing the entire UI
+        int totalSellCost = (int)Mathf.Floor(((itemToSell.item.GalacticPrice * 0.75f) * 0.50f) * quantity);
+
+        playerInventory.PopAmount(index, quantity);
+        VulturaInstance.playerMoney += totalSellCost;
+
+        inventoryList.Rebuild();
     }
 
     // Sell the item to the station's stockpile
