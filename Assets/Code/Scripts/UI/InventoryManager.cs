@@ -156,16 +156,16 @@ public class InventoryManager : MonoBehaviour
                 item.Q<Label>("item-quantity").text = playerInventory.itemList[i].quantity.ToString();
                 item.Q<Label>("item-name").text = playerInventory.itemList[i].item.Name;
                 item.RegisterCallback<PointerDownEvent>(ev => {
-                    currentDraggedElement = item;
+                    VisualElement eventTarget = (ev.currentTarget as VisualElement);
+                    currentDraggedElement = eventTarget;
                     currentDraggedElement.Q<VisualElement>("inventory-item").visible = false;
 
-                    visualDragger.Q<Label>("item-quantity").text = item.Q<Label>("item-quantity").text;
-                    visualDragger.Q<Label>("item-name").text = item.Q<Label>("item-name").text;
+                    visualDragger.Q<Label>("item-quantity").text = eventTarget.Q<Label>("item-quantity").text;
+                    visualDragger.Q<Label>("item-name").text = eventTarget.Q<Label>("item-name").text;
 
                     visualDragger.pickingMode = PickingMode.Ignore;
                     visualDragger.Q<VisualElement>("inventory-item").pickingMode = PickingMode.Ignore;              
                     visualDragger.style.position = Position.Absolute;
-                    Vector3 pos = Input.mousePosition;
                     visualDragger.Q<VisualElement>("inventory-item").style.visibility = Visibility.Visible;
                     visualDragger.style.top = ev.position.y - visualDragger.layout.height / 2;
                     visualDragger.style.left = ev.position.x - visualDragger.layout.width / 2;
@@ -174,19 +174,21 @@ public class InventoryManager : MonoBehaviour
                     visualDragger.RegisterCallback<PointerMoveEvent>(ev => {
                         if (!isDragging)
                             return;
-                        visualDragger.style.top = ev.position.y - visualDragger.layout.height / 2;
-                        visualDragger.style.left = ev.position.x - visualDragger.layout.width / 2;
+                            
+                        (ev.currentTarget as VisualElement).style.top = ev.position.y - (ev.currentTarget as VisualElement).layout.height / 2;
+                        (ev.currentTarget as VisualElement).style.left = ev.position.x - (ev.currentTarget as VisualElement).layout.width / 2;
                     });
 
                     visualDragger.RegisterCallback<PointerLeaveEvent>(ev => {
                         if (!isDragging)
                             return;
-                        visualDragger.style.top = ev.position.y - visualDragger.layout.height / 2;
-                        visualDragger.style.left = ev.position.x - visualDragger.layout.width / 2;
+
+                        (ev.currentTarget as VisualElement).style.top = ev.position.y - (ev.currentTarget as VisualElement).layout.height / 2;
+                        (ev.currentTarget as VisualElement).style.left = ev.position.x - (ev.currentTarget as VisualElement).layout.width / 2;
                     });
 
                     visualDragger.RegisterCallback<PointerUpEvent>(ev => {
-                        visualDragger.Q<VisualElement>("inventory-item").style.visibility = Visibility.Hidden;
+                        (ev.currentTarget as VisualElement).Q<VisualElement>("inventory-item").style.visibility = Visibility.Hidden;
                     });
                 });
                 item.RegisterCallback<PointerEnterEvent>(ev => {

@@ -219,12 +219,12 @@ public class MiningStationUI : MonoBehaviour
                         inventoryList.Rebuild();
                         storageList.Rebuild();
 
-                        inventorySplit.style.visibility = Visibility.Hidden;
+                        (ev.currentTarget as VisualElement).style.visibility = Visibility.Hidden;
                     });
 
                     inventorySplit.Q<Button>("cancel-button").RegisterCallback<ClickEvent>(ev => {
                         inSpecify = false;
-                        inventorySplit.style.visibility = Visibility.Hidden;
+                        (ev.currentTarget as VisualElement).style.visibility = Visibility.Hidden;
                     });
 
                     inventorySplit.style.visibility = Visibility.Visible;   
@@ -727,8 +727,15 @@ public class MiningStationUI : MonoBehaviour
             
             if (currentSelected != null)
             {
-                currentSelected.Q<VisualElement>("main-visual").EnableInClassList("non-active", true);
-                currentSelected.Q<VisualElement>("main-visual").EnableInClassList("active", false);
+                try
+                {
+                    currentSelected.Q<VisualElement>("main-visual").EnableInClassList("non-active", true);
+                    currentSelected.Q<VisualElement>("main-visual").EnableInClassList("active", false);
+                } catch (System.NullReferenceException ex)
+                {
+                    
+                }
+
             }
 
             selectedIndex = i;
@@ -928,30 +935,37 @@ public class MiningStationUI : MonoBehaviour
     // Display a cargo contract to the screen
     void DisplayContract()
     {
-        // If there is no selected contract, display empty visual element
-        if (selectedContract == null)
+        try
         {
-            cargoRoot.Q<Label>("contract-empty").style.display = DisplayStyle.Flex;
-            cargoRoot.Q<VisualElement>("contract-selected").style.display = DisplayStyle.None;
-        }
-        else
-        {
-            cargoRoot.Q<Label>("contract-empty").style.display = DisplayStyle.None;
-
-            VisualElement itemList = cargoRoot.Q<VisualElement>("contract-items");
-            itemList.Clear();
-
-            // Display items for each item in the contract
-            foreach (InventoryItem item in (selectedContract.userData as Contract).Items.itemList)
+            // If there is no selected contract, display empty visual element
+            if (selectedContract == null)
             {
-                VisualElement itemInstance = currentContractItem.Instantiate();
-                itemInstance.Q<Label>("item-name").text = item.quantity.ToString() + " " + item.item.Name;
-                itemList.Add(itemInstance);
+                cargoRoot.Q<Label>("contract-empty").style.display = DisplayStyle.Flex;
+                cargoRoot.Q<VisualElement>("contract-selected").style.display = DisplayStyle.None;
             }
+            else
+            {
+                cargoRoot.Q<Label>("contract-empty").style.display = DisplayStyle.None;
 
-            cargoRoot.Q<Label>("contract-destination").text = "Destination: " + (selectedContract.userData as Contract).Destination;
+                VisualElement itemList = cargoRoot.Q<VisualElement>("contract-items");
+                itemList.Clear();
 
-            cargoRoot.Q<VisualElement>("contract-selected").style.display = DisplayStyle.Flex;
+                // Display items for each item in the contract
+                foreach (InventoryItem item in (selectedContract.userData as Contract).Items.itemList)
+                {
+                    VisualElement itemInstance = currentContractItem.Instantiate();
+                    itemInstance.Q<Label>("item-name").text = item.quantity.ToString() + " " + item.item.Name;
+                    itemList.Add(itemInstance);
+                }
+
+                cargoRoot.Q<Label>("contract-destination").text = "Destination: " + (selectedContract.userData as Contract).Destination;
+
+                cargoRoot.Q<VisualElement>("contract-selected").style.display = DisplayStyle.Flex;
+            }
+        } catch (System.NullReferenceException ex)
+        {
+            Debug.Log("Display Contract has a null issue. Are there corrupted items?");
         }
+
     }
 }
