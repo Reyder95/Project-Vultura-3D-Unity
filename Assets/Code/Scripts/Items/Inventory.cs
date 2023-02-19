@@ -41,6 +41,8 @@ public class Inventory
             itemList.Add(item);
         }
         currCargo += (item.quantity * item.item.Weight);
+        
+        EventManager.TriggerEvent("Inventory Modified");
     }
 
     public void ClearInventory()
