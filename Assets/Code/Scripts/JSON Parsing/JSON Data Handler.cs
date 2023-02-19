@@ -27,6 +27,8 @@ public static class JSONDataHandler
         jsonTextFile = Resources.Load<TextAsset>("JSON/Items/Stats");
         Stats = JsonUtility.FromJson<JSONStats>(jsonTextFile.text);
 
+        FillStatBucket();
+
         jsonTextFile = Resources.Load<TextAsset>("JSON/Items/MainStats");
         MainStats = JsonUtility.FromJson<JSONMainStats>(jsonTextFile.text);
 
@@ -40,6 +42,14 @@ public static class JSONDataHandler
         ParseItemJSON("JSON/Items/Trade Goods/LuxuryGoods");
 
         Items.linking_key = null;
+    }
+
+    private static void FillStatBucket()
+    {
+        foreach (StatsData statsData in Stats.data)
+        {
+            StatBuckets.AddStat(statsData.key, statsData.tiers);
+        }
     }
     
 
@@ -141,6 +151,17 @@ public static class JSONDataHandler
         {
             if (mainStat.key == key)
                 return mainStat;
+        }
+
+        return null;
+    }
+
+    public static StatsData FindStatByKey(string key)
+    {
+        foreach (StatsData statsData in Stats.data)
+        {
+            if (statsData.key == key)
+                return statsData;
         }
 
         return null;

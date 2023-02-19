@@ -53,11 +53,11 @@ public class StatHandler
 
             string type = remainingStats[randInt].type;
             
-            StatTier chosenTier = GetRandomTier(remainingStats[randInt].tiers);
+            //StatTier chosenTier = GetRandomTier(remainingStats[randInt].tiers);
 
-            int tierValue = Random.Range(chosenTier.values.min, chosenTier.values.max);
+            //int tierValue = Random.Range(chosenTier.values.min, chosenTier.values.max);
 
-            ItemStat newStat = new ItemStat(remainingStats[randInt].key, remainingStats[randInt].effector_key, remainingStats[randInt].modifier, remainingStats[randInt].helper_text, remainingStats[randInt].display_text, tierValue, chosenTier.tierIndex);
+            ItemStat newStat = Randomizer.GenerateItemStat(remainingStats[randInt]);
 
             bool force = false;
 

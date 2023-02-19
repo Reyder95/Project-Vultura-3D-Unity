@@ -13,4 +13,5 @@ public class StatsData
     public string type;
     public string numType;
     public StatTier[] tiers;
+    public int[] tierProbability;
 }
