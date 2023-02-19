@@ -709,6 +709,39 @@ public class MiningStationUI : MonoBehaviour
             itemQuantity.text = station.storage.itemList[i].quantity.ToString();
 
             e.RegisterCallback<ClickEvent>(ev => {
+                inventorySplit.style.top = ev.position.y - inventorySplit.layout.height;
+                inventorySplit.style.left = ev.position.x;
+                inventorySplit.Q<Label>("item-name").text = station.storage.itemList[i].item.Name;
+                Label transferAmount = inventorySplit.Q<Label>("transfer-amount");
+                transferAmount.text = "1";
+                SliderInt swapSlider = inventorySplit.Q<SliderInt>("transfer-slider");
+                swapSlider.highValue = station.storage.itemList[i].quantity;
+                swapSlider.lowValue = 1;
+                swapSlider.value = 1;
+                    
+                swapSlider.RegisterValueChangedCallback(ev => {
+                    transferAmount.text = ev.newValue.ToString();
+                });
+
+                inventorySplit.Q<Button>("ok-button").RegisterCallback<ClickEvent>(ev => {
+
+                    inventoryList.Rebuild();
+                    storageList.Rebuild();
+
+                    inventorySplit.style.visibility = Visibility.Hidden;
+
+                    SellItemFromStorage(i, swapSlider.value);
+                });
+
+                inventorySplit.Q<Button>("cancel-button").RegisterCallback<ClickEvent>(ev => {
+                    inventorySplit.style.visibility = Visibility.Hidden;
+                });
+
+                inventorySplit.style.visibility = Visibility.Visible;   
+                
+
+                inventoryList.Rebuild();
+                storageList.Rebuild();
             });
         };
 
@@ -860,6 +893,19 @@ public class MiningStationUI : MonoBehaviour
         VulturaInstance.playerMoney += totalSellCost;
 
         inventoryList.Rebuild();
+    }
+
+    void SellItemFromStorage(int index, int quantity)
+    {
+        InventoryItem itemToSell = station.storage.itemList[index];
+        
+        // Needs to be more advanced. Will return to this when redoing the entire UI
+        int totalSellCost = (int)Mathf.Floor(((itemToSell.item.GalacticPrice * 0.75f) * 0.50f) * quantity);
+
+        station.storage.PopAmount(index, quantity);
+        VulturaInstance.playerMoney += totalSellCost;
+
+        storageList.Rebuild();
     }
 
     // Sell the item to the station's stockpile
