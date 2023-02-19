@@ -21,4 +21,21 @@ public static class Randomizer
             retrievedTier.tierIndex
             );
     }
+
+    // Generate an item rarity for an item
+    public static VulturaInstance.ItemRarity GenerateItemRarity()
+    {
+        float randomNum = Random.Range(0, 100);
+
+        if (randomNum < 50)
+            return VulturaInstance.ItemRarity.Common;
+        else if (randomNum >= 50 && randomNum < 75)
+            return VulturaInstance.ItemRarity.Uncommon;
+        else if (randomNum >= 75 && randomNum < 90)
+            return VulturaInstance.ItemRarity.Rare;
+        else if (randomNum >= 90 && randomNum < 97)
+            return VulturaInstance.ItemRarity.Epic;
+        else
+            return VulturaInstance.ItemRarity.Legendary;
+    }
 }
