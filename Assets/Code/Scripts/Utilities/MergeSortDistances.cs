@@ -34,7 +34,7 @@ public class MergeSortDistances
     {
         List<BaseSelectable> result = new List<BaseSelectable>();
 
-        while ((left.Count > 0 || right.Count > 0) && infiniteLoopCheck < 1000)
+        while ((left.Count > 0 || right.Count > 0))
         {
             if (left.Count > 0 && right.Count > 0)
             {
