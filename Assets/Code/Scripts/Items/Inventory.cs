@@ -47,6 +47,7 @@ public class Inventory
 
     public void ClearInventory()
     {
+        EventManager.TriggerEvent("InventoryModified");
         itemList.Clear();
         currCargo = 0;
     }
@@ -87,6 +88,7 @@ public class Inventory
     // Swap two items within the inventory
     public void Swap(int idx1, int idx2)
     {
+        EventManager.TriggerEvent("Inventory Modified");
         InventoryItem temp = itemList[idx1];
         itemList[idx1] = itemList[idx2];
         itemList[idx2] = temp;
@@ -95,6 +97,7 @@ public class Inventory
     // Pop an item fully out of the inventory. Usually used when quantity becomes 0, or need o remove all of the item at once.
     public InventoryItem Pop(int index)
     {
+        EventManager.TriggerEvent("Inventory Modified");
         InventoryItem item = itemList[index];
         currCargo -= (item.quantity * item.item.Weight);
         itemList.RemoveAt(index);
@@ -115,6 +118,8 @@ public class Inventory
                     itemList.RemoveAt(index);
 
                 currCargo -= (item.quantity * item.item.Weight);
+
+                EventManager.TriggerEvent("Inventory Modified");
 
                 return item;
             }
@@ -139,6 +144,8 @@ public class Inventory
                 itemList[index].quantity = 0;
             }
         }
+
+        EventManager.TriggerEvent("Inventory Modified");
     }
     
     // Find an item's index by giving an item
