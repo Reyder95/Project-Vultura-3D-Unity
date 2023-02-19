@@ -42,7 +42,19 @@ public class BaseStation : BaseSelectable
         for (int i = 0; i < randomContractCount; i++)
         {
             Inventory contractInventory = new Inventory();
-            int itemCount = Random.Range(1, 4);
+            Category category = JSONDataHandler.FindCategoryByKey("trade_good");
+            List<ItemData> tradeGoods = JSONDataHandler.FindBasesByCategory(category);
+            int itemCount = Random.Range(1, tradeGoods.Count);
+
+
+            for (int j = 0; j < itemCount; j++)
+            {
+                int randItem = Random.Range(0, tradeGoods.Count);
+                BaseItem contractItem = ItemManager.GenerateItem(category, tradeGoods[randItem]);
+                tradeGoods.RemoveAt(randItem);
+                int randQuantity = Random.Range(1, 400);
+                contractInventory.Add(new InventoryItem(contractItem, randQuantity));
+            }
             
             this.AddContract(contractInventory, "system2", "some-faction");
         }

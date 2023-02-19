@@ -37,9 +37,7 @@ public static class JSONDataHandler
         ParseItemJSON("JSON/Items/Active Modules/Chainguns");
         ParseItemJSON("JSON/Items/Active Modules/RocketLaunchers");
         ParseItemJSON("JSON/Items/Passive Modules/CargoExpanders");
-        ParseItemJSON("JSON/Items/Trade Goods/FreshFood");
-        ParseItemJSON("JSON/Items/Trade Goods/FreshWater");
-        ParseItemJSON("JSON/Items/Trade Goods/LuxuryGoods");
+        ParseItemJSON("JSON/Items/Trade Goods/TradeGoods");
 
         Items.linking_key = null;
     }

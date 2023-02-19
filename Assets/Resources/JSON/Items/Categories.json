@@ -83,28 +83,12 @@
             "bases_file": "CargoExpanders.json"
         },
         {
-            "key": "luxury_goods",
-            "description": "Allows citizens to enjoy their leisure time. Provides items for the populace to indulge in.",
+            "key": "trade_good",
+            "description": "Various trade goods that citizens can utilize for leisure, or work related activities. Stations require these for their facilities to function.",
             "stackable": true,
-            "galactic_price_base": 30,
+            "galactic_price_base": 100,
             "type": "trade_good",
-            "bases_file": "LuxuryGoods.json"
-        },
-        {
-            "key": "fresh_food",
-            "description": "Provides nice and warm food for the citizens or workers to eat.",
-            "stackable": true,
-            "galactic_price_base": 15,
-            "type": "trade_good",
-            "bases_file": "FreshFood.json"
-        },
-        {
-            "key": "fresh_water",
-            "description": "Provides water for the use of facilities, as well as citizen hydration.",
-            "stackable": true,
-            "galactic_price_base": 25,
-            "type": "trade_good",
-            "bases_file": "FreshWater.json"
+            "bases_file": "TradeGoods.json"
         }
     ]
 }
