@@ -18,10 +18,8 @@ public class Contact
 
     public void LoadConversation()
     {
-        Debug.Log("Loaded conversation");
         if (GlobalConvoHolder.conversationList.ContainsKey(this.type))
         {
-            Debug.Log("Inside conversation");
             List<Conversation> convos = GlobalConvoHolder.conversationList[this.type];
 
             conversation = convos[Random.Range(0, convos.Count - 1)];

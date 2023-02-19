@@ -270,10 +270,6 @@ public class InventoryManager : MonoBehaviour
                     tempTooltip = null;
                 });
 
-                item.RegisterCallback<PointerUpEvent>(ev => {
-                    Debug.Log("Pointer up!");
-                });
-
                 items.Add(item);
 
                 currentRow.Add(item);

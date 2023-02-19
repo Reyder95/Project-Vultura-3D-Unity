@@ -577,7 +577,6 @@ public class MiningStationUI : MonoBehaviour
     public void ResponseClick(ClickEvent ev)
     {
         Label contactLabel = ev.currentTarget as Label;
-        Debug.Log(contactLabel.userData);
         HandleResponses(contactLabel.userData as BaseResponse);
     }
 
@@ -602,8 +601,6 @@ public class MiningStationUI : MonoBehaviour
             {
                 if (currResponse.Conversation != null)
                 {
-                    Debug.Log("Pushing convo");
-                    Debug.Log(currResponse.Prompt);
                     convoStack.Push(currResponse.Conversation);
                     convoStack.DisplayConvoStack();
                 } 

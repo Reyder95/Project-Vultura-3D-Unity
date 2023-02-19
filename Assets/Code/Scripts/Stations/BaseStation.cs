@@ -43,22 +43,12 @@ public class BaseStation : BaseSelectable
         {
             Inventory contractInventory = new Inventory();
             int itemCount = Random.Range(1, 4);
-
-            // for (int j = 0; j < itemCount; j++)
-            // {
-            //     contractInventory.Add(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[Random.Range(1, 5)].Create(), Random.Range(1, 8)));
-            // }
             
             this.AddContract(contractInventory, "system2", "some-faction");
         }
 
         InitializeFacilities();
         InitializeBaseStockpile();
-        // foreach (Facility facility in facilities)
-        //     Debug.Log(facility);
-
-        // foreach (MarketItem marketItem in market.itemList)
-        //     Debug.Log(marketItem.item);
 
         RunProductionChain();
     }

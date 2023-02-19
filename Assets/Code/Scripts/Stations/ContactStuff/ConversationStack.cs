@@ -13,15 +13,12 @@ public class ConversationStack
 
     public void Push(Conversation convo)
     {
-        Debug.Log("Pushing convo inside class");
-        Debug.Log(convo.Prompt);
         convos.Add(convo);
     }
 
     public void Pop()
     {
         convos.RemoveAt(convos.Count - 1);
-        Debug.Log(convos.Count);
     }
 
     public Conversation Top()
@@ -42,14 +39,13 @@ public class ConversationStack
         convos.Clear();
     }
 
+    // DEBUG
     public void DisplayConvoStack()
     {
-        Debug.Log("Displaying Stack");
         foreach (Conversation convo in convos)
         {
             Debug.Log(convo.Prompt);
         }
-        Debug.Log("End display");
     }
 
     public List<Conversation> Convos 
