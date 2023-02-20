@@ -124,26 +124,53 @@ public static class VulturaInstance
     }
 
     // Swap items between different inventories
-    public static bool SwapInventory(int index, Inventory invFrom, Inventory invTo, MoveType moveType, int quantity = 0)
+    public static bool SwapInventory(int index, Inventory invFrom, Inventory invTo, MoveType moveType, bool toStorage, int quantity = 0)
     {
+        InstantiatedShip toShip = null;
+
+        if (!toStorage)
+            toShip = currentPlayer.GetComponent<PrefabHandler>().currShip;
+
         InventoryItem inventoryItem = null;
+        bool successfulAdd = false;
 
         if (moveType == MoveType.SINGLE)
         {
-            inventoryItem = invFrom.PopAmount(index, 1);
+            //inventoryItem = invFrom.PopAmount(index, 1);
+            inventoryItem = invFrom.ReturnAmountOfItem(index, 1);
         }
         else if (moveType == MoveType.ALL)
         {
-            inventoryItem = invFrom.Pop(index);
+            //inventoryItem = invFrom.Pop(index);
+            inventoryItem = invFrom.ReturnAllOfItem(index);
         }
         else if (moveType == MoveType.SPECIFY)
         {
-            inventoryItem = invFrom.PopAmount(index, quantity);
+            //inventoryItem = invFrom.PopAmount(index, quantity);
+            inventoryItem = invFrom.ReturnAmountOfItem(index, quantity);
         }
 
         if (inventoryItem != null)
         {
-            invTo.Add(inventoryItem);
+            successfulAdd = invTo.Add(inventoryItem, toShip);
+            
+        }
+
+        if (successfulAdd)
+        {
+            if (moveType == MoveType.SINGLE)
+            {
+                inventoryItem = invFrom.PopAmount(index, 1);
+            }
+            else if (moveType == MoveType.ALL)
+            {
+                inventoryItem = invFrom.Pop(index);
+            }
+            else if (moveType == MoveType.SPECIFY)
+            {
+                inventoryItem = invFrom.PopAmount(index, quantity);
+            }
+
             return true;
         }
 

@@ -53,7 +53,7 @@ public class BaseStation : BaseSelectable
                 BaseItem contractItem = ItemManager.GenerateItem(category, tradeGoods[randItem]);
                 tradeGoods.RemoveAt(randItem);
                 int randQuantity = Random.Range(1, 400);
-                contractInventory.Add(new InventoryItem(contractItem, randQuantity));
+                contractInventory.Add(new InventoryItem(contractItem, randQuantity), null);
             }
             
             this.AddContract(contractInventory, "system2", "some-faction");
@@ -76,7 +76,7 @@ public class BaseStation : BaseSelectable
         {
             foreach (FacilityItem consumer in facility.consuming)
             {
-                facility.stockpile.Add(new InventoryItem(ItemManager.GenerateSpecificBase(consumer.item.Key), Random.Range(30, 50)));
+                facility.stockpile.Add(new InventoryItem(ItemManager.GenerateSpecificBase(consumer.item.Key), Random.Range(30, 50)), null);
             }
         }
     }
@@ -124,7 +124,7 @@ public class BaseStation : BaseSelectable
 
                     if (consumerItem.Key == item.Key)
                     {
-                        facility.stockpile.Add(new InventoryItem(item, quantity));
+                        facility.stockpile.Add(new InventoryItem(item, quantity), null);
                         return true;
                     }
                 }

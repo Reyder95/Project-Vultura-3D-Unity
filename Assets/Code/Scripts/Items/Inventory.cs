@@ -29,20 +29,31 @@ public class Inventory
     public float currCargo = 0; // The cargo count. When an item is added or removed, this is modified
 
     // Add an item to the inventory
-    public void Add(InventoryItem item)
+    public bool Add(InventoryItem item, InstantiatedShip ship)
     {
-        ExistsStruct value = ContainsItem(item.item);
-        if (value.exists && item.item.Stackable)
+        bool addItem = false;
+
+        if ((ship != null && !CargoFull(item, ship)) || ship == null)
         {
-            itemList[value.index].quantity += item.quantity;
+            ExistsStruct value = ContainsItem(item.item);
+            if (value.exists && item.item.Stackable)
+            {
+                itemList[value.index].quantity += item.quantity;
+            }
+            else
+            {
+                itemList.Add(item);
+            }
+            currCargo += (item.quantity * item.item.Weight);
+
+            EventManager.TriggerEvent("Inventory Modified");
+
+            return true;
         }
-        else
-        {
-            itemList.Add(item);
-        }
-        currCargo += (item.quantity * item.item.Weight);
-        
-        EventManager.TriggerEvent("Inventory Modified");
+
+        return false;
+
+
     }
 
     public void ClearInventory()
@@ -52,14 +63,18 @@ public class Inventory
         currCargo = 0;
     }
 
-    public bool CargoFull(InventoryItem item)
+    public bool CargoFull(InventoryItem item, InstantiatedShip ship)
     {
-        float theoreticalMaxCargo = item.item.Weight + currCargo;
+        if (ship != null)
+        {
+            float theoreticalMaxCargo = (item.item.Weight * item.quantity) + currCargo;
 
-        if (VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.ShipStats.baseCargo >= theoreticalMaxCargo)
-            return false;
-        
+            if (ship.ShipStats.baseCargo >= theoreticalMaxCargo)
+                return false; 
+        }
+
         return true;
+
     }
 
     // Check if an item exists within the inventory
@@ -124,6 +139,29 @@ public class Inventory
                 return item;
             }
         }
+
+        return null;
+    }
+
+    public InventoryItem ReturnAmountOfItem(int index, int quantity)
+    {
+        if (itemList.Count > index)
+        {
+            if (itemList[index].quantity >= quantity)
+            {
+                InventoryItem item = new InventoryItem(itemList[index].item, quantity);
+
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    public InventoryItem ReturnAllOfItem(int index)
+    {
+        if (itemList.Count > index)
+            return itemList[index];
 
         return null;
     }

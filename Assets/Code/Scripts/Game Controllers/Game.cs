@@ -106,7 +106,7 @@ public class Game : MonoBehaviour
 
             InventoryItem tempInventoryItem = new InventoryItem(tempItem, quantity);
 
-            VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.Add(tempInventoryItem);
+            VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.Add(tempInventoryItem, VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip);
         }
     }
 
