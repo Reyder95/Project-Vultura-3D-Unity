@@ -33,7 +33,7 @@ public class ItemStat
 
     public string ReturnStatDescription()
     {
-        return displayText.Replace("{{value}}", value.ToString());
+        return displayText.Replace("{{value}}", "<color=#9CA3F5><b>" + value.ToString() + "</b></color>");
     }
 
     public string Key
