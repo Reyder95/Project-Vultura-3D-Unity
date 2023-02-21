@@ -49,6 +49,11 @@ public class ItemGround : MonoBehaviour
         itemText.text = itemNameText;
 
         rootVisualElement = this.gameObject.GetComponent<UIDocument>().rootVisualElement;
+        rootVisualElement.RegisterCallback<PointerMoveEvent>(ev => {
+            VisualElement itemTooltip = rootVisualElement.Q<VisualElement>("item-tooltip");
+            itemTooltip.style.top = ev.position.y;
+            itemTooltip.style.left = ev.position.x;
+        });
 
         VisualElement itemTooltip = rootVisualElement.Q<VisualElement>("item-tooltip");
 
@@ -120,8 +125,6 @@ public class ItemGround : MonoBehaviour
         itemTooltip.pickingMode = PickingMode.Ignore;
         itemTooltip.pickingMode = PickingMode.Ignore;              
         itemTooltip.style.position = Position.Absolute;
-        itemTooltip.style.top = Screen.height - pos.y;
-        itemTooltip.style.left = pos.x;
         itemTooltip.style.display = DisplayStyle.Flex;
 
         if (!this.gameObject.GetComponent<Outline>().enabled)
