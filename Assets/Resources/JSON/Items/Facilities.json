@@ -1,0 +1,44 @@
+{
+    "data": [
+        {
+            "key": "cookery",
+            "name": "Cookery",
+            "produce": [
+                {
+                    "key": "fresh_food",
+                    "value": 7
+                },
+                {
+                    "key": "fresh_water",
+                    "value": 3
+                }
+            ],
+            "consume": [
+                {
+                    "key": "luxury_goods",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "key": "luxury_goods_factory",
+            "name": "Luxury Goods Factory",
+            "produce": [
+                {
+                    "key": "luxury_goods",
+                    "value": 10
+                }
+            ],
+            "consume": [
+                {
+                    "key": "fresh_food",
+                    "value": 3
+                },
+                {
+                    "key": "fresh_water",
+                    "value": 3
+                }
+            ]
+        }
+    ]
+}

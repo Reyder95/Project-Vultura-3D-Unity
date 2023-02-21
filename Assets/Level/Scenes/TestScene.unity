@@ -769,6 +769,12 @@ MonoBehaviour:
     type: 3}
   inventoryItem: {fileID: 9197481963319205126, guid: a7198d505c6a6c5409b329994b03c251,
     type: 3}
+  itemTooltip: {fileID: 9197481963319205126, guid: f087aa880b5445242a083aa6910ab440,
+    type: 3}
+  itemTooltipStat: {fileID: 9197481963319205126, guid: 63986bc2bf9f8124b9b2844f0e523bab,
+    type: 3}
+  dropPrompt: {fileID: 9197481963319205126, guid: acb80c9eb3f46c24d8bc602232dedf5c,
+    type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

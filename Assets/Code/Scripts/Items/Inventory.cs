@@ -29,20 +29,52 @@ public class Inventory
     public float currCargo = 0; // The cargo count. When an item is added or removed, this is modified
 
     // Add an item to the inventory
-    public void Add(InventoryItem item)
+    public bool Add(InventoryItem item, InstantiatedShip ship)
     {
-        ExistsStruct value = ContainsItem(item.item);
+        bool addItem = false;
 
-        if (value.exists)
+        if ((ship != null && !CargoFull(item, ship)) || ship == null)
         {
-            itemList[value.index].quantity += item.quantity;
-        }
-        else
-        {
-            itemList.Add(item);
+            ExistsStruct value = ContainsItem(item.item);
+            if (value.exists && item.item.Stackable)
+            {
+                itemList[value.index].quantity += item.quantity;
+            }
+            else
+            {
+                itemList.Add(item);
+            }
+            currCargo += (item.quantity * item.item.Weight);
+
+            EventManager.TriggerEvent("Inventory Modified");
+
+            return true;
         }
 
-        currCargo += (item.quantity * item.item.Weight);
+        return false;
+
+
+    }
+
+    public void ClearInventory()
+    {
+        EventManager.TriggerEvent("InventoryModified");
+        itemList.Clear();
+        currCargo = 0;
+    }
+
+    public bool CargoFull(InventoryItem item, InstantiatedShip ship)
+    {
+        if (ship != null)
+        {
+            float theoreticalMaxCargo = (item.item.Weight * item.quantity) + currCargo;
+
+            if (ship.ShipStats.baseCargo >= theoreticalMaxCargo)
+                return false; 
+        }
+
+        return true;
+
     }
 
     // Check if an item exists within the inventory
@@ -57,7 +89,7 @@ public class Inventory
         // Loop through array to find if the value exists. If it does, set the struct and break.
         for (int i = 0; i < itemList.Count; i++)
         {
-            if (itemList[i].item.Id == item.Id)
+            if (itemList[i].item.Key == item.Key)
             {
                 value.exists = true;
                 value.index = i;
@@ -71,6 +103,7 @@ public class Inventory
     // Swap two items within the inventory
     public void Swap(int idx1, int idx2)
     {
+        EventManager.TriggerEvent("Inventory Modified");
         InventoryItem temp = itemList[idx1];
         itemList[idx1] = itemList[idx2];
         itemList[idx2] = temp;
@@ -82,6 +115,7 @@ public class Inventory
         InventoryItem item = itemList[index];
         currCargo -= (item.quantity * item.item.Weight);
         itemList.RemoveAt(index);
+        EventManager.TriggerEvent("Inventory Modified");
         return item;
     }
 
@@ -100,9 +134,34 @@ public class Inventory
 
                 currCargo -= (item.quantity * item.item.Weight);
 
+                EventManager.TriggerEvent("Inventory Modified");
+
                 return item;
             }
         }
+
+        return null;
+    }
+
+    public InventoryItem ReturnAmountOfItem(int index, int quantity)
+    {
+        if (itemList.Count > index)
+        {
+            if (itemList[index].quantity >= quantity)
+            {
+                InventoryItem item = new InventoryItem(itemList[index].item, quantity);
+
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    public InventoryItem ReturnAllOfItem(int index)
+    {
+        if (itemList.Count > index)
+            return itemList[index];
 
         return null;
     }
@@ -123,6 +182,8 @@ public class Inventory
                 itemList[index].quantity = 0;
             }
         }
+
+        EventManager.TriggerEvent("Inventory Modified");
     }
     
     // Find an item's index by giving an item
@@ -130,7 +191,7 @@ public class Inventory
     {
         for (int i = 0; i < itemList.Count; i++)
         {
-            if (itemList[i].item.Id == item.Id)
+            if (itemList[i].item.Key == item.Key)
                 return i;
         }
 
@@ -142,7 +203,7 @@ public class Inventory
     {
         foreach (InventoryItem invItem in itemList)
         {
-            if (invItem.item.Id == item.Id)
+            if (invItem.item.Key == item.Key)
                 return invItem;
         }
 

@@ -50,6 +50,13 @@ public class PlayerController : MonoBehaviour
             multiselect = false;
         }
 
+        // DEBUG
+        if (Input.GetKeyDown("y"))
+        {
+            VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.ClearInventory();
+            Game.Instance.GenerateInventory();
+        }
+
         // Left Alt switches the main selection out of the list of currently selected items
         if (Input.GetKey("left alt"))
         {
@@ -70,6 +77,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             handleSelection(multiselect, switchMain);
+            PickUpItem();
+            
         }
 
         // Activate the item that is main selected
@@ -113,6 +122,22 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started)
             InventoryManager.Instance.HandleInventory();
+    }
+
+    void PickUpItem()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        {
+            if (hitInfo.collider.gameObject.tag == "Dropped Item")
+            {
+                bool success = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.Add(hitInfo.collider.gameObject.GetComponent<ItemGround>().GetItem(), VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip);
+
+                if (success)
+                    Destroy(hitInfo.collider.gameObject);
+            }
+        }
     }
 
     // Select the item requested based on boolean values

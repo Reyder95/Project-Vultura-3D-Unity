@@ -48,7 +48,7 @@ public class InstantiatedShip : BaseSelectable
 
         if (futureCargo < shipStats.baseCargo)
         {
-            cargo.Add(item);
+            cargo.Add(item, this);
             return true;
         }
 

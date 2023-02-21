@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="position: absolute; left: 25%; top: 25%; right: 25%; bottom: 25%; background-color: rgb(29, 29, 29); border-left-color: rgb(159, 71, 0); border-right-color: rgb(159, 71, 0); border-top-color: rgb(159, 71, 0); border-bottom-color: rgb(159, 71, 0); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px;">
+        <ui:VisualElement style="position: absolute; left: 25%; top: 25%; right: 25%; bottom: 25%; -unity-text-align: upper-left; justify-content: center;">
+            <ui:Label text="Are you sure you want to drop this item?" display-tooltip-when-elided="true" style="-unity-font-style: bold; font-size: 30px; -unity-text-align: upper-center; color: rgb(202, 202, 202); white-space: normal;" />
+            <ui:VisualElement style="flex-direction: row; flex-basis: auto; width: 100%; justify-content: space-between; padding-left: 2px; padding-right: 2px; margin-top: 20px;">
+                <ui:Button text="Yes" display-tooltip-when-elided="true" name="yes-button" style="position: relative; width: 45%; margin-left: 0; margin-right: 0; margin-top: 25px; font-size: 30px; -unity-font-style: bold; color: rgb(241, 241, 241); height: 50px; background-color: rgba(99, 99, 99, 255);" />
+                <ui:Button text="No" display-tooltip-when-elided="true" name="no-button" style="position: relative; width: 45%; margin-left: 0; margin-right: 0; margin-top: 25px; font-size: 30px; -unity-font-style: bold; color: rgb(226, 226, 226); height: 50px; background-color: rgba(99, 99, 99, 255);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
