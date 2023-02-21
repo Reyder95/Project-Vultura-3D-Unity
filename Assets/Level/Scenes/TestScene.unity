@@ -288,6 +288,7 @@ MonoBehaviour:
   entitySelected: {fileID: 0}
   listItem: {fileID: 9197481963319205126, guid: 42ed287c5228d7541ae0723514950c6a,
     type: 3}
+  elementHovered: -1
 --- !u!1 &179296641
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,7 +774,7 @@ MonoBehaviour:
     type: 3}
   itemTooltipStat: {fileID: 9197481963319205126, guid: 63986bc2bf9f8124b9b2844f0e523bab,
     type: 3}
-  dropPrompt: {fileID: 9197481963319205126, guid: acb80c9eb3f46c24d8bc602232dedf5c,
+  itemDropPrefab: {fileID: 1770285054743306294, guid: 4f235e297fb6dc341bd528457cd90582,
     type: 3}
 --- !u!1 &832575517
 GameObject:
@@ -853,6 +854,7 @@ MonoBehaviour:
   entitySelected: {fileID: 0}
   listItem: {fileID: 9197481963319205126, guid: 42ed287c5228d7541ae0723514950c6a,
     type: 3}
+  elementHovered: -1
 --- !u!1001 &1103427847
 PrefabInstance:
   m_ObjectHideFlags: 0
