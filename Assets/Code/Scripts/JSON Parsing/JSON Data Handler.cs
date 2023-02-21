@@ -13,43 +13,89 @@ public static class JSONDataHandler
     public static JSONStats Stats;
     public static JSONMainStats MainStats;
 
+    // Dictionaries
+    public static Dictionary<string, ItemData> itemDictionary = new Dictionary<string, ItemData>();
+    public static Dictionary<string, FacilityData> facilityDictionary = new Dictionary<string, FacilityData>();
+    public static Dictionary<string, Category> categoryDictionary = new Dictionary<string, Category>();
+    public static Dictionary<string, Type> typeDictionary = new Dictionary<string, Type>();
+    public static Dictionary<string, StatsData> statDictionary = new Dictionary<string, StatsData>();
+    public static Dictionary<string, MainStat> mainStatDictionary = new Dictionary<string, MainStat>();
+
+    public static Dictionary<string, ItemData[]> basesFromCategory = new Dictionary<string, ItemData[]>();
+
+    public static ItemData[] itemPool;
+    public static StatsData[] statPool;
+
     public static void LoadData()
     {
-        var jsonTextFile = Resources.Load<TextAsset>("JSON/Items/Types");
-        Types = JsonUtility.FromJson<JSONTypes>(jsonTextFile.text);
+        var categoryFile = Resources.Load<TextAsset>("JSON/Items/Categories");
+        JSONCategories TempCategories = JsonUtility.FromJson<JSONCategories>(categoryFile.text);
 
-        jsonTextFile = Resources.Load<TextAsset>("JSON/Items/Categories");
-        Categories = JsonUtility.FromJson<JSONCategories>(jsonTextFile.text);
+        foreach (Category category in TempCategories.data)
+        {
+            categoryDictionary.Add(category.key, category);
 
-        jsonTextFile = Resources.Load<TextAsset>("JSON/Items/Facilities");
-        Facilities = JsonUtility.FromJson<JSONFacilities>(jsonTextFile.text);
+            var jsonFile = Resources.Load<TextAsset>("JSON/Items/" + category.bases_file);
+            JSONItems itemData = JsonUtility.FromJson<JSONItems>(jsonFile.text);
 
-        jsonTextFile = Resources.Load<TextAsset>("JSON/Items/Stats");
-        Stats = JsonUtility.FromJson<JSONStats>(jsonTextFile.text);
+            if (itemPool != null)
+                itemPool = CombineData(itemPool, itemData.data);
+            else
+                itemPool = itemData.data;
+
+            foreach (ItemData loopData in itemData.data)
+            {
+                loopData.linking_key = itemData.linking_key;
+                itemDictionary.Add(loopData.key, loopData);
+            }
+
+            basesFromCategory.Add(category.key, itemData.data);
+        }
+
+        var typeFile = Resources.Load<TextAsset>("JSON/Items/Types");
+        JSONTypes TempTypes = JsonUtility.FromJson<JSONTypes>(typeFile.text);
+
+        foreach (Type typeData in TempTypes.data)
+        {
+            typeDictionary.Add(typeData.key, typeData);
+        }
+
+        var facilityFile = Resources.Load<TextAsset>("JSON/Items/Facilities");
+        JSONFacilities FacilityTypes = JsonUtility.FromJson<JSONFacilities>(facilityFile.text);
+
+        foreach (FacilityData facility in FacilityTypes.data)
+        {
+            facilityDictionary.Add(facility.key, facility);
+        }
+
+        var statsFile = Resources.Load<TextAsset>("JSON/Items/Stats");
+        JSONStats TempStats = JsonUtility.FromJson<JSONStats>(statsFile.text);
+
+        statPool = TempStats.data;
+
+        foreach (StatsData stats in TempStats.data)
+        {
+            statDictionary.Add(stats.key, stats);
+        }
+
+        var mainStatsFile = Resources.Load<TextAsset>("JSON/Items/MainStats");
+        JSONMainStats TempMainStats = JsonUtility.FromJson<JSONMainStats>(mainStatsFile.text);
+
+        foreach (MainStat mainStats in TempMainStats.data)
+        {
+            mainStatDictionary.Add(mainStats.key, mainStats);
+        }
 
         FillStatBucket();
-
-        jsonTextFile = Resources.Load<TextAsset>("JSON/Items/MainStats");
-        MainStats = JsonUtility.FromJson<JSONMainStats>(jsonTextFile.text);
-
-        // TODO -- Use folder from categories to make this easier
-
-        ParseItemJSON("JSON/Items/Active Modules/Chainguns");
-        ParseItemJSON("JSON/Items/Active Modules/RocketLaunchers");
-        ParseItemJSON("JSON/Items/Passive Modules/CargoExpanders");
-        ParseItemJSON("JSON/Items/Trade Goods/TradeGoods");
-
-        Items.linking_key = null;
     }
 
     private static void FillStatBucket()
     {
-        foreach (StatsData statsData in Stats.data)
+        foreach (var item in statDictionary)
         {
-            StatBuckets.AddStat(statsData.key, statsData.tiers);
+            StatBuckets.AddStat(item.Value.key, item.Value.tiers);
         }
     }
-    
 
     public static void ParseItemJSON(string filepath)
     {
@@ -75,47 +121,38 @@ public static class JSONDataHandler
 
     public static FacilityData FindFacilityByKey(string key)
     {
-        foreach (FacilityData facilityData in Facilities.data)
-        {
-            if (facilityData.key == key)
-                return facilityData;
-        }
+        if (facilityDictionary.TryGetValue(key, out FacilityData value))
+            return value;
 
         return null;
+        
     }
 
     public static Category FindCategoryByKey(string key)
     {
-        foreach (Category category in Categories.data)
-        {
-            if (category.key == key)
-                return category;
-        }
-
+        if (categoryDictionary.TryGetValue(key, out Category value))
+            return value;
+        
         return null;
     }
 
     public static List<ItemData> FindBasesByCategory(Category category)
     {
-        List<ItemData> bases = new List<ItemData>();
 
-        foreach (ItemData itemData in Items.data)
-        {
-            if (itemData.linking_key == category.key)
-                bases.Add(itemData);
-        }
+        if (basesFromCategory.TryGetValue(category.key, out ItemData[] values))
+            return new List<ItemData>(values);
 
-        return bases;
+        return null;
     }
 
     public static List<Category> FindCategoriesByType(Type type)
     {
         List<Category> categories = new List<Category>();
 
-        foreach (Category category in Categories.data)
+        foreach (var item in categoryDictionary)
         {
-            if (category.type == type.key)
-                categories.Add(category);
+            if (item.Value.type == type.key)
+                categories.Add(item.Value);
         }
 
         return categories;
@@ -123,44 +160,32 @@ public static class JSONDataHandler
 
     public static Type FindTypeByKey(string key)
     {
-        foreach (Type type in Types.data)
-        {
-            if (type.key == key)
-                return type;
-        }
+        if (typeDictionary.TryGetValue(key, out Type value))
+            return value;
         
         return null;
     }
 
     public static ItemData FindBaseByKey(string key)
     {
-        foreach (ItemData itemData in Items.data)
-        {
-            if (itemData.key == key)
-                return itemData;
-        }
+        if (itemDictionary.TryGetValue(key, out ItemData value))
+            return value;
 
         return null;
     }
 
     public static MainStat FindMainStatByKey(string key)
     {
-        foreach (MainStat mainStat in MainStats.data)
-        {
-            if (mainStat.key == key)
-                return mainStat;
-        }
+        if (mainStatDictionary.TryGetValue(key, out MainStat value))
+            return value;
 
         return null;
     }
 
     public static StatsData FindStatByKey(string key)
     {
-        foreach (StatsData statsData in Stats.data)
-        {
-            if (statsData.key == key)
-                return statsData;
-        }
+        if (statDictionary.TryGetValue(key, out StatsData value))
+            return value;
 
         return null;
     }

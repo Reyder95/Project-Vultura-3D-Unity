@@ -43,7 +43,7 @@ public class StatHandler
         else if (itemRarity == VulturaInstance.ItemRarity.Legendary)
             numStats = 7;
 
-        List<StatsData> remainingStats = new List<StatsData>(JSONDataHandler.Stats.data);
+        List<StatsData> remainingStats = new List<StatsData>(JSONDataHandler.statPool);
         
         int currStats = 0;
 
@@ -52,10 +52,6 @@ public class StatHandler
             int randInt = Random.Range(0, remainingStats.Count);
 
             string type = remainingStats[randInt].type;
-            
-            //StatTier chosenTier = GetRandomTier(remainingStats[randInt].tiers);
-
-            //int tierValue = Random.Range(chosenTier.values.min, chosenTier.values.max);
 
             ItemStat newStat = Randomizer.GenerateItemStat(remainingStats[randInt]);
 

@@ -202,6 +202,11 @@ PrefabInstance:
       propertyPath: shipRenderer
       value: 
       objectReference: {fileID: 3380982656561907633}
+    - target: {fileID: 8198021530226320475, guid: a1135b03504e2cc48a435be136b3eb09,
+        type: 3}
+      propertyPath: cameraRotationClamp
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1135b03504e2cc48a435be136b3eb09, type: 3}
 --- !u!4 &4517494261338693590 stripped

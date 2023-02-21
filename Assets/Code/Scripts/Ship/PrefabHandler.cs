@@ -33,8 +33,6 @@ public class PrefabHandler : MonoBehaviour
             Quaternion rotTarget = Quaternion.LookRotation(warpTarget.transform.position - transform.position);
             this.transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, 0.5f * Time.deltaTime);
 
-            // transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(98f, ), 100 * Time.deltaTime);
-
             if (Quaternion.Angle(transform.rotation, rotTarget) <= 3.0f)
             {
                 transform.LookAt(warpTarget.transform);
