@@ -24,8 +24,8 @@ public static class ItemManager
 
     public static BaseItem GenerateRandomItem()
     {
-        int randInt = Random.Range(0, JSONDataHandler.Items.data.Length);
-        ItemData itemData = JSONDataHandler.Items.data[randInt];
+        int randInt = Random.Range(0, JSONDataHandler.itemPool.Length);
+        ItemData itemData = JSONDataHandler.itemPool[randInt];
         Category categoryData = JSONDataHandler.FindCategoryByKey(itemData.linking_key);
 
 

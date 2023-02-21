@@ -6,7 +6,7 @@
             "stackable": false,
             "galactic_price_base": 1250,
             "type": "active_module",
-            "bases_file": "Chainguns.json",
+            "bases_file": "Active Modules/Chainguns",
             "bool_attributes": [
                 {
                     "key": "uses_ammo",
@@ -43,7 +43,7 @@
             "stackable": false,
             "galactic_price_base": 2530,
             "type": "active_module",
-            "bases_file": "RocketLaunchers.json",
+            "bases_file": "Active Modules/RocketLaunchers",
             "bool_attributes": [
                 {
                     "key": "uses_ammo",
@@ -80,7 +80,7 @@
             "stackable": false,
             "galactic_price_base": 155,
             "type": "passive_module",
-            "bases_file": "CargoExpanders.json"
+            "bases_file": "Passive Modules/CargoExpanders"
         },
         {
             "key": "trade_good",
@@ -88,7 +88,7 @@
             "stackable": true,
             "galactic_price_base": 100,
             "type": "trade_good",
-            "bases_file": "TradeGoods.json"
+            "bases_file": "Trade Goods/TradeGoods"
         }
     ]
 }
