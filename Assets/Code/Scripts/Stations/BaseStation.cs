@@ -42,11 +42,18 @@ public class BaseStation : BaseSelectable
         for (int i = 0; i < randomContractCount; i++)
         {
             Inventory contractInventory = new Inventory();
-            int itemCount = Random.Range(1, 4);
+            Category category = JSONDataHandler.FindCategoryByKey("trade_good");
+            List<ItemData> tradeGoods = JSONDataHandler.FindBasesByCategory(category);
+            int itemCount = Random.Range(1, tradeGoods.Count);
+
 
             for (int j = 0; j < itemCount; j++)
             {
-                contractInventory.Add(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[Random.Range(1, 5)].Create(), Random.Range(1, 8)));
+                int randItem = Random.Range(0, tradeGoods.Count);
+                BaseItem contractItem = ItemManager.GenerateItem(category, tradeGoods[randItem]);
+                tradeGoods.RemoveAt(randItem);
+                int randQuantity = Random.Range(1, 400);
+                contractInventory.Add(new InventoryItem(contractItem, randQuantity), null);
             }
             
             this.AddContract(contractInventory, "system2", "some-faction");
@@ -54,17 +61,13 @@ public class BaseStation : BaseSelectable
 
         InitializeFacilities();
         InitializeBaseStockpile();
-        // foreach (Facility facility in facilities)
-        //     Debug.Log(facility);
-
-        // foreach (MarketItem marketItem in market.itemList)
-        //     Debug.Log(marketItem.item);
 
         RunProductionChain();
     }
     public void InitializeFacilities()
     {
-        facilities.Add(new LuxuryGoodsFacility());
+        Facility newFacility = ItemManager.GenerateFacility("cookery");
+        facilities.Add(newFacility);
     }
 
     public void InitializeBaseStockpile()
@@ -73,7 +76,7 @@ public class BaseStation : BaseSelectable
         {
             foreach (FacilityItem consumer in facility.consuming)
             {
-                facility.stockpile.Add(new InventoryItem(consumer.itemExec(), Random.Range(30, 50)));
+                facility.stockpile.Add(new InventoryItem(ItemManager.GenerateSpecificBase(consumer.item.Key), Random.Range(30, 50)), null);
             }
         }
     }
@@ -100,7 +103,7 @@ public class BaseStation : BaseSelectable
             {
                 foreach (FacilityItem item in facility.consuming)
                 {
-                    market.AddDemandSeller(item.itemExec());
+                    market.AddDemandSeller(ItemManager.GenerateSpecificBase(item.item.Key));
                 }
             }
             
@@ -117,11 +120,11 @@ public class BaseStation : BaseSelectable
             {
                 foreach (FacilityItem consumer in facility.consuming)
                 {
-                    BaseItem consumerItem = consumer.itemExec();
+                    BaseItem consumerItem = ItemManager.GenerateSpecificBase(consumer.item.Key);
 
-                    if (consumerItem.Id == item.Id)
+                    if (consumerItem.Key == item.Key)
                     {
-                        facility.stockpile.Add(new InventoryItem(item, quantity));
+                        facility.stockpile.Add(new InventoryItem(item, quantity), null);
                         return true;
                     }
                 }

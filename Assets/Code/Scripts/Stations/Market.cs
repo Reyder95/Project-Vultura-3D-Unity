@@ -115,7 +115,7 @@ public class Market
         // Loop through array to find if the value exists. If it does, set the struct and break.
         for (int i = 0; i < itemList.Count; i++)
         {
-            if (itemList[i].item.Id == item.Id)
+            if (itemList[i].item.Key == item.Key)
             {
                 value.exists = true;
                 value.index = i;

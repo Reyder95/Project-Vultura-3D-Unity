@@ -35,6 +35,11 @@ public class Game : MonoBehaviour
             Instance = this;
         }
 
+        // Load item data
+        JSONDataHandler.LoadData();
+
+        ItemManager.InitializeItemBuilder();
+
         // Load all the main UI elements into the UI Manager
         UI_Manager.LoadUIElements();
 
@@ -70,10 +75,7 @@ public class Game : MonoBehaviour
         Fleet playerFleet = new Fleet(System.Guid.NewGuid(), "Player Faction", newShip, new List<InstantiatedShip>());
 
         // -- Debug -- Add items to inventory
-        newShip.AddToCargo(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[3].Create(), 10));
-        newShip.AddToCargo(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[6].Create(), 2));
-        newShip.AddToCargo(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[1].Create(), 25));
-        newShip.AddToCargo(new InventoryItem(ItemFactoryComponent.Instance.ItemFactoryDict[2].Create(), 25));
+        // TODO: Do with new system
         
         // -- Debug -- Add a second ship to the player fleet
         shipStatsComponent = shipPrefabs[1].GetComponent<PrefabHandler>().GetShipStats();
@@ -88,6 +90,26 @@ public class Game : MonoBehaviour
         shipSpawner.SpawnFleet(FleetGenerator(1000), new Vector3(-600, 0, 0));
 
         VulturaInstance.InitializeSelectableObjects();  // Find all selectable objects in the system for the entity list UI.
+
+        GenerateInventory();
+    }
+
+    public void GenerateInventory()
+    {
+        int randSize = UnityEngine.Random.Range(3, 10);
+
+        for (int i = 0; i < randSize; i++)
+        {
+            BaseItem tempItem = ItemManager.GenerateRandomItem();
+            int quantity = 1;
+            
+            if (tempItem.Stackable)
+                quantity = UnityEngine.Random.Range(1, 100);
+
+            InventoryItem tempInventoryItem = new InventoryItem(tempItem, quantity);
+
+            VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.Add(tempInventoryItem, VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip);
+        }
     }
 
     // -- Debug -- Show FPS display

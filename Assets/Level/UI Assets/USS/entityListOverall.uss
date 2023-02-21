@@ -1,8 +1,3 @@
-.unity-list-view__item:hover
-{
-    background-color: transparent;
-}
-
 .unity-list-view__item
 {
     transition: 0.05s;

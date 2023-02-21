@@ -34,12 +34,8 @@ public class MergeSortDistances
     {
         List<BaseSelectable> result = new List<BaseSelectable>();
 
-        int infiniteLoopCheck = 0;
-
-        while ((left.Count > 0 || right.Count > 0) && infiniteLoopCheck < 1000)
+        while ((left.Count > 0 || right.Count > 0))
         {
-            infiniteLoopCheck++;
-            Debug.Log(infiniteLoopCheck);
             if (left.Count > 0 && right.Count > 0)
             {
                 if (VulturaInstance.CalculateDistance(VulturaInstance.currentPlayer, left.First().selectableObject) <= VulturaInstance.CalculateDistance(VulturaInstance.currentPlayer, right.First().selectableObject))

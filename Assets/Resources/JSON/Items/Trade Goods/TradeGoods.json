@@ -1,0 +1,35 @@
+{
+    "linking_key": "trade_good",
+    "data": [
+        {
+            "key": "fresh_food",
+            "name": "Fresh Food",
+            "weight": {
+                "min": 0.5,
+                "max": 0.5
+            },
+            "galactic_price_modifier": 1.0,
+            "icon_tag": "fresh_food"
+        },
+        {
+            "key": "fresh_water",
+            "name": "Fresh Water",
+            "weight": {
+                "min": 0.5,
+                "max": 0.5
+            },
+            "galactic_price_modifier": 1.0,
+            "icon_tag": "fresh_water"
+        },
+        {
+            "key": "luxury_goods",
+            "name": "Luxury Goods",
+            "weight": {
+                "min": 1,
+                "max": 1
+            },
+            "galactic_price_modifier": 1.0,
+            "icon_tag": "luxury_goods"
+        }
+    ]
+}

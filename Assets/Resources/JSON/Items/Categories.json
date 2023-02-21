@@ -1,0 +1,94 @@
+{
+    "data": [
+        {
+            "key": "chaingun",
+            "description": "A reliable and sturdy machine gun used for millenia. Great against hull, not so much shields",
+            "stackable": false,
+            "galactic_price_base": 1250,
+            "type": "active_module",
+            "bases_file": "Active Modules/Chainguns",
+            "bool_attributes": [
+                {
+                    "key": "uses_ammo",
+                    "value": true
+                },
+                {
+                    "key": "can_mine",
+                    "value": false
+                }
+            ],
+            "list_attributes": [
+                {
+                    "key": "ammo_type",
+                    "values": [
+                        {
+                            "key": "bullet"
+                        }
+                    ]
+                }
+            ],
+            "stats": [
+                {
+                    "key": "amount_fired",
+                    "values": {
+                        "min": 1,
+                        "max": 1
+                    }
+                }
+            ]
+        },
+        {
+            "key": "rocket_launcher",
+            "description": "Strong missile launcher that can tear through armor, but not amazing against shields or hull.",
+            "stackable": false,
+            "galactic_price_base": 2530,
+            "type": "active_module",
+            "bases_file": "Active Modules/RocketLaunchers",
+            "bool_attributes": [
+                {
+                    "key": "uses_ammo",
+                    "value": true
+                },
+                {
+                    "key": "can_mine",
+                    "value": false
+                }
+            ],
+            "list_attributes": [
+                {
+                    "key": "ammo_type",
+                    "values": [
+                        {
+                            "key": "rocket"
+                        }
+                    ]
+                }
+            ],
+            "stats": [
+                {
+                    "key": "amount_fired",
+                    "values": {
+                        "min": 1,
+                        "max": 1
+                    }
+                }
+            ]
+        },
+        {
+            "key": "cargo_expander",
+            "description": "A device that can shrink the size of items inside your cargo hold for more adequate storing",
+            "stackable": false,
+            "galactic_price_base": 155,
+            "type": "passive_module",
+            "bases_file": "Passive Modules/CargoExpanders"
+        },
+        {
+            "key": "trade_good",
+            "description": "Various trade goods that citizens can utilize for leisure, or work related activities. Stations require these for their facilities to function.",
+            "stackable": true,
+            "galactic_price_base": 100,
+            "type": "trade_good",
+            "bases_file": "Trade Goods/TradeGoods"
+        }
+    ]
+}

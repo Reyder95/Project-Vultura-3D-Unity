@@ -85,9 +85,13 @@ public class CameraHandler : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
 
-        // Set distance based on zoom level. This handles zooming
-        _distanceFromTarget -= Input.GetAxis("Mouse ScrollWheel") * 10.0f;
-        _distanceFromTarget = Mathf.Clamp(_distanceFromTarget, 30.0f, 1000.0f);
+        if(!UI_Manager.IsPointerOverUI(Input.mousePosition) && VulturaInstance.playerStatus == VulturaInstance.PlayerStatus.SPACE)
+        {
+            // Set distance based on zoom level. This handles zooming
+            _distanceFromTarget -= Input.GetAxis("Mouse ScrollWheel") * 10.0f;
+            _distanceFromTarget = Mathf.Clamp(_distanceFromTarget, 30.0f, 1000.0f);
+        }
+
         
         // Set new camera transform.
         transform.position = _target.position - transform.forward * _distanceFromTarget;

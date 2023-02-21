@@ -193,7 +193,7 @@ public class MiningStationUI : MonoBehaviour
                 if (Input.GetKey("left shift"))
                 {
                     if (!inSpecify)
-                        VulturaInstance.SwapInventory(i, playerInventory, station.storage, VulturaInstance.MoveType.ALL);
+                        VulturaInstance.SwapInventory(i, playerInventory, station.storage, VulturaInstance.MoveType.ALL, true);
                 }
                 else if (Input.GetKey("left ctrl"))
                 {
@@ -213,7 +213,7 @@ public class MiningStationUI : MonoBehaviour
                     });
 
                     inventorySplit.Q<Button>("ok-button").RegisterCallback<ClickEvent>(ev => {
-                        VulturaInstance.SwapInventory(i, playerInventory, station.storage, VulturaInstance.MoveType.SPECIFY, swapSlider.value);
+                        VulturaInstance.SwapInventory(i, playerInventory, station.storage, VulturaInstance.MoveType.SPECIFY, true, swapSlider.value);
                         inSpecify = false;
 
                         inventoryList.Rebuild();
@@ -232,7 +232,7 @@ public class MiningStationUI : MonoBehaviour
                 else
                 {
                     if(!inSpecify)
-                        VulturaInstance.SwapInventory(i, playerInventory, station.storage, VulturaInstance.MoveType.SINGLE);
+                        VulturaInstance.SwapInventory(i, playerInventory, station.storage, VulturaInstance.MoveType.SINGLE, true);
                 }
 
                 inventoryList.Rebuild();
@@ -252,7 +252,7 @@ public class MiningStationUI : MonoBehaviour
                 if (Input.GetKey("left shift"))
                 {
                     if (!inSpecify)
-                        VulturaInstance.SwapInventory(i, station.storage, playerInventory, VulturaInstance.MoveType.ALL);
+                        VulturaInstance.SwapInventory(i, station.storage, playerInventory, VulturaInstance.MoveType.ALL, false);
                 }
                 else if (Input.GetKey("left ctrl"))
                 {
@@ -272,7 +272,7 @@ public class MiningStationUI : MonoBehaviour
                     });
 
                     storageSplit.Q<Button>("ok-button").RegisterCallback<ClickEvent>(ev => {
-                        VulturaInstance.SwapInventory(i, station.storage, playerInventory, VulturaInstance.MoveType.SPECIFY, swapSlider.value);
+                        VulturaInstance.SwapInventory(i, station.storage, playerInventory, VulturaInstance.MoveType.SPECIFY, false, swapSlider.value);
                         inSpecify = false;
 
                         inventoryList.Rebuild();
@@ -292,7 +292,7 @@ public class MiningStationUI : MonoBehaviour
                 else
                 {
                     if (!inSpecify)
-                        VulturaInstance.SwapInventory(i, station.storage, playerInventory, VulturaInstance.MoveType.SINGLE);
+                        VulturaInstance.SwapInventory(i, station.storage, playerInventory, VulturaInstance.MoveType.SINGLE, false);
                 }
 
                 inventoryList.Rebuild();
@@ -404,12 +404,12 @@ public class MiningStationUI : MonoBehaviour
         facilityRoot.Q<Label>("facility-production").text = "Producing ";
 
         // Write out every item this facility produces
-        for (int i = 0; i < currentFacility.producing.Length; i++)
+        for (int i = 0; i < currentFacility.producing.Count; i++)
         {
-            BaseItem item = currentFacility.producing[i].itemExec();
+            BaseItem item = ItemManager.GenerateSpecificBase(currentFacility.producing[i].item.Key);
             if (i == 0)
                 facilityRoot.Q<Label>("facility-production").text += item.Name;
-            else if (i < i - 1 && currentFacility.producing.Length > 1)
+            else if (i < i - 1 && currentFacility.producing.Count > 1)
                 facilityRoot.Q<Label>("facility-production").text += ", " + item.Name;
             else
                 facilityRoot.Q<Label>("facility-production").text += " and " + item.Name;
@@ -577,7 +577,6 @@ public class MiningStationUI : MonoBehaviour
     public void ResponseClick(ClickEvent ev)
     {
         Label contactLabel = ev.currentTarget as Label;
-        Debug.Log(contactLabel.userData);
         HandleResponses(contactLabel.userData as BaseResponse);
     }
 
@@ -602,8 +601,6 @@ public class MiningStationUI : MonoBehaviour
             {
                 if (currResponse.Conversation != null)
                 {
-                    Debug.Log("Pushing convo");
-                    Debug.Log(currResponse.Prompt);
                     convoStack.Push(currResponse.Conversation);
                     convoStack.DisplayConvoStack();
                 } 
@@ -630,6 +627,7 @@ public class MiningStationUI : MonoBehaviour
         inventoryList = marketRoot.Q<ListView>("inventory-list");
         storageList = marketRoot.Q<ListView>("storage-list");
         marketList = marketRoot.Q<ListView>("market-list");
+        inventorySplit = marketRoot.Q<VisualElement>("item-transfer");
 
         // Grab the quantity slider
         quantitySlider = marketRoot.Q<SliderInt>("bottom-slider");
@@ -666,7 +664,39 @@ public class MiningStationUI : MonoBehaviour
             itemQuantity.text = playerInventory.itemList[i].quantity.ToString();
 
             e.RegisterCallback<ClickEvent>(ev => {
-                // TODO -- Create selling when item in inventory is clicked
+                inventorySplit.style.top = ev.position.y - inventorySplit.layout.height;
+                inventorySplit.style.left = ev.position.x;
+                inventorySplit.Q<Label>("item-name").text = playerInventory.itemList[i].item.Name;
+                Label transferAmount = inventorySplit.Q<Label>("transfer-amount");
+                transferAmount.text = "1";
+                SliderInt swapSlider = inventorySplit.Q<SliderInt>("transfer-slider");
+                swapSlider.highValue = playerInventory.itemList[i].quantity;
+                swapSlider.lowValue = 1;
+                swapSlider.value = 1;
+                    
+                swapSlider.RegisterValueChangedCallback(ev => {
+                    transferAmount.text = ev.newValue.ToString();
+                });
+
+                inventorySplit.Q<Button>("ok-button").RegisterCallback<ClickEvent>(ev => {
+
+                    inventoryList.Rebuild();
+                    storageList.Rebuild();
+
+                    inventorySplit.style.visibility = Visibility.Hidden;
+
+                    SellItemFromInventory(i, swapSlider.value);
+                });
+
+                inventorySplit.Q<Button>("cancel-button").RegisterCallback<ClickEvent>(ev => {
+                    inventorySplit.style.visibility = Visibility.Hidden;
+                });
+
+                inventorySplit.style.visibility = Visibility.Visible;   
+                
+
+                inventoryList.Rebuild();
+                storageList.Rebuild();
             });
         };
 
@@ -679,7 +709,39 @@ public class MiningStationUI : MonoBehaviour
             itemQuantity.text = station.storage.itemList[i].quantity.ToString();
 
             e.RegisterCallback<ClickEvent>(ev => {
-                // TODO -- Create selling when item in storage is clicked
+                inventorySplit.style.top = ev.position.y - inventorySplit.layout.height;
+                inventorySplit.style.left = ev.position.x;
+                inventorySplit.Q<Label>("item-name").text = station.storage.itemList[i].item.Name;
+                Label transferAmount = inventorySplit.Q<Label>("transfer-amount");
+                transferAmount.text = "1";
+                SliderInt swapSlider = inventorySplit.Q<SliderInt>("transfer-slider");
+                swapSlider.highValue = station.storage.itemList[i].quantity;
+                swapSlider.lowValue = 1;
+                swapSlider.value = 1;
+                    
+                swapSlider.RegisterValueChangedCallback(ev => {
+                    transferAmount.text = ev.newValue.ToString();
+                });
+
+                inventorySplit.Q<Button>("ok-button").RegisterCallback<ClickEvent>(ev => {
+
+                    inventoryList.Rebuild();
+                    storageList.Rebuild();
+
+                    inventorySplit.style.visibility = Visibility.Hidden;
+
+                    SellItemFromStorage(i, swapSlider.value);
+                });
+
+                inventorySplit.Q<Button>("cancel-button").RegisterCallback<ClickEvent>(ev => {
+                    inventorySplit.style.visibility = Visibility.Hidden;
+                });
+
+                inventorySplit.style.visibility = Visibility.Visible;   
+                
+
+                inventoryList.Rebuild();
+                storageList.Rebuild();
             });
         };
 
@@ -730,8 +792,15 @@ public class MiningStationUI : MonoBehaviour
             
             if (currentSelected != null)
             {
-                currentSelected.Q<VisualElement>("main-visual").EnableInClassList("non-active", true);
-                currentSelected.Q<VisualElement>("main-visual").EnableInClassList("active", false);
+                try
+                {
+                    currentSelected.Q<VisualElement>("main-visual").EnableInClassList("non-active", true);
+                    currentSelected.Q<VisualElement>("main-visual").EnableInClassList("active", false);
+                } catch (System.NullReferenceException ex)
+                {
+                    
+                }
+
             }
 
             selectedIndex = i;
@@ -765,12 +834,12 @@ public class MiningStationUI : MonoBehaviour
                 buyButton.text = "Buy";
                 // If buy is clicked on, buy the item
                 buyButton.RegisterCallback<ClickEvent>(ev => {
-                    int itemId = station.market.itemList[i].item.Id;
+                    string itemId = station.market.itemList[i].item.Key;
                     BuyItem();
 
                     quantitySlider.highValue = station.market.itemList[i].quantity;
 
-                    if (itemId != station.market.itemList[i].item.Id)
+                    if (itemId != station.market.itemList[i].item.Key)
                     {
                         marketRoot.Q<VisualElement>("none-display").style.display = DisplayStyle.Flex;
                         marketRoot.Q<VisualElement>("purchase-display").style.display = DisplayStyle.None;
@@ -813,6 +882,32 @@ public class MiningStationUI : MonoBehaviour
         });
     }
 
+    void SellItemFromInventory(int index, int quantity)
+    {
+        InventoryItem itemToSell = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[index];
+        
+        // Needs to be more advanced. Will return to this when redoing the entire UI
+        int totalSellCost = (int)Mathf.Floor(((itemToSell.item.GalacticPrice * 0.75f) * 0.50f) * quantity);
+
+        playerInventory.PopAmount(index, quantity);
+        VulturaInstance.playerMoney += totalSellCost;
+
+        inventoryList.Rebuild();
+    }
+
+    void SellItemFromStorage(int index, int quantity)
+    {
+        InventoryItem itemToSell = station.storage.itemList[index];
+        
+        // Needs to be more advanced. Will return to this when redoing the entire UI
+        int totalSellCost = (int)Mathf.Floor(((itemToSell.item.GalacticPrice * 0.75f) * 0.50f) * quantity);
+
+        station.storage.PopAmount(index, quantity);
+        VulturaInstance.playerMoney += totalSellCost;
+
+        storageList.Rebuild();
+    }
+
     // Sell the item to the station's stockpile
     void SellItem()
     {
@@ -850,7 +945,7 @@ public class MiningStationUI : MonoBehaviour
                 bool successfulAdd = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.AddToCargo(purchasedItem);
 
                 if (!successfulAdd)
-                    station.storage.Add(purchasedItem);
+                    station.storage.Add(purchasedItem, null);
                 inventoryList.Rebuild();
                 marketList.Rebuild();
 
@@ -931,30 +1026,37 @@ public class MiningStationUI : MonoBehaviour
     // Display a cargo contract to the screen
     void DisplayContract()
     {
-        // If there is no selected contract, display empty visual element
-        if (selectedContract == null)
+        try
         {
-            cargoRoot.Q<Label>("contract-empty").style.display = DisplayStyle.Flex;
-            cargoRoot.Q<VisualElement>("contract-selected").style.display = DisplayStyle.None;
-        }
-        else
-        {
-            cargoRoot.Q<Label>("contract-empty").style.display = DisplayStyle.None;
-
-            VisualElement itemList = cargoRoot.Q<VisualElement>("contract-items");
-            itemList.Clear();
-
-            // Display items for each item in the contract
-            foreach (InventoryItem item in (selectedContract.userData as Contract).Items.itemList)
+            // If there is no selected contract, display empty visual element
+            if (selectedContract == null)
             {
-                VisualElement itemInstance = currentContractItem.Instantiate();
-                itemInstance.Q<Label>("item-name").text = item.quantity.ToString() + " " + item.item.Name;
-                itemList.Add(itemInstance);
+                cargoRoot.Q<Label>("contract-empty").style.display = DisplayStyle.Flex;
+                cargoRoot.Q<VisualElement>("contract-selected").style.display = DisplayStyle.None;
             }
+            else
+            {
+                cargoRoot.Q<Label>("contract-empty").style.display = DisplayStyle.None;
 
-            cargoRoot.Q<Label>("contract-destination").text = "Destination: " + (selectedContract.userData as Contract).Destination;
+                VisualElement itemList = cargoRoot.Q<VisualElement>("contract-items");
+                itemList.Clear();
 
-            cargoRoot.Q<VisualElement>("contract-selected").style.display = DisplayStyle.Flex;
+                // Display items for each item in the contract
+                foreach (InventoryItem item in (selectedContract.userData as Contract).Items.itemList)
+                {
+                    VisualElement itemInstance = currentContractItem.Instantiate();
+                    itemInstance.Q<Label>("item-name").text = item.quantity.ToString() + " " + item.item.Name;
+                    itemList.Add(itemInstance);
+                }
+
+                cargoRoot.Q<Label>("contract-destination").text = "Destination: " + (selectedContract.userData as Contract).Destination;
+
+                cargoRoot.Q<VisualElement>("contract-selected").style.display = DisplayStyle.Flex;
+            }
+        } catch (System.NullReferenceException ex)
+        {
+            Debug.Log("Display Contract has a null issue. Are there corrupted items?");
         }
+
     }
 }

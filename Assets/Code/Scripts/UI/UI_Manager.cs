@@ -27,7 +27,6 @@ public static class UI_Manager
     // Checks if the pointer is over a UI element.
     public static bool IsPointerOverUI (Vector2 screenPos)
     {
-        Debug.Log(Screen.height - screenPos.y);
         Vector2 pointerUiPos = new Vector2(screenPos.x, Screen.height - screenPos.y);
         
         foreach (UIDocument uiDoc in mainUIElements)

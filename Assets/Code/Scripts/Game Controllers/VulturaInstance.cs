@@ -124,47 +124,71 @@ public static class VulturaInstance
     }
 
     // Swap items between different inventories
-    public static bool SwapInventory(int index, Inventory invFrom, Inventory invTo, MoveType moveType, int quantity = 0)
+    public static bool SwapInventory(int index, Inventory invFrom, Inventory invTo, MoveType moveType, bool toStorage, int quantity = 0)
     {
+        InstantiatedShip toShip = null;
+
+        if (!toStorage)
+            toShip = currentPlayer.GetComponent<PrefabHandler>().currShip;
+
         InventoryItem inventoryItem = null;
+        bool successfulAdd = false;
 
         if (moveType == MoveType.SINGLE)
         {
-            inventoryItem = invFrom.PopAmount(index, 1);
+            //inventoryItem = invFrom.PopAmount(index, 1);
+            inventoryItem = invFrom.ReturnAmountOfItem(index, 1);
         }
         else if (moveType == MoveType.ALL)
         {
-            inventoryItem = invFrom.Pop(index);
+            //inventoryItem = invFrom.Pop(index);
+            inventoryItem = invFrom.ReturnAllOfItem(index);
         }
         else if (moveType == MoveType.SPECIFY)
         {
-            inventoryItem = invFrom.PopAmount(index, quantity);
+            //inventoryItem = invFrom.PopAmount(index, quantity);
+            inventoryItem = invFrom.ReturnAmountOfItem(index, quantity);
         }
 
         if (inventoryItem != null)
         {
-            invTo.Add(inventoryItem);
+            successfulAdd = invTo.Add(inventoryItem, toShip);
+            
+        }
+
+        if (successfulAdd)
+        {
+            if (moveType == MoveType.SINGLE)
+            {
+                inventoryItem = invFrom.PopAmount(index, 1);
+            }
+            else if (moveType == MoveType.ALL)
+            {
+                inventoryItem = invFrom.Pop(index);
+            }
+            else if (moveType == MoveType.SPECIFY)
+            {
+                inventoryItem = invFrom.PopAmount(index, quantity);
+            }
+
             return true;
         }
 
         return false;
     }
 
-    // Generate an item rarity for an item
-    public static ItemRarity GenerateItemRarity()
+    public static Color32 GenerateItemColor(ItemRarity rarity)
     {
-        float randomNum = Random.Range(0, 100);
-
-        if (randomNum < 50)
-            return ItemRarity.Common;
-        else if (randomNum >= 50 && randomNum < 75)
-            return ItemRarity.Uncommon;
-        else if (randomNum >= 75 && randomNum < 90)
-            return ItemRarity.Rare;
-        else if (randomNum >= 90 && randomNum < 97)
-            return ItemRarity.Epic;
+        if (rarity == ItemRarity.Common)
+            return new Color32(128, 128, 128, 255);
+        else if (rarity == ItemRarity.Uncommon)
+            return new Color32(0, 153, 51, 255);
+        else if (rarity == ItemRarity.Rare)
+            return new Color32(204, 204, 0, 255);
+        else if (rarity == ItemRarity.Epic)
+            return new Color32(204, 0, 136, 255);
         else
-            return ItemRarity.Legendary;
+            return new Color32(255, 128, 0, 255);
     }
 
     // Parse an enum into a viewable string

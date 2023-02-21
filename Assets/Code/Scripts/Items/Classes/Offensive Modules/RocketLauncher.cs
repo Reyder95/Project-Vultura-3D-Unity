@@ -5,27 +5,41 @@ using UnityEngine;
 // Rocket launcher gun. Shoots a rocket out
 public class RocketLauncher : OffenseModule
 {
-    public RocketLauncher(VulturaInstance.ItemRarity rarity) :
-    base(
-        5,
-        "Rocket Launcher",
-        "A launcher that shoots rockets at intense speeds. Can shred the hull of an unsuspecting ship.",
-        rarity,
-        new Texture2D(128, 128),
-        new List<int>(),
-        true,
-        0,
-        0,
-        0,
-        10.18f,
-        2430
-    )
+    public RocketLauncher(
+        string key, 
+        string name, 
+        string description, 
+        VulturaInstance.ItemRarity rarity, 
+        Texture2D icon, 
+        StatisticValue[] category_stats, 
+        StatisticValue[] main_stats, 
+        BoolValue[] boolValues, 
+        ListValue[] listValues, 
+        Override overrides, 
+        float weight, 
+        int galacticPrice,
+        StatHandler statHandler
+        ) : base(
+            key, 
+            "Rocket Launcher",
+            name, 
+            description, 
+            rarity, icon,
+            category_stats,
+            main_stats, 
+            boolValues, 
+            listValues,
+            overrides, 
+            weight, 
+            galacticPrice,
+            statHandler
+            )
     {
 
     }
 
     override public void Use()
     {
-        Debug.Log("Using rocket launcher!");
+        Debug.Log("Using" + base.Name);
     }
 }
