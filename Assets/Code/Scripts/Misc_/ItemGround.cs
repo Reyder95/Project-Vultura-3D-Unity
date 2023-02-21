@@ -55,6 +55,8 @@ public class ItemGround : MonoBehaviour
             itemTooltip.style.left = ev.position.x;
         });
 
+        rootVisualElement.style.display = DisplayStyle.None;
+
         VisualElement itemTooltip = rootVisualElement.Q<VisualElement>("item-tooltip");
 
         Color32 rarityColor = VulturaInstance.GenerateItemColor(item.item.Rarity);
@@ -127,13 +129,15 @@ public class ItemGround : MonoBehaviour
         itemTooltip.style.position = Position.Absolute;
         itemTooltip.style.display = DisplayStyle.Flex;
 
+        rootVisualElement.style.display = DisplayStyle.Flex;
+
         if (!this.gameObject.GetComponent<Outline>().enabled)
             this.gameObject.GetComponent<Outline>().enabled = true;
     }
 
     void OnMouseExit()
     {
-        rootVisualElement.Q<VisualElement>("item-tooltip").style.display = DisplayStyle.None;
+        rootVisualElement.style.display = DisplayStyle.None;
         this.gameObject.GetComponent<Outline>().enabled = false;
     }
 }
