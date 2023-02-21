@@ -4,6 +4,14 @@ using UnityEngine;
 
 public static class ItemManager
 {
+    private static ItemBuilder itemBuilder = new ItemBuilder();
+
+    public static void InitializeItemBuilder()
+    {
+        itemBuilder.InitializeBuilder();
+        //itemBuilder.InvokeBuilder("chaingun", new CategoryItem(JSONDataHandler.categoryDictionary["chaingun"], JSONDataHandler.itemDictionary["rusty_chaingun"]));
+    }
+
     public static BaseItem GenerateSpecificBase(string baseKey)
     {
         try 
@@ -79,102 +87,7 @@ public static class ItemManager
 
     public static BaseItem GenerateItem(Category categoryData, ItemData itemData)
     {
-        if (itemData.linking_key == "chaingun")
-        {
-            VulturaInstance.ItemRarity itemRarity = Randomizer.GenerateItemRarity();
-            int weight = Random.Range(itemData.weight.min, itemData.weight.max);
-
-            StatHandler statHandler = new StatHandler();
-            statHandler.BuildStatList(itemRarity, itemData.main_stats);
-
-            BaseItem generatedItem = new Chaingun(
-                itemData.key, 
-                itemData.name, 
-                categoryData.description, 
-                itemRarity, 
-                null, 
-                categoryData.stats, 
-                itemData.main_stats, 
-                categoryData.bool_attributes, 
-                categoryData.list_attributes, 
-                itemData.overrides, 
-                weight, 
-                (int)Mathf.Floor((float)categoryData.galactic_price_base * itemData.galactic_price_modifier),
-                statHandler
-                );
-
-            return generatedItem;
-        }
-        else if (itemData.linking_key == "rocket_launcher")
-        {
-            VulturaInstance.ItemRarity itemRarity = Randomizer.GenerateItemRarity();
-            int weight = Random.Range(itemData.weight.min, itemData.weight.max);
-
-            StatHandler statHandler = new StatHandler();
-            statHandler.BuildStatList(itemRarity, itemData.main_stats);
-
-            BaseItem generatedItem = new RocketLauncher(
-                itemData.key, 
-                itemData.name, 
-                categoryData.description, 
-                itemRarity, 
-                null, 
-                categoryData.stats, 
-                itemData.main_stats, 
-                categoryData.bool_attributes, 
-                categoryData.list_attributes, 
-                itemData.overrides, 
-                weight, 
-                (int)Mathf.Floor((float)categoryData.galactic_price_base * itemData.galactic_price_modifier),
-                statHandler
-                );
-
-            return generatedItem;
-        }
-        else if (itemData.linking_key == "cargo_expander")
-        {
-            VulturaInstance.ItemRarity itemRarity = Randomizer.GenerateItemRarity();
-            int weight = Random.Range(itemData.weight.min, itemData.weight.max);
-
-            StatHandler statHandler = new StatHandler();
-            statHandler.BuildStatList(itemRarity, itemData.main_stats);
-
-            BaseItem generatedItem = new CargoExpander(
-                itemData.key, 
-                itemData.name, 
-                categoryData.description, 
-                itemRarity, 
-                null, 
-                categoryData.stats, 
-                itemData.main_stats, 
-                categoryData.bool_attributes, 
-                categoryData.list_attributes, 
-                itemData.overrides, 
-                weight, 
-                (int)Mathf.Floor((float)categoryData.galactic_price_base * itemData.galactic_price_modifier),
-                statHandler
-                );
-
-            return generatedItem;
-        }
-        else if (categoryData.type == "trade_good")
-        {
-            int weight = Random.Range(itemData.weight.min, itemData.weight.max);
-
-            BaseItem generatedItem = new TradeGood(
-                itemData.key, 
-                itemData.name, 
-                categoryData.description, 
-                null,  
-                weight, 
-                (int)Mathf.Floor((float)categoryData.galactic_price_base * itemData.galactic_price_modifier),
-                categoryData.stackable
-                );
-
-            return generatedItem;
-        }
-
-        return null;
+        return itemBuilder.InvokeBuilder(categoryData.key, new CategoryItem(categoryData, itemData));
     }
 
     public static Facility GenerateFacility(string facilityKey)

@@ -38,6 +38,8 @@ public class Game : MonoBehaviour
         // Load item data
         JSONDataHandler.LoadData();
 
+        ItemManager.InitializeItemBuilder();
+
         // Load all the main UI elements into the UI Manager
         UI_Manager.LoadUIElements();
 
