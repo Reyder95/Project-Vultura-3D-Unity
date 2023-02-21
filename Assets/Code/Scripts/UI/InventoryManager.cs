@@ -12,6 +12,7 @@ public class InventoryManager : MonoBehaviour
     public VisualTreeAsset inventoryItem;
     public VisualTreeAsset itemTooltip;
     public VisualTreeAsset itemTooltipStat;
+    public GameObject itemDropPrefab;
 
     bool isDragging = false;
 
@@ -26,6 +27,7 @@ public class InventoryManager : MonoBehaviour
 
     VisualElement visualDragger;
     VisualElement tempTooltip;
+    VisualElement dropPrompt;
 
     private UnityAction inventoryListener;
 
@@ -57,6 +59,7 @@ public class InventoryManager : MonoBehaviour
         rootVisualElement = GetComponent<UIDocument>().rootVisualElement;   
         inventoryScroller = rootVisualElement.Q<ScrollView>("inventory-scroller");
         inventory = rootVisualElement.Q<VisualElement>("base-content");
+        dropPrompt = rootVisualElement.Q<VisualElement>("drop-item");
 
         rootVisualElement.RegisterCallback<PointerUpEvent>(ev => {
 
@@ -103,24 +106,50 @@ public class InventoryManager : MonoBehaviour
                 return item;
         }
 
+        if (!visualDragger.worldBound.Overlaps(inventory.worldBound))
+        {
+            Button yesButton = dropPrompt.Q<Button>("yes-button");
+            Button noButton = dropPrompt.Q<Button>("no-button");
+
+            yesButton.RegisterCallback<ClickEvent>(ev => {
+                dropPrompt.style.display = DisplayStyle.None;
+                
+                InventoryItem inventoryItem = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.Pop((int)currentDraggedElement.userData);
+                GameObject itemDropped = Instantiate(itemDropPrefab, VulturaInstance.currentPlayer.transform.position, Quaternion.identity);
+                ItemGround itemGround = itemDropped.GetComponent<ItemGround>();
+                itemGround.SetItem(inventoryItem);
+            });
+
+            noButton.RegisterCallback<ClickEvent>(ev => {
+                dropPrompt.style.display = DisplayStyle.None;
+            });
+
+            dropPrompt.style.display = DisplayStyle.Flex;
+        }
+
+
         return null;
     }
 
     public void InventoryEvent()
     {
-        try
+        if (!isDragging)
         {
-            if (tempTooltip != null)
+            try
             {
-                rootVisualElement.Remove(tempTooltip);
-                tempTooltip = null; 
+                if (tempTooltip != null)
+                {
+                    rootVisualElement.Remove(tempTooltip);
+                    tempTooltip = null; 
+                }
+                DisplayInventory(); 
+    
+            } catch (System.NullReferenceException ex)
+            {
+                Debug.Log("Inventory isn't loaded yet!");
             }
-            DisplayInventory(); 
- 
-        } catch (System.NullReferenceException ex)
-        {
-            Debug.Log("Inventory isn't loaded yet!");
         }
+
 
     }
 

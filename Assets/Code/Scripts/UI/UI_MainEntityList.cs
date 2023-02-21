@@ -21,6 +21,8 @@ public class UI_MainEntityList : MonoBehaviour
     public UnityAction selectionChanged;
     public UnityAction cycleList;
 
+    public int elementHovered = -1;
+
     public struct DataStruct {
         public int entityIndex;
         public float distance;
@@ -48,7 +50,13 @@ public class UI_MainEntityList : MonoBehaviour
         entityListView = rootVisualElement.Q<ListView>("entity-list");
         entityButton = rootVisualElement.Q<Button>("list-button");
 
-        Func<VisualElement> makeItem = () => listItem.Instantiate();
+        Func<VisualElement> makeItem = () => {
+            VisualElement newListItem = listItem.Instantiate();
+            newListItem.userData = "unhovered";
+            
+            return newListItem;
+        };
+
         Action<VisualElement, int> bindItem = (e, i) => {
 
             try
@@ -64,9 +72,64 @@ public class UI_MainEntityList : MonoBehaviour
 
                 var distance = e.Q<Label>("distance");
                 distance.text = entities[i].distance.ToString();
+                
+                if (VulturaInstance.systemSelectables[entities[i].entityIndex].MainSelected)
+                {
+                    if (i == elementHovered)
+                        e.style.backgroundColor = new StyleColor(new Color32(214, 41, 41, 102));
+                    else
+                        e.style.backgroundColor = new StyleColor(new Color32(163, 33, 33, 102));
+                }
+                else if (VulturaInstance.systemSelectables[entities[i].entityIndex].Selected)
+                {
+                    if (i == elementHovered)
+                        e.style.backgroundColor = new StyleColor(new Color32(144, 44, 201, 102));
+                    else
+                        e.style.backgroundColor = new StyleColor(new Color32(107, 32, 150, 102));
+                } else
+                {
+                    if (i == elementHovered)
+                        e.style.backgroundColor = new StyleColor(new Color32(227, 227, 227, 102));
+                    else
+                        e.style.backgroundColor = new StyleColor(new Color32(176, 176, 176, 102));
+                }
+
+
+
+
             } catch (ArgumentOutOfRangeException)
             {
             }
+
+        e.RegisterCallback<PointerEnterEvent>(ev => {
+            elementHovered = i;
+            if (VulturaInstance.systemSelectables[entities[i].entityIndex].MainSelected)
+            {
+                e.style.backgroundColor = new StyleColor(new Color32(214, 41, 41, 102));
+            }
+            else if (VulturaInstance.systemSelectables[entities[i].entityIndex].Selected)
+            {
+                e.style.backgroundColor = new StyleColor(new Color32(144, 44, 201, 102));
+            } else
+            {
+                e.style.backgroundColor = new StyleColor(new Color32(227, 227, 227, 102));
+            }
+        });
+
+        e.RegisterCallback<PointerLeaveEvent>(ev => {
+            elementHovered = -1;
+            if (VulturaInstance.systemSelectables[entities[i].entityIndex].MainSelected)
+            {
+                e.style.backgroundColor = new StyleColor(new Color32(163, 33, 33, 102));
+            }
+            else if (VulturaInstance.systemSelectables[entities[i].entityIndex].Selected)
+            {
+                e.style.backgroundColor = new StyleColor(new Color32(107, 32, 150, 102));
+            } else
+            {
+                e.style.backgroundColor = new StyleColor(new Color32(176, 176, 176, 102));
+            }
+        });
 
         e.RegisterCallback<PointerDownEvent>(ev => {
                 try
@@ -95,27 +158,27 @@ public class UI_MainEntityList : MonoBehaviour
 
         try
             {
-                if (entities[i].entityIndex < VulturaInstance.systemSelectables.Count)
-                {
-                    if (VulturaInstance.systemSelectables[entities[i].entityIndex].MainSelected)
-                    {
-                        e.EnableInClassList("normal", false);
-                        e.EnableInClassList("main-selected-element", true);
-                        e.EnableInClassList("selected-element", false);
-                    }
-                    else if (VulturaInstance.systemSelectables[entities[i].entityIndex].Selected)
-                    {
-                        e.EnableInClassList("normal", false);
-                        e.EnableInClassList("main-selected-element", false);
-                        e.EnableInClassList("selected-element", true);
-                    }
-                    else
-                    {
-                        e.EnableInClassList("normal", true);
-                        e.EnableInClassList("main-selected-element", false);
-                        e.EnableInClassList("selected-element", false);
-                    }
-                }
+                // if (entities[i].entityIndex < VulturaInstance.systemSelectables.Count)
+                // {
+                //     if (VulturaInstance.systemSelectables[entities[i].entityIndex].MainSelected)
+                //     {
+                //         e.EnableInClassList("normal", false);
+                //         e.EnableInClassList("main-selected-element", true);
+                //         e.EnableInClassList("selected-element", false);
+                //     }
+                //     else if (VulturaInstance.systemSelectables[entities[i].entityIndex].Selected)
+                //     {
+                //         e.EnableInClassList("normal", false);
+                //         e.EnableInClassList("main-selected-element", false);
+                //         e.EnableInClassList("selected-element", true);
+                //     }
+                //     else
+                //     {
+                //         e.EnableInClassList("normal", true);
+                //         e.EnableInClassList("main-selected-element", false);
+                //         e.EnableInClassList("selected-element", false);
+                //     }
+                // }
             } catch (ArgumentOutOfRangeException)
             {
             }

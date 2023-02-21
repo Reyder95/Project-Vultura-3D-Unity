@@ -112,10 +112,10 @@ public class Inventory
     // Pop an item fully out of the inventory. Usually used when quantity becomes 0, or need o remove all of the item at once.
     public InventoryItem Pop(int index)
     {
-        EventManager.TriggerEvent("Inventory Modified");
         InventoryItem item = itemList[index];
         currCargo -= (item.quantity * item.item.Weight);
         itemList.RemoveAt(index);
+        EventManager.TriggerEvent("Inventory Modified");
         return item;
     }
 
