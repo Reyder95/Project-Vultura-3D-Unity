@@ -1,0 +1,19 @@
+.main-button {
+    transition: 0.2s;
+    background-color: #2C5378;
+}
+
+.main-button:hover {
+    transition: 0.2s;
+    background-color: #3F77AB;
+}
+
+.facility-button {
+    transition: 0.2s;
+    background-color: rgba(104, 124, 227, 0.2);
+}
+
+.facility-button:hover {
+    transition: 0.2s;
+    background-color: rgba(176, 185, 232, 0.2);
+}
