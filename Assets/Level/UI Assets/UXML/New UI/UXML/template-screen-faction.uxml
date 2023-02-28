@@ -9,8 +9,12 @@
             <ui:VisualElement name="middle-content" style="width: 33.3%; align-items: center; justify-content: center; height: 100%;">
                 <ui:Label text="Page Title" display-tooltip-when-elided="true" name="page-title" style="-unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); font-size: 40px; color: rgb(255, 255, 255); height: 100%; -unity-text-align: middle-left;" />
             </ui:VisualElement>
-            <ui:VisualElement name="right-content" style="width: 33.3%; align-items: center; justify-content: flex-start; flex-direction: row-reverse; height: 100%;">
+            <ui:VisualElement name="right-content" style="width: 33.3%; align-items: center; justify-content: flex-start; flex-direction: row-reverse; height: 100%; -unity-text-align: middle-left;">
                 <ui:VisualElement name="exit-button" style="background-image: resource(&apos;SVGs/xmark&apos;); width: 50px; height: 50px; color: rgb(255, 255, 255); -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgba(115, 100, 100, 0); -unity-background-scale-mode: scale-to-fit; -unity-text-outline-color: rgb(183, 125, 125); margin-right: 3px;" />
+                <ui:VisualElement name="faction-content" style="flex-direction: row; height: 100%; align-items: center; width: 100%; justify-content: flex-end;">
+                    <ui:VisualElement name="faction-icon" style="padding-top: 13%; width: 13%; background-color: rgb(243, 243, 243);" />
+                    <ui:Label text="Faction Name" display-tooltip-when-elided="true" name="faction-name" style="margin-left: 10px; margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); font-size: 40px; justify-content: center; color: rgba(221, 221, 221, 255);" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement content-container="true" name="main-content" style="height: 100%;" />

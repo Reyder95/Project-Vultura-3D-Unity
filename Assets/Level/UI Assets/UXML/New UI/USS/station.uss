@@ -1,3 +1,75 @@
+#station-home {
+    transition-property: opacity;
+    transition-duration: 1s;
+    transition-timing-function: linear;
+}
+
+#station-contacts {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#station-hauling {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#contact-content-overlay {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#text-overlay {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#contact-no-selection-content {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#contact-header-content {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#hauling-header-content {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#no-hauling-content {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#cargo-item-content {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#cargo-destination {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#footer-accept {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
 .main-button {
     transition: 0.2s;
     background-color: #2C5378;
@@ -6,6 +78,7 @@
 .main-button:hover {
     transition: 0.2s;
     background-color: #3F77AB;
+    cursor: link;
 }
 
 .facility-button {
@@ -16,4 +89,12 @@
 .facility-button:hover {
     transition: 0.2s;
     background-color: rgba(176, 185, 232, 0.2);
+}
+
+.active-facility-button {
+    background-color: rgba(176, 185, 232, 0.2);
+}
+
+.contact-text {
+    line-height: 40px;
 }

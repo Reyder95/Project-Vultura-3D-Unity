@@ -18,6 +18,8 @@ public class Game : MonoBehaviour
 
     public ShipSpawner shipSpawner;     // Handles spawning fleets in the world. Easy for debugging, but will later be used as a way to spawn a fleet of specific ships.
 
+    public GameObject StationUI;        // Handles the station UI pane
+
     // Debugging Elements
     public GameObject GRAPHY;
 

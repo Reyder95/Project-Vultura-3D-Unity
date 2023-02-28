@@ -56,7 +56,7 @@ public class BaseStation : BaseSelectable
                 contractInventory.Add(new InventoryItem(contractItem, randQuantity), null);
             }
             
-            this.AddContract(contractInventory, "system2", "some-faction");
+            this.AddContract(contractInventory, "system2", "some-faction", Random.Range(1000, 50000));
         }
 
         InitializeFacilities();
@@ -81,9 +81,9 @@ public class BaseStation : BaseSelectable
         }
     }
 
-    public void AddContract(Inventory contractInventory, string destination, string faction)
+    public void AddContract(Inventory contractInventory, string destination, string faction, int reward)
     {
-        this.contracts.Add(new Contract(destination, contractInventory, faction));
+        this.contracts.Add(new Contract(destination, contractInventory, faction, reward));
     }
 
     public void RunProductionChain()

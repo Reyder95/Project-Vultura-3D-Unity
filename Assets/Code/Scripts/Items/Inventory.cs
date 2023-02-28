@@ -35,6 +35,8 @@ public class Inventory
 
         if ((ship != null && !CargoFull(item, ship)) || ship == null)
         {
+            Debug.Log("Item: " + item.item.Name);
+            Debug.Log("Weight: " + item.item.Weight);
             ExistsStruct value = ContainsItem(item.item);
             if (value.exists && item.item.Stackable)
             {

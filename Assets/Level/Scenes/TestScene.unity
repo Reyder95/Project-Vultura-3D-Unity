@@ -133,13 +133,14 @@ GameObject:
   m_Component:
   - component: {fileID: 94113507}
   - component: {fileID: 94113506}
+  - component: {fileID: 94113508}
   m_Layer: 5
-  m_Name: TestUI
+  m_Name: StationUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &94113506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +173,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &94113508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94113505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90badfc455136444697fdacba552e2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &98609322
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,6 +1227,7 @@ MonoBehaviour:
   - {fileID: 8669284861915232250, guid: 35a943d8955ec4240b8d799ce322f83e, type: 3}
   - {fileID: 862449370239526636, guid: 874bd00514b06dd4e92065dc1cef3748, type: 3}
   shipSpawner: {fileID: 1744308518}
+  StationUI: {fileID: 94113505}
   GRAPHY: {fileID: 1263185295}
 --- !u!114 &1308678482
 MonoBehaviour:
@@ -1377,6 +1391,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e6f92811-f460-46a2-bf73-e8cb521759ac
     m_ActionName: Player/Warp[/Keyboard/h]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 253ccb9b-804c-4bab-a997-6e8bdcc0c979
+    m_ActionName: Player/Inventory[/Keyboard/i]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Debug

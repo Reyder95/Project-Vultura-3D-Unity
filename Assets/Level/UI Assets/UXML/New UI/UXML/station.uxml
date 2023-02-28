@@ -1,10 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="template-screen" src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/UXML/template-screen.uxml?fileID=9197481963319205126&amp;guid=ba5f5fadc3130db48975a2cf9e1720b8&amp;type=3#template-screen" />
+    <ui:Template name="template-screen" src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/UXML/template-screen-faction.uxml?fileID=9197481963319205126&amp;guid=ba5f5fadc3130db48975a2cf9e1720b8&amp;type=3#template-screen-faction" />
     <Style src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/USS/station.uss?fileID=7433441132597879392&amp;guid=e59313331228e9c4e996eff770db43ab&amp;type=3#station" />
     <ui:Instance template="template-screen" name="template-screen" style="height: 100%;">
         <AttributeOverrides element-name="page-title" text="Home" />
         <AttributeOverrides element-name="main-title" text="Station Title" />
-        <ui:VisualElement name="station-home" style="height: 100%;">
+        <ui:VisualElement name="station-home" style="height: 100%; visibility: visible; display: none; transition-duration: 0.2s;">
             <ui:VisualElement name="home-header" style="height: 33%; background-color: rgba(74, 69, 67, 0.85); padding-left: 30px; padding-right: 30px; padding-top: 30px; padding-bottom: 30px;">
                 <ui:VisualElement name="home-header-top" style="flex-direction: row; align-items: center; font-size: 40px; -unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); height: 110px;">
                     <ui:VisualElement name="npc-icon" style="width: 5%; height: 0; background-color: rgb(212, 212, 212); -unity-background-scale-mode: scale-to-fit; padding-left: 0; padding-top: 5%;" />
@@ -18,8 +18,8 @@
                 <ui:VisualElement name="home-body-left" style="width: 60%;">
                     <ui:VisualElement name="top-button-list" style="flex-direction: row; height: 20%;">
                         <ui:VisualElement name="button-element-1" style="width: 25%; justify-content: center; height: 100%; align-items: center;">
-                            <ui:VisualElement content-container="true" name="button-storage" class="main-button" style="height: 70%; width: 85%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left;">
-                                <ui:VisualElement style="width: 100%; height: 100%; flex-direction: row; align-items: center; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; margin-top: 2px; transition-timing-function: ease; transition-duration: 0.2s; transition-property: background-color;">
+                            <ui:VisualElement content-container="true" name="button-storage" class="main-button" style="height: 70%; width: 85%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left; border-top-left-radius: 2px; border-bottom-left-radius: 2px; border-top-right-radius: 2px; border-bottom-right-radius: 2px;">
+                                <ui:VisualElement style="width: 100%; height: 100%; flex-direction: row; align-items: center; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; margin-top: 2px; transition-timing-function: ease; transition-duration: 0.2s; transition-property: background-color; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px;">
                                     <ui:VisualElement style="padding-top: 30%; width: 30%; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;SVGs/chevron-left&apos;);" />
                                     <ui:VisualElement style="width: 70%; align-items: center; height: 100%; justify-content: center; -unity-text-align: middle-left; background-color: rgba(255, 255, 255, 0);">
                                         <ui:Label text="Storage" display-tooltip-when-elided="true" style="-unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); font-size: 20px; -unity-font-style: bold; height: 100%; -unity-text-align: middle-left; justify-content: center; -unity-background-scale-mode: stretch-to-fill; color: rgb(202, 202, 202); margin-top: 0;" />
@@ -28,7 +28,7 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="button-element-1" style="width: 25%; justify-content: center; height: 100%; align-items: center;">
-                            <ui:VisualElement content-container="true" name="button-storage" class="main-button" style="height: 70%; width: 85%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left;">
+                            <ui:VisualElement content-container="true" name="button-contacts" class="main-button" style="height: 70%; width: 85%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left; border-top-left-radius: 2px; border-bottom-left-radius: 2px; border-top-right-radius: 2px; border-bottom-right-radius: 2px;">
                                 <ui:VisualElement style="width: 100%; height: 100%; flex-direction: row; align-items: center; padding-left: 5px; padding-right: 10px; padding-top: 5px; padding-bottom: 5px; margin-top: 2px;">
                                     <ui:VisualElement style="padding-top: 30%; width: 30%; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;SVGs/id-badge&apos;);" />
                                     <ui:VisualElement style="width: 70%; align-items: center; height: 100%; justify-content: center; -unity-text-align: middle-left; background-color: rgba(255, 255, 255, 0);">
@@ -38,7 +38,7 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="button-element-1" style="width: 25%; justify-content: center; height: 100%; align-items: center;">
-                            <ui:VisualElement content-container="true" name="button-storage" class="main-button" style="height: 70%; width: 85%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left;">
+                            <ui:VisualElement content-container="true" name="button-market" class="main-button" style="height: 70%; width: 85%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left; border-top-left-radius: 2px; border-bottom-left-radius: 2px; border-top-right-radius: 2px; border-bottom-right-radius: 2px;">
                                 <ui:VisualElement style="width: 100%; height: 100%; flex-direction: row; align-items: center; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; margin-top: 2px;">
                                     <ui:VisualElement style="padding-top: 30%; width: 30%; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;SVGs/tag&apos;);" />
                                     <ui:VisualElement style="width: 70%; align-items: center; height: 100%; justify-content: center; -unity-text-align: middle-left; background-color: rgba(255, 255, 255, 0);">
@@ -48,7 +48,7 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="button-element-1" style="width: 25%; justify-content: center; height: 100%; align-items: center;">
-                            <ui:VisualElement content-container="true" name="button-storage" class="main-button" style="height: 70%; width: 85%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left;">
+                            <ui:VisualElement content-container="true" name="button-hauling" class="main-button" style="height: 70%; width: 85%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left; border-top-left-radius: 2px; border-bottom-left-radius: 2px; border-top-right-radius: 2px; border-bottom-right-radius: 2px;">
                                 <ui:VisualElement style="width: 100%; height: 100%; flex-direction: row; align-items: center; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; margin-top: 2px;">
                                     <ui:VisualElement style="padding-top: 30%; width: 30%; background-color: rgba(0, 0, 0, 0); background-image: resource(&apos;SVGs/hauling&apos;);" />
                                     <ui:VisualElement style="width: 70%; align-items: center; height: 100%; justify-content: center; -unity-text-align: middle-left; background-color: rgba(255, 255, 255, 0);">
@@ -66,46 +66,250 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="home-body-right" style="width: 40%; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; justify-content: center;">
-                    <ui:VisualElement class="facility-button" style="height: 80px; align-items: center; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px;">
+                    <ui:VisualElement name="facility-button" class="facility-button" style="height: 80px; align-items: center; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
                         <ui:VisualElement style="flex-direction: row; padding-top: 10%; width: 10%; background-color: rgb(183, 183, 183);" />
                         <ui:VisualElement style="width: 100%; flex-direction: row; align-items: center; justify-content: space-between;">
-                            <ui:Label text="Facility Name" display-tooltip-when-elided="true" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-left; color: rgb(200, 200, 200);" />
-                            <ui:Label text="OK" display-tooltip-when-elided="true" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(3, 255, 0);" />
+                            <ui:Label text="Facility Name" display-tooltip-when-elided="true" name="facility-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-left; color: rgb(200, 200, 200);" />
+                            <ui:Label text="OK" display-tooltip-when-elided="true" name="facility-status" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(3, 255, 0);" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement class="facility-button" style="height: 80px; align-items: center; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px;">
+                    <ui:VisualElement name="facility-button" class="facility-button" style="height: 80px; align-items: center; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
                         <ui:VisualElement style="flex-direction: row; padding-top: 10%; width: 10%; background-color: rgb(183, 183, 183);" />
                         <ui:VisualElement style="width: 100%; flex-direction: row; align-items: center; justify-content: space-between;">
-                            <ui:Label text="Facility Name" display-tooltip-when-elided="true" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-left; color: rgb(200, 200, 200);" />
-                            <ui:Label text="Demand" display-tooltip-when-elided="true" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(255, 0, 23);" />
+                            <ui:Label text="Facility Name" display-tooltip-when-elided="true" name="facility-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-left; color: rgb(200, 200, 200);" />
+                            <ui:Label text="OK" display-tooltip-when-elided="true" name="facility-status" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(3, 255, 0);" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement class="facility-button" style="height: 80px; align-items: center; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px;">
+                    <ui:VisualElement name="facility-button" class="facility-button" style="height: 80px; align-items: center; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
                         <ui:VisualElement style="flex-direction: row; padding-top: 10%; width: 10%; background-color: rgb(183, 183, 183);" />
                         <ui:VisualElement style="width: 100%; flex-direction: row; align-items: center; justify-content: space-between;">
-                            <ui:Label text="Facility Name" display-tooltip-when-elided="true" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-left; color: rgb(200, 200, 200);" />
-                            <ui:Label text="OK" display-tooltip-when-elided="true" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(3, 255, 0);" />
+                            <ui:Label text="Facility Name" display-tooltip-when-elided="true" name="facility-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-left; color: rgb(200, 200, 200);" />
+                            <ui:Label text="OK" display-tooltip-when-elided="true" name="facility-status" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(3, 255, 0);" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement class="facility-button" style="height: 80px; align-items: center; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px;">
+                    <ui:VisualElement name="facility-button" class="facility-button" style="height: 80px; align-items: center; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
                         <ui:VisualElement style="flex-direction: row; padding-top: 10%; width: 10%; background-color: rgb(183, 183, 183);" />
                         <ui:VisualElement style="width: 100%; flex-direction: row; align-items: center; justify-content: space-between;">
-                            <ui:Label text="Facility Name" display-tooltip-when-elided="true" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-left; color: rgb(200, 200, 200);" />
-                            <ui:Label text="Demand" display-tooltip-when-elided="true" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(255, 0, 23);" />
+                            <ui:Label text="Facility Name" display-tooltip-when-elided="true" name="facility-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-left; color: rgb(200, 200, 200);" />
+                            <ui:Label text="OK" display-tooltip-when-elided="true" name="facility-status" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(3, 255, 0);" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement class="facility-button" style="height: 80px; align-items: center; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px;">
+                    <ui:VisualElement name="facility-button" class="facility-button" style="height: 80px; align-items: center; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
                         <ui:VisualElement style="flex-direction: row; padding-top: 10%; width: 10%; background-color: rgb(183, 183, 183);" />
                         <ui:VisualElement style="width: 100%; flex-direction: row; align-items: center; justify-content: space-between;">
-                            <ui:Label text="Facility Name" display-tooltip-when-elided="true" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-left; color: rgb(200, 200, 200);" />
-                            <ui:Label text="OK" display-tooltip-when-elided="true" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(3, 255, 0);" />
+                            <ui:Label text="Facility Name" display-tooltip-when-elided="true" name="facility-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-left; color: rgb(200, 200, 200);" />
+                            <ui:Label text="OK" display-tooltip-when-elided="true" name="facility-status" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(3, 255, 0);" />
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement class="facility-button" style="height: 80px; align-items: center; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px;">
+                    <ui:VisualElement name="facility-button" class="facility-button" style="height: 80px; align-items: center; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
                         <ui:VisualElement style="flex-direction: row; padding-top: 10%; width: 10%; background-color: rgb(183, 183, 183);" />
                         <ui:VisualElement style="width: 100%; flex-direction: row; align-items: center; justify-content: space-between;">
-                            <ui:Label text="Facility Name" display-tooltip-when-elided="true" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-left; color: rgb(200, 200, 200);" />
-                            <ui:Label text="OK" display-tooltip-when-elided="true" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(3, 255, 0);" />
+                            <ui:Label text="Facility Name" display-tooltip-when-elided="true" name="facility-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-left; color: rgb(200, 200, 200);" />
+                            <ui:Label text="OK" display-tooltip-when-elided="true" name="facility-status" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(3, 255, 0);" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="station-contacts" style="height: 100%; display: flex; flex-direction: row;">
+            <ui:VisualElement name="contacts-left" style="width: 50%; padding-left: 50px; padding-right: 50px; padding-top: 50px; padding-bottom: 50px; justify-content: center;">
+                <ui:VisualElement class="facility-button" style="height: 100px; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
+                        <ui:VisualElement name="contact-icon" style="background-color: rgb(207, 207, 207); padding-top: 15%; width: 15%; -unity-background-scale-mode: stretch-to-fill; height: 0;" />
+                        <ui:Label text="Contact&apos;s Name" display-tooltip-when-elided="true" name="contact-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(221, 221, 221);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end;">
+                        <ui:Label text="Station Head" display-tooltip-when-elided="true" name="contact-role" style="margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(212, 212, 212);" />
+                        <ui:VisualElement name="contact-faction-icon" style="height: 0; width: 15%; padding-top: 15%; color: rgb(79, 57, 57); background-color: rgb(192, 192, 192);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="facility-button" style="height: 100px; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
+                        <ui:VisualElement name="contact-icon" style="background-color: rgb(207, 207, 207); padding-top: 15%; width: 15%; -unity-background-scale-mode: stretch-to-fill; height: 0;" />
+                        <ui:Label text="Contact&apos;s Name" display-tooltip-when-elided="true" name="contact-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(221, 221, 221);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end;">
+                        <ui:Label text="Station Head" display-tooltip-when-elided="true" name="contact-role" style="margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(212, 212, 212);" />
+                        <ui:VisualElement name="contact-faction-icon" style="height: 0; width: 15%; padding-top: 15%; color: rgb(79, 57, 57); background-color: rgb(192, 192, 192);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="facility-button" style="height: 100px; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
+                        <ui:VisualElement name="contact-icon" style="background-color: rgb(207, 207, 207); padding-top: 15%; width: 15%; -unity-background-scale-mode: stretch-to-fill; height: 0;" />
+                        <ui:Label text="Contact&apos;s Name" display-tooltip-when-elided="true" name="contact-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(221, 221, 221);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end;">
+                        <ui:Label text="Station Head" display-tooltip-when-elided="true" name="contact-role" style="margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(212, 212, 212);" />
+                        <ui:VisualElement name="contact-faction-icon" style="height: 0; width: 15%; padding-top: 15%; color: rgb(79, 57, 57); background-color: rgb(192, 192, 192);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="facility-button" style="height: 100px; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
+                        <ui:VisualElement name="contact-icon" style="background-color: rgb(207, 207, 207); padding-top: 15%; width: 15%; -unity-background-scale-mode: stretch-to-fill; height: 0;" />
+                        <ui:Label text="Contact&apos;s Name" display-tooltip-when-elided="true" name="contact-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(221, 221, 221);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end;">
+                        <ui:Label text="Station Head" display-tooltip-when-elided="true" name="contact-role" style="margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(212, 212, 212);" />
+                        <ui:VisualElement name="contact-faction-icon" style="height: 0; width: 15%; padding-top: 15%; color: rgb(79, 57, 57); background-color: rgb(192, 192, 192);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="facility-button" style="height: 100px; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
+                        <ui:VisualElement name="contact-icon" style="background-color: rgb(207, 207, 207); padding-top: 15%; width: 15%; -unity-background-scale-mode: stretch-to-fill; height: 0;" />
+                        <ui:Label text="Contact&apos;s Name" display-tooltip-when-elided="true" name="contact-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(221, 221, 221);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end;">
+                        <ui:Label text="Station Head" display-tooltip-when-elided="true" name="contact-role" style="margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(212, 212, 212);" />
+                        <ui:VisualElement name="contact-faction-icon" style="height: 0; width: 15%; padding-top: 15%; color: rgb(79, 57, 57); background-color: rgb(192, 192, 192);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="facility-button" style="height: 100px; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
+                        <ui:VisualElement name="contact-icon" style="background-color: rgb(207, 207, 207); padding-top: 15%; width: 15%; -unity-background-scale-mode: stretch-to-fill; height: 0;" />
+                        <ui:Label text="Contact&apos;s Name" display-tooltip-when-elided="true" name="contact-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(221, 221, 221);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end;">
+                        <ui:Label text="Station Head" display-tooltip-when-elided="true" name="contact-role" style="margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(212, 212, 212);" />
+                        <ui:VisualElement name="contact-faction-icon" style="height: 0; width: 15%; padding-top: 15%; color: rgb(79, 57, 57); background-color: rgb(192, 192, 192);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="contacts-right" style="width: 50%; padding-left: 40px; padding-right: 40px; padding-top: 40px; padding-bottom: 40px; -unity-text-outline-color: rgb(26, 26, 26);">
+                <ui:VisualElement style="height: 100%; background-color: rgba(60, 57, 56, 0.58); border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px;">
+                    <ui:VisualElement name="contact-header" style="width: 100%; height: 100px; background-color: rgb(62, 100, 135); flex-direction: row-reverse; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; display: flex; visibility: visible; align-items: center; justify-content: center;">
+                        <ui:Label text="No Contact Selected" display-tooltip-when-elided="true" name="contact-no-selection-content" style="color: rgb(210, 210, 210); display: flex; font-size: 40px; -unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); width: 100%; -unity-text-align: upper-center;" />
+                        <ui:VisualElement name="contact-header-content" style="width: 100%; flex-direction: row-reverse; display: none;">
+                            <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end;">
+                                <ui:Label text="Station Head" display-tooltip-when-elided="true" name="contact-role" style="margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(212, 212, 212);" />
+                                <ui:VisualElement name="contact-faction-icon" style="height: 0; width: 15%; padding-top: 15%; color: rgb(79, 57, 57); background-color: rgb(192, 192, 192);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
+                                <ui:VisualElement name="contact-icon" style="background-color: rgb(207, 207, 207); padding-top: 15%; width: 15%; -unity-background-scale-mode: stretch-to-fill; height: 0;" />
+                                <ui:Label text="Contact&apos;s Name" display-tooltip-when-elided="true" name="contact-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(221, 221, 221);" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="contact-right-content" style="height: 100%; display: none;">
+                        <ui:VisualElement name="contact-content-overlay" style="height: 60%; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); font-size: 20px; visibility: visible; display: none;">
+                            <ui:Label text="Hello there, commander? What brings you to our side of the galaxy?" display-tooltip-when-elided="true" name="contact-content" style="white-space: normal; color: rgb(219, 219, 219);" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="convo-choices" style="height: 40%; padding-left: 30px; padding-right: 30px; padding-top: 30px; padding-bottom: 30px; display: flex;">
+                            <ui:VisualElement name="text-overlay" class="facility-button" style="height: 70px; align-items: center; justify-content: space-between; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; margin-bottom: 20px; visibility: hidden;">
+                                <ui:Label text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" display-tooltip-when-elided="true" name="text-content" style="-unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 15px; margin-left: 10px; color: rgb(224, 224, 224); white-space: normal; height: 100%; -unity-text-align: middle-left; overflow: hidden;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="text-overlay" class="facility-button" style="height: 70px; align-items: center; justify-content: space-between; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; margin-bottom: 20px; visibility: hidden;">
+                                <ui:Label text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" display-tooltip-when-elided="true" name="text-content" style="-unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 15px; margin-left: 10px; color: rgb(224, 224, 224); white-space: normal; height: 100%; -unity-text-align: middle-left; overflow: hidden;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="text-overlay" class="facility-button" style="height: 70px; align-items: center; justify-content: space-between; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; margin-bottom: 20px; visibility: hidden;">
+                                <ui:Label text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" display-tooltip-when-elided="true" name="text-content" style="-unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 15px; margin-left: 10px; color: rgb(224, 224, 224); white-space: normal; height: 100%; -unity-text-align: middle-left; overflow: hidden;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="station-hauling" style="height: 100%; display: none; flex-direction: row; visibility: visible;">
+            <ui:VisualElement name="hauling-left" style="width: 50%; padding-left: 50px; padding-right: 50px; padding-top: 50px; padding-bottom: 50px; justify-content: center;">
+                <ui:VisualElement class="facility-button" style="height: 100px; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
+                        <ui:Label text="10 jumps away" display-tooltip-when-elided="true" name="hauling-jump-distance" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(221, 221, 221);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end;">
+                        <ui:Label text="1850 m3" display-tooltip-when-elided="true" name="hauling-weight" style="margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(212, 212, 212);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="facility-button" style="height: 100px; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
+                        <ui:Label text="10 jumps away" display-tooltip-when-elided="true" name="hauling-jump-distance" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(221, 221, 221);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end;">
+                        <ui:Label text="1850 m3" display-tooltip-when-elided="true" name="hauling-weight" style="margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(212, 212, 212);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="facility-button" style="height: 100px; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
+                        <ui:Label text="10 jumps away" display-tooltip-when-elided="true" name="hauling-jump-distance" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(221, 221, 221);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end;">
+                        <ui:Label text="1850 m3" display-tooltip-when-elided="true" name="hauling-weight" style="margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(212, 212, 212);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="facility-button" style="height: 100px; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
+                        <ui:Label text="10 jumps away" display-tooltip-when-elided="true" name="hauling-jump-distance" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(221, 221, 221);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end;">
+                        <ui:Label text="1850 m3" display-tooltip-when-elided="true" name="hauling-weight" style="margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(212, 212, 212);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="facility-button" style="height: 100px; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
+                        <ui:Label text="10 jumps away" display-tooltip-when-elided="true" name="hauling-jump-distance" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(221, 221, 221);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end;">
+                        <ui:Label text="1850 m3" display-tooltip-when-elided="true" name="hauling-weight" style="margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(212, 212, 212);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="facility-button" style="height: 100px; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; display: flex; visibility: hidden;">
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
+                        <ui:Label text="10 jumps away" display-tooltip-when-elided="true" name="hauling-jump-distance" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(221, 221, 221);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end;">
+                        <ui:Label text="1850 m3" display-tooltip-when-elided="true" name="hauling-weight" style="margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(212, 212, 212);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="hauling-right" style="width: 50%; padding-left: 40px; padding-right: 40px; padding-top: 40px; padding-bottom: 40px; -unity-text-outline-color: rgb(26, 26, 26);">
+                <ui:VisualElement style="height: 100%; background-color: rgba(60, 57, 56, 0.58); border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px;">
+                    <ui:VisualElement name="hauling-header" style="width: 100%; height: 100px; background-color: rgb(62, 100, 135); flex-direction: row; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; display: flex; align-items: center; justify-content: space-between; -unity-text-align: middle-left;">
+                        <ui:VisualElement name="hauling-header-content" style="width: 100%; flex-direction: row; height: 100%; display: flex; justify-content: space-between; align-items: center;">
+                            <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
+                                <ui:Label text="12 jumps away" display-tooltip-when-elided="true" name="hauling-jump-distance" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(221, 221, 221); height: 100%; justify-content: center;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center; justify-content: flex-end;">
+                                <ui:Label text="1850 m3" display-tooltip-when-elided="true" name="hauling-weight" style="margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; color: rgb(212, 212, 212); height: 100%;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:Label text="No Contract Selected" display-tooltip-when-elided="true" name="no-hauling-content" style="color: rgb(210, 210, 210); display: none; width: 100%; height: 100%; justify-content: center; align-items: center; -unity-text-align: middle-center; -unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); font-size: 40px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="height: 100%;">
+                        <ui:VisualElement style="height: 80%; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 0; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); font-size: 20px;">
+                            <ui:VisualElement name="cargo-hauling-items" style="height: 70%; background-color: rgb(53, 53, 53); border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;">
+                                <ui:VisualElement name="cargo-item-content">
+                                    <ui:VisualElement style="height: 50px; align-items: center; justify-content: flex-start; -unity-text-align: upper-left; flex-direction: row; margin-bottom: 20px; visibility: hidden;">
+                                        <ui:VisualElement name="hauling-item-icon" style="padding-top: 10%; width: 10%; background-color: rgb(200, 200, 200);" />
+                                        <ui:Label text="25 Item Name" display-tooltip-when-elided="true" name="hauling-item-name" style="margin-left: 15px; -unity-font-style: bold; color: rgb(209, 208, 208);" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement style="height: 50px; align-items: center; justify-content: flex-start; -unity-text-align: upper-left; flex-direction: row; margin-bottom: 20px; visibility: hidden;">
+                                        <ui:VisualElement name="hauling-item-icon" style="padding-top: 10%; width: 10%; background-color: rgb(200, 200, 200);" />
+                                        <ui:Label text="25 Item Name" display-tooltip-when-elided="true" name="hauling-item-name" style="margin-left: 15px; -unity-font-style: bold; color: rgb(209, 208, 208);" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement style="height: 50px; align-items: center; justify-content: flex-start; -unity-text-align: upper-left; flex-direction: row; margin-bottom: 20px; visibility: hidden;">
+                                        <ui:VisualElement name="hauling-item-icon" style="padding-top: 10%; width: 10%; background-color: rgb(200, 200, 200);" />
+                                        <ui:Label text="25 Item Name" display-tooltip-when-elided="true" name="hauling-item-name" style="margin-left: 15px; -unity-font-style: bold; color: rgb(209, 208, 208);" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement style="height: 50px; align-items: center; justify-content: flex-start; -unity-text-align: upper-left; flex-direction: row; margin-bottom: 20px; visibility: hidden;">
+                                        <ui:VisualElement name="hauling-item-icon" style="padding-top: 10%; width: 10%; background-color: rgb(200, 200, 200);" />
+                                        <ui:Label text="25 Item Name" display-tooltip-when-elided="true" name="hauling-item-name" style="margin-left: 15px; -unity-font-style: bold; color: rgb(209, 208, 208);" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement style="height: 30%; background-color: rgb(53, 53, 53); border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; margin-top: 10px; padding-left: 5px; padding-right: 15px; padding-top: 5px; padding-bottom: 15px;">
+                                <ui:Label text="Destination" display-tooltip-when-elided="true" style="-unity-font-style: bold; color: rgb(210, 210, 210);" />
+                                <ui:Label text="System 2" display-tooltip-when-elided="true" name="cargo-destination" style="position: absolute; left: 10%; top: 10%; right: 10%; bottom: 10%; justify-content: center; align-items: center; -unity-text-align: middle-center; -unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); -unity-font-style: bold; font-size: 40px; color: rgb(210, 210, 210);" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="footer-accept" style="height: 20%; padding-left: 30px; padding-right: 30px; padding-top: 30px; padding-bottom: 30px; justify-content: center; flex-direction: row; align-items: center;">
+                            <ui:VisualElement content-container="true" name="button-storage" class="main-button" style="height: 70%; width: 40%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left;">
+                                <ui:VisualElement style="width: 100%; height: 100%; flex-direction: row; align-items: center; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; margin-top: 2px; transition-timing-function: ease; transition-duration: 0.2s; transition-property: background-color;">
+                                    <ui:VisualElement style="width: 100%; align-items: center; height: 100%; justify-content: center; -unity-text-align: middle-left; background-color: rgba(255, 255, 255, 0);">
+                                        <ui:Label text="Accept" display-tooltip-when-elided="true" style="-unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); font-size: 20px; -unity-font-style: bold; height: 100%; -unity-text-align: middle-left; justify-content: center; -unity-background-scale-mode: stretch-to-fill; color: rgb(202, 202, 202); margin-top: 0;" />
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement style="width: 60%; height: 70%; margin-left: 20px; background-color: rgb(53, 53, 53); border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; -unity-text-align: middle-left; justify-content: center; align-items: center;">
+                                <ui:Label text="$20578" display-tooltip-when-elided="true" style="flex-wrap: wrap; width: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 40px; -unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); color: rgb(83, 131, 176);" />
+                            </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>

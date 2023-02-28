@@ -62,7 +62,8 @@ public class StationComponent : MonoBehaviour
     {
         if (canEnter)
         {
-            GUI.OpenUI(station);
+            //GUI.OpenUI(station);
+            Game.Instance.StationUI.GetComponent<StationUI>().InitializeStation(this.station);
         }
     }
 
