@@ -111,7 +111,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="station-contacts" style="height: 100%; display: flex; flex-direction: row;">
+        <ui:VisualElement name="station-contacts" style="height: 100%; display: none; flex-direction: row;">
             <ui:VisualElement name="contacts-left" style="width: 50%; padding-left: 50px; padding-right: 50px; padding-top: 50px; padding-bottom: 50px; justify-content: center;">
                 <ui:VisualElement class="facility-button" style="height: 100px; align-items: center; justify-content: space-between; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 10px; visibility: hidden;">
                     <ui:VisualElement style="width: 50%; height: 100%; flex-direction: row; align-items: center;">
@@ -300,7 +300,7 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                         <ui:VisualElement name="footer-accept" style="height: 20%; padding-left: 30px; padding-right: 30px; padding-top: 30px; padding-bottom: 30px; justify-content: center; flex-direction: row; align-items: center;">
-                            <ui:VisualElement content-container="true" name="button-storage" class="main-button" style="height: 70%; width: 40%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left;">
+                            <ui:VisualElement content-container="true" name="button-hauling-accept" class="main-button" style="height: 70%; width: 40%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left;">
                                 <ui:VisualElement style="width: 100%; height: 100%; flex-direction: row; align-items: center; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; margin-top: 2px; transition-timing-function: ease; transition-duration: 0.2s; transition-property: background-color;">
                                     <ui:VisualElement style="width: 100%; align-items: center; height: 100%; justify-content: center; -unity-text-align: middle-left; background-color: rgba(255, 255, 255, 0);">
                                         <ui:Label text="Accept" display-tooltip-when-elided="true" style="-unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); font-size: 20px; -unity-font-style: bold; height: 100%; -unity-text-align: middle-left; justify-content: center; -unity-background-scale-mode: stretch-to-fill; color: rgb(202, 202, 202); margin-top: 0;" />
@@ -308,8 +308,64 @@
                                 </ui:VisualElement>
                             </ui:VisualElement>
                             <ui:VisualElement style="width: 60%; height: 70%; margin-left: 20px; background-color: rgb(53, 53, 53); border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; -unity-text-align: middle-left; justify-content: center; align-items: center;">
-                                <ui:Label text="$20578" display-tooltip-when-elided="true" style="flex-wrap: wrap; width: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 40px; -unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); color: rgb(83, 131, 176);" />
+                                <ui:Label text="$20578" display-tooltip-when-elided="true" name="hauling-reward" style="flex-wrap: wrap; width: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 40px; -unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); color: rgb(83, 131, 176);" />
                             </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="station-market" style="height: 100%; flex-direction: row; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;">
+            <ui:VisualElement name="market-left" style="width: 50%; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;">
+                <ui:VisualElement name="main-market" style="height: 60%; width: 100%;">
+                    <ui:Label text="For Sale" display-tooltip-when-elided="true" style="-unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); font-size: 40px; color: rgb(210, 210, 210);" />
+                    <ui:VisualElement style="height: 100%; background-color: rgb(60, 57, 56); border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px;">
+                        <ui:ListView focusable="false" name="sale-market" fixed-item-height="100" selection-type="None" virtualization-method="DynamicHeight" style="height: 100%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="demand-market" style="height: 40%; margin-top: 20px;">
+                    <ui:Label text="In Demand" display-tooltip-when-elided="true" style="-unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); font-size: 40px; color: rgb(210, 210, 210);" />
+                    <ui:VisualElement style="height: 100%; background-color: rgb(60, 57, 56); border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px;">
+                        <ui:ListView focusable="true" name="sale-demand" fixed-item-height="100" selection-type="None" virtualization-method="DynamicHeight" style="height: 100%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="market-right" style="width: 50%; padding-left: 50px; padding-right: 50px; padding-top: 50px; padding-bottom: 50px;">
+                <ui:VisualElement name="item-content" style="height: 100%; background-color: rgb(60, 57, 56); border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px;">
+                    <ui:VisualElement name="item-header" style="height: 80px; background-color: rgb(62, 100, 135); justify-content: center; align-items: center;">
+                        <ui:Label text="No Item Selected" display-tooltip-when-elided="true" name="item-header-no-content" style="font-size: 40px; -unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); display: flex; color: rgb(210, 210, 210);" />
+                        <ui:VisualElement name="item-header-content" style="width: 100%; height: 100%; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; align-items: center; display: none;">
+                            <ui:VisualElement style="background-color: rgb(207, 207, 207); padding-top: 10%; width: 10%;" />
+                            <ui:Label text="Item Name" display-tooltip-when-elided="true" name="item-name" style="margin-left: 20px; -unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); font-size: 30px; -unity-text-align: middle-left; color: rgb(226, 226, 226);" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement style="height: 45%; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+                        <ui:Label text=" This item is an amazing item that blah blah blah " display-tooltip-when-elided="true" name="item-description" style="flex-wrap: nowrap; white-space: normal; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); font-size: 20px; color: rgb(207, 207, 207);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="buy-sell-section" style="height: 25%; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;">
+                        <ui:VisualElement style="width: 100%; height: 50%; -unity-background-image-tint-color: rgb(53, 53, 53); border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); background-color: rgb(53, 53, 53); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; justify-content: center; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; -unity-text-align: middle-left;">
+                            <ui:Label text="Buy 1 for $25" display-tooltip-when-elided="true" name="buy-item-price" style="-unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); font-size: 20px; -unity-font-style: bold; color: rgb(210, 210, 210); height: 100%; justify-content: center;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement style="width: 100%; height: 50%; -unity-background-image-tint-color: rgb(53, 53, 53); border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); background-color: rgb(53, 53, 53); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; margin-top: 20px; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; justify-content: center;">
+                            <ui:Label text="Sell 1 for $17" display-tooltip-when-elided="true" name="sell-item-price" style="-unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); font-size: 20px; -unity-font-style: bold; color: rgb(210, 210, 210); justify-content: center; height: 100%; -unity-text-align: middle-left;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="pricing-container" style="height: 10%; padding-left: 10px; padding-right: 20px; padding-top: 10px; padding-bottom: 10px; flex-direction: column; align-items: flex-end;">
+                        <ui:VisualElement style="height: 100%; width: 40%; background-color: rgb(53, 53, 53); border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; justify-content: center; align-items: center;">
+                            <ui:Label text="$1000" display-tooltip-when-elided="true" name="purchase-currency" style="-unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); font-size: 30px; color: rgb(62, 100, 135); -unity-font-style: bold;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="purchase-section" style="height: 15%; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row;">
+                        <ui:VisualElement content-container="true" name="transaction-button" class="main-button" style="height: 100%; width: 40%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left;">
+                            <ui:VisualElement style="width: 100%; height: 100%; flex-direction: row; align-items: center; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; margin-top: 2px; transition-timing-function: ease; transition-duration: 0.2s; transition-property: background-color;">
+                                <ui:VisualElement style="width: 100%; align-items: center; height: 100%; justify-content: center; -unity-text-align: middle-left; background-color: rgba(255, 255, 255, 0);">
+                                    <ui:Label text="Buy" display-tooltip-when-elided="true" name="transaction-text" style="-unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); font-size: 20px; -unity-font-style: bold; height: 100%; -unity-text-align: middle-left; justify-content: center; -unity-background-scale-mode: stretch-to-fill; color: rgb(202, 202, 202); margin-top: 0;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="quantity-slider-container" style="align-items: center; justify-content: center; width: 60%; background-color: rgb(53, 53, 53); margin-left: 15px; border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; flex-direction: row;">
+                            <ui:SliderInt picking-mode="Ignore" value="42" high-value="100" name="quantity-slider" style="align-items: center; width: 70%; margin-left: 0; margin-right: 0; margin-top: -2px; margin-bottom: 0;" />
+                            <ui:Label text="30" display-tooltip-when-elided="true" name="quantity-amount" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); font-size: 20px; color: rgb(210, 210, 210); -unity-font-style: bold; height: 100%; -unity-text-align: middle-left;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>

@@ -64,6 +64,8 @@ public class Market
         {
             itemList.Add(new MarketItem(item, quantity, item.GalacticPrice, (int)Mathf.Floor(item.GalacticPrice * 0.75f)));
         }
+
+        EventManager.TriggerEvent("Market Changed");
     }
 
     public void AddDemandSeller(BaseItem item)
@@ -76,6 +78,8 @@ public class Market
         }
 
         itemList.Add(new MarketItem(item, 0, 0, item.GalacticPrice + (int)Mathf.Floor(item.GalacticPrice * 0.30f), true));
+
+        EventManager.TriggerEvent("Market Changed");
     }
 
     public InventoryItem Purchase(int index, int quantity)
@@ -95,6 +99,8 @@ public class Market
 
             if (itemList[index].quantity == 0)
                 itemList.RemoveAt(index);
+
+            EventManager.TriggerEvent("Market Changed");
 
             return new InventoryItem(item, quantity);
         }

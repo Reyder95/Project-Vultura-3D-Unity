@@ -12,10 +12,8 @@ public class BaseStation : BaseSelectable
     public Inventory storage = new Inventory();
     public List<InstantiatedShip> shipStorage = new List<InstantiatedShip>();
     public Market market = new Market();
-
+    public Market demandMarket = new Market();
     public List<Contract> contracts = new List<Contract>();
-
-    //public Inventory stockpile = new Inventory();
 
     public List<Facility> facilities = new List<Facility>();
 
@@ -76,7 +74,7 @@ public class BaseStation : BaseSelectable
         {
             foreach (FacilityItem consumer in facility.consuming)
             {
-                facility.stockpile.Add(new InventoryItem(ItemManager.GenerateSpecificBase(consumer.item.Key), Random.Range(30, 50)), null);
+                facility.stockpile.Add(new InventoryItem(ItemManager.GenerateSpecificBase(consumer.item.Key), Random.Range(1, 10)), null);
             }
         }
     }
@@ -103,7 +101,7 @@ public class BaseStation : BaseSelectable
             {
                 foreach (FacilityItem item in facility.consuming)
                 {
-                    market.AddDemandSeller(ItemManager.GenerateSpecificBase(item.item.Key));
+                    demandMarket.AddDemandSeller(ItemManager.GenerateSpecificBase(item.item.Key));
                 }
             }
             
@@ -125,6 +123,9 @@ public class BaseStation : BaseSelectable
                     if (consumerItem.Key == item.Key)
                     {
                         facility.stockpile.Add(new InventoryItem(item, quantity), null);
+
+                        EventManager.TriggerEvent("Market Changed");
+
                         return true;
                     }
                 }

@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.Events;
 
 enum StationPage {
     HOME,
@@ -10,13 +10,25 @@ enum StationPage {
     HAULING
 }
 
-public class ConversationTransitionData {
-    Conversation convo;
-    bool back;
+public class MarketSelectionData {
+    public int elementIndex;
+    public bool isMarket;
+
+    public BaseItem itemReference;
+
+    public MarketSelectionData(int elementIndex, bool isMarket, BaseItem itemReference)
+    {
+        this.elementIndex = elementIndex;
+        this.isMarket = isMarket;
+        this.itemReference = itemReference;
+    }
 }
 
 public class StationUI : MonoBehaviour
 {
+    // Visual Tree Stuff
+    public VisualTreeAsset marketItemAsset;
+
     PageStack pageStack;                    // The stack which handles what page is currently viewable.
 
     VisualElement rootVisualElement;        // The root visual element for the entire station GUI
@@ -24,11 +36,14 @@ public class StationUI : MonoBehaviour
     VisualElement homeVisualElement;        // The homepage
     VisualElement haulingVisualElement;     // The cargo hauling contracts page
     VisualElement contactsVisualElement;    // The contacts page
+    VisualElement marketVisualElement;      // The market page
 
     VisualElement backButton;               // The button that goes back in the page stack
     VisualElement exitButton;               // The button that exits out of the GUI
 
     StationPage nextPage;
+
+    private UnityAction marketListener;
 
     bool back = false;
 
@@ -41,6 +56,14 @@ public class StationUI : MonoBehaviour
     // Hauling stuff
     VisualElement currHaulingContract = null;
 
+    // Market stuff
+    ListView marketList;
+    ListView demandList;
+    VisualElement currentMarketSelection;
+
+    int marketHovered = -1;
+    bool isMarketHovered = false;
+
     public void InitializeStation(BaseStation station)
     {
         this.gameObject.SetActive(true);
@@ -50,11 +73,30 @@ public class StationUI : MonoBehaviour
         LoadFacilities();
         LoadContacts();
         LoadHauling();
+        LoadMarket();
+    }
+
+    private void Awake()
+    {
+        marketListener = new UnityAction(RefreshMarket);
+    }
+
+    private void OnEnable()
+    {
+        EventManager.StartListening("Market Changed", marketListener);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening("Market Changed", marketListener);
     }
 
     public void CloseStation()
     {
         this.currentStation = null;
+        this.currentMarketSelection = null;
+        this.currHaulingContract = null;
+        this.currContact = null;
         this.gameObject.SetActive(false);
     }
 
@@ -67,13 +109,17 @@ public class StationUI : MonoBehaviour
         homeVisualElement = rootVisualElement.Q<VisualElement>("station-home");
         haulingVisualElement = rootVisualElement.Q<VisualElement>("station-hauling");
         contactsVisualElement = rootVisualElement.Q<VisualElement>("station-contacts");
+        marketVisualElement = rootVisualElement.Q<VisualElement>("station-market");
+
 
         // Only display "home"
         haulingVisualElement.style.display = DisplayStyle.None;
         contactsVisualElement.style.display = DisplayStyle.None;
+        marketVisualElement.style.display = DisplayStyle.None;
 
         haulingVisualElement.style.opacity = new StyleFloat(0.0);
         contactsVisualElement.style.opacity = new StyleFloat(0.0);
+        marketVisualElement.style.opacity = new StyleFloat(0.0);
 
         pageStack.Push(homeVisualElement);
         nextPage = StationPage.HOME;
@@ -91,6 +137,11 @@ public class StationUI : MonoBehaviour
             homeVisualElement.style.opacity = new StyleFloat(0.0);
         });
 
+        rootVisualElement.Q<VisualElement>("button-market").RegisterCallback<ClickEvent>(ev => {
+            nextPage = StationPage.MARKET;
+            homeVisualElement.style.opacity = new StyleFloat(0.0);
+        });
+
         contactsVisualElement.Q<VisualElement>("contact-content-overlay").style.opacity = 0.0f;
         contactsVisualElement.Q<VisualElement>("contact-header-content").style.opacity = 0.0f;
 
@@ -98,11 +149,28 @@ public class StationUI : MonoBehaviour
         haulingVisualElement.Q<VisualElement>("no-hauling-content").style.display = DisplayStyle.Flex;
         haulingVisualElement.Q<VisualElement>("cargo-destination").style.display = DisplayStyle.None;
         haulingVisualElement.Q<VisualElement>("cargo-item-content").style.display = DisplayStyle.None;
+        haulingVisualElement.Q<VisualElement>("hauling-reward").style.display = DisplayStyle.None;
+
 
         haulingVisualElement.Q<VisualElement>("hauling-header-content").style.opacity = 0.0f;
         haulingVisualElement.Q<VisualElement>("no-hauling-content").style.opacity = 1.0f;
         haulingVisualElement.Q<VisualElement>("cargo-destination").style.opacity = 0.0f;
         haulingVisualElement.Q<VisualElement>("cargo-item-content").style.opacity = 0.0f;
+        haulingVisualElement.Q<VisualElement>("hauling-reward").style.opacity = 0.0f;
+
+        marketVisualElement.Q<VisualElement>("item-header-content").style.display = DisplayStyle.None;
+        marketVisualElement.Q<VisualElement>("item-header-no-content").style.display = DisplayStyle.Flex;
+        marketVisualElement.Q<VisualElement>("item-description").style.display = DisplayStyle.None;
+        marketVisualElement.Q<VisualElement>("buy-sell-section").style.display = DisplayStyle.None;
+        marketVisualElement.Q<VisualElement>("pricing-container").style.display = DisplayStyle.None;
+        marketVisualElement.Q<VisualElement>("purchase-section").style.display = DisplayStyle.None;
+
+        marketVisualElement.Q<VisualElement>("item-header-content").style.opacity = 0.0f;
+        marketVisualElement.Q<VisualElement>("item-header-no-content").style.opacity = 1.0f;
+        marketVisualElement.Q<VisualElement>("item-description").style.opacity = 0.0f;
+        marketVisualElement.Q<VisualElement>("buy-sell-section").style.opacity = 0.0f;
+        marketVisualElement.Q<VisualElement>("pricing-container").style.opacity = 0.0f;
+        marketVisualElement.Q<VisualElement>("purchase-section").style.opacity = 0.0f;
 
         contactsVisualElement.Q<VisualElement>("contact-content-overlay").RegisterCallback<TransitionEndEvent>(ev => {
             if (ev.stylePropertyNames.Contains("opacity"))
@@ -209,6 +277,25 @@ public class StationUI : MonoBehaviour
             }
         });
 
+        marketVisualElement.RegisterCallback<TransitionEndEvent>(ev => {
+            if (ev.stylePropertyNames.Contains("opacity"))
+            {
+                VisualElement element = (ev.currentTarget as VisualElement);
+
+                if (element.style.opacity == 0.0f)
+                {
+                    if (!back)
+                        HandlePageTransition(DeterminePageElement());
+                    else
+                    {
+                        pageStack.Pop();
+                        pageStack.Top().style.opacity = new StyleFloat(1.0f);
+                        back = false;
+                    }
+                }
+            }
+        });
+
         haulingVisualElement.RegisterCallback<TransitionEndEvent>(ev => {
             if (ev.stylePropertyNames.Contains("opacity"))
             {
@@ -293,10 +380,81 @@ public class StationUI : MonoBehaviour
             {
                 VisualElement element = (ev.currentTarget as VisualElement);
 
-                if (element.style.opacity == 0.0f)
+                if (element.style.opacity == 1.0f)
+                {
+                    haulingVisualElement.Q<VisualElement>("hauling-reward").style.display = DisplayStyle.Flex;
+                    haulingVisualElement.Q<VisualElement>("hauling-reward").style.opacity = 1.0f;
+                }
+                else if (element.style.opacity == 0.0f)
                 {
                     if (currHaulingContract != null)
                         haulingVisualElement.Q<VisualElement>("cargo-destination").style.opacity = 1.0f;
+                }
+            }
+        });
+
+        haulingVisualElement.Q<VisualElement>("hauling-reward").RegisterCallback<TransitionEndEvent>(ev => {
+            if (ev.stylePropertyNames.Contains("opacity"))
+            {
+                VisualElement element = (ev.currentTarget as VisualElement);
+
+                if (element.style.opacity == 0.0f)
+                {
+                    if (currHaulingContract != null)
+                        haulingVisualElement.Q<VisualElement>("hauling-reward").style.opacity = 1.0f;  
+                }
+            }
+        });
+
+        marketVisualElement.Q<VisualElement>("item-header-no-content").RegisterCallback<TransitionEndEvent>(ev => {
+            if (ev.stylePropertyNames.Contains("opacity"))
+            {
+                VisualElement element = (ev.currentTarget as VisualElement);
+
+                if (element.style.opacity == 0.0f)
+                {
+                    marketVisualElement.Q<VisualElement>("item-header-no-content").style.display = DisplayStyle.None;
+                    marketVisualElement.Q<VisualElement>("item-description").style.display = DisplayStyle.Flex;
+                    marketVisualElement.Q<VisualElement>("item-header-content").style.display = DisplayStyle.Flex;
+                    marketVisualElement.Q<VisualElement>("buy-sell-section").style.display = DisplayStyle.Flex;
+                    marketVisualElement.Q<VisualElement>("pricing-container").style.display = DisplayStyle.Flex;
+                    marketVisualElement.Q<VisualElement>("purchase-section").style.display = DisplayStyle.Flex;
+                    marketVisualElement.Q<VisualElement>("item-header-content").style.opacity = 1.0f;
+                    marketVisualElement.Q<VisualElement>("item-description").style.opacity = 1.0f;
+                    marketVisualElement.Q<VisualElement>("buy-sell-section").style.opacity = 1.0f;
+                    marketVisualElement.Q<VisualElement>("pricing-container").style.opacity = 1.0f;
+                    marketVisualElement.Q<VisualElement>("purchase-section").style.opacity = 1.0f;
+                }
+            }
+        });
+
+        marketVisualElement.Q<VisualElement>("item-header-content").RegisterCallback<TransitionEndEvent>(ev => {
+            if (ev.stylePropertyNames.Contains("opacity"))
+            {
+                VisualElement element = (ev.currentTarget as VisualElement);
+
+                if (element.style.opacity == 0.0f)
+                {
+                    if (currentMarketSelection != null)
+                    {
+                        DisplayMarket();
+                        marketVisualElement.Q<VisualElement>("item-header-content").style.opacity = 1.0f;
+                        marketVisualElement.Q<VisualElement>("item-description").style.opacity = 1.0f;
+                        marketVisualElement.Q<VisualElement>("buy-sell-section").style.opacity = 1.0f;
+                        marketVisualElement.Q<VisualElement>("pricing-container").style.opacity = 1.0f;
+                        marketVisualElement.Q<VisualElement>("purchase-section").style.opacity = 1.0f;
+                    }
+                    else
+                    {
+                        marketVisualElement.Q<VisualElement>("item-header-content").style.display = DisplayStyle.None;
+                        marketVisualElement.Q<VisualElement>("item-description").style.display = DisplayStyle.None;
+                        marketVisualElement.Q<VisualElement>("buy-sell-section").style.display = DisplayStyle.None;
+                        marketVisualElement.Q<VisualElement>("pricing-container").style.display = DisplayStyle.None;
+                        marketVisualElement.Q<VisualElement>("purchase-section").style.display = DisplayStyle.None;
+
+                        marketVisualElement.Q<VisualElement>("item-header-no-content").style.display = DisplayStyle.Flex;
+                        marketVisualElement.Q<VisualElement>("item-header-no-content").style.opacity = 1.0f;
+                    }
                 }
             }
         });
@@ -323,6 +481,448 @@ public class StationUI : MonoBehaviour
         
     }
 
+    private void LoadMarket()
+    {
+        marketList = marketVisualElement.Q<ListView>("sale-market");
+
+        Func<VisualElement> makeItemMarket = () => marketItemAsset.Instantiate();
+
+        Action<VisualElement, int> bindItemMarket = (e, i) => {
+            e.Q<Label>("item-name").text = currentStation.market.itemList[i].item.Name + " / " + currentStation.market.itemList[i].quantity.ToString() + "x";
+
+            if (currentMarketSelection != null && (currentMarketSelection.userData as MarketSelectionData).elementIndex == i && (currentMarketSelection.userData as MarketSelectionData).isMarket)
+            {
+                e.Q<VisualElement>("market-button").style.backgroundColor = new StyleColor(new Color32(176, 185, 232, 51));
+                currentMarketSelection = e;
+            }   
+            else
+                e.Q<VisualElement>("market-button").style.backgroundColor = new StyleColor(new Color32(104, 124, 227, 51));
+
+            if (currentMarketSelection != e)
+            {
+                if (i == marketHovered && isMarketHovered == true)
+                {
+                    e.Q<VisualElement>("market-button").style.backgroundColor = new StyleColor(new Color32(176, 185, 232, 51));
+                }
+                else if (i != marketHovered && isMarketHovered == true)
+                {
+                    e.Q<VisualElement>("market-button").style.backgroundColor = new StyleColor(new Color32(104, 124, 227, 51));
+                }
+            }
+
+            MarketSelectionData newData = new MarketSelectionData(i, true, currentStation.market.itemList[i].item);
+            e.userData = newData;
+
+            e.RegisterCallback<ClickEvent>(ev => {
+                
+                if ((ev.currentTarget as VisualElement) != currentMarketSelection)
+                    SetCurrentMarketItem(ev.currentTarget as VisualElement);
+                else
+                    SetCurrentMarketItem(null);
+            });
+
+            e.RegisterCallback<PointerEnterEvent>(ev => {
+
+                if (currentMarketSelection != null)
+                {
+                    int selectedElement = (currentMarketSelection.userData as MarketSelectionData).elementIndex;
+
+                    if ((currentMarketSelection.userData as MarketSelectionData).isMarket)
+                    {
+                        if (i != selectedElement)
+                        {
+                            VisualElement element = (ev.currentTarget as VisualElement).Q<VisualElement>("market-button");
+                            element.style.backgroundColor = new StyleColor(new Color32(176, 185, 232, 51));
+                        }
+                    }
+                    else
+                    {
+                        VisualElement element = (ev.currentTarget as VisualElement).Q<VisualElement>("market-button");
+                        element.style.backgroundColor = new StyleColor(new Color32(176, 185, 232, 51));
+                    }
+                }
+                else
+                {
+                    VisualElement element = (ev.currentTarget as VisualElement).Q<VisualElement>("market-button");
+                    element.style.backgroundColor = new StyleColor(new Color32(176, 185, 232, 51));
+                }
+
+                marketHovered = i;
+                isMarketHovered = true;
+            });
+
+            e.RegisterCallback<PointerLeaveEvent>(ev => {
+                if (currentMarketSelection != null)
+                {
+                    int selectedElement = (currentMarketSelection.userData as MarketSelectionData).elementIndex;
+
+                    if ((currentMarketSelection.userData as MarketSelectionData).isMarket)
+                    {
+                        if (i != selectedElement)
+                        {
+                            VisualElement element = (ev.currentTarget as VisualElement).Q<VisualElement>("market-button");
+                            element.style.backgroundColor = new StyleColor(new Color32(104, 124, 227, 51));
+                        }
+                    }
+                    else
+                    {
+                        VisualElement element = (ev.currentTarget as VisualElement).Q<VisualElement>("market-button");
+                        element.style.backgroundColor = new StyleColor(new Color32(104, 124, 227, 51));
+                    }
+                }
+                else
+                {
+                        VisualElement element = (ev.currentTarget as VisualElement).Q<VisualElement>("market-button");
+                        element.style.backgroundColor = new StyleColor(new Color32(104, 124, 227, 51));
+                }
+
+                marketHovered = -1;
+            });
+
+
+        };
+
+        marketList.makeItem = makeItemMarket;
+        marketList.bindItem = bindItemMarket;
+        marketList.itemsSource = currentStation.market.itemList;
+
+        demandList = marketVisualElement.Q<ListView>("sale-demand");
+
+        Func<VisualElement> makeItemDemand = () => marketItemAsset.Instantiate();
+
+        Action<VisualElement, int> bindItemDemand = (e, i) => {
+            e.Q<Label>("item-name").text = currentStation.demandMarket.itemList[i].item.Name;
+            MarketSelectionData newData = new MarketSelectionData(i, false, currentStation.demandMarket.itemList[i].item);
+            e.userData = newData;
+
+            if (currentMarketSelection != null && (currentMarketSelection.userData as MarketSelectionData).elementIndex == i && !(currentMarketSelection.userData as MarketSelectionData).isMarket)
+            {
+                e.Q<VisualElement>("market-button").style.backgroundColor = new StyleColor(new Color32(176, 185, 232, 51));
+                currentMarketSelection = e;
+            }   
+            else
+                e.Q<VisualElement>("market-button").style.backgroundColor = new StyleColor(new Color32(104, 124, 227, 51));
+
+            if (currentMarketSelection != e)
+            {
+                if (i == marketHovered && isMarketHovered == false)
+                {
+                    e.Q<VisualElement>("market-button").style.backgroundColor = new StyleColor(new Color32(176, 185, 232, 51));
+                }
+                else if (i == marketHovered && isMarketHovered == false)
+                {
+                    e.Q<VisualElement>("market-button").style.backgroundColor = new StyleColor(new Color32(104, 124, 227, 51));
+                }
+            }
+
+            e.RegisterCallback<ClickEvent>(ev => {
+                if ((ev.currentTarget as VisualElement) != currentMarketSelection)
+                    SetCurrentMarketItem(ev.currentTarget as VisualElement);
+                else
+                    SetCurrentMarketItem(null);
+            });
+
+            e.RegisterCallback<PointerEnterEvent>(ev => {
+
+                if (currentMarketSelection != null)
+                {
+                    int selectedElement = (currentMarketSelection.userData as MarketSelectionData).elementIndex;
+
+                    if (!(currentMarketSelection.userData as MarketSelectionData).isMarket)
+                    {
+                        if (i != selectedElement)
+                        {
+                            VisualElement element = (ev.currentTarget as VisualElement).Q<VisualElement>("market-button");
+                            element.style.backgroundColor = new StyleColor(new Color32(176, 185, 232, 51));
+                        }
+                    }
+                    else
+                    {
+                        VisualElement element = (ev.currentTarget as VisualElement).Q<VisualElement>("market-button");
+                        element.style.backgroundColor = new StyleColor(new Color32(176, 185, 232, 51));
+                    }
+                }
+                else
+                {
+                    VisualElement element = (ev.currentTarget as VisualElement).Q<VisualElement>("market-button");
+                    element.style.backgroundColor = new StyleColor(new Color32(176, 185, 232, 51));
+                }
+
+                marketHovered = i;
+                isMarketHovered = false;
+            });
+
+            e.RegisterCallback<PointerLeaveEvent>(ev => {
+                if (currentMarketSelection != null)
+                {
+                    int selectedElement = (currentMarketSelection.userData as MarketSelectionData).elementIndex;
+
+                    if (!(currentMarketSelection.userData as MarketSelectionData).isMarket)
+                    {
+                        if (i != selectedElement)
+                        {
+                            VisualElement element = (ev.currentTarget as VisualElement).Q<VisualElement>("market-button");
+                            element.style.backgroundColor = new StyleColor(new Color32(104, 124, 227, 51));
+                        }
+                    }
+                    else
+                    {
+                        VisualElement element = (ev.currentTarget as VisualElement).Q<VisualElement>("market-button");
+                        element.style.backgroundColor = new StyleColor(new Color32(104, 124, 227, 51));
+                    }
+                }
+                else
+                {
+                        VisualElement element = (ev.currentTarget as VisualElement).Q<VisualElement>("market-button");
+                        element.style.backgroundColor = new StyleColor(new Color32(104, 124, 227, 51));
+                }
+
+                marketHovered = -1;
+            });
+        };
+
+        demandList.makeItem = makeItemDemand;
+        demandList.bindItem = bindItemDemand;
+        demandList.itemsSource = currentStation.demandMarket.itemList;
+    }
+
+    private void SetCurrentMarketItem(VisualElement marketItem)
+    {
+        if (marketItem != null)
+        {
+            if (currentMarketSelection != null)
+            {
+
+                currentMarketSelection.Q<VisualElement>("market-button").style.backgroundColor = new StyleColor(new Color32(104, 124,227, 51));
+
+                marketVisualElement.Q<VisualElement>("item-header-content").style.opacity = 0.0f;
+                marketVisualElement.Q<VisualElement>("item-description").style.opacity = 0.0f;
+                marketVisualElement.Q<VisualElement>("buy-sell-section").style.opacity = 0.0f;
+                marketVisualElement.Q<VisualElement>("pricing-container").style.opacity = 0.0f;
+                marketVisualElement.Q<VisualElement>("purchase-section").style.opacity = 0.0f;
+
+                currentMarketSelection = marketItem;
+
+                currentMarketSelection.Q<VisualElement>("market-button").style.backgroundColor = new StyleColor(new Color32(176, 185, 232, 51));
+            }
+            else
+            {
+                currentMarketSelection = marketItem;
+
+                currentMarketSelection.Q<VisualElement>("market-button").style.backgroundColor = new StyleColor(new Color32(176, 185, 232, 51));
+
+                DisplayMarket();
+            }
+        }
+        else 
+        {
+            currentMarketSelection = null;
+
+            DisplayMarket();
+        }
+    }
+
+    private void RefreshMarket()
+    {
+        marketList.Rebuild();
+        demandList.Rebuild();
+
+        if (currentMarketSelection != null)
+        {
+            int itemIndex = (currentMarketSelection.userData as MarketSelectionData).elementIndex;
+            bool isMarket = (currentMarketSelection.userData as MarketSelectionData).isMarket;
+            BaseItem itemReference = (currentMarketSelection.userData as MarketSelectionData).itemReference;
+            Market marketElement = null;
+
+            if (isMarket)
+                marketElement = currentStation.market;
+            else
+                marketElement = currentStation.demandMarket;
+
+            if (marketElement.itemList[itemIndex].item.Key != itemReference.Key)
+            {
+                currentMarketSelection = null;
+            }
+                
+            
+        }
+
+        DisplayMarket();
+    }
+
+    private void DisplayMarket()
+    {
+        if (currentMarketSelection != null)
+        {
+            MarketSelectionData marketSelectionData = currentMarketSelection.userData as MarketSelectionData;
+
+            Market marketElement = null;
+
+            if (marketSelectionData.isMarket)
+                marketElement = currentStation.market;
+            else
+                marketElement = currentStation.demandMarket;
+
+            marketVisualElement.Q<VisualElement>("item-header-content").Q<Label>("item-name").text = marketElement.itemList[marketSelectionData.elementIndex].item.Name;
+            marketVisualElement.Q<Label>("item-description").text = marketElement.itemList[marketSelectionData.elementIndex].item.Description;
+            marketVisualElement.Q<Label>("buy-item-price").text = "Buy 1 for $" + marketElement.itemList[marketSelectionData.elementIndex].buyPrice.ToString();
+            marketVisualElement.Q<Label>("sell-item-price").text = "Sell 1 for $" + marketElement.itemList[marketSelectionData.elementIndex].sellPrice.ToString();
+
+            SliderInt quantSlider = marketVisualElement.Q<SliderInt>("quantity-slider");
+
+            if (marketSelectionData.isMarket)
+            {
+                marketVisualElement.Q<Label>("transaction-text").text = "Buy";
+                marketVisualElement.Q<VisualElement>("transaction-button").RegisterCallback<ClickEvent>(ev => {
+                    BuyItem(marketElement, marketSelectionData.elementIndex, quantSlider.value);
+                });
+
+                marketVisualElement.Q<VisualElement>("transaction-button").EnableInClassList("disabled", false);
+                marketVisualElement.Q<VisualElement>("transaction-button").EnableInClassList("main-button", true);
+
+                quantSlider.lowValue = 1;
+                quantSlider.highValue = marketElement.itemList[marketSelectionData.elementIndex].quantity;
+                quantSlider.value = 1;
+
+                quantSlider.RegisterValueChangedCallback(ev => {
+                    marketVisualElement.Q<Label>("quantity-amount").text = ev.newValue.ToString();
+                    marketVisualElement.Q<Label>("purchase-currency").text = "$" + (marketElement.itemList[marketSelectionData.elementIndex].buyPrice * ev.newValue).ToString();
+                });
+            }
+            else
+            {
+                Inventory playerInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;
+
+                BaseItem selectedItem = marketElement.itemList[marketSelectionData.elementIndex].item;
+
+                InventoryItem playerInvItem = playerInventory.FindItem(selectedItem);
+
+                marketVisualElement.Q<Label>("transaction-text").text = "Sell";
+
+                marketVisualElement.Q<VisualElement>("transaction-button").RegisterCallback<ClickEvent>(ev => {
+                    SellItemDemand(marketSelectionData.elementIndex, quantSlider.value);
+                });
+
+                if (playerInvItem != null)
+                {
+                    quantSlider.lowValue = 1;
+                    quantSlider.highValue = playerInvItem.quantity;
+                    quantSlider.value = 1;
+
+                    quantSlider.RegisterValueChangedCallback(ev => {
+                        HandleQuantSlider(ev, marketElement, marketSelectionData.elementIndex);
+                    });
+
+                    marketVisualElement.Q<VisualElement>("transaction-button").EnableInClassList("disabled", false);
+                    marketVisualElement.Q<VisualElement>("transaction-button").EnableInClassList("main-button", true);
+                    
+                    marketVisualElement.Q<VisualElement>("transaction-button").RegisterCallback<ClickEvent>(ev => {
+                        SellItemDemand(marketSelectionData.elementIndex, quantSlider.value);
+                    });
+                }
+                else
+                {
+                    quantSlider.lowValue = 0;
+                    quantSlider.highValue = 0;
+                    quantSlider.value = 0;
+
+                    quantSlider.UnregisterValueChangedCallback(ev => {
+                        HandleQuantSlider(ev, marketElement, marketSelectionData.elementIndex);
+                    });
+
+                    marketVisualElement.Q<Label>("quantity-amount").text = "0";
+                    marketVisualElement.Q<Label>("purchase-currency").text = "N/A";
+
+                    marketVisualElement.Q<VisualElement>("transaction-button").EnableInClassList("disabled", true);
+                    marketVisualElement.Q<VisualElement>("transaction-button").EnableInClassList("main-button", false);
+
+                    marketVisualElement.Q<VisualElement>("transaction-button").UnregisterCallback<ClickEvent>(ev => {
+                        SellItemDemand(marketSelectionData.elementIndex, quantSlider.value);
+                    });
+                }
+
+            }
+
+            marketVisualElement.Q<VisualElement>("item-header-no-content").style.opacity = 0.0f;
+
+        } 
+        else 
+        {
+            marketVisualElement.Q<VisualElement>("item-header-content").style.opacity = 0.0f;
+            marketVisualElement.Q<VisualElement>("item-description").style.opacity = 0.0f;
+            marketVisualElement.Q<VisualElement>("buy-sell-section").style.opacity = 0.0f;
+            marketVisualElement.Q<VisualElement>("pricing-container").style.opacity = 0.0f;
+            marketVisualElement.Q<VisualElement>("purchase-section").style.opacity = 0.0f;
+        }
+        
+    }
+
+    private void HandleQuantSlider(ChangeEvent<int> ev, Market marketElement, int elementIndex)
+    {
+        marketVisualElement.Q<Label>("quantity-amount").text = ev.newValue.ToString();
+        marketVisualElement.Q<Label>("purchase-currency").text = "$" + (marketElement.itemList[elementIndex].sellPrice * ev.newValue).ToString();
+    }
+
+    private bool BuyItem(Market market, int index, int quantity)
+    {
+        int totalCost = market.itemList[index].buyPrice * quantity;
+        Inventory playerInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;
+        float totalWeight = market.itemList[index].item.Weight * quantity;
+
+        if (playerInventory.CargoFullWithAmount(totalWeight, VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip))
+        {
+            return false;
+        }
+
+        if (totalCost > VulturaInstance.playerMoney)
+        {
+            return false;
+        }
+
+        InventoryItem purchasedItem = market.Purchase(index, quantity);
+
+        if (purchasedItem != null)
+        {
+            VulturaInstance.playerMoney = VulturaInstance.playerMoney - totalCost;
+            playerInventory.Add(purchasedItem, VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip);
+
+            EventManager.TriggerEvent("Market Changed");
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool SellItemDemand(int index, int quantity)
+    {
+        Market demandMarket = currentStation.demandMarket;
+
+        if (index < demandMarket.itemList.Count)
+        {
+            Inventory playerInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;
+
+            BaseItem soldItem = demandMarket.itemList[index].item;
+
+            int inventoryItemIndex = playerInventory.FindItemIndex(soldItem);
+
+            InventoryItem inventoryItem = playerInventory.PopAmount(inventoryItemIndex, quantity);
+
+            if (inventoryItem != null)
+            {
+                int totalMoney = demandMarket.itemList[index].sellPrice * quantity;
+
+                VulturaInstance.playerMoney += totalMoney;
+
+                currentStation.InsertIntoStockpile(soldItem, quantity);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private void LoadHauling()
     {
         VisualElement haulingContainer = haulingVisualElement.Q<VisualElement>("hauling-left");
@@ -330,7 +930,7 @@ public class StationUI : MonoBehaviour
         for (int i = 0; i < currentStation.contracts.Count; i++)
         {
             VisualElement haulingItem = haulingContainer.ElementAt(i);
-            haulingItem.Q<Label>("hauling-jump-distance").text = Random.Range(5, 12).ToString() + " jumps away";
+            haulingItem.Q<Label>("hauling-jump-distance").text = UnityEngine.Random.Range(5, 12).ToString() + " jumps away";
             haulingItem.Q<Label>("hauling-weight").text = currentStation.contracts[i].Items.currCargo.ToString() + " m3";
 
             haulingItem.userData = currentStation.contracts[i];
@@ -375,6 +975,7 @@ public class StationUI : MonoBehaviour
                 haulingVisualElement.Q<VisualElement>("hauling-header-content").style.opacity = 0.0f;
                 haulingVisualElement.Q<VisualElement>("cargo-item-content").style.opacity = 0.0f;
                 haulingVisualElement.Q<VisualElement>("cargo-destination").style.opacity = 0.0f;
+                haulingVisualElement.Q<VisualElement>("hauling-reward").style.opacity = 0.0f;
 
                 currHaulingContract = haulingContract;
 
@@ -426,12 +1027,15 @@ public class StationUI : MonoBehaviour
                 }
 
             }
+
+            haulingVisualElement.Q<Label>("hauling-reward").text = "$" + currContract.Reward.ToString();
         }
         else
         {
             haulingVisualElement.Q<VisualElement>("hauling-header-content").style.opacity = 0.0f;
             haulingVisualElement.Q<VisualElement>("cargo-item-content").style.opacity = 0.0f;
             haulingVisualElement.Q<VisualElement>("cargo-destination").style.opacity = 0.0f;
+            haulingVisualElement.Q<VisualElement>("hauling-reward").style.opacity = 0.0f;
         }
     }
 
@@ -507,6 +1111,8 @@ public class StationUI : MonoBehaviour
             return contactsVisualElement;
         else if (nextPage == StationPage.HAULING)
             return haulingVisualElement;
+        else if (nextPage == StationPage.MARKET)
+            return marketVisualElement;
 
         return null;
     }
