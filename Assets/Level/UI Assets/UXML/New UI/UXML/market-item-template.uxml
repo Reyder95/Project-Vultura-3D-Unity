@@ -5,7 +5,7 @@
         <ui:VisualElement style="width: 100%; flex-direction: row; align-items: center; justify-content: flex-start;">
             <ui:Label text="Facility Name" display-tooltip-when-elided="true" name="item-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-left; color: rgb(200, 200, 200); width: 50%;" />
             <ui:Label text="OK" display-tooltip-when-elided="true" name="item-percentage" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-center; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 15px; color: rgb(3, 255, 0); width: 20%;" />
-            <ui:Label text="Sell: $3000" display-tooltip-when-elided="true" name="item-percentage" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 15px; color: rgb(221, 221, 221); width: 30%;" />
+            <ui:Label text="Sell: $3000" display-tooltip-when-elided="true" name="item-price" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 15px; color: rgb(221, 221, 221); width: 30%;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

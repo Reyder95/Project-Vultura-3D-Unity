@@ -38,6 +38,8 @@ public class StationUI : MonoBehaviour
     VisualElement contactsVisualElement;    // The contacts page
     VisualElement marketVisualElement;      // The market page
 
+    VisualElement screenBackground;
+
     VisualElement backButton;               // The button that goes back in the page stack
     VisualElement exitButton;               // The button that exits out of the GUI
 
@@ -74,6 +76,7 @@ public class StationUI : MonoBehaviour
         LoadContacts();
         LoadHauling();
         LoadMarket();
+        GetComponent<UIWindowMovement>().InitializeMovementCallbacks();
     }
 
     private void Awake()
@@ -97,13 +100,32 @@ public class StationUI : MonoBehaviour
         this.currentMarketSelection = null;
         this.currHaulingContract = null;
         this.currContact = null;
+        UIScreenManager.Instance.RemoveScreen(this.gameObject.GetComponent<UIDocument>());
         this.gameObject.SetActive(false);
+    }
+
+    void Update() 
+    {
+        if (UIScreenManager.Instance.focusedScreen == this.gameObject.GetComponent<UIDocument>())
+        {
+            screenBackground.style.opacity = 1.0f;
+        }
+        else
+        {
+            screenBackground.style.opacity = 0.2f;
+        }
     }
 
     private void InitializeAllPages()
     {
         pageStack = new PageStack();    // Initialize the page stack for this UI element
         rootVisualElement = GetComponent<UIDocument>().rootVisualElement;   // Grab the overarching root visual element
+
+        screenBackground = rootVisualElement.Q<VisualElement>("screen-background");
+        
+        screenBackground.RegisterCallback<PointerDownEvent>(ev => {
+            UIScreenManager.Instance.SetFocusedScreen(this.gameObject.GetComponent<UIDocument>());
+        });
 
         // Grab all the pages and store them as visual elements
         homeVisualElement = rootVisualElement.Q<VisualElement>("station-home");
@@ -479,6 +501,8 @@ public class StationUI : MonoBehaviour
             convoChoices.ElementAt(i).style.opacity = 0.0f;
         }
         
+
+        UIScreenManager.Instance.SetFocusedScreen(this.gameObject.GetComponent<UIDocument>());
     }
 
     private void LoadMarket()
@@ -489,6 +513,7 @@ public class StationUI : MonoBehaviour
 
         Action<VisualElement, int> bindItemMarket = (e, i) => {
             e.Q<Label>("item-name").text = currentStation.market.itemList[i].item.Name + " / " + currentStation.market.itemList[i].quantity.ToString() + "x";
+            e.Q<Label>("item-price").text = "Buy: $" + currentStation.market.itemList[i].buyPrice.ToString();
 
             if (currentMarketSelection != null && (currentMarketSelection.userData as MarketSelectionData).elementIndex == i && (currentMarketSelection.userData as MarketSelectionData).isMarket)
             {
@@ -592,6 +617,8 @@ public class StationUI : MonoBehaviour
 
         Action<VisualElement, int> bindItemDemand = (e, i) => {
             e.Q<Label>("item-name").text = currentStation.demandMarket.itemList[i].item.Name;
+            e.Q<Label>("item-price").text = "Sell: $" + currentStation.demandMarket.itemList[i].sellPrice.ToString();
+
             MarketSelectionData newData = new MarketSelectionData(i, false, currentStation.demandMarket.itemList[i].item);
             e.userData = newData;
 
