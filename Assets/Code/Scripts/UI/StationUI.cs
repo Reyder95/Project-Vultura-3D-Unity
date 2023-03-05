@@ -24,14 +24,13 @@ public class MarketSelectionData {
     }
 }
 
-public class StationUI : MonoBehaviour
+public class StationUI : BaseOS
 {
+
     // Visual Tree Stuff
     public VisualTreeAsset marketItemAsset;
 
     PageStack pageStack;                    // The stack which handles what page is currently viewable.
-
-    VisualElement rootVisualElement;        // The root visual element for the entire station GUI
 
     VisualElement homeVisualElement;        // The homepage
     VisualElement haulingVisualElement;     // The cargo hauling contracts page
@@ -46,6 +45,9 @@ public class StationUI : MonoBehaviour
     StationPage nextPage;
 
     private UnityAction marketListener;
+    private UnityAction initListener;
+    private UnityAction openListener;
+    private UnityAction closeListener;
 
     bool back = false;
 
@@ -62,51 +64,40 @@ public class StationUI : MonoBehaviour
     ListView marketList;
     ListView demandList;
     VisualElement currentMarketSelection;
+    Market marketElement;
+    int quantSliderValue = -1;
 
     int marketHovered = -1;
     bool isMarketHovered = false;
 
-    public void InitializeStation(BaseStation station)
-    {
-        this.gameObject.SetActive(true);
-        this.currentStation = station;
-
-        InitializeAllPages();
-        LoadFacilities();
-        LoadContacts();
-        LoadHauling();
-        LoadMarket();
-        GetComponent<UIWindowMovement>().InitializeMovementCallbacks();
-    }
-
     private void Awake()
     {
         marketListener = new UnityAction(RefreshMarket);
+        initListener = new UnityAction(InitializeScreen);
+        openListener = new UnityAction(OpenScreen);
+        closeListener = new UnityAction(CloseScreen);
     }
 
     private void OnEnable()
     {
         EventManager.StartListening("Market Changed", marketListener);
+        EventManager.StartListening("station UI Event", initListener);
+        EventManager.StartListening("station UI Open", openListener);
+        EventManager.StartListening("station UI Close", closeListener);
     }
 
     private void OnDisable()
     {
         EventManager.StopListening("Market Changed", marketListener);
-    }
-
-    public void CloseStation()
-    {
-        this.currentStation = null;
-        this.currentMarketSelection = null;
-        this.currHaulingContract = null;
-        this.currContact = null;
-        UIScreenManager.Instance.RemoveScreen(this.gameObject.GetComponent<UIDocument>());
-        this.gameObject.SetActive(false);
+        EventManager.StopListening("station UI Event", initListener);
+        EventManager.StopListening("station UI Open", openListener);
+        EventManager.StopListening("station UI Close", closeListener);
     }
 
     void Update() 
     {
-        if (UIScreenManager.Instance.focusedScreen == this.gameObject.GetComponent<UIDocument>())
+
+        if (UIScreenManager.Instance.focusedScreen == screen)
         {
             screenBackground.style.opacity = 1.0f;
         }
@@ -116,22 +107,20 @@ public class StationUI : MonoBehaviour
         }
     }
 
-    private void InitializeAllPages()
+    public override void InitializeScreen()
     {
-        pageStack = new PageStack();    // Initialize the page stack for this UI element
-        rootVisualElement = GetComponent<UIDocument>().rootVisualElement;   // Grab the overarching root visual element
+        windowName = "station";
+        base.InitializeScreen();
 
-        screenBackground = rootVisualElement.Q<VisualElement>("screen-background");
-        
-        screenBackground.RegisterCallback<PointerDownEvent>(ev => {
-            UIScreenManager.Instance.SetFocusedScreen(this.gameObject.GetComponent<UIDocument>());
-        });
+        pageStack = new PageStack();    // Initialize the page stack for this UI element
+
+        screenBackground = screen.Q<VisualElement>("screen-background");
 
         // Grab all the pages and store them as visual elements
-        homeVisualElement = rootVisualElement.Q<VisualElement>("station-home");
-        haulingVisualElement = rootVisualElement.Q<VisualElement>("station-hauling");
-        contactsVisualElement = rootVisualElement.Q<VisualElement>("station-contacts");
-        marketVisualElement = rootVisualElement.Q<VisualElement>("station-market");
+        homeVisualElement = screen.Q<VisualElement>("station-home");
+        haulingVisualElement = screen.Q<VisualElement>("station-hauling");
+        contactsVisualElement = screen.Q<VisualElement>("station-contacts");
+        marketVisualElement = screen.Q<VisualElement>("station-market");
 
 
         // Only display "home"
@@ -146,20 +135,20 @@ public class StationUI : MonoBehaviour
         pageStack.Push(homeVisualElement);
         nextPage = StationPage.HOME;
 
-        backButton = rootVisualElement.Q<VisualElement>("back-button");
-        exitButton = rootVisualElement.Q<VisualElement>("exit-button");
+        backButton = screen.Q<VisualElement>("back-button");
+        exitButton = screen.Q<VisualElement>("exit-button");
         
-        rootVisualElement.Q<VisualElement>("button-contacts").RegisterCallback<ClickEvent>(ev => {
+        screen.Q<VisualElement>("button-contacts").RegisterCallback<ClickEvent>(ev => {
             nextPage = StationPage.CONTACT;
             homeVisualElement.style.opacity = new StyleFloat(0.0);
         });
 
-        rootVisualElement.Q<VisualElement>("button-hauling").RegisterCallback<ClickEvent>(ev => {
+        screen.Q<VisualElement>("button-hauling").RegisterCallback<ClickEvent>(ev => {
             nextPage = StationPage.HAULING;
             homeVisualElement.style.opacity = new StyleFloat(0.0);
         });
 
-        rootVisualElement.Q<VisualElement>("button-market").RegisterCallback<ClickEvent>(ev => {
+        screen.Q<VisualElement>("button-market").RegisterCallback<ClickEvent>(ev => {
             nextPage = StationPage.MARKET;
             homeVisualElement.style.opacity = new StyleFloat(0.0);
         });
@@ -491,7 +480,7 @@ public class StationUI : MonoBehaviour
         });
 
         exitButton.RegisterCallback<ClickEvent>(ev => {
-            CloseStation();
+            CloseScreen();
         });
 
         VisualElement convoChoices = contactsVisualElement.Q<VisualElement>("convo-choices");
@@ -502,7 +491,41 @@ public class StationUI : MonoBehaviour
         }
         
 
-        UIScreenManager.Instance.SetFocusedScreen(this.gameObject.GetComponent<UIDocument>());
+        try
+        {
+            UIScreenManager.Instance.SetFocusedScreen(screen);
+        } catch (System.NullReferenceException ex)
+        {
+            Debug.Log("UIScreenManage is not available right now.");
+        }
+
+    }
+ 
+    public override void OpenScreen()
+    {
+        base.OpenScreen();
+
+        this.currentStation = StationManager.station;
+
+        MasterOSManager.Instance.visualDict[windowName].style.display = DisplayStyle.Flex;
+        LoadFacilities();
+        LoadContacts();
+        LoadHauling();
+        LoadMarket();
+    }
+
+    public override void CloseScreen()
+    {
+        base.CloseScreen();
+
+        this.currentStation = null;
+        this.currentMarketSelection = null;
+        this.currHaulingContract = null;
+        this.currContact = null;
+        marketList = null;
+        demandList = null;
+        UIScreenManager.Instance.RemoveScreen(screen);
+        MasterOSManager.Instance.visualDict[windowName].style.display = DisplayStyle.None;
     }
 
     private void LoadMarket()
@@ -744,6 +767,7 @@ public class StationUI : MonoBehaviour
         else 
         {
             currentMarketSelection = null;
+            quantSliderValue = -1;
 
             DisplayMarket();
         }
@@ -751,30 +775,59 @@ public class StationUI : MonoBehaviour
 
     private void RefreshMarket()
     {
-        marketList.Rebuild();
-        demandList.Rebuild();
-
-        if (currentMarketSelection != null)
-        {
-            int itemIndex = (currentMarketSelection.userData as MarketSelectionData).elementIndex;
-            bool isMarket = (currentMarketSelection.userData as MarketSelectionData).isMarket;
-            BaseItem itemReference = (currentMarketSelection.userData as MarketSelectionData).itemReference;
-            Market marketElement = null;
-
-            if (isMarket)
-                marketElement = currentStation.market;
-            else
-                marketElement = currentStation.demandMarket;
-
-            if (marketElement.itemList[itemIndex].item.Key != itemReference.Key)
-            {
-                currentMarketSelection = null;
-            }
-                
+        try
+        {       
+            marketList.Rebuild();
+            demandList.Rebuild();
             
-        }
+            if (currentMarketSelection != null)
+            {
+                int itemIndex = (currentMarketSelection.userData as MarketSelectionData).elementIndex;
+                bool isMarket = (currentMarketSelection.userData as MarketSelectionData).isMarket;
+                BaseItem itemReference = (currentMarketSelection.userData as MarketSelectionData).itemReference;
 
-        DisplayMarket();
+                if (isMarket)
+                    marketElement = currentStation.market;
+                else
+                    marketElement = currentStation.demandMarket;
+
+                if (marketElement.itemList.Count > 0)
+                {
+                    if (marketElement.itemList[itemIndex].item.Key != itemReference.Key)
+                    {
+                        currentMarketSelection = null;
+                        quantSliderValue = -1;
+                    }
+                }
+                else
+                {
+                    currentMarketSelection = null;
+                    quantSliderValue = -1;
+                }
+
+
+
+            }
+
+            DisplayMarket();
+        } catch (System.NullReferenceException ex)
+        {
+            Debug.Log("Refresh market returned a null value");
+        }
+        catch (System.ArgumentOutOfRangeException ex)
+        {
+            Debug.Log("An index is out of range!");
+        }
+    }
+
+    void BuyItemCallback(ClickEvent ev)
+    {
+        BuyItem(marketElement, (currentMarketSelection.userData as MarketSelectionData).elementIndex, quantSliderValue);
+    }
+
+    void SellItemDemandCallback(ClickEvent ev)
+    {
+        SellItemDemand((currentMarketSelection.userData as MarketSelectionData).elementIndex, quantSliderValue);
     }
 
     private void DisplayMarket()
@@ -800,18 +853,24 @@ public class StationUI : MonoBehaviour
             if (marketSelectionData.isMarket)
             {
                 marketVisualElement.Q<Label>("transaction-text").text = "Buy";
-                marketVisualElement.Q<VisualElement>("transaction-button").RegisterCallback<ClickEvent>(ev => {
-                    BuyItem(marketElement, marketSelectionData.elementIndex, quantSlider.value);
-                });
+
+                marketVisualElement.Q<VisualElement>("transaction-button").UnregisterCallback<ClickEvent>(BuyItemCallback);
+
+                marketVisualElement.Q<VisualElement>("transaction-button").RegisterCallback<ClickEvent>(BuyItemCallback);
 
                 marketVisualElement.Q<VisualElement>("transaction-button").EnableInClassList("disabled", false);
                 marketVisualElement.Q<VisualElement>("transaction-button").EnableInClassList("main-button", true);
 
                 quantSlider.lowValue = 1;
                 quantSlider.highValue = marketElement.itemList[marketSelectionData.elementIndex].quantity;
-                quantSlider.value = 1;
+
+                if (quantSliderValue < 0)
+                    quantSlider.value = 1;
+                else
+                    quantSlider.value = quantSliderValue;
 
                 quantSlider.RegisterValueChangedCallback(ev => {
+                    quantSliderValue = ev.newValue;
                     marketVisualElement.Q<Label>("quantity-amount").text = ev.newValue.ToString();
                     marketVisualElement.Q<Label>("purchase-currency").text = "$" + (marketElement.itemList[marketSelectionData.elementIndex].buyPrice * ev.newValue).ToString();
                 });
@@ -827,14 +886,18 @@ public class StationUI : MonoBehaviour
                 marketVisualElement.Q<Label>("transaction-text").text = "Sell";
 
                 marketVisualElement.Q<VisualElement>("transaction-button").RegisterCallback<ClickEvent>(ev => {
-                    SellItemDemand(marketSelectionData.elementIndex, quantSlider.value);
+                    
                 });
 
                 if (playerInvItem != null)
                 {
                     quantSlider.lowValue = 1;
                     quantSlider.highValue = playerInvItem.quantity;
-                    quantSlider.value = 1;
+
+                    if (quantSliderValue < 0)
+                        quantSlider.value = 1;
+                    else
+                        quantSlider.value = quantSliderValue;
 
                     quantSlider.RegisterValueChangedCallback(ev => {
                         HandleQuantSlider(ev, marketElement, marketSelectionData.elementIndex);

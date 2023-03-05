@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="template-screen" src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/UXML/template-screen-faction.uxml?fileID=9197481963319205126&amp;guid=ba5f5fadc3130db48975a2cf9e1720b8&amp;type=3#template-screen-faction" />
     <Style src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/USS/station.uss?fileID=7433441132597879392&amp;guid=e59313331228e9c4e996eff770db43ab&amp;type=3#station" />
-    <ui:Instance template="template-screen" name="template-screen" style="height: 100%;">
+    <ui:Instance template="template-screen" name="template-screen" style="height: 100%; position: relative; left: 0; top: 0; right: 0; bottom: 0;">
         <AttributeOverrides element-name="page-title" text="Home" />
         <AttributeOverrides element-name="main-title" text="Station Title" />
         <ui:VisualElement name="station-home" style="height: 100%; visibility: visible; display: none; transition-duration: 0.2s;">

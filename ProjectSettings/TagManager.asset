@@ -9,11 +9,12 @@ TagManager:
   - Fleet Commander
   - Fleet List
   - MainUI
+  - Dropped Item
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Scaled Planet
   - Water
   - UI
   - 

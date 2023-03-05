@@ -7,11 +7,11 @@ public class UIScreenManager : MonoBehaviour
 {
     public static UIScreenManager Instance { get; private set; }
 
-    public static List<UIDocument> UIScreens = new List<UIDocument>();
+    public static UIScreenStack screenStack = new UIScreenStack();
 
-    public UIDocument focusedScreen = null;
+    public VisualElement focusedScreen = null;
 
-    void Start()
+    void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
 
@@ -34,27 +34,22 @@ public class UIScreenManager : MonoBehaviour
         }
     }
 
-    public void AddScreen(UIDocument uiScreen)
+    public void AddScreen(VisualElement uiScreen)
     {
-        if (!UIScreens.Contains(uiScreen))
-        {
-            UIScreens.Add(uiScreen);
-        }
+        screenStack.Access(uiScreen);
     }
 
-    public void RemoveScreen(UIDocument uiScreen)
+    public void RemoveScreen(VisualElement uiScreen)
     {
-        UIScreens.Remove(uiScreen);
+        screenStack.RemoveElement(uiScreen);
     }
 
-    public void SetFocusedScreen(UIDocument uiScreen)
+    public void SetFocusedScreen(VisualElement uiScreen)
     {
         focusedScreen = uiScreen;
 
         AddScreen(uiScreen);
     }
-
-
 
     public void UnfocusScreen()
     {   
@@ -77,11 +72,11 @@ public class UIScreenManager : MonoBehaviour
     {
         Vector2 pointerUiPos = new Vector2(screenPos.x, Screen.height - screenPos.y);
         
-        foreach (UIDocument uiDoc in UIScreens)
+        for (int i = screenStack.ScreenStack.Count - 1; i >= 0; i--)
         {
-            Vector2 newPointerPos = RuntimePanelUtils.ScreenToPanel(uiDoc.rootVisualElement.panel, pointerUiPos);
+            Vector2 newPointerPos = RuntimePanelUtils.ScreenToPanel(screenStack.ScreenStack[i].panel, pointerUiPos);
             List<VisualElement> picked = new List<VisualElement>();
-            uiDoc.rootVisualElement.panel.PickAll(newPointerPos, picked);
+            screenStack.ScreenStack[i].panel.PickAll(newPointerPos, picked);
 
             foreach (var ve in picked)
             {
@@ -89,7 +84,7 @@ public class UIScreenManager : MonoBehaviour
 
                 if (bcol.a != 0 && ve.enabledInHierarchy)
                 {
-                    SetFocusedScreen(uiDoc);
+                    //SetFocusedScreen(screenStack.ScreenStack[i]);
                     return true;
                 }
             }
