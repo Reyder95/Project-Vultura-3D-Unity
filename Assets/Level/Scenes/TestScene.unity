@@ -749,7 +749,7 @@ Transform:
   m_GameObject: {fileID: 604647486}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4162.482, y: -505.83, z: -1490.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.6534, y: 2.6534, z: 2.6534}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -959,7 +959,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 8
@@ -1136,9 +1136,7 @@ GameObject:
   - component: {fileID: 882685036}
   - component: {fileID: 882685035}
   - component: {fileID: 882685034}
-  - component: {fileID: 882685033}
   - component: {fileID: 882685037}
-  - component: {fileID: 882685038}
   m_Layer: 0
   m_Name: Master OS
   m_TagString: Untagged
@@ -1146,20 +1144,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &882685033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882685032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90badfc455136444697fdacba552e2cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  marketItemAsset: {fileID: 9197481963319205126, guid: ee08424be8530254aa29a0a6b987e073,
-    type: 3}
 --- !u!114 &882685034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1173,8 +1157,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiAssets:
+  - windowName: inventory
+    asset: {fileID: 9197481963319205126, guid: 93f7d871e82f9be43a9089ba7e1e9557, type: 3}
+    assets:
+    - assetKey: inventory-item
+      assetValue: {fileID: 9197481963319205126, guid: 6b8afb06a8ecb7e4eb8cffeaa75c1a98,
+        type: 3}
+    - assetKey: item-tooltip
+      assetValue: {fileID: 9197481963319205126, guid: f087aa880b5445242a083aa6910ab440,
+        type: 3}
+    - assetKey: item-stat
+      assetValue: {fileID: 9197481963319205126, guid: 63986bc2bf9f8124b9b2844f0e523bab,
+        type: 3}
   - windowName: station
     asset: {fileID: 9197481963319205126, guid: fafe8f20d2cec0e48b0f566546113e21, type: 3}
+    assets:
+    - assetKey: market-item
+      assetValue: {fileID: 9197481963319205126, guid: ee08424be8530254aa29a0a6b987e073,
+        type: 3}
+  inventoryOpen: 0
+  isDragging: 0
 --- !u!114 &882685035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1217,18 +1219,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f08b98b3cd2b8949a997810745b46d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &882685038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882685032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a29a90de60684f4ca2fc277508b96f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &974784504
@@ -2348,7 +2338,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

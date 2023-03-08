@@ -7,10 +7,6 @@ public class ScaledCameraHandler : MonoBehaviour
     public Camera mainCamera;
     public Transform referencePoint;
     public int scaleFactor;
-    void Start()
-    {
-
-    }
     // Update is called once per frame
     void Update()
     {

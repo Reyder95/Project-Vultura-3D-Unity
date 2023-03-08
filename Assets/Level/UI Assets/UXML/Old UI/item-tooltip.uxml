@@ -1,10 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="item-tooltip" picking-mode="Ignore" style="height: auto; width: 287px; color: rgb(231, 217, 217); background-color: rgb(77, 77, 77); padding-right: 5px; padding-left: 5px; padding-top: 5px; padding-bottom: 5px; flex-shrink: 0; flex-grow: 1; border-left-color: rgb(255, 0, 0); border-right-color: rgb(255, 0, 0); border-top-color: rgb(255, 0, 0); border-bottom-color: rgb(255, 0, 0); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; position: absolute;">
-        <ui:VisualElement name="header" style="margin-top: 0; margin-left: 0; flex-direction: row; flex-shrink: 0;">
+        <ui:VisualElement name="header" style="margin-top: 0; margin-left: 0; flex-direction: row; flex-shrink: 0; -unity-text-align: middle-left; height: auto;">
             <ui:VisualElement name="icon" style="width: 64px; height: 64px; -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgb(255, 255, 255); flex-shrink: 0;" />
-            <ui:VisualElement style="margin-left: 5px; flex-shrink: 0; width: 153px;">
-                <ui:Label text="Destruction Chaingun of Wrath" display-tooltip-when-elided="true" name="item-name" style="margin-left: 0; -unity-font-style: bold; white-space: normal; -unity-text-align: upper-left; width: auto; padding-left: 1px; flex-shrink: 1; position: absolute; top: -10px;" />
-                <ui:Label text="Chaingun" display-tooltip-when-elided="true" name="item-category" style="position: absolute; bottom: -10px; -unity-font-style: bold;" />
+            <ui:VisualElement style="margin-left: 5px; flex-shrink: 0; width: 153px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;">
+                <ui:Label text="Destruction Chaingun of Wrath" display-tooltip-when-elided="true" name="item-name" style="margin-left: 0; -unity-font-style: bold; white-space: normal; -unity-text-align: upper-left; width: auto; padding-left: 0; flex-shrink: 1; position: relative; top: auto; height: 100%; font-size: 13%; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                <ui:Label text="Chaingun" display-tooltip-when-elided="true" name="item-category" style="position: absolute; bottom: 0; -unity-font-style: bold; font-size: 13%; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="body" style="margin-left: 0; margin-top: 5px; flex-shrink: 0;">

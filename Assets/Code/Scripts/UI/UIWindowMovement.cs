@@ -32,29 +32,13 @@ public class UIWindowMovement : MonoBehaviour
             if (templateScreen == null)
                 templateScreen = rootVisualElement;
 
-            windowHeader.RegisterCallback<PointerDownEvent>(ev => {
-                isDragging = true;
-            });
+            windowHeader.RegisterCallback<PointerDownEvent>(SetDragging);
 
-            templateScreen.RegisterCallback<PointerDownEvent>(ev => {
-                originalMousePosition = ev.localPosition;
-            });
+            templateScreen.RegisterCallback<PointerDownEvent>(SetOriginalMousePosition);
 
-            templateScreen.RegisterCallback<PointerMoveEvent>(ev => {
-                float diffX = originalMousePosition.x - ev.localPosition.x;
-                float diffY = originalMousePosition.y - ev.localPosition.y;
+            templateScreen.RegisterCallback<PointerMoveEvent>(DragScreen);
 
-                if (isDragging)
-                {
-                    (ev.currentTarget as VisualElement).style.left = (ev.currentTarget as VisualElement).style.left.value.value - diffX;
-                    (ev.currentTarget as VisualElement).style.top = (ev.currentTarget as VisualElement).style.top.value.value - diffY;
-                }
-
-            });
-
-            templateScreen.RegisterCallback<PointerUpEvent>(ev => {
-                isDragging = false;
-            });
+            templateScreen.RegisterCallback<PointerUpEvent>(UnsetDragging);
         } catch (System.NullReferenceException ex)
         {
             Debug.Log("Null reference... do you have a proper UI Document or Template in your game object?");
@@ -64,25 +48,37 @@ public class UIWindowMovement : MonoBehaviour
 
     public void UninitializeMovementCallbacks()
     {
-        windowHeader.UnregisterCallback<PointerDownEvent>(ev => {
-            isDragging = true;
-        });
+        windowHeader.UnregisterCallback<PointerDownEvent>(SetDragging);
 
-        templateScreen.UnregisterCallback<PointerDownEvent>(ev => {
-            originalMousePosition = ev.localPosition;
-        });
+        templateScreen.UnregisterCallback<PointerDownEvent>(SetOriginalMousePosition);
 
-        templateScreen.UnregisterCallback<PointerMoveEvent>(ev => {
-            float diffX = originalMousePosition.x - ev.localPosition.x;
-            float diffY = originalMousePosition.y - ev.localPosition.y;
+        templateScreen.UnregisterCallback<PointerMoveEvent>(DragScreen);
+    }
 
-            if (isDragging)
-            {
-                templateScreen.style.left = templateScreen.style.left.value.value - diffX;
-                templateScreen.style.top = templateScreen.style.top.value.value - diffY;
-            }
+    public void SetDragging(PointerDownEvent ev)
+    {
+        isDragging = true;
+    }
 
-        });
+    public void UnsetDragging(PointerUpEvent ev)
+    {
+        isDragging = false;
+    }
+
+    public void SetOriginalMousePosition(PointerDownEvent ev)
+    {
+        originalMousePosition = ev.localPosition;
+    }
+
+    public void DragScreen(PointerMoveEvent ev)
+    {
+        float diffX = originalMousePosition.x - ev.localPosition.x;
+        float diffY = originalMousePosition.y - ev.localPosition.y;
+        if (isDragging)
+        {
+            (ev.currentTarget as VisualElement).style.left = (ev.currentTarget as VisualElement).style.left.value.value - diffX;
+            (ev.currentTarget as VisualElement).style.top = (ev.currentTarget as VisualElement).style.top.value.value - diffY;
+        }
     }
 
 

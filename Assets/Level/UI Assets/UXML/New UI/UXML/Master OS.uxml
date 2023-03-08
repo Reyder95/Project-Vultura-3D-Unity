@@ -1,3 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="main-content" style="height: 100%;" />
+    <ui:Template name="template-inventory-item" src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/UXML/template-inventory-item.uxml?fileID=9197481963319205126&amp;guid=6b8afb06a8ecb7e4eb8cffeaa75c1a98&amp;type=3#template-inventory-item" />
+    <ui:VisualElement name="main-content" style="height: 100%;">
+        <ui:Instance template="template-inventory-item" name="ghost-item" picking-mode="Ignore" style="position: absolute; height: 150px; display: flex; visibility: hidden;" />
+    </ui:VisualElement>
 </ui:UXML>

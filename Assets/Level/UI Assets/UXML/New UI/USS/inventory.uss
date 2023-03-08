@@ -1,0 +1,45 @@
+#unity-content-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+#inventory-item {
+    background-color: #3C3C3C;
+    transition-property: background-color;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#inventory-item:hover {
+    background-color: #42688B;
+}
+
+#unity-text-input {
+    background-color: #3C3C3C;
+    color: white;
+}
+
+.unity-scroller--vertical {
+    display: none;
+}
+
+.unity-scroll-view__vertical-scroller {
+    display: none !important;
+}
+
+.unity-scroller {
+    display: none;
+}
+
+#unity-low-button {
+    display: none;
+}
+
+#unity-high-button {
+    display: none;  
+}
+
+#unity-slider {
+    display: none;
+}
