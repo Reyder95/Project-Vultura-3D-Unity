@@ -9,6 +9,17 @@ public class StationMarket : OSUIHandler
 
     // Market page information
     VisualElement marketVisualElement;      // current page
+    
+    // Various visual element references
+    VisualElement itemHeaderContent;
+    VisualElement itemHeaderNoContent;
+    VisualElement itemDescription;
+    VisualElement buySellSection;
+    VisualElement pricingContainer;
+    VisualElement purchaseSection;
+    VisualElement transactionButton;
+    VisualElement buyItemPrice;
+    VisualElement sellItemPrice;
     ListView marketList;                    // The non-demand market listview (for buying)
     ListView demandList;                    // The demand market listview  (for selling)
     VisualElement currentMarketSelection;   // The current element selected (from the lists)
@@ -20,15 +31,6 @@ public class StationMarket : OSUIHandler
     SellMode sellMode = SellMode.BUY;       // The sell mode. If we are buying or selling (used in transaction button event)
     int marketHovered = -1;                 // which element is hovered to color the lists
     bool isMarketHovered = false;           // Checks if we are hovering over demand or market
-    VisualElement itemHeaderContent;
-    VisualElement itemHeaderNoContent;
-    VisualElement itemDescription;
-    VisualElement buySellSection;
-    VisualElement pricingContainer;
-    VisualElement purchaseSection;
-    VisualElement transactionButton;
-    VisualElement buyItemPrice;
-    VisualElement sellItemPrice;
     SliderInt quantSlider;
     Label quantityAmount;
     Label purchaseCurrency;
@@ -95,6 +97,7 @@ public class StationMarket : OSUIHandler
         demandList = null;
     }
 
+    // TODO condense both buy and both sell functions to singular functions rather than using 4 (2 instead of 4)
     void BuyItemCallback(ClickEvent ev)
     {
         BuyItem(marketElement, (currentMarketSelection.userData as MarketSelectionData).elementIndex, quantSliderValue);
@@ -105,6 +108,7 @@ public class StationMarket : OSUIHandler
         SellItemDemand((currentMarketSelection.userData as MarketSelectionData).elementIndex, quantSliderValue);
     }
 
+    // Load up the market into the list views
     public void LoadMarket()
     {        
 
@@ -227,6 +231,7 @@ public class StationMarket : OSUIHandler
             if (demandMarketIndex != -1)
             {
                 SetCurrentMarketItem(e);
+                Debug.Log("Test!");
                 demandMarketIndex = -1;
             }
 
@@ -327,6 +332,7 @@ public class StationMarket : OSUIHandler
         demandList.itemsSource = uiComponent.currentStation.demandMarket.itemList;
     }
 
+    // Handle the sell mode each frame, which changes things accordingly
     public void HandleSellMode()
     {
         if (currentInventorySellSelection != -1)
@@ -352,6 +358,7 @@ public class StationMarket : OSUIHandler
             SetCurrentMarketItem(null);
     }
 
+    // When the market page ends a transition of opacity
     private void MarketPageEndTransition(TransitionEndEvent ev)
     {
         if (ev.stylePropertyNames.Contains("opacity"))
@@ -372,40 +379,54 @@ public class StationMarket : OSUIHandler
         }
     }
 
+    // When the market page is hovered and the user lets go of left click
     private void MarketPagePointerUp(PointerUpEvent ev)
     {
         if (MasterOSManager.Instance.isDragging)
         {
+
             Inventory playerInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;
             currentInventorySellSelection = (int)MasterOSManager.Instance.currentDraggedElement.userData;   
             ExistsStruct existsValue = uiComponent.currentStation.demandMarket.ContainsItem(playerInventory.itemList[currentInventorySellSelection].item); 
+
+            
+            itemHeaderContent.style.opacity = 0.0f;
+            itemDescription.style.opacity = 0.0f;
+            buySellSection.style.opacity = 0.0f;
+            pricingContainer.style.opacity = 0.0f;
+            purchaseSection.style.opacity = 0.0f;
 
             if (currentMarketSelection != null)
                 marketSwitch = true;
 
             if (!existsValue.exists)
             {
-                SetCurrentMarketItem(null);
+                SetCurrentMarketItem(null, true);
             }
             else
             {
-                currentInventorySellSelection = -1;
                 demandMarketIndex = existsValue.index; 
-                if (currentMarketSelection != null)
+
+                if (itemHeaderNoContent.style.opacity != 0.0f)
+                    itemHeaderNoContent.style.opacity = 0.0f;
+
+                if (currentMarketSelection != null || currentInventorySellSelection != -1)
                 {
                     currentMarketSelection = null;   
-                    itemHeaderContent.style.opacity = 0.0f;
-                    itemDescription.style.opacity = 0.0f;
-                    buySellSection.style.opacity = 0.0f;
-                    pricingContainer.style.opacity = 0.0f;
-                    purchaseSection.style.opacity = 0.0f;
-
+                }
+                else if (currentMarketSelection != null)
+                {
+                    currentInventorySellSelection = -1;
                     RefreshMarket();
                 }
             }
+
+            marketList.Rebuild();
+            demandList.Rebuild();
         }
     }
 
+    // Whenn the item header content ends a transition of opacity
     private void ItemHeaderContentEndTransition(TransitionEndEvent ev)
     {
         if (ev.stylePropertyNames.Contains("opacity"))
@@ -437,6 +458,7 @@ public class StationMarket : OSUIHandler
         }
     }
 
+    // When the transaction button is pressed, a buy call or sell call will happen
     private void TransactionEvent(ClickEvent ev)
     {
         if (sellMode == SellMode.BUY)
@@ -447,6 +469,7 @@ public class StationMarket : OSUIHandler
         {
             if (currentInventorySellSelection != -1)
             {
+                itemPrice = quantSliderValue * (int)Math.Floor(VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.itemList[currentInventorySellSelection].item.GalacticPrice * 0.75f * 0.50f);
                     SellItemInventory(itemPrice);
                     DisplayMarket();
             }
@@ -482,8 +505,11 @@ public class StationMarket : OSUIHandler
         }
     }
 
-    private void SetCurrentMarketItem(VisualElement marketItem)
+    private void SetCurrentMarketItem(VisualElement marketItem, bool forceSwitch = false)
     {
+        if (forceSwitch)
+            marketSwitch = true;
+
         if (marketItem != null)
         {
             if (currentMarketSelection != null || marketSwitch)
@@ -708,6 +734,7 @@ public class StationMarket : OSUIHandler
                 Inventory playerInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;
                 int itemPrice = (int)Math.Floor(playerInventory.itemList[currentInventorySellSelection].item.GalacticPrice * 0.75f * 0.50f);
 
+
                 itemHeaderContent.Q<Label>("item-name").text = playerInventory.itemList[currentInventorySellSelection].item.Name;
                 (itemDescription as Label).text = playerInventory.itemList[currentInventorySellSelection].item.Description;
                 (buyItemPrice as Label).text = "Buy 1 for $0";
@@ -726,6 +753,7 @@ public class StationMarket : OSUIHandler
                 quantSlider.RegisterValueChangedCallback(ev => {
                     HandleQuantSliderInv(ev, itemPrice);
                 });
+                
                 transactionButton.EnableInClassList("disabled", false);
                 transactionButton.EnableInClassList("main-button", true);
 

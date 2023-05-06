@@ -24,6 +24,7 @@ public class MasterOSManager : MonoBehaviour
     public VisualElement currentDraggedElement = null;
     public VisualElement visualDragger = null;
     public VisualElement elementOver = null;
+    public bool overElement = true;
 
     public Dictionary<string, VisualElement> visualDict = new Dictionary<string, VisualElement>();
 
@@ -35,6 +36,7 @@ public class MasterOSManager : MonoBehaviour
 
     void Awake()
     {
+        overElement = true;
         DontDestroyOnLoad(this.gameObject);
 
         // Singleton handler
@@ -70,6 +72,15 @@ public class MasterOSManager : MonoBehaviour
                 if (isDragging)
                 {
                     UIScreenManager.Instance.SetFocusedScreen(rootAsset);
+                    overElement = true;
+                }
+            });
+
+            rootAsset.Q<VisualElement>("screen-background").RegisterCallback<PointerLeaveEvent>(ev => {
+                if (isDragging)
+                {
+                    Debug.Log("AAAHHHHH");
+                    overElement = false;
                 }
             });
 
@@ -95,6 +106,11 @@ public class MasterOSManager : MonoBehaviour
 
             if (isDragging)
             {
+                if (!overElement)
+                {
+                    
+                }
+
                 isDragging = false;
 
                 if (currentDraggedElement != null)

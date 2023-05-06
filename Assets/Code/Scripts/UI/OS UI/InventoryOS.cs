@@ -106,8 +106,6 @@ public class InventoryOS : BaseOS
             }
 
         }
-        
-        
     }
 
     private void DisplayInventory()

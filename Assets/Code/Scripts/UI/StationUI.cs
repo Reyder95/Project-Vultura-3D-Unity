@@ -51,7 +51,7 @@ public class StationUI : BaseOS
     VisualElement homeVisualElement;        // The homepage
     VisualElement haulingVisualElement;     // The cargo hauling contracts page
     StationContact stationContactPage;
-    StationMarket stationMarketPage;
+    StationMarketNew stationMarketPage;
 
     // Home page information
     VisualElement buttonStorage;            // The button for opening storage
@@ -104,8 +104,8 @@ public class StationUI : BaseOS
             screenBackground.style.opacity = 0.2f;
         }
 
-        if (stationMarketPage != null) 
-            stationMarketPage.HandleSellMode();
+        // if (stationMarketPage != null) 
+        //     stationMarketPage.HandleSellMode();
     }
 
     public override void InitializeScreen()
@@ -120,7 +120,7 @@ public class StationUI : BaseOS
         // Grab all the pages and store them as visual elements
         homeVisualElement = screen.Q<VisualElement>("station-home");
         haulingVisualElement = screen.Q<VisualElement>("station-hauling");
-        stationMarketPage = new StationMarket();
+        stationMarketPage = new StationMarketNew();
         stationContactPage = new StationContact();
 
         stationContactPage.SetTaggedReferences(screen, this);
