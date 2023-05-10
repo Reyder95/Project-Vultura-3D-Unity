@@ -197,3 +197,44 @@
     transition-property: background-color;
     transition-duration: 0.2s;
 }
+
+#inventory-item {
+    background-color: #3C3C3C;
+    transition-property: background-color;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#inventory-item:hover {
+    background-color: #42688B;
+}
+
+#station-inventory #inventory-scroller .unity-scroller--vertical {
+    display: none;
+}
+
+#station-inventory #inventory-scroller .unity-scroll-view__vertical-scroller {
+    display: none !important;
+}
+
+#station-inventory #inventory-scroller .unity-scroller {
+    display: none;
+}
+
+#station-inventory #inventory-scroller #unity-low-button {
+    display: none;
+}
+
+#station-inventory #inventory-scroller #unity-high-button {
+    display: none;  
+}
+
+#station-inventory #inventory-scroller #unity-slider {
+    display: none;
+}
+
+#station-inventory #inventory-scroller #unity-content-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 100%;
+}

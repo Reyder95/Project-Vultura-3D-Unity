@@ -61,6 +61,21 @@ public class BaseStation : BaseSelectable
         InitializeBaseStockpile();
 
         RunProductionChain();
+
+        int randSize = UnityEngine.Random.Range(3, 10);
+
+        for (int i = 0; i < randSize; i++)
+        {
+            BaseItem tempItem = ItemManager.GenerateRandomItem();
+            int quantity = 1;
+            
+            if (tempItem.Stackable)
+                quantity = UnityEngine.Random.Range(1, 100);
+
+            InventoryItem tempInventoryItem = new InventoryItem(tempItem, quantity);
+
+            storage.Add(tempInventoryItem, null);
+        }
     }
     public void InitializeFacilities()
     {

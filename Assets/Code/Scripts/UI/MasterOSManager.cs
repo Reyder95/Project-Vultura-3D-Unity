@@ -124,7 +124,7 @@ public class MasterOSManager : MonoBehaviour
                 {
                     if (elementOver.userData != currentDraggedElement.userData)
                     {
-                        VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.Swap((int)elementOver.userData, (int)currentDraggedElement.userData);
+                        VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.Swap((elementOver.userData as DragData).Index, (currentDraggedElement.userData as DragData).Index);
                         EventManager.TriggerEvent("inventory UI Refresh");
                     }
                 }

@@ -114,6 +114,16 @@ public class Game : MonoBehaviour
         }
     }
 
+    public void DestroyGameObject(GameObject myObject)
+    {
+        Destroy(myObject);
+    }
+
+    public GameObject InstantiateGameObject(GameObject myObject)
+    {
+        return Instantiate(myObject, VulturaInstance.currentPlayer.transform.position, VulturaInstance.currentPlayer.transform.rotation);
+    }
+
     // -- Debug -- Show FPS display
     public void ToggleFPS(InputAction.CallbackContext context)
     {

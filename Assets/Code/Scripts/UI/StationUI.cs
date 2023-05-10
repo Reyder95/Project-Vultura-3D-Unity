@@ -52,6 +52,7 @@ public class StationUI : BaseOS
     VisualElement haulingVisualElement;     // The cargo hauling contracts page
     StationContact stationContactPage;
     StationMarketNew stationMarketPage;
+    StationInventory stationInventory;
 
     // Home page information
     VisualElement buttonStorage;            // The button for opening storage
@@ -79,6 +80,7 @@ public class StationUI : BaseOS
     public override void OnEnable()
     {
         EventManager.StartListening("Market Changed", stationMarketPage.marketListener);
+        EventManager.StartListening("storage UI Refresh", stationInventory.refreshListener);
         EventManager.StartListening("station UI Event", initListener);
         EventManager.StartListening("station UI Open", openListener);
         EventManager.StartListening("station UI Close", closeListener);
@@ -90,6 +92,7 @@ public class StationUI : BaseOS
         EventManager.StopListening("station UI Event", initListener);
         EventManager.StopListening("station UI Open", openListener);
         EventManager.StopListening("station UI Close", closeListener);
+        EventManager.StopListening("station UI Refresh", stationInventory.refreshListener);
     }
 
     public override void Update() 
@@ -122,12 +125,16 @@ public class StationUI : BaseOS
         haulingVisualElement = screen.Q<VisualElement>("station-hauling");
         stationMarketPage = new StationMarketNew();
         stationContactPage = new StationContact();
+        stationInventory = new StationInventory();
 
         stationContactPage.SetTaggedReferences(screen, this);
         stationContactPage.SetCallbacks();
 
         stationMarketPage.SetTaggedReferences(screen, this);
         stationMarketPage.SetCallbacks();
+
+        stationInventory.SetTaggedReferences(screen, this);
+        stationInventory.SetCallbacks();
 
         // Only display "home"
         haulingVisualElement.style.display = DisplayStyle.None;
@@ -174,6 +181,10 @@ public class StationUI : BaseOS
         buttonMarket.RegisterCallback<ClickEvent>(ev => {
             nextPage = StationPage.MARKET;
             homeVisualElement.style.opacity = new StyleFloat(0.0);
+        });
+
+        buttonStorage.RegisterCallback<ClickEvent>(e => {
+            stationInventory.DisplayInventory();
         });
 
         // Transition events

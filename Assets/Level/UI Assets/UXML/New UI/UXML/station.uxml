@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="template-screen" src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/UXML/template-screen-faction.uxml?fileID=9197481963319205126&amp;guid=ba5f5fadc3130db48975a2cf9e1720b8&amp;type=3#template-screen-faction" />
+    <ui:Template name="template-inventory-item" src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/UXML/template-inventory-item.uxml?fileID=9197481963319205126&amp;guid=6b8afb06a8ecb7e4eb8cffeaa75c1a98&amp;type=3#template-inventory-item" />
     <Style src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/USS/station.uss?fileID=7433441132597879392&amp;guid=e59313331228e9c4e996eff770db43ab&amp;type=3#station" />
     <ui:Instance template="template-screen" name="template-screen" style="height: 100%; position: relative; left: 0; top: 0; right: 0; bottom: 0;">
         <AttributeOverrides element-name="page-title" text="Home" />
@@ -366,6 +367,54 @@
                         <ui:VisualElement name="quantity-slider-container" style="align-items: center; justify-content: center; width: 60%; background-color: rgb(53, 53, 53); margin-left: 15px; border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; flex-direction: row;">
                             <ui:SliderInt picking-mode="Ignore" value="42" high-value="100" name="quantity-slider" style="align-items: center; width: 70%; margin-left: 0; margin-right: 0; margin-top: -2px; margin-bottom: 0;" />
                             <ui:Label text="30" display-tooltip-when-elided="true" name="quantity-amount" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); font-size: 20px; color: rgb(210, 210, 210); -unity-font-style: bold; height: 100%; -unity-text-align: middle-left;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="station-inventory" style="position: absolute; left: -45%; width: 40%; height: 100%; background-color: rgb(53, 53, 53); display: none;">
+            <ui:VisualElement style="height: 10%; background-color: rgb(62, 100, 135);">
+                <ui:Label text="Storage" display-tooltip-when-elided="true" style="-unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); font-size: 40px; color: rgb(210, 210, 210); height: 100%; -unity-text-align: middle-left; margin-left: 10px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="height: 90%; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: column-reverse;">
+                <ui:ScrollView name="inventory-scroller" style="height: 100%; width: 100%; background-color: rgb(60, 57, 56); border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; display: none;">
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                    <ui:Instance template="template-inventory-item" name="template-inventory-item" style="height: 20%;" />
+                </ui:ScrollView>
+                <ui:ListView focusable="true" name="ship-list" selection-type="None" fixed-item-height="75" reorderable="false" style="width: 100%; height: 100%; background-color: rgb(60, 57, 56); border-left-color: rgb(62, 100, 135); border-right-color: rgb(62, 100, 135); border-top-color: rgb(62, 100, 135); border-bottom-color: rgb(62, 100, 135); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px;" />
+                <ui:VisualElement name="button-row" style="height: 10%; margin-bottom: 20px; flex-direction: row;">
+                    <ui:VisualElement content-container="true" name="item-button" class="main-button" style="height: 100%; width: 50%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left; margin-left: 5px;">
+                        <ui:VisualElement style="width: 100%; height: 100%; flex-direction: row; align-items: center; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; margin-top: 2px; transition-timing-function: ease; transition-duration: 0.2s; transition-property: background-color;">
+                            <ui:VisualElement style="width: 100%; align-items: center; height: 100%; justify-content: center; -unity-text-align: middle-left; background-color: rgba(255, 255, 255, 0);">
+                                <ui:Label text="Items" display-tooltip-when-elided="true" name="item-text" style="-unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); font-size: 20px; -unity-font-style: bold; height: 100%; -unity-text-align: middle-left; justify-content: center; -unity-background-scale-mode: stretch-to-fill; color: rgb(202, 202, 202); margin-top: 0;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement content-container="true" name="ship-button" class="main-button" style="height: 100%; width: 50%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left; margin-left: 5px;">
+                        <ui:VisualElement style="width: 100%; height: 100%; flex-direction: row; align-items: center; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; margin-top: 2px; transition-timing-function: ease; transition-duration: 0.2s; transition-property: background-color;">
+                            <ui:VisualElement style="width: 100%; align-items: center; height: 100%; justify-content: center; -unity-text-align: middle-left; background-color: rgba(255, 255, 255, 0);">
+                                <ui:Label text="Ships" display-tooltip-when-elided="true" name="ship-text" style="-unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); font-size: 20px; -unity-font-style: bold; height: 100%; -unity-text-align: middle-left; justify-content: center; -unity-background-scale-mode: stretch-to-fill; color: rgb(202, 202, 202); margin-top: 0;" />
+                            </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>

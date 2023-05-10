@@ -72,13 +72,15 @@ public class InventoryOS : BaseOS
             UIScreenManager.Instance.SetFocusedScreen(screen);
         });
 
-        inventoryScroller = screen.Q<VisualElement>("inventory-scroller");
+        inventoryScroller = screen.Q<VisualElement>("inventory-scroller").Q<VisualElement>("inventory-scroller");
         cargoBar = screen.Q<VisualElement>("bar-background");
         cargoCapacity = screen.Q<Label>("cargo-capacity");
 
         screen.Q<VisualElement>("exit-button").RegisterCallback<ClickEvent>(ev => {
             OpenScreen();
         });
+
+        screen.RegisterCallback<PointerUpEvent>(DropItemEvent);
     }
 
     public override void OpenScreen()
@@ -131,7 +133,7 @@ public class InventoryOS : BaseOS
                 item.Q<Label>("item-name").text = playerInventory.itemList[i].item.Name;
                 item.Q<Label>("item-count").text = playerInventory.itemList[i].quantity.ToString();
 
-                item.userData = i;
+                item.userData = new DragData(i, "inventory", playerInventory);
 
                 item.RegisterCallback<PointerDownEvent>(ev => {
                     VisualElement eventTarget = (ev.currentTarget as VisualElement);
@@ -176,18 +178,18 @@ public class InventoryOS : BaseOS
                             tempTooltip = loadableAssets["item-tooltip"].Instantiate();
                         }
 
-                        Color32 rarityColor = VulturaInstance.GenerateItemColor(playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item.Rarity);
+                        Color32 rarityColor = VulturaInstance.GenerateItemColor(playerInventory.itemList[((ev.currentTarget as VisualElement).userData as DragData).Index].item.Rarity);
                         tempTooltip.Q<VisualElement>("item-tooltip").style.borderBottomColor = new StyleColor(rarityColor);
                         tempTooltip.Q<VisualElement>("item-tooltip").style.borderLeftColor = new StyleColor(rarityColor);
                         tempTooltip.Q<VisualElement>("item-tooltip").style.borderRightColor = new StyleColor(rarityColor);
                         tempTooltip.Q<VisualElement>("item-tooltip").style.borderTopColor = new StyleColor(rarityColor);
-                        tempTooltip.Q<Label>("item-name").text = playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item.Name;
+                        tempTooltip.Q<Label>("item-name").text = playerInventory.itemList[((ev.currentTarget as VisualElement).userData as DragData).Index].item.Name;
                         tempTooltip.Q<Label>("item-name").style.color = new StyleColor(rarityColor);
-                        tempTooltip.Q<Label>("item-category").text = playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item.Category;
-                        tempTooltip.Q<Label>("item-rarity").text = VulturaInstance.enumStringParser(playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item.Rarity.ToString());
+                        tempTooltip.Q<Label>("item-category").text = playerInventory.itemList[((ev.currentTarget as VisualElement).userData as DragData).Index].item.Category;
+                        tempTooltip.Q<Label>("item-rarity").text = VulturaInstance.enumStringParser(playerInventory.itemList[((ev.currentTarget as VisualElement).userData as DragData).Index].item.Rarity.ToString());
                         tempTooltip.Q<Label>("item-rarity").style.color = new StyleColor(rarityColor);
 
-                        BaseItem currItem = playerInventory.itemList[(int)(ev.currentTarget as VisualElement).userData].item;
+                        BaseItem currItem = playerInventory.itemList[((ev.currentTarget as VisualElement).userData as DragData).Index].item;
 
                         VisualElement affixesElement = tempTooltip.Q<VisualElement>("affixes");
 
@@ -294,6 +296,25 @@ public class InventoryOS : BaseOS
             {
                 Debug.Log("Inventory isn't loaded yet!");
             }
+        }
+    }
+
+    private void DropItemEvent(PointerUpEvent ev)
+    {
+        if (MasterOSManager.Instance.isDragging && (MasterOSManager.Instance.currentDraggedElement.userData as DragData).WindowContext != "inventory")
+        {
+            Inventory playerInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;
+            Inventory stationInventory = (MasterOSManager.Instance.currentDraggedElement.userData as DragData).InvFrom;
+
+            InventoryItem item = stationInventory.Pop((MasterOSManager.Instance.currentDraggedElement.userData as DragData).Index);
+            
+            bool success = playerInventory.Add(item, VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip);
+
+            if (!success)
+                stationInventory.Add(item, null);
+
+            DisplayInventory();
+            EventManager.TriggerEvent("storage UI Refresh");
         }
     }
 }
