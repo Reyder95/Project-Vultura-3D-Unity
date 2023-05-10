@@ -8,12 +8,14 @@ public class Contract
     private string destination;     // The destination of the contract (which system it's in)
     private Inventory items;        // The items that are to be delivered from the contract
     private string faction;         // The faction requesting this to be done
+    private int reward;
 
-    public Contract(string destination, Inventory items, string faction)
+    public Contract(string destination, Inventory items, string faction, int reward)
     {
         this.destination = destination;
         this.items = items;
         this.faction = faction;
+        this.reward = reward;
     }
 
     public string Destination
@@ -37,6 +39,14 @@ public class Contract
         get
         {
             return this.faction;
+        }
+    }
+
+    public int Reward
+    {
+        get
+        {
+            return this.reward;
         }
     }
 }

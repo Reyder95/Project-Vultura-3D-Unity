@@ -5,6 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class RangeValue
 {
-    public int min;
-    public int max;
+    public float min;
+    public float max;
 }

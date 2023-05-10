@@ -1,0 +1,41 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/USS/inventory.uss?fileID=7433441132597879392&amp;guid=011f75fb9cfb39f4ca37608f375ba5f9&amp;type=3#inventory" />
+    <ui:VisualElement name="template-screen-nofaction" style="width: 100%; height: 100%;">
+        <ui:VisualElement name="screen-background" style="position: absolute; left: 25%; top: 20%; right: 25%; bottom: 20%; background-color: rgba(60, 60, 60, 0.65); border-left-color: rgb(57, 113, 165); border-right-color: rgb(57, 113, 165); border-top-color: rgb(57, 113, 165); border-bottom-color: rgb(57, 113, 165); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;">
+            <ui:VisualElement name="screen-header" style="height: 100px; background-color: rgba(75, 169, 255, 0.4); flex-direction: row; align-items: center; padding-left: 5px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; justify-content: space-between;">
+                <ui:VisualElement name="left-content" style="flex-direction: row-reverse; width: 33.3%; -unity-text-align: upper-left; justify-content: flex-end; align-items: center;" />
+                <ui:VisualElement name="middle-content" style="width: 33.3%; align-items: center; justify-content: center; height: 100%;">
+                    <ui:Label text="Cargo" display-tooltip-when-elided="true" name="page-title" style="-unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); font-size: 40px; color: rgb(255, 255, 255); height: 100%; -unity-text-align: middle-left;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="right-content" style="width: 33.3%; align-items: center; justify-content: flex-start; flex-direction: row-reverse; height: 100%;">
+                    <ui:VisualElement name="exit-button" style="background-image: resource(&apos;SVGs/xmark&apos;); width: 50px; height: 50px; color: rgb(255, 255, 255); -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgba(115, 100, 100, 0); -unity-background-scale-mode: scale-to-fit; -unity-text-outline-color: rgb(183, 125, 125); margin-right: 3px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement content-container="true" name="main-content" style="height: 100%; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;">
+                <ui:ScrollView name="inventory-scroller" style="height: 80%; width: 100%; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; background-color: rgba(60, 57, 56, 0.9); border-left-color: rgb(66, 104, 139); border-right-color: rgb(66, 104, 139); border-top-color: rgb(66, 104, 139); border-bottom-color: rgb(66, 104, 139); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; flex-direction: row; flex-wrap: wrap; flex-shrink: 0;" />
+                <ui:VisualElement style="height: 20%; margin-left: 0; margin-right: 0; margin-top: 10px; margin-bottom: 0; background-color: rgb(58, 55, 54); border-left-color: rgb(54, 91, 126); border-right-color: rgb(54, 91, 126); border-top-color: rgb(54, 91, 126); border-bottom-color: rgb(54, 91, 126); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; flex-direction: row;">
+                    <ui:VisualElement style="width: 50%; height: 100%; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; align-items: center; justify-content: flex-start; flex-direction: row;">
+                        <ui:VisualElement style="width: 100%; height: 100%; justify-content: center; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+                            <ui:VisualElement name="bar-background" style="position: absolute; left: 0; right: 0; top: 40%; bottom: 40%; background-color: rgb(39, 39, 39); padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; border-left-color: rgb(200, 86, 86); border-right-color: rgb(200, 86, 86); border-top-color: rgb(200, 86, 86); border-bottom-color: rgb(200, 86, 86); margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;">
+                                <ui:VisualElement name="bar-percent" style="-unity-text-outline-color: rgb(209, 209, 209); height: 100%; width: 30%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; background-color: rgb(54, 91, 126);" />
+                                <ui:Label text="300/500 (28%)" display-tooltip-when-elided="true" name="cargo-capacity" style="position: absolute; top: 10%; bottom: 10%; -unity-text-align: middle-center; left: 25%; right: 25%; -unity-font-style: bold; color: rgb(255, 255, 255); font-size: 17px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;);" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:Label text="Cargo" display-tooltip-when-elided="true" style="position: absolute; left: 10px; top: 10px; -unity-font-style: bold; font-size: 20px; color: rgb(210, 210, 210); margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 1px; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="width: 50%; height: 100%; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; justify-content: center; flex-direction: row; align-items: center;">
+                        <ui:TextField picking-mode="Ignore" style="width: 70%; height: 30%;" />
+                        <ui:VisualElement content-container="true" name="transaction-button" class="main-button" style="height: 50%; width: 40%; justify-content: flex-start; align-items: center; flex-direction: row; -unity-text-align: middle-left; background-color: rgb(54, 91, 126); margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;);">
+                            <ui:VisualElement style="width: 100%; height: 100%; flex-direction: row; align-items: center; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; margin-top: 2px; transition-timing-function: ease; transition-duration: 0.2s; transition-property: background-color;">
+                                <ui:VisualElement style="width: 100%; align-items: center; height: 100%; justify-content: center; -unity-text-align: middle-left; background-color: rgba(255, 255, 255, 0);">
+                                    <ui:Label text="Search" display-tooltip-when-elided="true" name="transaction-text" style="-unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); font-size: 20px; -unity-font-style: bold; height: 100%; -unity-text-align: middle-left; justify-content: center; -unity-background-scale-mode: stretch-to-fill; color: rgb(202, 202, 202); margin-top: 0;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:Label text="Search" display-tooltip-when-elided="true" style="position: absolute; left: 10px; top: 10px; -unity-font-style: bold; font-size: 20px; color: rgb(210, 210, 210); margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 1px; padding-right: 0; padding-top: 0; padding-bottom: 0; right: auto;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

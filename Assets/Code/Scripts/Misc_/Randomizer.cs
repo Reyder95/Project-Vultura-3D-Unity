@@ -9,7 +9,7 @@ public static class Randomizer
         List<int> retrievedBucket = StatBuckets.buckets[statsData.key];
         int randInt = Random.Range(0, retrievedBucket.Count);
         StatTier retrievedTier = statsData.tiers[retrievedBucket[randInt]];
-        int value = Random.Range(retrievedTier.values.min, retrievedTier.values.max);
+        int value = Random.Range((int)retrievedTier.values.min, (int)retrievedTier.values.max);
 
         return new ItemStat(
             statsData.key, 

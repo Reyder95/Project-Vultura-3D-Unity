@@ -18,6 +18,8 @@ public class Game : MonoBehaviour
 
     public ShipSpawner shipSpawner;     // Handles spawning fleets in the world. Easy for debugging, but will later be used as a way to spawn a fleet of specific ships.
 
+    public GameObject StationUI;        // Handles the station UI pane
+
     // Debugging Elements
     public GameObject GRAPHY;
 
@@ -110,6 +112,16 @@ public class Game : MonoBehaviour
 
             VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo.Add(tempInventoryItem, VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip);
         }
+    }
+
+    public void DestroyGameObject(GameObject myObject)
+    {
+        Destroy(myObject);
+    }
+
+    public GameObject InstantiateGameObject(GameObject myObject)
+    {
+        return Instantiate(myObject, VulturaInstance.currentPlayer.transform.position, VulturaInstance.currentPlayer.transform.rotation);
     }
 
     // -- Debug -- Show FPS display

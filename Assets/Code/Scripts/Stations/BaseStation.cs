@@ -12,10 +12,8 @@ public class BaseStation : BaseSelectable
     public Inventory storage = new Inventory();
     public List<InstantiatedShip> shipStorage = new List<InstantiatedShip>();
     public Market market = new Market();
-
+    public Market demandMarket = new Market();
     public List<Contract> contracts = new List<Contract>();
-
-    //public Inventory stockpile = new Inventory();
 
     public List<Facility> facilities = new List<Facility>();
 
@@ -56,13 +54,28 @@ public class BaseStation : BaseSelectable
                 contractInventory.Add(new InventoryItem(contractItem, randQuantity), null);
             }
             
-            this.AddContract(contractInventory, "system2", "some-faction");
+            this.AddContract(contractInventory, "system2", "some-faction", Random.Range(1000, 50000));
         }
 
         InitializeFacilities();
         InitializeBaseStockpile();
 
         RunProductionChain();
+
+        int randSize = UnityEngine.Random.Range(3, 10);
+
+        for (int i = 0; i < randSize; i++)
+        {
+            BaseItem tempItem = ItemManager.GenerateRandomItem();
+            int quantity = 1;
+            
+            if (tempItem.Stackable)
+                quantity = UnityEngine.Random.Range(1, 100);
+
+            InventoryItem tempInventoryItem = new InventoryItem(tempItem, quantity);
+
+            storage.Add(tempInventoryItem, null);
+        }
     }
     public void InitializeFacilities()
     {
@@ -76,14 +89,14 @@ public class BaseStation : BaseSelectable
         {
             foreach (FacilityItem consumer in facility.consuming)
             {
-                facility.stockpile.Add(new InventoryItem(ItemManager.GenerateSpecificBase(consumer.item.Key), Random.Range(30, 50)), null);
+                facility.stockpile.Add(new InventoryItem(ItemManager.GenerateSpecificBase(consumer.item.Key), Random.Range(1, 10)), null);
             }
         }
     }
 
-    public void AddContract(Inventory contractInventory, string destination, string faction)
+    public void AddContract(Inventory contractInventory, string destination, string faction, int reward)
     {
-        this.contracts.Add(new Contract(destination, contractInventory, faction));
+        this.contracts.Add(new Contract(destination, contractInventory, faction, reward));
     }
 
     public void RunProductionChain()
@@ -103,7 +116,7 @@ public class BaseStation : BaseSelectable
             {
                 foreach (FacilityItem item in facility.consuming)
                 {
-                    market.AddDemandSeller(ItemManager.GenerateSpecificBase(item.item.Key));
+                    demandMarket.AddDemandSeller(ItemManager.GenerateSpecificBase(item.item.Key));
                 }
             }
             
@@ -125,6 +138,9 @@ public class BaseStation : BaseSelectable
                     if (consumerItem.Key == item.Key)
                     {
                         facility.stockpile.Add(new InventoryItem(item, quantity), null);
+
+                        EventManager.TriggerEvent("Market Changed");
+
                         return true;
                     }
                 }

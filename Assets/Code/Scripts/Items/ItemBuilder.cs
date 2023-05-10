@@ -37,7 +37,7 @@ public class ItemBuilder
     private BaseItem BuildChaingun(Category categoryData, ItemData itemData)
     {
         VulturaInstance.ItemRarity itemRarity = Randomizer.GenerateItemRarity();
-        int weight = UnityEngine.Random.Range(itemData.weight.min, itemData.weight.max);
+        float weight = UnityEngine.Random.Range(itemData.weight.min, itemData.weight.max);
         StatHandler statHandler = new StatHandler();
 
         statHandler.BuildStatList(itemRarity, itemData.main_stats);
@@ -64,7 +64,7 @@ public class ItemBuilder
     private BaseItem BuildRocketLauncher(Category categoryData, ItemData itemData)
     {
         VulturaInstance.ItemRarity itemRarity = Randomizer.GenerateItemRarity();
-        int weight = UnityEngine.Random.Range(itemData.weight.min, itemData.weight.max);
+        float weight = UnityEngine.Random.Range(itemData.weight.min, itemData.weight.max);
         
         StatHandler statHandler = new StatHandler();
         
@@ -92,7 +92,7 @@ public class ItemBuilder
     private BaseItem BuildCargoExpander(Category categoryData, ItemData itemData)
     {
         VulturaInstance.ItemRarity itemRarity = Randomizer.GenerateItemRarity();
-        int weight = UnityEngine.Random.Range(itemData.weight.min, itemData.weight.max);
+        float weight = UnityEngine.Random.Range(itemData.weight.min, itemData.weight.max);
         
         StatHandler statHandler = new StatHandler();
         
@@ -119,7 +119,7 @@ public class ItemBuilder
 
     private BaseItem BuildTradeGood(Category categoryData, ItemData itemData)
     {
-        int weight = UnityEngine.Random.Range(itemData.weight.min, itemData.weight.max);
+        float weight = UnityEngine.Random.Range(itemData.weight.min, itemData.weight.max);
 
         BaseItem generatedItem = new TradeGood(
             itemData.key, 

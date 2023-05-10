@@ -74,7 +74,22 @@ public class Inventory
         }
 
         return true;
+    }
 
+    public bool CargoFullWithAmount(float cargo, InstantiatedShip ship)
+    {
+        if (ship != null)
+        {
+            float cargoCap = ship.shipStats.baseCargo;
+            float currShipCargo = ship.Cargo.currCargo;
+
+            if ((currShipCargo + cargo) <= cargoCap)
+                return false;
+
+            return true;
+        }
+
+        return false;
     }
 
     // Check if an item exists within the inventory
@@ -122,25 +137,32 @@ public class Inventory
     // Pop a particular amount of the item, not always the entire thing
     public InventoryItem PopAmount(int index, int quantity)
     {
-        if (itemList.Count > index)
-        {
-            if (itemList[index].quantity >= quantity)
+        try {
+            if (itemList.Count > index)
             {
-                itemList[index].quantity -= quantity;
-                InventoryItem item = new InventoryItem(itemList[index].item, quantity);
-                
-                if (itemList[index].quantity == 0)
-                    itemList.RemoveAt(index);
+                if (itemList[index].quantity >= quantity)
+                {
+                    itemList[index].quantity -= quantity;
+                    InventoryItem item = new InventoryItem(itemList[index].item, quantity);
 
-                currCargo -= (item.quantity * item.item.Weight);
+                    if (itemList[index].quantity == 0)
+                        itemList.RemoveAt(index);
 
-                EventManager.TriggerEvent("Inventory Modified");
+                    currCargo -= (item.quantity * item.item.Weight);
 
-                return item;
+                    EventManager.TriggerEvent("Inventory Modified");
+
+                    return item;
+                }
             }
+
+            return null;
+        } catch (System.ArgumentOutOfRangeException ex)
+        {
+            Debug.Log(ex);
+            return null;
         }
 
-        return null;
     }
 
     public InventoryItem ReturnAmountOfItem(int index, int quantity)

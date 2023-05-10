@@ -1,0 +1,240 @@
+#station-home {
+    transition-property: opacity;
+    transition-duration: 1s;
+    transition-timing-function: linear;
+}
+
+#screen-background {
+    transition-property: opacity;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in;
+}
+
+#station-contacts {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#station-hauling {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#station-market {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#contact-content-overlay {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#text-overlay {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#contact-no-selection-content {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#contact-header-content {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#hauling-header-content {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#no-hauling-content {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#cargo-item-content {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#cargo-destination {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#footer-accept {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#hauling-reward {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#item-header-no-content {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#item-header-content {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#item-description {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#buy-sell-section {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#pricing-container {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#purchase-section {
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+.disabled {
+    opacity: 0.1;
+    background-color: #3F77AB;
+}
+
+.main-button {
+    transition: 0.2s;
+    background-color: #2C5378;
+}
+
+.main-button:hover {
+    transition: 0.2s;
+    background-color: #3F77AB;
+    cursor: link;
+}
+
+.facility-button {
+    transition: 0.2s;
+    background-color: rgba(104, 124, 227, 0.2);
+}
+
+.market-button {
+    transition: 0.2s;
+    background-color: rgba(104, 124, 227, 0.2);
+}
+
+.facility-button:hover {
+    transition: 0.2s;
+    background-color: rgba(176, 185, 232, 0.2);
+}
+
+.active-facility-button {
+    background-color: rgba(176, 185, 232, 0.2);
+}
+
+.contact-text {
+    line-height: 40px;
+}
+
+.unity-list-view__item:hover {
+    background-color: none;
+}
+
+.unity-base-slider__tracker {
+    background-color: #3E6487;
+    height: 7px;
+    border-radius: 1px;
+    border-color: #3E6487;
+    margin-top: -3px;
+}
+
+.unity-base-slider__dragger {
+    background-color: #619CD4;
+    border-color: #619CD4;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    margin-top: -8px;
+    transition-property: background-color;
+    transition-duration: 0.2s;
+}
+
+#unity-drag-container {
+    justify-content: center;
+    text-align: middle
+}
+
+#quantity-slider-container:hover .unity-base-slider__dragger {
+    background-color: #A1BBD4;
+    border-color: #A1BBD4;
+    transition-property: background-color;
+    transition-duration: 0.2s;
+}
+
+#inventory-item {
+    background-color: #3C3C3C;
+    transition-property: background-color;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+}
+
+#inventory-item:hover {
+    background-color: #42688B;
+}
+
+#station-inventory #inventory-scroller .unity-scroller--vertical {
+    display: none;
+}
+
+#station-inventory #inventory-scroller .unity-scroll-view__vertical-scroller {
+    display: none !important;
+}
+
+#station-inventory #inventory-scroller .unity-scroller {
+    display: none;
+}
+
+#station-inventory #inventory-scroller #unity-low-button {
+    display: none;
+}
+
+#station-inventory #inventory-scroller #unity-high-button {
+    display: none;  
+}
+
+#station-inventory #inventory-scroller #unity-slider {
+    display: none;
+}
+
+#station-inventory #inventory-scroller #unity-content-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 100%;
+}

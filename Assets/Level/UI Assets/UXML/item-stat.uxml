@@ -1,3 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Label text="test" display-tooltip-when-elided="true" name="item-stat" style="white-space: normal;" />
-</ui:UXML>
