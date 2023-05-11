@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/USS/station.uss?fileID=7433441132597879392&amp;guid=e59313331228e9c4e996eff770db43ab&amp;type=3#station" />
+    <ui:VisualElement name="market-button" class="market-button" style="height: 80px; align-items: center; justify-content: flex-start; padding-left: 20px; padding-right: 20px; padding-top: 20px; padding-bottom: 20px; flex-direction: row; margin-bottom: 0; visibility: visible; transition-duration: 0.2s; overflow: hidden;">
+        <ui:VisualElement name="item-icon" style="flex-direction: row; padding-top: 10%; width: 10%; background-color: rgb(183, 183, 183);" />
+        <ui:VisualElement style="width: 100%; flex-direction: row; align-items: center; justify-content: flex-start;">
+            <ui:Label text="Facility Name" display-tooltip-when-elided="true" name="item-name" style="margin-left: 10px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 20px; -unity-text-align: middle-left; color: rgb(200, 200, 200); width: 50%;" />
+            <ui:Label text="OK" display-tooltip-when-elided="true" name="item-percentage" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-center; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 15px; color: rgb(3, 255, 0); width: 20%;" />
+            <ui:Label text="Sell: $3000" display-tooltip-when-elided="true" name="item-price" style="flex-direction: row; height: 100%; align-items: center; -unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; font-size: 15px; color: rgb(221, 221, 221); width: 30%;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-direction: row; margin-bottom: 10px;">
+        <ui:VisualElement name="item-icon" style="width: 64px; height: 64px; -unity-background-image-tint-color: rgb(202, 202, 202); background-color: rgb(255, 255, 255); flex-direction: row;" />
+        <ui:Label text="25 Chaingun" display-tooltip-when-elided="true" name="item-name" style="justify-content: flex-start; -unity-text-align: middle-left; margin-left: 10px; -unity-font-style: bold; font-size: 15px; color: rgba(212, 212, 212, 255);" />
+    </ui:VisualElement>
+</ui:UXML>

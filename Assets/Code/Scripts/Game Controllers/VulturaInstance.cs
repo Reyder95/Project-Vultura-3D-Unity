@@ -24,6 +24,12 @@ public static class VulturaInstance
         Legendary
     }
 
+    public enum TransactionLocation {
+        SUPPLY,
+        DEMAND,
+        INVENTORY
+    }
+
     // The type of movement between storage
     public enum MoveType {
         SINGLE,

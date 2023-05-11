@@ -44,13 +44,22 @@ public class InstantiatedShip : BaseSelectable
     // Add an item to the ship's cargo
     public bool AddToCargo(InventoryItem item)
     {
-        float futureCargo = (item.quantity * item.item.Weight) + cargo.currCargo;
 
-        if (futureCargo < shipStats.baseCargo)
+        if (CanAddToCargo(item))
         {
             cargo.Add(item, this);
             return true;
         }
+
+        return false;
+    }
+
+    public bool CanAddToCargo(InventoryItem item)
+    {
+        float futureCargo = (item.quantity * item.item.Weight) + cargo.currCargo;
+
+        if (futureCargo <= shipStats.baseCargo)
+            return true;
 
         return false;
     }

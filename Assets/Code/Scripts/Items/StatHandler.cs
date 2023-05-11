@@ -87,7 +87,7 @@ public class StatHandler
         foreach (StatisticValue mainStat in mainStats)
         {
             MainStat lookupStat = JSONDataHandler.FindMainStatByKey(mainStat.key);
-            int statValue = Random.Range(mainStat.values.min, mainStat.values.max);
+            int statValue = Random.Range((int)mainStat.values.min, (int)mainStat.values.max);
             ItemStat newMainStat = new ItemStat(mainStat.key, null, null, null, lookupStat.display_text, statValue, 0);
 
             main.Add(newMainStat);

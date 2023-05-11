@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="template-screen-nofaction" src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/UXML/template-screen-nofaction.uxml?fileID=9197481963319205126&amp;guid=8296f6157e314e546b4a9f514d6cef72&amp;type=3#template-screen-nofaction" />
+    <ui:Instance template="template-screen-nofaction" name="template-screen-nofaction" style="height: 100%; width: 50%;" />
+</ui:UXML>

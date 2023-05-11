@@ -5,24 +5,45 @@ using UnityEngine.UIElements;
 
 public class UITestScript : MonoBehaviour
 {
-    private Label counterLabel;
-    private Button counterButton;
-
-    private int count = 0;
-
-    private void OnEnable()
+    void Start()
     {
-        var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
-        counterLabel = rootVisualElement.Q<Label>("counter-label");
-        counterButton = rootVisualElement.Q<Button>("counter-button");
 
-        counterButton.RegisterCallback<ClickEvent>(ev => IncrementCounter());
     }
 
-    private void IncrementCounter()
+    public void InitializeUI()
     {
-        count++;
+        GetComponent<UIWindowMovement>().InitializeMovementCallbacks(this.gameObject.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("testui"));
+        GetComponent<UIWindowMovement>().InitializeMovementCallbacks(this.gameObject.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("testui2"));
+        //UIScreenManager.Instance.AddScreen(this.gameObject.GetComponent<UIDocument>());
 
-        counterLabel.text = "Count: " + count;
+        this.gameObject.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("testui").Q<VisualElement>("screen-background").RegisterCallback<PointerDownEvent>(ev => {
+            UIScreenManager.Instance.SetFocusedScreen(this.gameObject.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("testui"));
+            GetComponent<UIWindowMovement>().InitializeMovementCallbacks(this.gameObject.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("testui"));
+        });
+        this.gameObject.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("testui2").Q<VisualElement>("screen-background").RegisterCallback<PointerDownEvent>(ev => {
+            UIScreenManager.Instance.SetFocusedScreen(this.gameObject.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("testui2"));
+            GetComponent<UIWindowMovement>().InitializeMovementCallbacks(this.gameObject.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("testui2"));
+        });
+    }
+
+    void Update()
+    {
+        if (UIScreenManager.Instance.focusedScreen != this.gameObject.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("testui"))
+        {
+            this.gameObject.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("testui").Q<VisualElement>("screen-background").style.opacity = 0.2f;
+        }
+        else
+        {
+            this.gameObject.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("testui").Q<VisualElement>("screen-background").style.opacity = 1.0f;
+        }
+
+        if (UIScreenManager.Instance.focusedScreen != this.gameObject.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("testui2"))
+        {
+            this.gameObject.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("testui2").Q<VisualElement>("screen-background").style.opacity = 0.2f;
+        }
+        else
+        {
+            this.gameObject.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("testui2").Q<VisualElement>("screen-background").style.opacity = 1.0f;
+        }
     }
 }

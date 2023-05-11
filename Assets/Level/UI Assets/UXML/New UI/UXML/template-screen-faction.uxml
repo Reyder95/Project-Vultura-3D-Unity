@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/USS/template-screen.uss?fileID=7433441132597879392&amp;guid=4ad34e25b374a1f46a41ec1c54444aef&amp;type=3#template-screen" />
+    <ui:VisualElement name="screen-background" style="position: absolute; left: 25%; top: 25%; right: 25%; bottom: 10%; background-color: rgba(60, 60, 60, 0.89); border-left-color: rgb(57, 113, 165); border-right-color: rgb(57, 113, 165); border-top-color: rgb(57, 113, 165); border-bottom-color: rgb(57, 113, 165); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;">
+        <ui:VisualElement name="screen-header" style="height: 100px; background-color: rgba(75, 169, 255, 0.4); flex-direction: row; align-items: center; padding-left: 5px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; justify-content: space-between;">
+            <ui:VisualElement name="left-content" style="flex-direction: row-reverse; width: 33.3%; -unity-text-align: upper-left; justify-content: flex-end; align-items: center;">
+                <ui:Label text="Main Title" display-tooltip-when-elided="true" name="main-title" style="-unity-text-align: middle-left; -unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); font-size: 40px; margin-left: 20px; color: rgb(255, 255, 255);" />
+                <ui:VisualElement name="back-button" style="background-image: resource(&apos;SVGs/chevron-left&apos;); width: 50px; height: 80%; color: rgb(255, 255, 255); -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgba(115, 100, 100, 0); -unity-background-scale-mode: scale-and-crop; -unity-text-outline-color: rgb(183, 125, 125); flex-shrink: 1; flex-basis: auto; flex-wrap: nowrap; justify-content: flex-start;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="middle-content" style="width: 33.3%; align-items: center; justify-content: center; height: 100%;">
+                <ui:Label text="Page Title" display-tooltip-when-elided="true" name="page-title" style="-unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); font-size: 40px; color: rgb(255, 255, 255); height: 100%; -unity-text-align: middle-left;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="right-content" style="width: 33.3%; align-items: center; justify-content: flex-start; flex-direction: row-reverse; height: 100%; -unity-text-align: middle-left;">
+                <ui:VisualElement name="exit-button" style="background-image: resource(&apos;SVGs/xmark&apos;); width: 50px; height: 50px; color: rgb(255, 255, 255); -unity-background-image-tint-color: rgb(255, 255, 255); background-color: rgba(115, 100, 100, 0); -unity-background-scale-mode: scale-to-fit; -unity-text-outline-color: rgb(183, 125, 125); margin-right: 3px;" />
+                <ui:VisualElement name="faction-content" style="flex-direction: row; height: 100%; align-items: center; width: 100%; justify-content: flex-end;">
+                    <ui:VisualElement name="faction-icon" style="padding-top: 13%; width: 13%; background-color: rgb(243, 243, 243);" />
+                    <ui:Label text="Faction Name" display-tooltip-when-elided="true" name="faction-name" style="margin-left: 10px; margin-right: 10px; -unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); font-size: 40px; justify-content: center; color: rgb(221, 221, 221);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement content-container="true" name="main-content" style="height: 100%;" />
+    </ui:VisualElement>
+</ui:UXML>

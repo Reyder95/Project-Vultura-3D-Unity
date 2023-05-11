@@ -149,8 +149,6 @@ public class InventoryManager : MonoBehaviour
                 Debug.Log("Inventory isn't loaded yet!");
             }
         }
-
-
     }
 
     public void OpenInventory()

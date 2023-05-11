@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
     public void OpenInventory(InputAction.CallbackContext context)
     {
         if (context.started)
-            InventoryManager.Instance.HandleInventory();
+            EventManager.TriggerEvent("inventory UI Open");
     }
 
     void PickUpItem()
