@@ -18,6 +18,8 @@ public class ShipSpawner : MonoBehaviour
         // Instantiate fleet commander
         GameObject mainShipPrefab = Instantiate(fleet.FleetCommander.ShipReference, origin, Quaternion.identity);
 
+        fleet.FleetCommander.InitializeMounts(mainShipPrefab);
+
         mainShipPrefab.GetComponent<PrefabHandler>().SetAssociativeData(fleet.FleetCommander, fleet);
         // Instantiate rest of fleet
 
@@ -53,9 +55,12 @@ public class ShipSpawner : MonoBehaviour
                 Random.Range(origin.y - radius, origin.y + radius),
                 Random.Range(origin.z - radius, origin.z + radius)
                 ), Quaternion.identity);
+
+            ship.InitializeMounts(shipPrefab);
             shipPrefab.GetComponent<PrefabHandler>().SetAssociativeData(ship, fleet);
             shipPrefab.GetComponent<PrefabHandler>().currShip.SetObject(shipPrefab);
             shipPrefab.GetComponent<PrefabHandler>().SetShipColor(fleetColor);
+
         }
     }
 }

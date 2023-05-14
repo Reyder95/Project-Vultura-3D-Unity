@@ -89,6 +89,14 @@
             "galactic_price_base": 100,
             "type": "trade_good",
             "bases_file": "Trade Goods/TradeGoods"
+        },
+        {
+            "key": "ore",
+            "description": "A metallic substance usually mined from asteroids. Useful for industry.",
+            "stackable": true,
+            "galactic_price_base": 100,
+            "type": "ore",
+            "bases_file": "Ores/Ores"
         }
     ]
 }

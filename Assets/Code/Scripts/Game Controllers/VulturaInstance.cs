@@ -12,7 +12,8 @@ public static class VulturaInstance
         Trade_Good,
         Ammo,
         Active_Module,
-        Passive_Module
+        Passive_Module,
+        Ore
     }
 
     // The rarity of various items
