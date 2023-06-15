@@ -48,10 +48,7 @@ public class MountComponent : MonoBehaviour
             {
                 StopTurret();
             }
-
         }
-
-
     }
 
     public void StopTurret()
@@ -60,7 +57,6 @@ public class MountComponent : MonoBehaviour
 
         if (component is LaserTurretComponent)
         {
-            Debug.Log("TEST!");
             (component as LaserTurretComponent).StopLaser();
         }
     }

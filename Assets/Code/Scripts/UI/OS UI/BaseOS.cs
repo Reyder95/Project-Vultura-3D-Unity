@@ -42,6 +42,8 @@ public class BaseOS
     public virtual void OpenScreen()
     {
         UIScreenManager.Instance.SetFocusedScreen(screen);
+        Debug.Log("Screen is");
+        Debug.Log(screen);
         MasterOSManager.Instance.GetComponent<UIWindowMovement>().InitializeMovementCallbacks(screen);
 
         screen.Q<VisualElement>("screen-background").RegisterCallback<PointerDownEvent>(HandleFocus);

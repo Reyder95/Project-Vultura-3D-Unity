@@ -38,6 +38,16 @@ public class InstantiatedShip : BaseSelectable
 
     }
 
+    public void EquipMount(int index, ActiveModule module)
+    {
+        GameObject turretMount = turretMounts[index];
+
+        turretMount.GetComponent<MountComponent>().EquipTurret(module);
+        turretMount.SetActive(true);
+
+        EventManager.TriggerEvent("equipped");
+    }
+
     public void InitializeMounts(GameObject instantiatedPrefab)
     {
         turretMounts.Clear();

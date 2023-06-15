@@ -126,6 +126,11 @@ public class PlayerController : MonoBehaviour
             VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.turretMounts[0].GetComponent<MountComponent>().EquipTurret(ItemManager.GenerateRandomBaseFromCategory("chaingun") as ActiveModule);
             
         }
+
+        if (Input.GetKeyDown("c"))
+        {
+            EventManager.TriggerEvent("ship-screen UI Open");
+        }
     }
 
     // Handle the warp when warp button is pressed

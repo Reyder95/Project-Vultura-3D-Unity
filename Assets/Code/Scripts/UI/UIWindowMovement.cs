@@ -48,11 +48,19 @@ public class UIWindowMovement : MonoBehaviour
 
     public void UninitializeMovementCallbacks()
     {
-        windowHeader.UnregisterCallback<PointerDownEvent>(SetDragging);
+        try
+        {
+            windowHeader.UnregisterCallback<PointerDownEvent>(SetDragging);
 
-        templateScreen.UnregisterCallback<PointerDownEvent>(SetOriginalMousePosition);
+            templateScreen.UnregisterCallback<PointerDownEvent>(SetOriginalMousePosition);
 
-        templateScreen.UnregisterCallback<PointerMoveEvent>(DragScreen);
+            templateScreen.UnregisterCallback<PointerMoveEvent>(DragScreen);
+        } catch (System.NullReferenceException)
+        {
+            Debug.Log("Null reference. Either windowHeader or templateScreenn is null!");
+            Debug.Log(templateScreen);
+        }
+
     }
 
     public void SetDragging(PointerDownEvent ev)

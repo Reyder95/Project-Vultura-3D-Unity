@@ -43,6 +43,27 @@ public class Game : MonoBehaviour
 
         ItemManager.InitializeItemBuilder();
 
+        // Generate player ship, then add items to cargo for inventory testing
+        ShipStats shipStatsComponent = shipPrefabs[0].GetComponent<PrefabHandler>().GetShipStats();
+        InstantiatedShip newShip = ShipFactory.Instance.CreateShip(shipPrefabs[0], "Player Faction", "Player Fleet", "Non AI Fleet", shipStatsComponent, false, new Inventory());
+        //newShip.InitializeMounts();
+        Fleet playerFleet = new Fleet(System.Guid.NewGuid(), "Player Faction", newShip, new List<InstantiatedShip>());
+
+        // -- Debug -- Add items to inventory
+        // TODO: Do with new system
+        
+        // -- Debug -- Add a second ship to the player fleet
+        shipStatsComponent = shipPrefabs[1].GetComponent<PrefabHandler>().GetShipStats();
+        newShip = ShipFactory.Instance.CreateShip(shipPrefabs[1], "Player Faction", "Player Fleet", "Non AI Fleet", shipStatsComponent, true, new Inventory());
+        //newShip.InitializeMounts();
+        playerFleet.AddOneShip(newShip);
+
+        
+        // -- Debug -- Spawn the player fleet and additional AI fleets
+        shipSpawner.SpawnFleet(playerFleet, new Vector3(0, 0, 0));
+
+        MasterOSManager.Instance.InitializeUI();
+
         // Load all the main UI elements into the UI Manager
         UI_Manager.LoadUIElements();
 
@@ -72,23 +93,6 @@ public class Game : MonoBehaviour
             newStation.shipStorage.Add(ShipFactory.Instance.CreateShip(shipPrefabs[1], "Extra ship", "N/A", "Non AI Fleet", shipStatsStorageComponent, false, new Inventory()));
         }
 
-        // Generate player ship, then add items to cargo for inventory testing
-        ShipStats shipStatsComponent = shipPrefabs[0].GetComponent<PrefabHandler>().GetShipStats();
-        InstantiatedShip newShip = ShipFactory.Instance.CreateShip(shipPrefabs[0], "Player Faction", "Player Fleet", "Non AI Fleet", shipStatsComponent, false, new Inventory());
-        //newShip.InitializeMounts();
-        Fleet playerFleet = new Fleet(System.Guid.NewGuid(), "Player Faction", newShip, new List<InstantiatedShip>());
-
-        // -- Debug -- Add items to inventory
-        // TODO: Do with new system
-        
-        // -- Debug -- Add a second ship to the player fleet
-        shipStatsComponent = shipPrefabs[1].GetComponent<PrefabHandler>().GetShipStats();
-        newShip = ShipFactory.Instance.CreateShip(shipPrefabs[1], "Player Faction", "Player Fleet", "Non AI Fleet", shipStatsComponent, true, new Inventory());
-        //newShip.InitializeMounts();
-        playerFleet.AddOneShip(newShip);
-
-        // -- Debug -- Spawn the player fleet and additional AI fleets
-        shipSpawner.SpawnFleet(playerFleet, new Vector3(0, 0, 0));
         shipSpawner.SpawnFleet(FleetGenerator(10), new Vector3(0, 0, 600));
         shipSpawner.SpawnFleet(FleetGenerator(50), new Vector3(0, 0, -600));
         shipSpawner.SpawnFleet(FleetGenerator(15), new Vector3(600, 0, 0));

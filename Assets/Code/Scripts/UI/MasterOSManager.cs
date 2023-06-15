@@ -31,14 +31,15 @@ public class MasterOSManager : MonoBehaviour
     Dictionary<string, BaseOS> screenObjects = new Dictionary<string, BaseOS>();
 
     public bool inventoryOpen = false;
+    public bool shipScreenOpen = false;
 
     public bool isDragging = false;
 
+    public VisualElement tempTooltip;
+
     void Awake()
     {
-        overElement = true;
         DontDestroyOnLoad(this.gameObject);
-
         // Singleton handler
         if (Instance != null && Instance != this)
         {
@@ -48,6 +49,11 @@ public class MasterOSManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    public void InitializeUI()
+    {
+        overElement = true;
 
         UIObjectFactory.InitializeFactory();
 
@@ -65,30 +71,40 @@ public class MasterOSManager : MonoBehaviour
                 rootAsset.Q<VisualElement>("template-screen-nofaction").name = "template-screen";
                 
             rootAsset.name = uiStruct.windowName;
-            rootAsset.style.display = DisplayStyle.None;
+
+            if (rootAsset.Q<VisualElement>("screen-background") != null)
+            {
+                rootAsset.style.display = DisplayStyle.None;
+                
+                rootAsset.Q<VisualElement>("screen-background").RegisterCallback<PointerEnterEvent>(ev => {
+                    if (isDragging)
+                    {
+                        UIScreenManager.Instance.SetFocusedScreen(rootAsset);
+                        overElement = true;
+                    }
+                });
+
+                rootAsset.Q<VisualElement>("screen-background").RegisterCallback<PointerLeaveEvent>(ev => {
+                    if (isDragging)
+                    {
+                        Debug.Log("AAAHHHHH");
+                        overElement = false;
+                    }
+                });
+            }
+
             rootVisualElement.Add(rootAsset);
-
-            rootAsset.Q<VisualElement>("screen-background").RegisterCallback<PointerEnterEvent>(ev => {
-                if (isDragging)
-                {
-                    UIScreenManager.Instance.SetFocusedScreen(rootAsset);
-                    overElement = true;
-                }
-            });
-
-            rootAsset.Q<VisualElement>("screen-background").RegisterCallback<PointerLeaveEvent>(ev => {
-                if (isDragging)
-                {
-                    Debug.Log("AAAHHHHH");
-                    overElement = false;
-                }
-            });
 
             visualDict.Add(uiStruct.windowName, rootAsset);
             screenObjects.Add(uiStruct.windowName, UIObjectFactory.InvokeFactory(uiStruct.windowName, new UIData(uiStruct.windowName, rootAsset)));
-            screenObjects[uiStruct.windowName].Awake();
-            screenObjects[uiStruct.windowName].SetLoadableAssets(uiStruct.assets);
-            screenObjects[uiStruct.windowName].InitializeScreen();
+
+            if (screenObjects[uiStruct.windowName] != null)
+            {
+                screenObjects[uiStruct.windowName].Awake();
+                screenObjects[uiStruct.windowName].SetLoadableAssets(uiStruct.assets);
+                screenObjects[uiStruct.windowName].InitializeScreen();
+            }
+
 
             EventManager.TriggerEvent(uiStruct.windowName + " UI Event");
             //GetComponent<UIWindowMovement>().InitializeMovementCallbacks(rootAsset);
@@ -135,13 +151,56 @@ public class MasterOSManager : MonoBehaviour
                 }
             }
         });
+
+        OnEnable();
     }
 
-    void OnEnable()
+    public void DraggerEvents(VisualElement item)
+    {
+        item.RegisterCallback<PointerDownEvent>(DragPointerDownEvent);
+    }
+
+    private void DragPointerDownEvent(PointerDownEvent ev)
+    {
+        VisualElement eventTarget = (ev.currentTarget as VisualElement);
+        MasterOSManager.Instance.currentDraggedElement = eventTarget;
+        MasterOSManager.Instance.currentDraggedElement.Q<VisualElement>("inventory-item").visible = false;
+
+        Debug.Log(MasterOSManager.Instance.visualDragger.Q<Label>("item-count"));
+
+        MasterOSManager.Instance.visualDragger.Q<Label>("item-count").text = eventTarget.Q<Label>("item-count").text;
+        MasterOSManager.Instance.visualDragger.Q<Label>("item-name").text = eventTarget.Q<Label>("item-name").text;
+
+        MasterOSManager.Instance.visualDragger.pickingMode = PickingMode.Ignore;
+        MasterOSManager.Instance.visualDragger.Q<VisualElement>("inventory-item").pickingMode = PickingMode.Ignore;              
+        MasterOSManager.Instance.visualDragger.style.position = Position.Absolute;
+        MasterOSManager.Instance.visualDragger.style.visibility = Visibility.Visible;
+        MasterOSManager.Instance.visualDragger.style.height = eventTarget.resolvedStyle.height;
+        MasterOSManager.Instance.visualDragger.style.width = eventTarget.resolvedStyle.width;
+        MasterOSManager.Instance.visualDragger.style.top = ev.position.y - eventTarget.resolvedStyle.height / 2;
+        MasterOSManager.Instance.visualDragger.style.left = ev.position.x - eventTarget.resolvedStyle.width / 2;
+        MasterOSManager.Instance.isDragging = true;
+
+        if (tempTooltip != null)
+        {
+            try 
+            {
+                MasterOSManager.Instance.rootVisualElement.Remove(tempTooltip);
+                tempTooltip = null;
+            } catch (System.ArgumentException ex)
+            {
+
+            }
+
+        }
+    }
+
+    public void OnEnable()
     {
         foreach (var item in screenObjects)
         {
-            item.Value.OnEnable();
+            if (item.Value != null)
+                item.Value.OnEnable();
         }
     }
 
@@ -162,7 +221,8 @@ public class MasterOSManager : MonoBehaviour
 
         foreach (var item in screenObjects)
         {
-            item.Value.Update();
+            if (item.Value != null)
+                item.Value.Update();
         }
     }
 }

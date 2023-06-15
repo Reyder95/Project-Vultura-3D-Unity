@@ -135,40 +135,7 @@ public class InventoryOS : BaseOS
 
                 item.userData = new DragData(i, "inventory", playerInventory);
 
-                item.RegisterCallback<PointerDownEvent>(ev => {
-                    VisualElement eventTarget = (ev.currentTarget as VisualElement);
-                    MasterOSManager.Instance.currentDraggedElement = eventTarget;
-                    MasterOSManager.Instance.currentDraggedElement.Q<VisualElement>("inventory-item").visible = false;
-
-                    Debug.Log(MasterOSManager.Instance.visualDragger.Q<Label>("item-count"));
-
-                    MasterOSManager.Instance.visualDragger.Q<Label>("item-count").text = eventTarget.Q<Label>("item-count").text;
-                    MasterOSManager.Instance.visualDragger.Q<Label>("item-name").text = eventTarget.Q<Label>("item-name").text;
-
-                    MasterOSManager.Instance.visualDragger.pickingMode = PickingMode.Ignore;
-                    MasterOSManager.Instance.visualDragger.Q<VisualElement>("inventory-item").pickingMode = PickingMode.Ignore;              
-                    MasterOSManager.Instance.visualDragger.style.position = Position.Absolute;
-                    MasterOSManager.Instance.visualDragger.style.visibility = Visibility.Visible;
-                    MasterOSManager.Instance.visualDragger.style.height = eventTarget.resolvedStyle.height;
-                    MasterOSManager.Instance.visualDragger.style.width = eventTarget.resolvedStyle.width;
-                    MasterOSManager.Instance.visualDragger.style.top = ev.position.y - eventTarget.resolvedStyle.height / 2;
-                    MasterOSManager.Instance.visualDragger.style.left = ev.position.x - eventTarget.resolvedStyle.width / 2;
-                    MasterOSManager.Instance.isDragging = true;
-
-                    if (tempTooltip != null)
-                    {
-                        try 
-                        {
-                            MasterOSManager.Instance.rootVisualElement.Remove(tempTooltip);
-                            tempTooltip = null;
-                        } catch (System.ArgumentException ex)
-                        {
-
-                        }
-
-                    }
-
-                });               
+                MasterOSManager.Instance.DraggerEvents(item);          
 
                 item.RegisterCallback<PointerEnterEvent>(ev => {
                     if (!MasterOSManager.Instance.isDragging)
