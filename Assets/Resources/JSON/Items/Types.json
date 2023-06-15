@@ -14,6 +14,11 @@
             "key": "trade_good",
             "description": "An item that has little no to use for a spacefaring captain, but has significant use for stations and civilization. Can be used to trade between stations for income.",
             "folder": "Trade Goods"
+        },
+        {
+            "key": "ore",
+            "description": "A metallic substance usually mined from asteroids. Useful for industry",
+            "folder": "Ores"
         }
     ]
 }

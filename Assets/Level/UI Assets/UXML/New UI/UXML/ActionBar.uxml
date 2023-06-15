@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="action-bar-element" style="position: absolute; left: 20%; top: 90%; right: 20%; bottom: 2%; background-color: rgb(24, 24, 24); flex-direction: row; -unity-text-align: middle-left; align-items: center; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; justify-content: center;">
+        <ui:VisualElement style="height: 100px; width: 100px; background-color: rgb(128, 128, 128); margin-left: 5px; margin-right: 5px;" />
+        <ui:VisualElement style="height: 100px; width: 100px; background-color: rgb(128, 128, 128); margin-left: 5px; margin-right: 5px;" />
+        <ui:VisualElement style="height: 100px; width: 100px; background-color: rgb(128, 128, 128); margin-left: 5px; margin-right: 5px;" />
+        <ui:VisualElement style="height: 100px; width: 100px; background-color: rgb(128, 128, 128); margin-left: 5px; margin-right: 5px;" />
+        <ui:VisualElement style="height: 100px; width: 100px; background-color: rgb(128, 128, 128); margin-left: 5px; margin-right: 5px;" />
+        <ui:VisualElement style="height: 100px; width: 100px; background-color: rgb(128, 128, 128); margin-left: 5px; margin-right: 5px;" />
+        <ui:VisualElement style="height: 100px; width: 100px; background-color: rgb(128, 128, 128); margin-left: 5px; margin-right: 5px;" />
+        <ui:VisualElement style="height: 100px; width: 100px; background-color: rgb(128, 128, 128); margin-left: 5px; margin-right: 5px;" />
+        <ui:VisualElement style="height: 100px; width: 100px; background-color: rgb(128, 128, 128); margin-left: 5px; margin-right: 5px;" />
+        <ui:VisualElement style="height: 100px; width: 100px; background-color: rgb(128, 128, 128); margin-left: 5px; margin-right: 5px;" />
+        <ui:VisualElement style="height: 100px; width: 100px; background-color: rgb(128, 128, 128); margin-left: 5px; margin-right: 5px;" />
+        <ui:VisualElement style="height: 100px; width: 100px; background-color: rgb(128, 128, 128); margin-left: 5px; margin-right: 5px;" />
+        <ui:VisualElement style="height: 100px; width: 100px; background-color: rgb(128, 128, 128); margin-left: 5px; margin-right: 5px;" />
+    </ui:VisualElement>
+</ui:UXML>
