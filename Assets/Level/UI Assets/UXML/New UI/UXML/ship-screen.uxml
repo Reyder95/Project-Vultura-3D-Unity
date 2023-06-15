@@ -1,0 +1,30 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="template-screen-nofaction" src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/UXML/template-screen-nofaction.uxml?fileID=9197481963319205126&amp;guid=8296f6157e314e546b4a9f514d6cef72&amp;type=3#template-screen-nofaction" />
+    <ui:Instance template="template-screen-nofaction" name="template-screen" style="width: 100%; height: 100%;">
+        <AttributeOverrides element-name="page-title" text="Ship Screen" />
+        <ui:VisualElement style="width: 100%; height: 100%; flex-direction: row;">
+            <ui:VisualElement style="width: 50%;">
+                <ui:Label text="Modules" display-tooltip-when-elided="true" style="align-items: flex-start; width: 100%; -unity-text-align: middle-center; font-size: 40px; -unity-font-definition: resource(&apos;Fonts/Harmattan-Bold SDF&apos;); -unity-font-style: bold; color: rgb(210, 210, 210);" />
+                <ui:VisualElement name="module-list" style="height: 80%; width: 100%; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px; flex-direction: column; align-items: flex-start;">
+                    <ui:VisualElement style="flex-direction: row; align-items: center; margin-bottom: 20px;">
+                        <ui:VisualElement name="module-icon" style="width: 100px; height: 100px; background-color: rgb(72, 72, 72); margin-right: 15px;" />
+                        <ui:Label text="Module 1" display-tooltip-when-elided="true" name="module-text" style="font-size: 20px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; color: rgba(210, 210, 210, 255);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row; align-items: center; margin-bottom: 20px;">
+                        <ui:VisualElement name="module-icon" style="width: 100px; height: 100px; background-color: rgb(72, 72, 72); margin-right: 15px;" />
+                        <ui:Label text="Module 2" display-tooltip-when-elided="true" name="module-text" style="font-size: 20px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; color: rgba(210, 210, 210, 255);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row; align-items: center; margin-bottom: 20px;">
+                        <ui:VisualElement name="module-icon" style="width: 100px; height: 100px; background-color: rgb(72, 72, 72); margin-right: 15px;" />
+                        <ui:Label text="Module 3" display-tooltip-when-elided="true" name="module-text" style="font-size: 20px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; color: rgba(210, 210, 210, 255);" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row; align-items: center; margin-bottom: 20px;">
+                        <ui:VisualElement name="module-icon" style="width: 100px; height: 100px; background-color: rgb(72, 72, 72); margin-right: 15px;" />
+                        <ui:Label text="Module 4" display-tooltip-when-elided="true" name="module-text" style="font-size: 20px; -unity-font-definition: resource(&apos;Fonts/Lato-Regular SDF&apos;); -unity-font-style: bold; color: rgba(210, 210, 210, 255);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="width: 50%;" />
+        </ui:VisualElement>
+    </ui:Instance>
+</ui:UXML>

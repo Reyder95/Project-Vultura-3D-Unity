@@ -32,6 +32,7 @@ public class ItemBuilder
         itemBuilders.Add("rocket_launcher", categoryItem => BuildRocketLauncher(categoryItem.category, categoryItem.itemData));
         itemBuilders.Add("cargo_expander", categoryItem => BuildCargoExpander(categoryItem.category, categoryItem.itemData));
         itemBuilders.Add("trade_good", categoryItem => BuildTradeGood(categoryItem.category, categoryItem.itemData));
+        itemBuilders.Add("ore", categoryItem => BuildOre(categoryItem.category, categoryItem.itemData));
     }
 
     private BaseItem BuildChaingun(Category categoryData, ItemData itemData)
@@ -130,6 +131,23 @@ public class ItemBuilder
             (int)Mathf.Floor((float)categoryData.galactic_price_base * itemData.galactic_price_modifier),
             categoryData.stackable
             );
+
+        return generatedItem;
+    }
+
+    private BaseItem BuildOre(Category categoryData, ItemData itemData)
+    {
+        float weight = itemData.weight.min;
+
+        BaseItem generatedItem = new Ore(
+            itemData.key,
+            itemData.name,
+            categoryData.description,
+            null,
+            weight,
+            (int)Mathf.Floor((float)categoryData.galactic_price_base * itemData.galactic_price_modifier),
+            categoryData.stackable
+        );
 
         return generatedItem;
     }

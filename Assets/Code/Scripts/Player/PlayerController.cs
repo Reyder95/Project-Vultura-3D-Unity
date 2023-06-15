@@ -97,6 +97,40 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+        // Temp mining solution
+        if (Input.GetKeyDown("f"))
+        {
+            if (VulturaInstance.selectorList.mainSelected != null)
+            {
+                if (VulturaInstance.selectorList.mainSelected.selectableObject.tag == "Asteroid")
+                {
+                    InstantiatedShip playerShip = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip;
+
+                    if (playerShip.turretMounts.Count != 0)
+                        playerShip.turretMounts[0].GetComponent<MountComponent>().UseTurret(VulturaInstance.selectorList.mainSelected);
+
+                }
+            }
+            else
+            {
+                InstantiatedShip playerShip = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip;
+                    if (playerShip.turretMounts.Count != 0)
+                        playerShip.turretMounts[0].GetComponent<MountComponent>().StopTurret();
+            }
+        }
+
+        if (Input.GetKeyDown("p"))
+        {
+            VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.turretMounts[0].SetActive(true);
+            VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.turretMounts[0].GetComponent<MountComponent>().EquipTurret(ItemManager.GenerateRandomBaseFromCategory("chaingun") as ActiveModule);
+            
+        }
+
+        if (Input.GetKeyDown("c"))
+        {
+            EventManager.TriggerEvent("ship-screen UI Open");
+        }
     }
 
     // Handle the warp when warp button is pressed
@@ -167,6 +201,11 @@ public class PlayerController : MonoBehaviour
                     {
                     
                         VulturaInstance.selectorList.ConfirmSelection(hitInfo.collider.gameObject.GetComponent<StationComponent>().station, multiSelect, switchMain);
+                    }
+                    else if (hitInfo.collider.gameObject.tag == "Asteroid")
+                    {
+                        Debug.Log(hitInfo.collider.gameObject.GetComponent<Asteroid>().CurrAsteroid);
+                        VulturaInstance.selectorList.ConfirmSelection(hitInfo.collider.gameObject.GetComponent<Asteroid>().CurrAsteroid, multiselect, switchMain);
                     }
                 
                 }

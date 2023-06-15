@@ -14,6 +14,8 @@ public class InstantiatedShip : BaseSelectable
 
     private GameObject shipReference;   // The game object in the world this ship belongs to
 
+    public List<GameObject> turretMounts = new List<GameObject>();
+
     // Modules of the ship currently installed into this instance. The shipPrefab will contain all the base data for the ship, which
     // we can use and modify to get this specific ship's maximum stats.
     private List<string> activeModules = new List<string>();
@@ -32,6 +34,30 @@ public class InstantiatedShip : BaseSelectable
         this.cargo = cargo;
 
         this.shipStats = shipStats;
+
+
+    }
+
+    public void EquipMount(int index, ActiveModule module)
+    {
+        GameObject turretMount = turretMounts[index];
+
+        turretMount.GetComponent<MountComponent>().EquipTurret(module);
+        turretMount.SetActive(true);
+
+        EventManager.TriggerEvent("equipped");
+    }
+
+    public void InitializeMounts(GameObject instantiatedPrefab)
+    {
+        turretMounts.Clear();
+        foreach (Transform g in instantiatedPrefab.transform.GetChild(1).GetComponentInChildren<Transform>())
+        {
+            g.gameObject.SetActive(false);
+            turretMounts.Add(g.gameObject);
+        }
+
+        Debug.Log(turretMounts.Count);
     }
 
     // Adds an active module to the list, stopped by the maximum # of modules for a ship

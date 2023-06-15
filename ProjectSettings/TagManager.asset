@@ -10,6 +10,7 @@ TagManager:
   - Fleet List
   - MainUI
   - Dropped Item
+  - Asteroid
   layers:
   - Default
   - TransparentFX

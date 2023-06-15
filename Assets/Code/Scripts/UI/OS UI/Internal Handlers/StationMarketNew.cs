@@ -498,7 +498,7 @@ public class StationMarketNew : OSUIHandler
         if (MasterOSManager.Instance.isDragging)
         {
             Inventory playerInventory = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip.Cargo;
-            int currentDraggedElement = (int)MasterOSManager.Instance.currentDraggedElement.userData;
+            int currentDraggedElement = (MasterOSManager.Instance.currentDraggedElement.userData as DragData).Index;
             ExistsStruct existsValue = uiComponent.currentStation.demandMarket.ContainsItem(playerInventory.itemList[currentDraggedElement].item); 
             BaseItem invItem = playerInventory.itemList[currentDraggedElement].item;
             int sellPrice = (int)Math.Floor(invItem.GalacticPrice * 0.75);

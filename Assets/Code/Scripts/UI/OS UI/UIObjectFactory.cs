@@ -29,5 +29,7 @@ public static class UIObjectFactory
         baseOSMap = new Dictionary<string, Func<UIData, BaseOS>>();
         baseOSMap.Add("station", (data) => new StationUI(data.windowName, data.screen));
         baseOSMap.Add("inventory", (data) => new InventoryOS(data.windowName, data.screen));
+        baseOSMap.Add("action-bar", (data) => new ActionBar(data.windowName, data.screen));
+        baseOSMap.Add("ship-screen", (data) => new ShipScreen(data.windowName, data.screen));
     }
 }
