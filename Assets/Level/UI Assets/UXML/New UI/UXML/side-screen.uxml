@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Level/UI%20Assets/UXML/New%20UI/USS/entitylist.uss?fileID=7433441132597879392&amp;guid=1557766b041dec14282373b299d0b9e2&amp;type=3#entitylist" />
+    <ui:VisualElement name="side-container" style="position: absolute; right: 0; left: 70%; bottom: 0; top: 0; background-color: rgba(0, 0, 0, 0.34); overflow: hidden;">
+        <ui:VisualElement name="side-head-buttons" style="height: 10%; width: 100%; background-color: rgba(0, 0, 0, 0.76);" />
+        <ui:VisualElement name="side-entity-main" style="height: 40%; overflow: hidden; align-items: flex-start; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px;">
+            <ui:ListView focusable="true" name="main-list" horizontal-scrolling="false" selection-type="None" style="height: 100%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; overflow: hidden; width: 100%; align-items: stretch; background-color: rgba(0, 0, 0, 0.4); padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="side-entity-sub" style="height: 40%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px;">
+            <ui:ListView focusable="true" name="sub-list" style="height: 100%; background-color: rgba(0, 0, 0, 0.4); width: 100%; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

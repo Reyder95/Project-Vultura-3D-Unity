@@ -31,5 +31,6 @@ public static class UIObjectFactory
         baseOSMap.Add("inventory", (data) => new InventoryOS(data.windowName, data.screen));
         baseOSMap.Add("action-bar", (data) => new ActionBar(data.windowName, data.screen));
         baseOSMap.Add("ship-screen", (data) => new ShipScreen(data.windowName, data.screen));
+        baseOSMap.Add("side-screen", (data) => new SideScreen(data.windowName, data.screen));
     }
 }
