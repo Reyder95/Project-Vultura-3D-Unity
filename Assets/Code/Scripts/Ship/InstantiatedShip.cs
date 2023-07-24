@@ -57,7 +57,6 @@ public class InstantiatedShip : BaseSelectable
             turretMounts.Add(g.gameObject);
         }
 
-        Debug.Log(turretMounts.Count);
     }
 
     // Adds an active module to the list, stopped by the maximum # of modules for a ship

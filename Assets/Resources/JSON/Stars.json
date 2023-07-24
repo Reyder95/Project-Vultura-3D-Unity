@@ -1,0 +1,16 @@
+{
+    "data": [
+        {
+            "key": "main_sequence",
+            "display_name": "Main Sequence"
+        },
+        {
+            "key": "neutron",
+            "display_name": "Neutron"
+        },
+        {
+            "key": "type_o",
+            "display_name": "Type O"
+        }
+    ]
+}

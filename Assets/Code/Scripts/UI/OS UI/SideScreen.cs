@@ -60,7 +60,6 @@ public class SideScreen : BaseOS
 
             entityItem.style.width = Length.Percent(100);
 
-            Debug.Log("HALLLLOOOO");
 
             return entityItem;
         };
@@ -158,8 +157,6 @@ public class SideScreen : BaseOS
             e.Q<Label>("distance").text = EntitySorter.Instance.subEntities[i].distance.ToString("N2") + " km";
             e.Q<Label>("faction").text = VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex].Faction;
             e.Q<Label>("type").text = VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex].Type;
-
-            Debug.Log("HELLOOOOOO");
 
             try {
                 if (VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex].MainSelected)

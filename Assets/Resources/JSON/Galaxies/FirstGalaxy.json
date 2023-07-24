@@ -1,0 +1,44 @@
+{
+    "data": [
+        {
+            "system_name": "olgaia",
+            "star_type": "main_sequence",
+            "size": 1500000,
+            "bodies": [
+                {
+                    "type": "planet",
+                    "sub_type": "ice",
+                    "sub_bodies": null,
+                    "radius": 95,
+                    "angle": 270,
+                    "size": "medium"
+                },
+                {
+                    "type": "asteroid",
+                    "sub_type": null,
+                    "sub_bodies": [
+                        {
+                            "type": "iron",
+                            "amount": 2
+                        },
+                        {
+                            "type": "coal",
+                            "amount": 4
+                        }
+                    ],
+                    "radius": 60,
+                    "angle": 14,
+                    "size": null
+                },
+                {
+                    "type": "station",
+                    "sub_type": "mining",
+                    "sub_bodies": null,
+                    "radius": 45,
+                    "angle": 58,
+                    "size": "medium"
+                }
+            ]
+        }
+    ]
+}

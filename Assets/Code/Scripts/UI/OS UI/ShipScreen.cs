@@ -39,7 +39,6 @@ class ShipScreen : BaseOS
 
     public override void OnEnable()
     {
-        Debug.Log("ENABLED!!");
         EventManager.StartListening("ship-screen UI Open", openListener);
         EventManager.StartListening("ship-screen UI Event", initListener);
         EventManager.StartListening("equipped", equipListener);
