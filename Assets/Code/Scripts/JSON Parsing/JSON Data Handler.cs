@@ -12,6 +12,7 @@ public static class JSONDataHandler
     public static JSONFacilities Facilities;
     public static JSONStats Stats;
     public static JSONMainStats MainStats;
+    public static JSONGalaxyList GalaxyList;
 
     // Dictionaries
     public static Dictionary<string, ItemData> itemDictionary = new Dictionary<string, ItemData>();
@@ -85,6 +86,9 @@ public static class JSONDataHandler
         {
             mainStatDictionary.Add(mainStats.key, mainStats);
         }
+
+        var galaxyListFile = Resources.Load<TextAsset>("JSON/Galaxies/GalaxyList");
+        JSONGalaxyList TempGalaxyList = JsonUtility.FromJson<JSONGalaxyList>(galaxyListFile.text);
 
         FillStatBucket();
     }
