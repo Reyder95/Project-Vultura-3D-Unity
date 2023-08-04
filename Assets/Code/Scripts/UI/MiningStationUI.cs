@@ -362,7 +362,7 @@ public class MiningStationUI : MonoBehaviour
         instantiatedShip.GetComponent<PrefabHandler>().currShip = selectedShip;
 
         // Add the new ship to the system.
-        VulturaInstance.AddToSystem(instantiatedShip.GetComponent<PrefabHandler>().currShip);
+        VulturaInstance.AddSelectableToSystem(instantiatedShip.GetComponent<PrefabHandler>().currShip);
 
         // Switch the fleet commander (which would always be the player at this point) to the new player ship
         playerFleet.FleetCommander = instantiatedShip.GetComponent<PrefabHandler>().currShip;

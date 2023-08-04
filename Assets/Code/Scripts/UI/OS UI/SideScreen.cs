@@ -65,20 +65,28 @@ public class SideScreen : BaseOS
         };
 
         Action<VisualElement, int> bindItemMain = (e, i) => {
-            e.Q<Label>("name").text = VulturaInstance.systemSelectables[EntitySorter.Instance.entities[i].entityIndex].SelectableName;
-            e.Q<Label>("distance").text = EntitySorter.Instance.entities[i].distance.ToString("N2") + " km";
-            e.Q<Label>("faction").text = VulturaInstance.systemSelectables[EntitySorter.Instance.entities[i].entityIndex].Faction;
-            e.Q<Label>("type").text = VulturaInstance.systemSelectables[EntitySorter.Instance.entities[i].entityIndex].Type;
+
+            e.Q<Label>("name").text = VulturaInstance.systemEntities[EntitySorter.Instance.entities[i].entityIndex].name;
+
+            float actualDistance = EntitySorter.Instance.entities[i].distance;
+
+            if (actualDistance > 50000000)
+                e.Q<Label>("distance").text = (actualDistance / 149597871.0f).ToString("N2") + " AU";
+            else
+                e.Q<Label>("distance").text = actualDistance.ToString("N2") + " km";
+
+            e.Q<Label>("faction").text = VulturaInstance.systemEntities[EntitySorter.Instance.entities[i].entityIndex].faction;
+            e.Q<Label>("type").text = VulturaInstance.systemEntities[EntitySorter.Instance.entities[i].entityIndex].faction;
 
             try {
-                if (VulturaInstance.systemSelectables[EntitySorter.Instance.entities[i].entityIndex].MainSelected)
+                if (VulturaInstance.systemEntities[EntitySorter.Instance.entities[i].entityIndex].mainSelected)
                 {
                     if (i == elementHovered)
                         e.style.backgroundColor = mainSelected;
                     else
                         e.style.backgroundColor = mainSelected;
                 }
-                else if (VulturaInstance.systemSelectables[EntitySorter.Instance.entities[i].entityIndex].Selected)
+                else if (VulturaInstance.systemEntities[EntitySorter.Instance.entities[i].entityIndex].selected)
                 {
                     if (i == elementHovered)
                         e.style.backgroundColor = selected;
@@ -98,11 +106,11 @@ public class SideScreen : BaseOS
 
             e.RegisterCallback<PointerEnterEvent>(ev => {
                 elementHovered = i;
-                if (VulturaInstance.systemSelectables[EntitySorter.Instance.entities[i].entityIndex].MainSelected)
+                if (VulturaInstance.systemEntities[EntitySorter.Instance.entities[i].entityIndex].mainSelected)
                 {
                     e.style.backgroundColor = mainSelected;
                 }
-                else if (VulturaInstance.systemSelectables[EntitySorter.Instance.entities[i].entityIndex].Selected)
+                else if (VulturaInstance.systemEntities[EntitySorter.Instance.entities[i].entityIndex].selected)
                 {
                     e.style.backgroundColor = selected;
                 } else
@@ -113,11 +121,11 @@ public class SideScreen : BaseOS
 
             e.RegisterCallback<PointerLeaveEvent>(ev => {
                 elementHovered = -1;
-                if (VulturaInstance.systemSelectables[EntitySorter.Instance.entities[i].entityIndex].MainSelected)
+                if (VulturaInstance.systemEntities[EntitySorter.Instance.entities[i].entityIndex].mainSelected)
                 {
                     e.style.backgroundColor = mainSelected;
                 }
-                else if (VulturaInstance.systemSelectables[EntitySorter.Instance.entities[i].entityIndex].Selected)
+                else if (VulturaInstance.systemEntities[EntitySorter.Instance.entities[i].entityIndex].selected)
                 {
                     e.style.backgroundColor = selected;
                 } else
@@ -129,19 +137,19 @@ public class SideScreen : BaseOS
             e.RegisterCallback<PointerDownEvent>(ev => {
                 try
                 {
-                    if (EntitySorter.Instance.entities[i].entityIndex < VulturaInstance.systemSelectables.Count)
+                    if (EntitySorter.Instance.entities[i].entityIndex < VulturaInstance.systemEntities.Count)
                     {
                         if (Input.GetKey("left ctrl"))
                         {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemSelectables[EntitySorter.Instance.entities[i].entityIndex], true, false);
+                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemEntities[EntitySorter.Instance.entities[i].entityIndex], true, false);
                         }
                         else if (Input.GetKey("left alt"))
                         {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemSelectables[EntitySorter.Instance.entities[i].entityIndex], false, true);
+                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemEntities[EntitySorter.Instance.entities[i].entityIndex], false, true);
                         }
                         else
                         {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemSelectables[EntitySorter.Instance.entities[i].entityIndex]);
+                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemEntities[EntitySorter.Instance.entities[i].entityIndex]);
                         }
                     }
 
@@ -153,20 +161,25 @@ public class SideScreen : BaseOS
         };
 
         Action<VisualElement, int> bindItemSub = (e, i) => {
-            e.Q<Label>("name").text = VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex].SelectableName;
-            e.Q<Label>("distance").text = EntitySorter.Instance.subEntities[i].distance.ToString("N2") + " km";
-            e.Q<Label>("faction").text = VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex].Faction;
-            e.Q<Label>("type").text = VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex].Type;
+
+            try
+            {
+                e.Q<Label>("name").text = VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex].name;
+                e.Q<Label>("distance").text = EntitySorter.Instance.subEntities[i].distance.ToString("N2") + " km";
+                e.Q<Label>("faction").text = VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex].faction;
+                e.Q<Label>("type").text = VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex].type;
+            } catch (ArgumentOutOfRangeException) {}
+
 
             try {
-                if (VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex].MainSelected)
+                if (VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex].mainSelected)
                 {
                     if (i == elementHovered)
                         e.style.backgroundColor = mainSelected;
                     else
                         e.style.backgroundColor = mainSelected;
                 }
-                else if (VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex].Selected)
+                else if (VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex].selected)
                 {
                     if (i == elementHovered)
                         e.style.backgroundColor = selected;
@@ -186,11 +199,11 @@ public class SideScreen : BaseOS
 
             e.RegisterCallback<PointerEnterEvent>(ev => {
                 elementHovered = i;
-                if (VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex].MainSelected)
+                if (VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex].mainSelected)
                 {
                     e.style.backgroundColor = mainSelected;
                 }
-                else if (VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex].Selected)
+                else if (VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex].selected)
                 {
                     e.style.backgroundColor = selected;
                 } else
@@ -201,11 +214,11 @@ public class SideScreen : BaseOS
 
             e.RegisterCallback<PointerLeaveEvent>(ev => {
                 elementHovered = -1;
-                if (VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex].MainSelected)
+                if (VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex].mainSelected)
                 {
                     e.style.backgroundColor = mainSelected;
                 }
-                else if (VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex].Selected)
+                else if (VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex].selected)
                 {
                     e.style.backgroundColor = selected;
                 } else
@@ -217,19 +230,19 @@ public class SideScreen : BaseOS
             e.RegisterCallback<PointerDownEvent>(ev => {
                 try
                 {
-                    if (EntitySorter.Instance.subEntities[i].entityIndex < VulturaInstance.fleetSelectables.Count)
+                    if (EntitySorter.Instance.subEntities[i].entityIndex < VulturaInstance.subEntities.Count)
                     {
                         if (Input.GetKey("left ctrl"))
                         {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex], true, false);
+                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex], true, false);
                         }
                         else if (Input.GetKey("left alt"))
                         {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex], false, true);
+                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex], false, true);
                         }
                         else
                         {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.fleetSelectables[EntitySorter.Instance.subEntities[i].entityIndex]);
+                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex]);
                         }
                     }
 

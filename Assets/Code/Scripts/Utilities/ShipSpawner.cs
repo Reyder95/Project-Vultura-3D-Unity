@@ -42,8 +42,8 @@ public class ShipSpawner : MonoBehaviour
             }
         }
         
-        
-        
+        if (fleet.FleetCommander.IsAI)
+            VulturaInstance.AddSelectableToSystem(fleet.FleetCommander);
 
 
         int radius = 150;

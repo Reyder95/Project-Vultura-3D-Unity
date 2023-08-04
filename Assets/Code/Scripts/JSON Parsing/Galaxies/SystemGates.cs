@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SystemBody
+public class SystemGates
 {
-    public string name;
-    public string type;
-    public string sub_type;
+    public string systemName;
+    public int radius;
     public int angle;
 }

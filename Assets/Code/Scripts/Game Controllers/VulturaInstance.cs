@@ -77,7 +77,14 @@ public static class VulturaInstance
     public static List<BaseSelectable> systemSelectables = new List<BaseSelectable>();
     public static List<BaseSelectable> fleetSelectables = new List<BaseSelectable>();
 
+    public static List<SelectableEntity> systemEntities = new List<SelectableEntity>();
+    public static List<SelectableEntity> subEntities = new List<SelectableEntity>();
+
     public static SelectorList selectorList = new SelectorList();   // The list of items that are selected by the user
+
+    public static Galaxy currGalaxy;
+    public static StarSystem currSystem;
+    public static SystemEntity currEntity;
 
     // -- Debug -- The initialized list of systems
     public static void InitializeSystems()
@@ -97,30 +104,94 @@ public static class VulturaInstance
         return 0;
     }
 
+    public static float CalculateCoordinateDistance(Vector3 pos1, Vector3 pos2)
+    {
+        return Vector3.Distance(pos1, pos2) * 200;
+    }
+
     // Initialize all the selectabe objects in the system.
     public static void InitializeSelectableObjects()
     {
-        GameObject[] systemShips = GameObject.FindGameObjectsWithTag("Ship");
-
-        foreach (GameObject ship in systemShips)
+        foreach (SystemEntity entity in currSystem.systemEntities)
         {
-            if (ship.GetComponent<PrefabHandler>().fleetAssociation.FleetCommander == ship.GetComponent<PrefabHandler>().currShip)
-                systemSelectables.Add(ship.GetComponent<PrefabHandler>().currShip);
+            systemEntities.Add(new SelectableEntity(entity.name, "test", entity, entity.type));
+
+            Game.Instance.reticleCanvas.GetComponent<TestCanvasStuff>().InstantiateReticle(systemEntities.Count - 1);
         }
 
-        GameObject[] systemStations = GameObject.FindGameObjectsWithTag("Station");
+        // GameObject[] systemShips = GameObject.FindGameObjectsWithTag("Ship");
 
-        foreach (GameObject station in systemStations)
+        // foreach (GameObject ship in systemShips)
+        // {
+        //     if (ship.GetComponent<PrefabHandler>().fleetAssociation.FleetCommander == ship.GetComponent<PrefabHandler>().currShip)
+        //         systemSelectables.Add(ship.GetComponent<PrefabHandler>().currShip);
+        // }
+
+        // GameObject[] systemStations = GameObject.FindGameObjectsWithTag("Station");
+
+        // foreach (GameObject station in systemStations)
+        // {
+        //     systemSelectables.Add(station.GetComponent<StationComponent>().station);
+        // }
+    }
+
+    public static void RemoveSubEntitiesOfMainEntity(SystemEntity mainEntity)
+    {
+        int counter = 0;
+
+        while (counter < VulturaInstance.subEntities.Count)
         {
-            systemSelectables.Add(station.GetComponent<StationComponent>().station);
+            if (VulturaInstance.subEntities[counter].entity.mainEntity == mainEntity)
+                VulturaInstance.subEntities.RemoveAt(counter);
+            else
+                counter++;
         }
     }
 
     // Add a selectable item to a system
-    public static void AddToSystem(BaseSelectable item)
+    public static void AddSelectableToSystem(BaseSelectable item)
     {
-        systemSelectables.Add(item);
+        SystemEntity testEntity = new SystemEntity(new Vector3(0, 0, 0), item, item.SelectableName, true, item.Type);
+        currSystem.systemEntities.Add(testEntity);
+        item.SetEntity(testEntity);
+
+        SelectableEntity selectableEntity = new SelectableEntity(testEntity.name, item.Faction, testEntity, testEntity.type);
+        testEntity.SetEntity(selectableEntity);
+
+        if (item.GetType() == typeof(InstantiatedShip))
+        {
+            Debug.Log((item as InstantiatedShip).Fleet);
+            foreach (InstantiatedShip ship in (item as InstantiatedShip).Fleet.FleetShips)
+            {
+                SystemEntity subEntity = new SystemEntity(new Vector3(0, 0, 0), ship, ship.SelectableName, true, ship.Type);
+                ship.SetEntity(subEntity);
+
+                SelectableEntity subSelectableEntity = new SelectableEntity(subEntity.name, ship.Faction, subEntity, subEntity.type);
+                subEntity.SetEntity(subSelectableEntity);
+            }
+        }
+
+        systemEntities.Add(selectableEntity);
         EventManager.TriggerEvent("Selectable Added");
+    }
+
+    public static void AddSubSelectableToSystem(BaseSelectable item)
+    {
+        // SystemEntity testEntity = new SystemEntity(new Vector3(0, 0, 0), item, item.SelectableName, true, item.Type);
+        // item.SetEntity(testEntity);
+
+        // SelectableEntity selectableEntity = new SelectableEntity(testEntity.name, item.Faction, testEntity, testEntity.type);
+        // testEntity.SetEntity(selectableEntity);
+
+        subEntities.Add(item.entity.aboveEntity);
+        EventManager.TriggerEvent("Selectable Added");
+    }
+
+    public static void AddSubEntityToSystem(SystemEntity entity)
+    {
+        SelectableEntity newEntity = new SelectableEntity(entity.name, "test", entity, entity.type);
+
+        subEntities.Add(newEntity);
     }
 
     // Remove an item from the selectable list

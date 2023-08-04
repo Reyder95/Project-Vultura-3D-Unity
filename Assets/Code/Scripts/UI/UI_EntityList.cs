@@ -147,28 +147,28 @@ public class UI_EntityList : MonoBehaviour
         });
             
 
-            e.RegisterCallback<PointerDownEvent>(ev => {
-                try
-                {
-                    if (entities[i].entityIndex < VulturaInstance.fleetSelectables.Count)
-                    {
-                        if (Input.GetKey("left ctrl"))
-                        {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.fleetSelectables[entities[i].entityIndex], true, false);
-                        }
-                        else if (Input.GetKey("left alt"))
-                        {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.fleetSelectables[entities[i].entityIndex], false, true);
-                        }
-                        else
-                        {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.fleetSelectables[entities[i].entityIndex]);
-                        }
-                    }
-                } catch (ArgumentOutOfRangeException)
-                {
-                }
-            });
+            // e.RegisterCallback<PointerDownEvent>(ev => {
+            //     try
+            //     {
+            //         if (entities[i].entityIndex < VulturaInstance.fleetSelectables.Count)
+            //         {
+            //             if (Input.GetKey("left ctrl"))
+            //             {
+            //                 VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.fleetSelectables[entities[i].entityIndex], true, false);
+            //             }
+            //             else if (Input.GetKey("left alt"))
+            //             {
+            //                 VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.fleetSelectables[entities[i].entityIndex], false, true);
+            //             }
+            //             else
+            //             {
+            //                 VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.fleetSelectables[entities[i].entityIndex]);
+            //             }
+            //         }
+            //     } catch (ArgumentOutOfRangeException)
+            //     {
+            //     }
+            // });
             
 
             

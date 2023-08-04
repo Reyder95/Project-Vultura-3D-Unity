@@ -165,7 +165,7 @@ public static class JSONDataHandler
         var galaxyFile = Resources.Load<TextAsset>("JSON/Galaxies/" + galaxyName);
         JSONGalaxy galaxy = JsonUtility.FromJson<JSONGalaxy>(galaxyFile.text);
 
-        Debug.Log(galaxy.data[0].system_name);
+        currGalaxy = galaxy;
     }
 
     public static List<Category> FindCategoriesByType(Type type)

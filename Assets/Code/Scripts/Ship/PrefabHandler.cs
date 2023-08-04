@@ -183,6 +183,7 @@ public class PrefabHandler : MonoBehaviour
     {
         this.currShip = currShip;
         this.fleetAssociation = fleet;
+        this.currShip.Fleet = fleet;
     }
 
     public void SetShipColor(Color32 color)

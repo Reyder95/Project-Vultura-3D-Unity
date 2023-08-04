@@ -8,5 +8,7 @@ public class SystemData
     public string system_name;
     public string star_type;
     public int size;
-    public SystemBody[] bodies;
+    public SystemPlanet[] planets;
+    public SystemAsteroid[] asteroid_fields;
+    public SystemGates[] gates;
 }

@@ -52,11 +52,21 @@ public class EntitySorter : MonoBehaviour
     {
         NativeList<DataStruct> newListEntities = new NativeList<DataStruct>(Allocator.TempJob);
 
-        for (int i = 0; i < VulturaInstance.systemSelectables.Count; i++)
+        for (int i = 0; i < VulturaInstance.systemEntities.Count; i++)
         {
+            Vector3 playerPosition = VulturaInstance.currEntity.GetPosition() + VulturaInstance.currentPlayer.transform.position;
+
+            float actualDistance = VulturaInstance.CalculateCoordinateDistance(playerPosition, VulturaInstance.systemEntities[i].entity.GetPosition());
+
+            if (VulturaInstance.systemEntities[i].entity.entity != null)
+                if (VulturaInstance.systemEntities[i].entity.entity.GetType() == typeof(InstantiatedShip))
+                {
+                    actualDistance = VulturaInstance.CalculateCoordinateDistance(VulturaInstance.currentPlayer.transform.position, VulturaInstance.systemEntities[i].entity.GetPosition());
+                }
+
             DataStruct newDistance = new DataStruct {
                 entityIndex = i,
-                distance = VulturaInstance.CalculateDistance(VulturaInstance.currentPlayer, VulturaInstance.systemSelectables[i].selectableObject),
+                distance = actualDistance,
             };
 
             newListEntities.Add(newDistance);
@@ -81,12 +91,27 @@ public class EntitySorter : MonoBehaviour
     {
         NativeList<DataStruct> newListSubEntities = new NativeList<DataStruct>(Allocator.TempJob);
 
-        for (int i = 0; i < VulturaInstance.fleetSelectables.Count; i++)
+        for (int i = 0; i < VulturaInstance.subEntities.Count; i++)
         {
-            DataStruct newDistance = new DataStruct {
-                entityIndex = i,
-                distance = VulturaInstance.CalculateDistance(VulturaInstance.currentPlayer, VulturaInstance.fleetSelectables[i].selectableObject),
-            };
+            DataStruct newDistance;
+            if (VulturaInstance.subEntities[i].entity.entity != null)
+            {
+                newDistance = new DataStruct {
+                    entityIndex = i,
+                    distance = VulturaInstance.CalculateDistance(VulturaInstance.currentPlayer, VulturaInstance.subEntities[i].entity.entity.selectableObject),
+                };
+            }
+            else
+            {
+                Vector3 playerPosition = VulturaInstance.currEntity.GetPosition() + VulturaInstance.currentPlayer.transform.position;
+
+                float actualDistance = VulturaInstance.CalculateCoordinateDistance(playerPosition, VulturaInstance.subEntities[i].entity.GetPosition());
+
+                newDistance = new DataStruct {
+                    entityIndex = i,
+                    distance = actualDistance
+                };
+            }
 
             newListSubEntities.Add(newDistance);
         }

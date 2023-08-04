@@ -14,6 +14,10 @@ public class Game : MonoBehaviour
     public GameObject[] stationPrefabs;     // Station prefab objects in the game world
     public GameObject asteroidFieldPrefab;
     public List<BaseStation> stations = new List<BaseStation>();    // Station C# objects
+    public GameObject reticleCanvas;
+
+    public Camera scaledCamera;
+    public GameObject currPlanet;
 
     public GameObject[] shipPrefabs;    // All the possible types of ship prefabs that exist
 
@@ -57,8 +61,8 @@ public class Game : MonoBehaviour
         newShip = ShipFactory.Instance.CreateShip(shipPrefabs[1], "Player Faction", "Player Fleet", "Non AI Fleet", shipStatsComponent, true, new Inventory());
         //newShip.InitializeMounts();
         playerFleet.AddOneShip(newShip);
+        newShip.Fleet = playerFleet;
 
-        
         // -- Debug -- Spawn the player fleet and additional AI fleets
         shipSpawner.SpawnFleet(playerFleet, new Vector3(0, 0, 0));
 
@@ -93,16 +97,24 @@ public class Game : MonoBehaviour
             newStation.shipStorage.Add(ShipFactory.Instance.CreateShip(shipPrefabs[1], "Extra ship", "N/A", "Non AI Fleet", shipStatsStorageComponent, false, new Inventory()));
         }
 
+        GenerateInventory();
+
+        GenerateAsteroidField();
+
+        VulturaInstance.currGalaxy = new Galaxy(JSONDataHandler.currGalaxy);
+        VulturaInstance.currSystem = VulturaInstance.currGalaxy.systemList[0];
+        VulturaInstance.currEntity = VulturaInstance.currSystem.systemEntities[0];
+        currPlanet.GetComponent<CurrPlanetHandler>().systemEntity = VulturaInstance.currEntity;
+
+        VulturaInstance.InitializeSelectableObjects();
+
         shipSpawner.SpawnFleet(FleetGenerator(10), new Vector3(0, 0, 600));
         shipSpawner.SpawnFleet(FleetGenerator(50), new Vector3(0, 0, -600));
         shipSpawner.SpawnFleet(FleetGenerator(15), new Vector3(600, 0, 0));
         shipSpawner.SpawnFleet(FleetGenerator(1000), new Vector3(-600, 0, 0));
 
-        VulturaInstance.InitializeSelectableObjects();  // Find all selectable objects in the system for the entity list UI.
+        VulturaInstance.AddSelectableToSystem(VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip);
 
-        GenerateInventory();
-
-        GenerateAsteroidField();
     }
 
     public void GenerateAsteroidField()
@@ -234,7 +246,11 @@ public class Game : MonoBehaviour
             fleetShips.Add(ShipFactory.Instance.CreateShip(fleetShipPrefab, faction.ToString(), "Ship # " + (i + 1), "Ship", fleetShipStats, true, new Inventory()));
         }
 
+        Fleet myFleet = new Fleet(fleetGUID, faction.ToString(), commander, fleetShips);
+
+        commander.Fleet = myFleet;
+
         // Return the created fleet
-        return new Fleet(fleetGUID, faction.ToString(), commander, fleetShips);
+        return myFleet;
     }
 }

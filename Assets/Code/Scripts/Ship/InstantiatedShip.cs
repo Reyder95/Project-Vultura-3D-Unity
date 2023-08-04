@@ -9,6 +9,7 @@ public class InstantiatedShip : BaseSelectable
     private int currArmor;      // The current armor of the ship
     private int currHull;       // The current hull of the ship
     private bool isAI;          // Is an AI (determines whether or not this ship will be controlled by AI)
+    private Fleet fleet;
 
     private Inventory cargo;    // The cargo of this ship
 
@@ -140,6 +141,19 @@ public class InstantiatedShip : BaseSelectable
         get
         {
             return this.currHull;
+        }
+    }
+
+    public Fleet Fleet
+    {
+        get
+        {
+            return this.fleet;
+        }
+
+        set
+        {
+            this.fleet = value;
         }
     }
 

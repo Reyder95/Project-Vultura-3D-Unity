@@ -9,15 +9,15 @@ public class SelectorList
     private Color normalSelectedColor = new Color32(154, 30, 199, 255);
     private Color mainSelectedColor = new Color32(199, 30, 30, 255);
     
-    public List<BaseSelectable> selected = new List<BaseSelectable>();      // The list of selected game objects
-    public BaseSelectable mainSelected = null;      // The current main selected object
+    public List<SelectableEntity> selected = new List<SelectableEntity>();      // The list of selected game objects
+    public SelectableEntity mainSelected = null;      // The current main selected object
 
     // Buffer function. Determines what to do with the selection object based on the different flags and what object is being selected.
-    public void ConfirmSelection(BaseSelectable selectedObject, bool multiSelect = false, bool switchMain = false)
+    public void ConfirmSelection(SelectableEntity selectedEntity, bool multiSelect = false, bool switchMain = false)
     {
-        bool doesExist = Exists(selectedObject);    // Holds a check whether or not an object exists in the list of selections.
+        bool doesExist = Exists(selectedEntity);    // Holds a check whether or not an object exists in the list of selections.
 
-        if (selectedObject.selectableObject != null)
+        if (selectedEntity.entity != null)
         {
             // Normal selections, if we're not just switching our main selection.
             if (!switchMain)
@@ -25,7 +25,7 @@ public class SelectorList
                 // If the object exists and we have one object, deselect it.
                 if (doesExist && selected.Count == 1)
                 {
-                    DeselectObject(selectedObject, multiSelect);
+                    DeselectObject(selectedEntity, multiSelect);
                     
                     EventManager.TriggerEvent("Selection Changed");
                     return;
@@ -38,7 +38,7 @@ public class SelectorList
                     if (multiSelect) 
                     {
                         // Deselect the object
-                        DeselectObject(selectedObject, multiSelect);
+                        DeselectObject(selectedEntity, multiSelect);
                         EventManager.TriggerEvent("Selection Changed");
                         return;
                     }
@@ -46,7 +46,7 @@ public class SelectorList
                     {
                         // If CTRL is not held, deselect all objects and only select that one.
                         DeselectAllObjects();
-                        SelectObject(selectedObject, multiSelect);
+                        SelectObject(selectedEntity, multiSelect);
                         EventManager.TriggerEvent("Selection Changed");
                         return;
                     }
@@ -58,82 +58,106 @@ public class SelectorList
                 // If we are trying to switch the main selection, we check if the object exists, and we set that as the main.
                 if (doesExist)
                 {
-                    if (selectedObject.GetType() == typeof(InstantiatedShip))
-                    {
-                        EventManager.TriggerEvent("Fleet Added");
-                    }
-                    SetMainSelected(selectedObject);
+                    if (selectedEntity.entity.entity != null)
+                        if (selectedEntity.entity.entity.GetType() == typeof(InstantiatedShip))
+                        {
+                            EventManager.TriggerEvent("Fleet Added");
+                        }
+
+                    SetMainSelected(selectedEntity);
                     EventManager.TriggerEvent("Selection Changed");
                     return;
                 }
             }
 
             // if none of the above, that means we're just trying to add an object to the selections.
-            SelectObject(selectedObject, multiSelect);
+            SelectObject(selectedEntity, multiSelect);
             }
 
         EventManager.TriggerEvent("Selection Changed");
     }
 
-    private void SelectObject(BaseSelectable selectedObject, bool multiSelect)
+    private void SelectObject(SelectableEntity selectedEntity, bool multiSelect)
     {
         bool containsFleet = false;
-        if (selectedObject.GetType() == typeof(InstantiatedShip))
-             containsFleet = ContainsFleet(selectedObject.selectableObject.GetComponent<PrefabHandler>().fleetAssociation);
+        if (selectedEntity.entity.entity != null)
+            if (selectedEntity.entity.entity.GetType() == typeof(InstantiatedShip))
+                containsFleet = ContainsFleet(selectedEntity.entity.entity.selectableObject.GetComponent<PrefabHandler>().fleetAssociation);
+
+        bool containsSubBodies = false;
+
+        containsSubBodies = ContainsSubEntities(selectedEntity);
+
         // If we are not multi selecting, we want to deselect all objects so we can select one individual object
         if (!multiSelect)
         {
-            DeselectAllObjects(containsFleet);
+            DeselectAllObjects(containsFleet, containsSubBodies);
         }
 
-        selected.Add(selectedObject);   // Add the object to-be selected to the list.
+        selected.Add(selectedEntity);   // Add the object to-be selected to the list.
 
-        if (selectedObject.GetType() == typeof(InstantiatedShip))
+        if (selectedEntity.entity.entity != null)
+            if (selectedEntity.entity.entity.GetType() == typeof(InstantiatedShip))
+            {
+                if (!containsFleet)
+                    LoadFleetIntoFleetList(selectedEntity.entity.entity.selectableObject);
+
+                EventManager.TriggerEvent("Fleet Added");
+            }
+            
+        if (selectedEntity.entity.subEntities.Count > 0)
         {
-            if (!containsFleet)
-                LoadFleetIntoFleetList(selectedObject.selectableObject);
-
+            LoadSubEntities(selectedEntity);
             EventManager.TriggerEvent("Fleet Added");
         }
-        selectedObject.Selected = true;
 
-        SetMainSelected(selectedObject);    // Set the new object as the main selected object.    
+        selectedEntity.selected = true;
+
+        SetMainSelected(selectedEntity);    // Set the new object as the main selected object.    
+    }
+
+    private void LoadSubEntities(SelectableEntity selectedEntity)
+    {
+        foreach (SystemEntity entity in selectedEntity.entity.subEntities)
+        {
+            VulturaInstance.AddSubEntityToSystem(entity);
+        }
     }
 
     private bool ContainsFleet(Fleet fleet)
     {
-        foreach (BaseSelectable selectedItem in selected)
+        foreach (SelectableEntity selectedItem in selected)
         {
-            if (selectedItem.GetType() == typeof(InstantiatedShip))
-            {
-                if(selectedItem.selectableObject.GetComponent<PrefabHandler>().fleetAssociation.FleetGUID.CompareTo(fleet.FleetGUID) == 0)
+            if (selectedItem.entity.entity != null)
+                if (selectedItem.entity.entity.GetType() == typeof(InstantiatedShip))
                 {
-                    return true;
-                }
+                    if(selectedItem.entity.entity.selectableObject.GetComponent<PrefabHandler>().fleetAssociation.FleetGUID.CompareTo(fleet.FleetGUID) == 0)
+                    {
+                        return true;
+                    }
                     
-            }
+                }
         }
         return false;
     }
 
     private void LoadFleetIntoFleetList(GameObject shipPrefab)
     {
-        
         Fleet fleet = shipPrefab.GetComponent<PrefabHandler>().fleetAssociation;
 
-        VulturaInstance.fleetSelectables.Add(fleet.FleetCommander);
+        VulturaInstance.AddSubSelectableToSystem(fleet.FleetCommander);
         
         foreach (InstantiatedShip ship in fleet.FleetShips)
         {
-            VulturaInstance.fleetSelectables.Add(ship);
+            VulturaInstance.AddSubSelectableToSystem(ship);
         }
     }
 
     private bool ContainsShip()
     {
-        foreach (BaseSelectable item in selected)
+        foreach (SelectableEntity item in selected)
         {
-            if (item.GetType() == typeof(InstantiatedShip))
+            if (item.entity.entity.GetType() == typeof(InstantiatedShip))
             {
                 return true;
             }
@@ -142,57 +166,89 @@ public class SelectorList
         return false;
     }
 
-    private void DeselectObject(BaseSelectable selectedObject, bool multiSelect)
+    private bool ContainsSubEntities(SelectableEntity entity)
+    {
+        if (entity.entity.subEntities.Count > 0)
+            return true;
+
+        return false;
+    }
+
+    private void DeselectObject(SelectableEntity selectedEntity, bool multiSelect)
     {
 
         // Look through the entire selected list
-        foreach (BaseSelectable deselector in selected)
+        foreach (SelectableEntity deselector in selected)
         {
             // If the current object is the object that we're trying to deselect
-            if (selectedObject.Equals(deselector))
+            if (selectedEntity.Equals(deselector))
             {
                 selected.Remove(deselector);    // Remove it from the selected list
-                selectedObject.selectableObject.GetComponent<Outline>().enabled = false;     // Turn off the outline
-                selectedObject.Selected = false;
+                if (selectedEntity.entity.entity != null)
+                    selectedEntity.entity.entity.selectableObject.GetComponent<Outline>().enabled = false;     // Turn off the outline
+                selectedEntity.selected = false;
 
                 // Check if what we deselected was a main selection
                 if (mainSelected.Equals(deselector))
                 {
                     mainSelected = null;
-                    selectedObject.MainSelected = false;
+                    selectedEntity.mainSelected = false;
 
                     // Switch main selection to last object if any objects remain in the list
                     if (selected.Count > 0)
                         SetMainSelected(selected[selected.Count - 1]);
                 }
 
-                if (!ContainsShip())
+                //VulturaInstance.subEntities.Clear();
+
+                if (!ContainsShip() && !ContainsSubEntities(selectedEntity))
                 {
-                    VulturaInstance.fleetSelectables.Clear();
+                    VulturaInstance.subEntities.Clear();
                     EventManager.TriggerEvent("Deselect Ship");
                 }
                 else 
                 {
-                    if (selectedObject.GetType() == typeof(InstantiatedShip))
-                    {
-                        
-                        if (!ContainsFleet(selectedObject.selectableObject.GetComponent<PrefabHandler>().fleetAssociation))
+                    if (selectedEntity.entity.entity != null)
+                        if (selectedEntity.entity.entity.GetType() == typeof(InstantiatedShip))
                         {
-                            int counter = 0;
-
-                            while (counter < VulturaInstance.fleetSelectables.Count)
+                        
+                            if (!ContainsFleet(selectedEntity.entity.entity.selectableObject.GetComponent<PrefabHandler>().fleetAssociation))
                             {
-                                if (selectedObject.selectableObject.GetComponent<PrefabHandler>().fleetAssociation.FleetGUID.CompareTo(VulturaInstance.fleetSelectables[counter].selectableObject.GetComponent<PrefabHandler>().fleetAssociation.FleetGUID) == 0)
-                                {
-                                    VulturaInstance.fleetSelectables.RemoveAt(counter);
-                                }
-                                else
-                                    counter++;
-                            }
+                                int counter = 0;
 
-                            EventManager.TriggerEvent("Deselect Ship");
-                            EventManager.TriggerEvent("Fleet Added");
+                                    while (counter < VulturaInstance.subEntities.Count)
+                                    {
+                                        if (selectedEntity.entity.entity.selectableObject.GetComponent<PrefabHandler>().fleetAssociation.FleetGUID.CompareTo(VulturaInstance.subEntities[counter].entity.entity.selectableObject.GetComponent<PrefabHandler>().fleetAssociation.FleetGUID) == 0)
+                                        {
+                                            VulturaInstance.subEntities.RemoveAt(counter);
+                                        }
+                                        else
+                                            counter++;
+                                    }
+
+                                    EventManager.TriggerEvent("Deselect Ship");
+                                    EventManager.TriggerEvent("Fleet Added");
+                            }
                         }
+
+                    if (ContainsSubEntities(selectedEntity))
+                    {
+                        Debug.Log("Test!");
+                        int counter = 0;
+
+                        SystemEntity mainEntity = selectedEntity.entity.mainEntity;
+
+                        if (mainEntity != null)
+                        {
+                            Debug.Log("Another Test");
+                            VulturaInstance.RemoveSubEntitiesOfMainEntity(mainEntity);
+                        }
+                        else
+                        {
+                            VulturaInstance.RemoveSubEntitiesOfMainEntity(selectedEntity.entity);
+                        }
+
+                        
                     }
                     
                 }
@@ -206,8 +262,6 @@ public class SelectorList
     // When tab is pressed, cycle the main selection one up. if we're at the last element, go back to the beginning
     public void CycleOne()
     {
-        EventManager.TriggerEvent("Cycle Ship");    // Calls the "Cycle Ship" event which is received by the entity lists
-
         if (selected.Count > 0)
         {
             int mainIndex = selected.IndexOf(mainSelected);
@@ -219,35 +273,53 @@ public class SelectorList
 
             EventManager.TriggerEvent("Fleet Added");
         }
-        
+        EventManager.TriggerEvent("RefreshList");    // Calls the "Cycle Ship" event which is received by the entity lists
     }
 
     // Set the new main selection
-    private void SetMainSelected(BaseSelectable newSelected)
+    private void SetMainSelected(SelectableEntity newSelected)
     {
-        // If no main selection exists
-        if (mainSelected == null)
+        try
         {
-            newSelected.MainSelected = true;
-            mainSelected = newSelected;     // Set the new main selection
-            mainSelected.selectableObject.GetComponent<Outline>().enabled = true;    // Set the outline to true
-            mainSelected.selectableObject.GetComponent<Outline>().OutlineColor = mainSelectedColor;  // Set the color
-            return;
+            // If no main selection exists
+            if (mainSelected == null)
+            {
+                newSelected.mainSelected = true;
+                mainSelected = newSelected;     // Set the new main selection
+
+                if (mainSelected.entity.entity != null)
+                {
+                    mainSelected.entity.entity.selectableObject.GetComponent<Outline>().enabled = true;    // Set the outline to true
+                    mainSelected.entity.entity.selectableObject.GetComponent<Outline>().OutlineColor = mainSelectedColor;  // Set the color
+                }
+                return;
+            }
+
+            // If a main selection already exists
+
+            if (mainSelected.entity.entity != null)
+                mainSelected.entity.entity.selectableObject.GetComponent<Outline>().OutlineColor = normalSelectedColor;    // Set the current main selection to a normal color
+            
+            mainSelected.mainSelected = false;
+            newSelected.mainSelected = true;
+
+            if (newSelected.entity.entity != null)
+            {
+                newSelected.entity.entity.selectableObject.GetComponent<Outline>().enabled = true;                         // Set the outline on the new object to enabled
+                newSelected.entity.entity.selectableObject.GetComponent<Outline>().OutlineColor = mainSelectedColor;       // Give the new object a main selection color
+            }
+
+            mainSelected = newSelected; // Set the new object as the main selection
+        } catch (System.NullReferenceException) 
+        {
         }
 
-        // If a main selection already exists
-        mainSelected.selectableObject.GetComponent<Outline>().OutlineColor = normalSelectedColor;    // Set the current main selection to a normal color
-        mainSelected.MainSelected = false;
-        newSelected.MainSelected = true;
-        newSelected.selectableObject.GetComponent<Outline>().enabled = true;                         // Set the outline on the new object to enabled
-        newSelected.selectableObject.GetComponent<Outline>().OutlineColor = mainSelectedColor;       // Give the new object a main selection color
-        mainSelected = newSelected; // Set the new object as the main selection
     }
 
     // Check if an element exists in the list
-    private bool Exists(BaseSelectable selectedObject)
+    private bool Exists(SelectableEntity selectedObject)
     {
-        foreach (BaseSelectable myObject in selected)
+        foreach (SelectableEntity myObject in selected)
         {
             if (myObject.Equals(selectedObject))
                 return true;
@@ -257,23 +329,25 @@ public class SelectorList
     }
 
     // Deselect every object in the list
-    public void DeselectAllObjects(bool containsFleet = false)
+    public void DeselectAllObjects(bool containsFleet = false, bool containsSubEntities = false)
     {
-        if (!containsFleet)
+        if (!containsFleet || !containsSubEntities)
         {
-            VulturaInstance.fleetSelectables.Clear();
+            VulturaInstance.subEntities.Clear();
         
             EventManager.TriggerEvent("Deselect Ship");
         }
 
         for (int i = 0; i < selected.Count; i++)
         {
-            if (selected[i].selectableObject != null)
+            if (selected[i].entity != null)
             {
-                selected[i].selectableObject.GetComponent<Outline>().enabled = false;
-                selected[i].Selected = false;
-                selected[i].MainSelected = false;
+                if (selected[i].entity.entity != null)
+                    selected[i].entity.entity.selectableObject.GetComponent<Outline>().enabled = false;
+                selected[i].selected = false;
+                selected[i].mainSelected = false;
             }
+
             
         }
 

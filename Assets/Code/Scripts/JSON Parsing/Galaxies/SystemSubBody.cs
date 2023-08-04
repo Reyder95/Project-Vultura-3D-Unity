@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SystemBody
+public class SystemSubBody
 {
-    public string name;
     public string type;
-    public string sub_type;
-    public int angle;
+    public int amount;
 }

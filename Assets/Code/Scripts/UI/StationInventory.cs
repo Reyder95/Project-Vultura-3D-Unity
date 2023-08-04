@@ -99,7 +99,7 @@ public class StationInventory : OSUIHandler
         instantiatedShip.GetComponent<PrefabHandler>().InitialPlayer();
         instantiatedShip.GetComponent<PrefabHandler>().currShip = selectedShip;
 
-        VulturaInstance.AddToSystem(instantiatedShip.GetComponent<PrefabHandler>().currShip);
+        VulturaInstance.AddSelectableToSystem(instantiatedShip.GetComponent<PrefabHandler>().currShip);
 
 
         playerFleet.FleetCommander = instantiatedShip.GetComponent<PrefabHandler>().currShip;

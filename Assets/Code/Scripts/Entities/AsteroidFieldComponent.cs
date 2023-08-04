@@ -22,7 +22,7 @@ public class AsteroidFieldComponent : MonoBehaviour
 
                 asteroid.GetComponent<Asteroid>().SetContent((Ore)newItem);
 
-                VulturaInstance.AddToSystem(asteroid.GetComponent<Asteroid>().CurrAsteroid); 
+                //VulturaInstance.AddToSystem(asteroid.GetComponent<Asteroid>().CurrAsteroid); 
                 asteroid.GetComponent<Asteroid>().CurrAsteroid.selectableObject = asteroid;
             }
         }

@@ -4,18 +4,29 @@
             "system_name": "olgaia",
             "star_type": "main_sequence",
             "size": 1500000,
-            "bodies": [
+            "gates": [],
+            "planets": [
                 {
-                    "type": "planet",
-                    "sub_type": "ice",
-                    "sub_bodies": null,
+                    "name": "Galleon V",
+                    "type": "ice",
+                    "moons": null,
+                    "bodies": [
+                        {
+                            "name": "Olgaia Mining Station",
+                            "type": "Station",
+                            "sub_type": "Mining Station",
+                            "angle": 120
+                        }
+                    ],
                     "radius": 95,
-                    "angle": 270,
+                    "angle": 20,
+                    "height": 75,
                     "size": "medium"
-                },
+                }
+            ],
+            "asteroid_fields": [
                 {
-                    "type": "asteroid",
-                    "sub_type": null,
+                    "name": "Olgaia Mining Field A",
                     "sub_bodies": [
                         {
                             "type": "iron",
@@ -28,15 +39,7 @@
                     ],
                     "radius": 60,
                     "angle": 14,
-                    "size": null
-                },
-                {
-                    "type": "station",
-                    "sub_type": "mining",
-                    "sub_bodies": null,
-                    "radius": 45,
-                    "angle": 58,
-                    "size": "medium"
+                    "height": 50
                 }
             ]
         }
