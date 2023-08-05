@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started)
         {
-            this.gameObject.GetComponent<PrefabHandler>().BeginWarp(VulturaInstance.selectorList.mainSelected.entity.entity.selectableObject);
+            this.gameObject.GetComponent<PrefabHandler>().BeginWarp(VulturaInstance.selectorList.mainSelected);
         }
     }
 

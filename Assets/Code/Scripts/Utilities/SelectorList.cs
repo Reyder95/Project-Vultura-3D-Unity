@@ -25,6 +25,7 @@ public class SelectorList
                 // If the object exists and we have one object, deselect it.
                 if (doesExist && selected.Count == 1)
                 {
+                    Debug.Log("Test!!");
                     DeselectObject(selectedEntity, multiSelect);
                     
                     EventManager.TriggerEvent("Selection Changed");
@@ -88,19 +89,22 @@ public class SelectorList
 
         containsSubBodies = ContainsSubEntities(selectedEntity);
 
-        // If we are not multi selecting, we want to deselect all objects so we can select one individual object
-        if (!multiSelect)
+        if (Exists(selectedEntity))
+            DeselectObject(selectedEntity, multiSelect);
+        else if (!multiSelect)
         {
             DeselectAllObjects(containsFleet, containsSubBodies);
         }
+
+        // If we are not multi selecting, we want to deselect all objects so we can select one individual object
+
 
         selected.Add(selectedEntity);   // Add the object to-be selected to the list.
 
         if (selectedEntity.entity.entity != null)
             if (selectedEntity.entity.entity.GetType() == typeof(InstantiatedShip))
             {
-                if (!containsFleet)
-                    LoadFleetIntoFleetList(selectedEntity.entity.entity.selectableObject);
+                LoadFleetIntoFleetList(selectedEntity.entity.entity.selectableObject);
 
                 EventManager.TriggerEvent("Fleet Added");
             }
@@ -183,6 +187,7 @@ public class SelectorList
             // If the current object is the object that we're trying to deselect
             if (selectedEntity.Equals(deselector))
             {
+                Debug.Log("IN DESELECT!");
                 selected.Remove(deselector);    // Remove it from the selected list
                 if (selectedEntity.entity.entity != null)
                     selectedEntity.entity.entity.selectableObject.GetComponent<Outline>().enabled = false;     // Turn off the outline
@@ -208,10 +213,11 @@ public class SelectorList
                 }
                 else 
                 {
+                    Debug.Log("Test!");
                     if (selectedEntity.entity.entity != null)
                         if (selectedEntity.entity.entity.GetType() == typeof(InstantiatedShip))
                         {
-                        
+                            
                             if (!ContainsFleet(selectedEntity.entity.entity.selectableObject.GetComponent<PrefabHandler>().fleetAssociation))
                             {
                                 int counter = 0;
@@ -240,11 +246,11 @@ public class SelectorList
 
                         if (mainEntity != null)
                         {
-                            Debug.Log("Another Test");
                             VulturaInstance.RemoveSubEntitiesOfMainEntity(mainEntity);
                         }
                         else
                         {
+                            Debug.Log("Another Test");
                             VulturaInstance.RemoveSubEntitiesOfMainEntity(selectedEntity.entity);
                         }
 
@@ -328,15 +334,27 @@ public class SelectorList
         return false;
     }
 
+    public void RemoveSubShipsFromList()
+    {
+
+    }
+
     // Deselect every object in the list
     public void DeselectAllObjects(bool containsFleet = false, bool containsSubEntities = false)
     {
-        if (!containsFleet || !containsSubEntities)
-        {
-            VulturaInstance.subEntities.Clear();
+        Debug.Log(containsFleet);
+
+        //VulturaInstance.subEntities.Clear();
+        // if (!containsFleet && !containsSubEntities)
+        // {
+        //     VulturaInstance.subEntities.Clear();
         
-            EventManager.TriggerEvent("Deselect Ship");
-        }
+        //     EventManager.TriggerEvent("Deselect Ship");
+        // }
+
+
+        VulturaInstance.subEntities.Clear();
+        
 
         for (int i = 0; i < selected.Count; i++)
         {

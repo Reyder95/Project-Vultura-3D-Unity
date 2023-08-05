@@ -18,7 +18,10 @@ public class PrefabHandler : MonoBehaviour
     public bool traveling = false;
     public bool turning = false;
 
-    public GameObject warpTarget;   // Where the ship will warp to
+    public Vector3 warpTarget;   // Where the ship will warp to
+    public bool outsideRange = false;
+    public bool warped = false;
+    public bool warpHandled = false;
 
     void Start()
     {
@@ -30,21 +33,21 @@ public class PrefabHandler : MonoBehaviour
         // If turning is active, turn the ship towards the objective
         if (turning)
         {
-            Quaternion rotTarget = Quaternion.LookRotation(warpTarget.transform.position - transform.position);
+            Quaternion rotTarget = Quaternion.LookRotation(warpTarget - transform.position);
             this.transform.rotation = Quaternion.Slerp(transform.rotation, rotTarget, 0.5f * Time.deltaTime);
 
             if (Quaternion.Angle(transform.rotation, rotTarget) <= 3.0f)
             {
-                transform.LookAt(warpTarget.transform);
+                transform.LookAt(warpTarget);
                 turning = false;
 
-                if (VulturaInstance.CalculateDistance(this.gameObject, warpTarget) < 25.0f)
-                    traveling = true;
-                else
-                {
+                // if (VulturaInstance.CalculateDistance(this.gameObject, warpTarget) < 25.0f)
+                //     traveling = true;
+                // else
+                // {
                     warping = true;
                     this.gameObject.GetComponent<PlayerInput>().SwitchCurrentActionMap("UI");
-                }
+                // }
             }
 
 
@@ -55,11 +58,61 @@ public class PrefabHandler : MonoBehaviour
         {
             // Vector3 relativePos = warpTarget.transform.position - transform.position;
             // this.gameObject.GetComponent<Rigidbody>().AddForce(1000f * relativePos.normalized);
-            transform.position = Vector3.MoveTowards(transform.position, warpTarget.transform.position, 1000f * Time.deltaTime);
-            if (VulturaInstance.CalculateDistance(this.gameObject, warpTarget) < 2.0f)
+            
+            // if (VulturaInstance.CalculateDistance(this.gameObject, warpTarget) < 2.0f)
+            // {
+            //     this.gameObject.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+            //     warping = false;
+            // }
+
+            if (VulturaInstance.currentPlayer.transform.position.x > VulturaInstance.border || VulturaInstance.currentPlayer.transform.position.x < VulturaInstance.border / -1)
             {
-                this.gameObject.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
-                warping = false;
+                outsideRange = true;
+            }
+
+            if (VulturaInstance.currentPlayer.transform.position.y > VulturaInstance.border || VulturaInstance.currentPlayer.transform.position.y < VulturaInstance.border / -1)
+            {
+                outsideRange = true;
+            }
+
+            if (VulturaInstance.currentPlayer.transform.position.z > VulturaInstance.border || VulturaInstance.currentPlayer.transform.position.z < VulturaInstance.border / -1)
+            {
+                outsideRange = true;
+            }
+
+            if (outsideRange)
+            {
+                Vector3 newPlayerPos = new Vector3(VulturaInstance.currentPlayer.transform.position.x / -1, VulturaInstance.currentPlayer.transform.position.y / -1, VulturaInstance.currentPlayer.transform.position.z / -1);
+
+                VulturaInstance.currentPlayer.transform.position = newPlayerPos;
+
+                outsideRange = false;
+                warped = true;
+            }
+
+            if (warped)
+            {
+                if (!warpHandled)
+                {
+                    Game.Instance.WarpHandling();
+                    warpHandled = true;
+                }
+                
+
+                if (VulturaInstance.CalculateCoordinateDistance(new Vector3(0, 0, 0), VulturaInstance.currentPlayer.transform.position) < 10000.0f * 5)
+                {
+                    this.gameObject.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+                    warping = false;
+
+                    warped = false;
+                }
+
+                transform.LookAt(new Vector3(0, 0, 0));
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, 0, 0), 1000f * Time.deltaTime);
+            }
+            else 
+            {
+                transform.position = Vector3.MoveTowards(transform.position, warpTarget, 1000f * Time.deltaTime);
             }
         }
         // If traveling, move normally towards the objective
@@ -67,10 +120,10 @@ public class PrefabHandler : MonoBehaviour
         {
             this.gameObject.GetComponent<ShipMovement>().MoveShip(1.0f);
             
-             if (VulturaInstance.CalculateDistance(this.gameObject, warpTarget) < 2.0f)
-            {
-                traveling = false;
-            }
+            //  if (VulturaInstance.CalculateDistance(this.gameObject, warpTarget) < 2.0f)
+            // {
+            //     traveling = false;
+            // }
         }
     }
 
@@ -150,10 +203,14 @@ public class PrefabHandler : MonoBehaviour
     }
 
     // Begin the warp mechanic
-    public void BeginWarp(GameObject target)
+    public void BeginWarp(SelectableEntity target)
     {
-        warpTarget = target;
+        Vector3 warpPos = target.entity.GetPosition() - VulturaInstance.currEntity.GetPosition();
+        Debug.Log(target.entity);
+        VulturaInstance.currTarget = target.entity;
+        warpTarget = warpPos;
         turning = true;
+        warpHandled = false;
     }
 
     // Switch control from an old ship to the new ship

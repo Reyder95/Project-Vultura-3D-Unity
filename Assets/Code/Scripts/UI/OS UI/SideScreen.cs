@@ -199,17 +199,22 @@ public class SideScreen : BaseOS
 
             e.RegisterCallback<PointerEnterEvent>(ev => {
                 elementHovered = i;
-                if (VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex].mainSelected)
+
+                try
                 {
-                    e.style.backgroundColor = mainSelected;
-                }
-                else if (VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex].selected)
-                {
-                    e.style.backgroundColor = selected;
-                } else
-                {
-                    e.style.backgroundColor = selected;
-                }
+                    if (VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex].mainSelected)
+                    {
+                        e.style.backgroundColor = mainSelected;
+                    }
+                    else if (VulturaInstance.subEntities[EntitySorter.Instance.subEntities[i].entityIndex].selected)
+                    {
+                        e.style.backgroundColor = selected;
+                    } else
+                    {
+                        e.style.backgroundColor = selected;
+                    } 
+                } catch (ArgumentOutOfRangeException) {}
+
             });
 
             e.RegisterCallback<PointerLeaveEvent>(ev => {

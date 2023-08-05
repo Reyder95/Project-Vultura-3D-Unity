@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[System.Serializable]
+public struct PrefabStruct 
+{
+    public string prefabName;
+    public GameObject prefabObject;
+}
+
 // The base game controller. Is physically in the game world as a game object, and is under MonoBehaviour.
 public class Game : MonoBehaviour
 {
@@ -25,6 +32,10 @@ public class Game : MonoBehaviour
 
     public GameObject StationUI;        // Handles the station UI pane
 
+    public PrefabStruct[] prefabArray;
+
+    public Dictionary<string, GameObject> prefabDict = new Dictionary<string, GameObject>();
+
     // Debugging Elements
     public GameObject GRAPHY;
 
@@ -40,6 +51,11 @@ public class Game : MonoBehaviour
         else
         {
             Instance = this;
+        }
+
+        foreach (PrefabStruct tempStruct in prefabArray)
+        {
+            prefabDict.Add(tempStruct.prefabName, tempStruct.prefabObject);
         }
 
         // Load item data
@@ -108,25 +124,91 @@ public class Game : MonoBehaviour
 
         VulturaInstance.InitializeSelectableObjects();
 
-        shipSpawner.SpawnFleet(FleetGenerator(10), new Vector3(0, 0, 600));
-        shipSpawner.SpawnFleet(FleetGenerator(50), new Vector3(0, 0, -600));
-        shipSpawner.SpawnFleet(FleetGenerator(15), new Vector3(600, 0, 0));
-        shipSpawner.SpawnFleet(FleetGenerator(1000), new Vector3(-600, 0, 0));
+        // shipSpawner.SpawnFleet(FleetGenerator(10), new Vector3(0, 0, 600));
+        // shipSpawner.SpawnFleet(FleetGenerator(50), new Vector3(0, 0, -600));
+        // shipSpawner.SpawnFleet(FleetGenerator(15), new Vector3(600, 0, 0));
+        // shipSpawner.SpawnFleet(FleetGenerator(1000), new Vector3(-600, 0, 0));
 
-        VulturaInstance.AddSelectableToSystem(VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip);
+        PlaceFleetsInSystem();
+        SpawnFleetsInSystem();
 
+        //VulturaInstance.AddSelectableToSystem(VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip);
+
+    }
+
+    public void WarpHandling()
+    {
+        RemoveObjectFromEntity();
+        RemoveFleetsFromEntity();
+        VulturaInstance.currEntity = VulturaInstance.currTarget;
+        SpawnFleetsFromEntity();
+        VulturaInstance.RemoveShipsFromEntities();
+        AddShipSelectables();
+    }
+
+    private void AddShipSelectables()
+    {
+        foreach (SystemFleet fleet in VulturaInstance.currEntity.fleets)
+        {
+            VulturaInstance.AddSelectableToSystem(fleet.fleet.FleetCommander);
+        }
+    }
+
+    private void RemoveObjectFromEntity()
+    {
+        if (VulturaInstance.currEntity.entity != null)
+        {
+            Destroy(VulturaInstance.currEntity.entity.selectableObject);
+        }
+    }
+
+    private void RemoveFleetsFromEntity()
+    {
+        foreach (SystemFleet fleet in VulturaInstance.currEntity.fleets)
+        {
+            foreach (InstantiatedShip ship in fleet.fleet.FleetShips)
+            {
+                Destroy(ship.selectableObject);
+            }
+
+            Destroy(fleet.fleet.FleetCommander.selectableObject);
+        }
+    }
+
+    private void SpawnFleetsFromEntity()
+    {
+        foreach (SystemFleet fleet in VulturaInstance.currEntity.fleets)
+        {
+            shipSpawner.SpawnFleet(fleet.fleet, fleet.originCoords);
+        }
+    }
+
+    private void PlaceFleetsInSystem()
+    {
+        Fleet newFleet = FleetGenerator(10);
+        SystemFleet newSystemFleet = new SystemFleet(newFleet, new Vector3(0, 0, 600));
+        
+        VulturaInstance.currEntity.fleets.Add(newSystemFleet);
+    }
+
+    private void SpawnFleetsInSystem()
+    {
+        foreach (SystemFleet fleet in VulturaInstance.currEntity.fleets)
+        {
+            shipSpawner.SpawnFleet(fleet.fleet, fleet.originCoords);
+        }
     }
 
     public void GenerateAsteroidField()
     {
-        GameObject afield = Instantiate(asteroidFieldPrefab, VulturaInstance.currentPlayer.transform.position, Quaternion.identity);
+        // GameObject afield = Instantiate(asteroidFieldPrefab, VulturaInstance.currentPlayer.transform.position, Quaternion.identity);
 
-        List<string> oreKeys = new List<string>();
-        oreKeys.Add("carbon");
-        oreKeys.Add("silicon");
-        oreKeys.Add("iron");
+        // List<string> oreKeys = new List<string>();
+        // oreKeys.Add("carbon");
+        // oreKeys.Add("silicon");
+        // oreKeys.Add("iron");
 
-        afield.GetComponent<AsteroidFieldComponent>().GenerateField(oreKeys);
+        // afield.GetComponent<AsteroidFieldComponent>().GenerateField(oreKeys);
     }
 
     public void GenerateInventory()

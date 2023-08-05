@@ -46,6 +46,14 @@ public static class VulturaInstance
         Commander
     }
 
+    public enum EntityType {
+        ASTEROID_FIELD,
+        MINING_STATION,
+        SHIPYARD,
+        RESEARCH_STATION,
+        PLANET
+    }
+
     // Different contacts you can see in the station
     public enum ContactType {
         Station_Head,                   // The head of the station. Lets you manage faction diplomacy, or help the station which can increase faction rep
@@ -86,6 +94,9 @@ public static class VulturaInstance
     public static StarSystem currSystem;
     public static SystemEntity currEntity;
 
+    public static float border = 3000;
+    public static SystemEntity currTarget;
+
     // -- Debug -- The initialized list of systems
     public static void InitializeSystems()
     {
@@ -112,6 +123,7 @@ public static class VulturaInstance
     // Initialize all the selectabe objects in the system.
     public static void InitializeSelectableObjects()
     {
+        systemEntities.Clear();
         foreach (SystemEntity entity in currSystem.systemEntities)
         {
             systemEntities.Add(new SelectableEntity(entity.name, "test", entity, entity.type));
@@ -133,6 +145,19 @@ public static class VulturaInstance
         // {
         //     systemSelectables.Add(station.GetComponent<StationComponent>().station);
         // }
+    }
+
+    public static void RemoveShipsFromEntities()
+    {
+        int counter = 0;
+
+        while (counter < VulturaInstance.systemEntities.Count)
+        {
+            if (VulturaInstance.systemEntities[counter].entity.moveableEntity)
+                VulturaInstance.systemEntities.RemoveAt(counter);
+            else
+                counter++;
+        }
     }
 
     public static void RemoveSubEntitiesOfMainEntity(SystemEntity mainEntity)
