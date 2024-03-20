@@ -311,7 +311,6 @@ public class InventoryManager : MonoBehaviour
             rootVisualElement.Q<VisualElement>("bar-percent").style.width = Length.Percent(percentUsed);
         } catch (System.NullReferenceException ex)
         {
-            Debug.Log("Inventory isn't loaded yet!");
         }
 
     }

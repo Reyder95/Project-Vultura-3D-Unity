@@ -136,18 +136,18 @@ public class UI_MainEntityList : MonoBehaviour
                 {
                     if (entities[i].entityIndex < VulturaInstance.systemSelectables.Count)
                     {
-                        if (Input.GetKey("left ctrl"))
-                        {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemSelectables[entities[i].entityIndex], true, false);
-                        }
-                        else if (Input.GetKey("left alt"))
-                        {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemSelectables[entities[i].entityIndex], false, true);
-                        }
-                        else
-                        {
-                            VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemSelectables[entities[i].entityIndex]);
-                        }
+                        // if (Input.GetKey("left ctrl"))
+                        // {
+                        //     VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemSelectables[entities[i].entityIndex], true, false);
+                        // }
+                        // else if (Input.GetKey("left alt"))
+                        // {
+                        //     VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemSelectables[entities[i].entityIndex], false, true);
+                        // }
+                        // else
+                        // {
+                        //     VulturaInstance.selectorList.ConfirmSelection(VulturaInstance.systemSelectables[entities[i].entityIndex]);
+                        // }
                     }
 
                     SortAndPopulate();

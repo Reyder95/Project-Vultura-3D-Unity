@@ -24,7 +24,6 @@ public class InventoryOS : BaseOS
     public override void Awake()
     {
 
-        Debug.Log("Awake test!");
         initListener = new UnityAction(InitializeScreen);
         openListener = new UnityAction(OpenScreen);
         refreshListener = new UnityAction(DisplayInventory);
@@ -65,8 +64,6 @@ public class InventoryOS : BaseOS
         windowName = "inventory";
         
         base.InitializeScreen();
-
-        Debug.Log("Another test!!");
 
         screen.Q<VisualElement>("screen-background").RegisterCallback<PointerDownEvent>(ev => {
             UIScreenManager.Instance.SetFocusedScreen(screen);

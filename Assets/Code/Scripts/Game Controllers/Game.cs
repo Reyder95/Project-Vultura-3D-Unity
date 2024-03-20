@@ -3,6 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Threading;
+
+[System.Serializable]
+public struct PrefabStruct 
+{
+    public string prefabName;
+    public GameObject prefabObject;
+}
 
 // The base game controller. Is physically in the game world as a game object, and is under MonoBehaviour.
 public class Game : MonoBehaviour
@@ -14,6 +22,10 @@ public class Game : MonoBehaviour
     public GameObject[] stationPrefabs;     // Station prefab objects in the game world
     public GameObject asteroidFieldPrefab;
     public List<BaseStation> stations = new List<BaseStation>();    // Station C# objects
+    public GameObject reticleCanvas;
+
+    public Camera scaledCamera;
+    public GameObject currPlanet;
 
     public GameObject[] shipPrefabs;    // All the possible types of ship prefabs that exist
 
@@ -21,9 +33,14 @@ public class Game : MonoBehaviour
 
     public GameObject StationUI;        // Handles the station UI pane
 
+    public PrefabStruct[] prefabArray;
+
+    public Dictionary<string, GameObject> prefabDict = new Dictionary<string, GameObject>();
+
     // Debugging Elements
     public GameObject GRAPHY;
 
+    BFS bfs;
     void Start() 
     {
         DontDestroyOnLoad(this.gameObject); // Keeps the game controller loaded at all times
@@ -38,6 +55,11 @@ public class Game : MonoBehaviour
             Instance = this;
         }
 
+        foreach (PrefabStruct tempStruct in prefabArray)
+        {
+            prefabDict.Add(tempStruct.prefabName, tempStruct.prefabObject);
+        }
+
         // Load item data
         JSONDataHandler.LoadData();
 
@@ -48,17 +70,14 @@ public class Game : MonoBehaviour
         InstantiatedShip newShip = ShipFactory.Instance.CreateShip(shipPrefabs[0], "Player Faction", "Player Fleet", "Non AI Fleet", shipStatsComponent, false, new Inventory());
         //newShip.InitializeMounts();
         Fleet playerFleet = new Fleet(System.Guid.NewGuid(), "Player Faction", newShip, new List<InstantiatedShip>());
-
-        // -- Debug -- Add items to inventory
-        // TODO: Do with new system
         
         // -- Debug -- Add a second ship to the player fleet
         shipStatsComponent = shipPrefabs[1].GetComponent<PrefabHandler>().GetShipStats();
         newShip = ShipFactory.Instance.CreateShip(shipPrefabs[1], "Player Faction", "Player Fleet", "Non AI Fleet", shipStatsComponent, true, new Inventory());
         //newShip.InitializeMounts();
         playerFleet.AddOneShip(newShip);
+        newShip.Fleet = playerFleet;
 
-        
         // -- Debug -- Spawn the player fleet and additional AI fleets
         shipSpawner.SpawnFleet(playerFleet, new Vector3(0, 0, 0));
 
@@ -93,28 +112,141 @@ public class Game : MonoBehaviour
             newStation.shipStorage.Add(ShipFactory.Instance.CreateShip(shipPrefabs[1], "Extra ship", "N/A", "Non AI Fleet", shipStatsStorageComponent, false, new Inventory()));
         }
 
-        shipSpawner.SpawnFleet(FleetGenerator(10), new Vector3(0, 0, 600));
-        shipSpawner.SpawnFleet(FleetGenerator(50), new Vector3(0, 0, -600));
-        shipSpawner.SpawnFleet(FleetGenerator(15), new Vector3(600, 0, 0));
-        shipSpawner.SpawnFleet(FleetGenerator(1000), new Vector3(-600, 0, 0));
-
-        VulturaInstance.InitializeSelectableObjects();  // Find all selectable objects in the system for the entity list UI.
-
         GenerateInventory();
 
         GenerateAsteroidField();
+
+        VulturaInstance.currGalaxy = new Galaxy(JSONDataHandler.currGalaxy);
+        VulturaInstance.currSystem = VulturaInstance.currGalaxy.systemList["olgaia"];
+        VulturaInstance.currEntity = VulturaInstance.currSystem.systemEntities[0];
+        currPlanet.GetComponent<CurrPlanetHandler>().systemEntity = VulturaInstance.currEntity;
+
+        VulturaInstance.InitializeSelectableObjects();
+
+        // shipSpawner.SpawnFleet(FleetGenerator(10), new Vector3(0, 0, 600));
+        // shipSpawner.SpawnFleet(FleetGenerator(50), new Vector3(0, 0, -600));
+        // shipSpawner.SpawnFleet(FleetGenerator(15), new Vector3(600, 0, 0));
+        // shipSpawner.SpawnFleet(FleetGenerator(1000), new Vector3(-600, 0, 0));
+
+        PlaceFleetsInSystem();
+        SpawnFleetsInSystem();
+
+        bfs = new BFS();
+
+        Thread bfsThread = new Thread(() =>
+        {
+            bfs.FindShortestPath(VulturaInstance.currGalaxy.galGraph, VulturaInstance.currGalaxy.systemList["olgaia"], VulturaInstance.currGalaxy.systemList["haylo"]);
+        });
+        bfsThread.Start();
+
+    }
+
+    private void Update()
+    {
+        if (bfs != null && bfs.IsDone() )
+        {
+            List<StarSystem> shortestPath = bfs.GetShortestPath(VulturaInstance.currGalaxy.systemList["olgaia"], VulturaInstance.currGalaxy.systemList["haylo"]);
+
+            foreach (var node in shortestPath)
+            {
+                Debug.Log(node.system_name);
+            }
+
+            bfs = null;
+        }
+    }
+
+    public void WarpHandling()
+    {
+        RemoveObjectFromEntity();
+        RemoveFleetsFromEntity();
+        VulturaInstance.currEntity = VulturaInstance.currTarget;
+        SpawnFleetsFromEntity();
+        VulturaInstance.RemoveShipsFromEntities();
+        SpawnEntityInSystem();
+        AddShipSelectables();
+        
+    }
+
+    private void AddShipSelectables()
+    {
+        foreach (SystemFleet fleet in VulturaInstance.currEntity.fleets)
+        {
+            VulturaInstance.AddSelectableToSystem(fleet.fleet.FleetCommander);
+        }
+    }
+
+    private void RemoveObjectFromEntity()
+    {
+        if (VulturaInstance.currEntity.entity != null)
+        {
+            Destroy(VulturaInstance.currEntity.entity.selectableObject);
+        }
+    }
+
+    private void RemoveFleetsFromEntity()
+    {
+        foreach (SystemFleet fleet in VulturaInstance.currEntity.fleets)
+        {
+            foreach (InstantiatedShip ship in fleet.fleet.FleetShips)
+            {
+                Destroy(ship.selectableObject);
+            }
+
+            Destroy(fleet.fleet.FleetCommander.selectableObject);
+        }
+    }
+
+    private void SpawnFleetsFromEntity()
+    {
+        foreach (SystemFleet fleet in VulturaInstance.currEntity.fleets)
+        {
+            shipSpawner.SpawnFleet(fleet.fleet, fleet.originCoords);
+        }
+    }
+
+    private void PlaceFleetsInSystem()
+    {
+        Fleet newFleet = FleetGenerator(10);
+        SystemFleet newSystemFleet = new SystemFleet(newFleet, new Vector3(0, 0, 600));
+        
+        VulturaInstance.currEntity.fleets.Add(newSystemFleet);
+    }
+
+    private void SpawnFleetsInSystem()
+    {
+        foreach (SystemFleet fleet in VulturaInstance.currEntity.fleets)
+        {
+            shipSpawner.SpawnFleet(fleet.fleet, fleet.originCoords);
+        }
+    }
+
+    private void SpawnEntityInSystem()
+    {
+        VulturaInstance.EntityType type = VulturaInstance.currEntity.actualType;
+
+        if (type == VulturaInstance.EntityType.MINING_STATION)
+        {
+            //GameObject spawnedObject = Instantiate(prefabDict["station1"], new Vector3(0, 0, 0), Quaternion.identity);
+            //StationComponent stationComponent = spawnedObject.GetComponent<StationComponent>();
+            //if (stationComponent.station == null)
+            //    stationComponent.SetStation(new MiningStation(VulturaInstance.currEntity.name, "Mining Station", "test"));
+            //stationComponent.station.entity = VulturaInstance.currEntity;
+            //VulturaInstance.currEntity.entity = stationComponent.station;
+        }
+            
     }
 
     public void GenerateAsteroidField()
     {
-        GameObject afield = Instantiate(asteroidFieldPrefab, VulturaInstance.currentPlayer.transform.position, Quaternion.identity);
+        // GameObject afield = Instantiate(asteroidFieldPrefab, VulturaInstance.currentPlayer.transform.position, Quaternion.identity);
 
-        List<string> oreKeys = new List<string>();
-        oreKeys.Add("carbon");
-        oreKeys.Add("silicon");
-        oreKeys.Add("iron");
+        // List<string> oreKeys = new List<string>();
+        // oreKeys.Add("carbon");
+        // oreKeys.Add("silicon");
+        // oreKeys.Add("iron");
 
-        afield.GetComponent<AsteroidFieldComponent>().GenerateField(oreKeys);
+        // afield.GetComponent<AsteroidFieldComponent>().GenerateField(oreKeys);
     }
 
     public void GenerateInventory()
@@ -234,7 +366,11 @@ public class Game : MonoBehaviour
             fleetShips.Add(ShipFactory.Instance.CreateShip(fleetShipPrefab, faction.ToString(), "Ship # " + (i + 1), "Ship", fleetShipStats, true, new Inventory()));
         }
 
+        Fleet myFleet = new Fleet(fleetGUID, faction.ToString(), commander, fleetShips);
+
+        commander.Fleet = myFleet;
+
         // Return the created fleet
-        return new Fleet(fleetGUID, faction.ToString(), commander, fleetShips);
+        return myFleet;
     }
 }

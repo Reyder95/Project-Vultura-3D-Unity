@@ -86,14 +86,14 @@ public class PlayerController : MonoBehaviour
         {
             if (VulturaInstance.selectorList.mainSelected != null)
             {
-                if (VulturaInstance.selectorList.mainSelected.selectableObject.tag == "Ship") 
+                if (VulturaInstance.selectorList.mainSelected.entity.entity.selectableObject.tag == "Ship") 
                 {
-                    VulturaInstance.currentPlayer = VulturaInstance.selectorList.mainSelected.selectableObject.GetComponent<PrefabHandler>().SwitchControl(VulturaInstance.currentPlayer);
+                    VulturaInstance.currentPlayer = VulturaInstance.selectorList.mainSelected.entity.entity.selectableObject.GetComponent<PrefabHandler>().SwitchControl(VulturaInstance.currentPlayer);
                 }
 
-                if (VulturaInstance.selectorList.mainSelected != null && VulturaInstance.selectorList.mainSelected.selectableObject.tag == "Station")
+                if (VulturaInstance.selectorList.mainSelected != null && VulturaInstance.selectorList.mainSelected.entity.entity.selectableObject.tag == "Station")
                 {
-                    VulturaInstance.selectorList.mainSelected.selectableObject.GetComponent<StationComponent>().EnterStation();
+                    VulturaInstance.selectorList.mainSelected.entity.entity.selectableObject.GetComponent<StationComponent>().EnterStation();
                 }
             }
         }
@@ -103,12 +103,12 @@ public class PlayerController : MonoBehaviour
         {
             if (VulturaInstance.selectorList.mainSelected != null)
             {
-                if (VulturaInstance.selectorList.mainSelected.selectableObject.tag == "Asteroid")
+                if (VulturaInstance.selectorList.mainSelected.entity.entity.selectableObject.tag == "Asteroid")
                 {
                     InstantiatedShip playerShip = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip;
 
                     if (playerShip.turretMounts.Count != 0)
-                        playerShip.turretMounts[0].GetComponent<MountComponent>().UseTurret(VulturaInstance.selectorList.mainSelected);
+                        playerShip.turretMounts[0].GetComponent<MountComponent>().UseTurret(VulturaInstance.selectorList.mainSelected.entity.entity);
 
                 }
             }
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started)
         {
-            this.gameObject.GetComponent<PrefabHandler>().BeginWarp(VulturaInstance.selectorList.mainSelected.selectableObject);
+            this.gameObject.GetComponent<PrefabHandler>().BeginWarp(VulturaInstance.selectorList.mainSelected);
         }
     }
 
@@ -193,19 +193,19 @@ public class PlayerController : MonoBehaviour
                         if (hitInfo.collider.gameObject.GetComponent<PrefabHandler>().currShip != null)
                         {
 
-                            VulturaInstance.selectorList.ConfirmSelection(hitInfo.collider.gameObject.GetComponent<PrefabHandler>().currShip, multiSelect, switchMain);
+                            VulturaInstance.selectorList.ConfirmSelection(hitInfo.collider.gameObject.GetComponent<PrefabHandler>().currShip.entity.aboveEntity, multiSelect, switchMain);
                         }
                     
                     }
                     else if (hitInfo.collider.gameObject.tag == "Station")
                     {
                     
-                        VulturaInstance.selectorList.ConfirmSelection(hitInfo.collider.gameObject.GetComponent<StationComponent>().station, multiSelect, switchMain);
+                        VulturaInstance.selectorList.ConfirmSelection(hitInfo.collider.gameObject.GetComponent<StationComponent>().station.entity.aboveEntity, multiSelect, switchMain);
                     }
                     else if (hitInfo.collider.gameObject.tag == "Asteroid")
                     {
                         Debug.Log(hitInfo.collider.gameObject.GetComponent<Asteroid>().CurrAsteroid);
-                        VulturaInstance.selectorList.ConfirmSelection(hitInfo.collider.gameObject.GetComponent<Asteroid>().CurrAsteroid, multiselect, switchMain);
+                        VulturaInstance.selectorList.ConfirmSelection(hitInfo.collider.gameObject.GetComponent<Asteroid>().CurrAsteroid.entity.aboveEntity, multiselect, switchMain);
                     }
                 
                 }

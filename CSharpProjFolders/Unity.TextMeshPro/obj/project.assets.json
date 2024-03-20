@@ -1,0 +1,148 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETStandard,Version=v2.1": {
+      "UnityEditor.TestRunner/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "UnityEngine.TestRunner": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/UnityEditor.TestRunner.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UnityEditor.TestRunner.dll": {}
+        }
+      },
+      "UnityEditor.UI/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "UnityEditor.TestRunner": "1.0.0",
+          "UnityEngine.TestRunner": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/UnityEditor.UI.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UnityEditor.UI.dll": {}
+        }
+      },
+      "UnityEngine.TestRunner/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "compile": {
+          "bin/placeholder/UnityEngine.TestRunner.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UnityEngine.TestRunner.dll": {}
+        }
+      },
+      "UnityEngine.UI/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "compile": {
+          "bin/placeholder/UnityEngine.UI.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UnityEngine.UI.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "UnityEditor.TestRunner/1.0.0": {
+      "type": "project",
+      "path": "../UnityEditor.TestRunner/UnityEditor.TestRunner.csproj",
+      "msbuildProject": "../UnityEditor.TestRunner/UnityEditor.TestRunner.csproj"
+    },
+    "UnityEditor.UI/1.0.0": {
+      "type": "project",
+      "path": "../UnityEditor.UI/UnityEditor.UI.csproj",
+      "msbuildProject": "../UnityEditor.UI/UnityEditor.UI.csproj"
+    },
+    "UnityEngine.TestRunner/1.0.0": {
+      "type": "project",
+      "path": "../UnityEngine.TestRunner/UnityEngine.TestRunner.csproj",
+      "msbuildProject": "../UnityEngine.TestRunner/UnityEngine.TestRunner.csproj"
+    },
+    "UnityEngine.UI/1.0.0": {
+      "type": "project",
+      "path": "../UnityEngine.UI/UnityEngine.UI.csproj",
+      "msbuildProject": "../UnityEngine.UI/UnityEngine.UI.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETStandard,Version=v2.1": [
+      "UnityEditor.UI >= 1.0.0",
+      "UnityEngine.UI >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\reyd0\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.TextMeshPro\\Unity.TextMeshPro.csproj",
+      "projectName": "Unity.TextMeshPro",
+      "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.TextMeshPro\\Unity.TextMeshPro.csproj",
+      "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.TextMeshPro\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "netstandard2.1"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "projectReferences": {
+            "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj": {
+              "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj"
+            },
+            "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj": {
+              "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netstandard2.1": {
+        "targetAlias": "netstandard2.1",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "NETStandard.Library": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

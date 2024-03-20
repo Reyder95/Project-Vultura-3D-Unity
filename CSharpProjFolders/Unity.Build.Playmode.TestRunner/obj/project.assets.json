@@ -1,0 +1,641 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETStandard,Version=v2.1": {
+      "Unity.Build/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Unity.InternalAPIEditorBridge.012": "1.0.0",
+          "Unity.Properties": "1.0.0",
+          "Unity.Properties.Editor": "1.0.0",
+          "Unity.Properties.UI": "1.0.0",
+          "Unity.Properties.UI.Editor": "1.0.0",
+          "Unity.Serialization": "1.0.0",
+          "UnityEditor.TestRunner": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.TestRunner": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Build.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Build.dll": {}
+        }
+      },
+      "Unity.Build.Classic/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Unity.Build": "1.0.0",
+          "Unity.Build.Editor": "1.0.0",
+          "Unity.InternalAPIEditorBridge.012": "1.0.0",
+          "Unity.Properties": "1.0.0",
+          "Unity.Properties.Editor": "1.0.0",
+          "Unity.Properties.UI": "1.0.0",
+          "Unity.Properties.UI.Editor": "1.0.0",
+          "Unity.Serialization": "1.0.0",
+          "UnityEditor.TestRunner": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.TestRunner": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Build.Classic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Build.Classic.dll": {}
+        }
+      },
+      "Unity.Build.Classic.Private/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Unity.Build": "1.0.0",
+          "Unity.Build.Classic": "1.0.0",
+          "Unity.Build.Editor": "1.0.0",
+          "Unity.Build.Internals": "1.0.0",
+          "Unity.Properties": "1.0.0",
+          "Unity.Properties.Editor": "1.0.0",
+          "Unity.Properties.UI": "1.0.0",
+          "Unity.Properties.UI.Editor": "1.0.0",
+          "Unity.ScriptableBuildPipeline": "1.0.0",
+          "Unity.ScriptableBuildPipeline.Editor": "1.0.0",
+          "Unity.Serialization": "1.0.0",
+          "UnityEditor.TestRunner": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.TestRunner": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Build.Classic.Private.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Build.Classic.Private.dll": {}
+        }
+      },
+      "Unity.Build.Editor/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Unity.Build": "1.0.0",
+          "Unity.InternalAPIEngineBridge.012": "1.0.0",
+          "Unity.Properties": "1.0.0",
+          "Unity.Properties.Editor": "1.0.0",
+          "Unity.Properties.UI": "1.0.0",
+          "Unity.Properties.UI.Editor": "1.0.0",
+          "Unity.Serialization": "1.0.0",
+          "UnityEditor.TestRunner": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.TestRunner": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Build.Editor.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Build.Editor.dll": {}
+        }
+      },
+      "Unity.Build.Internals/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Unity.Build": "1.0.0",
+          "UnityEditor.TestRunner": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.TestRunner": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Build.Internals.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Build.Internals.dll": {}
+        }
+      },
+      "Unity.Burst/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Burst.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Burst.dll": {}
+        }
+      },
+      "Unity.Collections/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Unity.Burst": "1.0.0",
+          "Unity.Mathematics": "1.0.0",
+          "Unity.Properties": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Collections.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Collections.dll": {}
+        }
+      },
+      "Unity.InternalAPIEditorBridge.012/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "UnityEditor.TestRunner": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.TestRunner": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.InternalAPIEditorBridge.012.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.InternalAPIEditorBridge.012.dll": {}
+        }
+      },
+      "Unity.InternalAPIEngineBridge.012/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.InternalAPIEngineBridge.012.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.InternalAPIEngineBridge.012.dll": {}
+        }
+      },
+      "Unity.Jobs/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Jobs.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Jobs.dll": {}
+        }
+      },
+      "Unity.Mathematics/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Mathematics.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Mathematics.dll": {}
+        }
+      },
+      "Unity.Properties/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Properties.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Properties.dll": {}
+        }
+      },
+      "Unity.Properties.Editor/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Unity.Properties": "1.0.0",
+          "Unity.Properties.Reflection": "1.0.0",
+          "UnityEditor.TestRunner": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.TestRunner": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Properties.Editor.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Properties.Editor.dll": {}
+        }
+      },
+      "Unity.Properties.Reflection/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Unity.Properties": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Properties.Reflection.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Properties.Reflection.dll": {}
+        }
+      },
+      "Unity.Properties.UI/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Unity.Properties": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Properties.UI.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Properties.UI.dll": {}
+        }
+      },
+      "Unity.Properties.UI.Editor/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Unity.Properties": "1.0.0",
+          "Unity.Properties.Editor": "1.0.0",
+          "Unity.Properties.UI": "1.0.0",
+          "Unity.Serialization.Editor": "1.0.0",
+          "UnityEditor.TestRunner": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.TestRunner": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Properties.UI.Editor.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Properties.UI.Editor.dll": {}
+        }
+      },
+      "Unity.ScriptableBuildPipeline/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.ScriptableBuildPipeline.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.ScriptableBuildPipeline.dll": {}
+        }
+      },
+      "Unity.ScriptableBuildPipeline.Editor/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Unity.ScriptableBuildPipeline": "1.0.0",
+          "UnityEditor.CacheServer": "1.0.0",
+          "UnityEditor.TestRunner": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.TestRunner": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.ScriptableBuildPipeline.Editor.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.ScriptableBuildPipeline.Editor.dll": {}
+        }
+      },
+      "Unity.Serialization/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Unity.Burst": "1.0.0",
+          "Unity.Collections": "1.0.0",
+          "Unity.Jobs": "1.0.0",
+          "Unity.Mathematics": "1.0.0",
+          "Unity.Properties": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Serialization.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Serialization.dll": {}
+        }
+      },
+      "Unity.Serialization.Editor/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "Unity.Serialization": "1.0.0",
+          "UnityEditor.TestRunner": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.TestRunner": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Unity.Serialization.Editor.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Unity.Serialization.Editor.dll": {}
+        }
+      },
+      "UnityEditor.CacheServer/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "UnityEditor.TestRunner": "1.0.0",
+          "UnityEditor.UI": "1.0.0",
+          "UnityEngine.TestRunner": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/UnityEditor.CacheServer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UnityEditor.CacheServer.dll": {}
+        }
+      },
+      "UnityEditor.TestRunner/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "UnityEngine.TestRunner": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/UnityEditor.TestRunner.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UnityEditor.TestRunner.dll": {}
+        }
+      },
+      "UnityEditor.UI/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "UnityEditor.TestRunner": "1.0.0",
+          "UnityEngine.TestRunner": "1.0.0",
+          "UnityEngine.UI": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/UnityEditor.UI.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UnityEditor.UI.dll": {}
+        }
+      },
+      "UnityEngine.TestRunner/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "compile": {
+          "bin/placeholder/UnityEngine.TestRunner.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UnityEngine.TestRunner.dll": {}
+        }
+      },
+      "UnityEngine.UI/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "compile": {
+          "bin/placeholder/UnityEngine.UI.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UnityEngine.UI.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Unity.Build/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Build/Unity.Build.csproj",
+      "msbuildProject": "../Unity.Build/Unity.Build.csproj"
+    },
+    "Unity.Build.Classic/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Build.Classic/Unity.Build.Classic.csproj",
+      "msbuildProject": "../Unity.Build.Classic/Unity.Build.Classic.csproj"
+    },
+    "Unity.Build.Classic.Private/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Build.Classic.Private/Unity.Build.Classic.Private.csproj",
+      "msbuildProject": "../Unity.Build.Classic.Private/Unity.Build.Classic.Private.csproj"
+    },
+    "Unity.Build.Editor/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Build.Editor/Unity.Build.Editor.csproj",
+      "msbuildProject": "../Unity.Build.Editor/Unity.Build.Editor.csproj"
+    },
+    "Unity.Build.Internals/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Build.Internals/Unity.Build.Internals.csproj",
+      "msbuildProject": "../Unity.Build.Internals/Unity.Build.Internals.csproj"
+    },
+    "Unity.Burst/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Burst/Unity.Burst.csproj",
+      "msbuildProject": "../Unity.Burst/Unity.Burst.csproj"
+    },
+    "Unity.Collections/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Collections/Unity.Collections.csproj",
+      "msbuildProject": "../Unity.Collections/Unity.Collections.csproj"
+    },
+    "Unity.InternalAPIEditorBridge.012/1.0.0": {
+      "type": "project",
+      "path": "../Unity.InternalAPIEditorBridge.012/Unity.InternalAPIEditorBridge.012.csproj",
+      "msbuildProject": "../Unity.InternalAPIEditorBridge.012/Unity.InternalAPIEditorBridge.012.csproj"
+    },
+    "Unity.InternalAPIEngineBridge.012/1.0.0": {
+      "type": "project",
+      "path": "../Unity.InternalAPIEngineBridge.012/Unity.InternalAPIEngineBridge.012.csproj",
+      "msbuildProject": "../Unity.InternalAPIEngineBridge.012/Unity.InternalAPIEngineBridge.012.csproj"
+    },
+    "Unity.Jobs/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Jobs/Unity.Jobs.csproj",
+      "msbuildProject": "../Unity.Jobs/Unity.Jobs.csproj"
+    },
+    "Unity.Mathematics/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Mathematics/Unity.Mathematics.csproj",
+      "msbuildProject": "../Unity.Mathematics/Unity.Mathematics.csproj"
+    },
+    "Unity.Properties/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Properties/Unity.Properties.csproj",
+      "msbuildProject": "../Unity.Properties/Unity.Properties.csproj"
+    },
+    "Unity.Properties.Editor/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Properties.Editor/Unity.Properties.Editor.csproj",
+      "msbuildProject": "../Unity.Properties.Editor/Unity.Properties.Editor.csproj"
+    },
+    "Unity.Properties.Reflection/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Properties.Reflection/Unity.Properties.Reflection.csproj",
+      "msbuildProject": "../Unity.Properties.Reflection/Unity.Properties.Reflection.csproj"
+    },
+    "Unity.Properties.UI/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Properties.UI/Unity.Properties.UI.csproj",
+      "msbuildProject": "../Unity.Properties.UI/Unity.Properties.UI.csproj"
+    },
+    "Unity.Properties.UI.Editor/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Properties.UI.Editor/Unity.Properties.UI.Editor.csproj",
+      "msbuildProject": "../Unity.Properties.UI.Editor/Unity.Properties.UI.Editor.csproj"
+    },
+    "Unity.ScriptableBuildPipeline/1.0.0": {
+      "type": "project",
+      "path": "../Unity.ScriptableBuildPipeline/Unity.ScriptableBuildPipeline.csproj",
+      "msbuildProject": "../Unity.ScriptableBuildPipeline/Unity.ScriptableBuildPipeline.csproj"
+    },
+    "Unity.ScriptableBuildPipeline.Editor/1.0.0": {
+      "type": "project",
+      "path": "../Unity.ScriptableBuildPipeline.Editor/Unity.ScriptableBuildPipeline.Editor.csproj",
+      "msbuildProject": "../Unity.ScriptableBuildPipeline.Editor/Unity.ScriptableBuildPipeline.Editor.csproj"
+    },
+    "Unity.Serialization/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Serialization/Unity.Serialization.csproj",
+      "msbuildProject": "../Unity.Serialization/Unity.Serialization.csproj"
+    },
+    "Unity.Serialization.Editor/1.0.0": {
+      "type": "project",
+      "path": "../Unity.Serialization.Editor/Unity.Serialization.Editor.csproj",
+      "msbuildProject": "../Unity.Serialization.Editor/Unity.Serialization.Editor.csproj"
+    },
+    "UnityEditor.CacheServer/1.0.0": {
+      "type": "project",
+      "path": "../UnityEditor.CacheServer/UnityEditor.CacheServer.csproj",
+      "msbuildProject": "../UnityEditor.CacheServer/UnityEditor.CacheServer.csproj"
+    },
+    "UnityEditor.TestRunner/1.0.0": {
+      "type": "project",
+      "path": "../UnityEditor.TestRunner/UnityEditor.TestRunner.csproj",
+      "msbuildProject": "../UnityEditor.TestRunner/UnityEditor.TestRunner.csproj"
+    },
+    "UnityEditor.UI/1.0.0": {
+      "type": "project",
+      "path": "../UnityEditor.UI/UnityEditor.UI.csproj",
+      "msbuildProject": "../UnityEditor.UI/UnityEditor.UI.csproj"
+    },
+    "UnityEngine.TestRunner/1.0.0": {
+      "type": "project",
+      "path": "../UnityEngine.TestRunner/UnityEngine.TestRunner.csproj",
+      "msbuildProject": "../UnityEngine.TestRunner/UnityEngine.TestRunner.csproj"
+    },
+    "UnityEngine.UI/1.0.0": {
+      "type": "project",
+      "path": "../UnityEngine.UI/UnityEngine.UI.csproj",
+      "msbuildProject": "../UnityEngine.UI/UnityEngine.UI.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETStandard,Version=v2.1": [
+      "Unity.Build >= 1.0.0",
+      "Unity.Build.Classic >= 1.0.0",
+      "Unity.Build.Classic.Private >= 1.0.0",
+      "UnityEditor.TestRunner >= 1.0.0",
+      "UnityEditor.UI >= 1.0.0",
+      "UnityEngine.TestRunner >= 1.0.0",
+      "UnityEngine.UI >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\reyd0\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Build.Playmode.TestRunner\\Unity.Build.Playmode.TestRunner.csproj",
+      "projectName": "Unity.Build.Playmode.TestRunner",
+      "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Build.Playmode.TestRunner\\Unity.Build.Playmode.TestRunner.csproj",
+      "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Build.Playmode.TestRunner\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "netstandard2.1"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "projectReferences": {
+            "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Build.Classic.Private\\Unity.Build.Classic.Private.csproj": {
+              "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Build.Classic.Private\\Unity.Build.Classic.Private.csproj"
+            },
+            "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Build.Classic\\Unity.Build.Classic.csproj": {
+              "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Build.Classic\\Unity.Build.Classic.csproj"
+            },
+            "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Build\\Unity.Build.csproj": {
+              "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Build\\Unity.Build.csproj"
+            },
+            "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.TestRunner\\UnityEditor.TestRunner.csproj": {
+              "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.TestRunner\\UnityEditor.TestRunner.csproj"
+            },
+            "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj": {
+              "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj"
+            },
+            "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.TestRunner\\UnityEngine.TestRunner.csproj": {
+              "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.TestRunner\\UnityEngine.TestRunner.csproj"
+            },
+            "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj": {
+              "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netstandard2.1": {
+        "targetAlias": "netstandard2.1",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "NETStandard.Library": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

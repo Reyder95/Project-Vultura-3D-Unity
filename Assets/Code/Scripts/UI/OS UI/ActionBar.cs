@@ -33,12 +33,12 @@ public class ActionBar : BaseOS
                 {
                     if (VulturaInstance.selectorList.mainSelected != null)
                     {
-                        if (VulturaInstance.selectorList.mainSelected.selectableObject.tag == "Asteroid")
+                        if (VulturaInstance.selectorList.mainSelected.entity.entity.selectableObject.tag == "Asteroid")
                         {
                             InstantiatedShip playerShip = VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip;
 
                             if (playerShip.turretMounts.Count != 0)
-                                playerShip.turretMounts[(int)e.userData - 1].GetComponent<MountComponent>().UseTurret(VulturaInstance.selectorList.mainSelected);
+                                playerShip.turretMounts[(int)e.userData - 1].GetComponent<MountComponent>().UseTurret(VulturaInstance.selectorList.mainSelected.entity.entity);
 
                         }
                     }

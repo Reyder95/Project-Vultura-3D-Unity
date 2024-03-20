@@ -1,0 +1,928 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Registration\\Unity.Services.Core.Registration.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Configuration\\Unity.Services.Core.Configuration.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Configuration\\Unity.Services.Core.Configuration.csproj",
+        "projectName": "Unity.Services.Core.Configuration",
+        "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Configuration\\Unity.Services.Core.Configuration.csproj",
+        "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Configuration\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Device\\Unity.Services.Core.Device.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Device\\Unity.Services.Core.Device.csproj",
+        "projectName": "Unity.Services.Core.Device",
+        "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Device\\Unity.Services.Core.Device.csproj",
+        "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Device\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Environments.Internal\\Unity.Services.Core.Environments.Internal.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Environments.Internal\\Unity.Services.Core.Environments.Internal.csproj",
+        "projectName": "Unity.Services.Core.Environments.Internal",
+        "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Environments.Internal\\Unity.Services.Core.Environments.Internal.csproj",
+        "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Environments.Internal\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Environments\\Unity.Services.Core.Environments.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Environments\\Unity.Services.Core.Environments.csproj",
+        "projectName": "Unity.Services.Core.Environments",
+        "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Environments\\Unity.Services.Core.Environments.csproj",
+        "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Environments\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj",
+        "projectName": "Unity.Services.Core.Internal",
+        "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj",
+        "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Registration\\Unity.Services.Core.Registration.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Registration\\Unity.Services.Core.Registration.csproj",
+        "projectName": "Unity.Services.Core.Registration",
+        "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Registration\\Unity.Services.Core.Registration.csproj",
+        "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Registration\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Configuration\\Unity.Services.Core.Configuration.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Configuration\\Unity.Services.Core.Configuration.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Device\\Unity.Services.Core.Device.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Device\\Unity.Services.Core.Device.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Environments.Internal\\Unity.Services.Core.Environments.Internal.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Environments.Internal\\Unity.Services.Core.Environments.Internal.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Environments\\Unity.Services.Core.Environments.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Environments\\Unity.Services.Core.Environments.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Scheduler\\Unity.Services.Core.Scheduler.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Scheduler\\Unity.Services.Core.Scheduler.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Telemetry\\Unity.Services.Core.Telemetry.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Telemetry\\Unity.Services.Core.Telemetry.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Threading\\Unity.Services.Core.Threading.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Threading\\Unity.Services.Core.Threading.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Scheduler\\Unity.Services.Core.Scheduler.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Scheduler\\Unity.Services.Core.Scheduler.csproj",
+        "projectName": "Unity.Services.Core.Scheduler",
+        "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Scheduler\\Unity.Services.Core.Scheduler.csproj",
+        "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Scheduler\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Telemetry\\Unity.Services.Core.Telemetry.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Telemetry\\Unity.Services.Core.Telemetry.csproj",
+        "projectName": "Unity.Services.Core.Telemetry",
+        "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Telemetry\\Unity.Services.Core.Telemetry.csproj",
+        "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Telemetry\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Threading\\Unity.Services.Core.Threading.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Threading\\Unity.Services.Core.Threading.csproj",
+        "projectName": "Unity.Services.Core.Threading",
+        "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Threading\\Unity.Services.Core.Threading.csproj",
+        "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Threading\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core.Internal\\Unity.Services.Core.Internal.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj",
+        "projectName": "Unity.Services.Core",
+        "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\Unity.Services.Core.csproj",
+        "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Unity.Services.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.TestRunner\\UnityEditor.TestRunner.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.TestRunner\\UnityEditor.TestRunner.csproj",
+        "projectName": "UnityEditor.TestRunner",
+        "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.TestRunner\\UnityEditor.TestRunner.csproj",
+        "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.TestRunner\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.TestRunner\\UnityEngine.TestRunner.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.TestRunner\\UnityEngine.TestRunner.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj",
+        "projectName": "UnityEditor.UI",
+        "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\UnityEditor.UI.csproj",
+        "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.UI\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.TestRunner\\UnityEditor.TestRunner.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEditor.TestRunner\\UnityEditor.TestRunner.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.TestRunner\\UnityEngine.TestRunner.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.TestRunner\\UnityEngine.TestRunner.csproj"
+              },
+              "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj": {
+                "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.TestRunner\\UnityEngine.TestRunner.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.TestRunner\\UnityEngine.TestRunner.csproj",
+        "projectName": "UnityEngine.TestRunner",
+        "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.TestRunner\\UnityEngine.TestRunner.csproj",
+        "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.TestRunner\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj",
+        "projectName": "UnityEngine.UI",
+        "projectPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\UnityEngine.UI.csproj",
+        "packagesPath": "C:\\Users\\reyd0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\UnityEngine.UI\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\reyd0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

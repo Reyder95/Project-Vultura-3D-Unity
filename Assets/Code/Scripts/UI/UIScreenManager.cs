@@ -30,7 +30,7 @@ public class UIScreenManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            HandlePointerOver();
+            //HandlePointerOver();
         }
     }
 

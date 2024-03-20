@@ -1,3 +1,4 @@
+using System.Xml;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class BaseSelectable
     private string type;            // The type of selectable. Ship, Mining Station, etc
     private bool selected = false;      // Is this a selected item? If so, outline it.
     private bool mainSelected = false;  // If it's a main selected item, outline it a different color.
+    public SystemEntity entity;
 
     public BaseSelectable(string faction, string selectableName, string type)
     {
@@ -24,6 +26,11 @@ public class BaseSelectable
     public void SetObject(GameObject selectableObject)
     {
         this.selectableObject = selectableObject;
+    }
+
+    public void SetEntity(SystemEntity entity)
+    {
+        this.entity = entity;
     }
 
     public string Faction 

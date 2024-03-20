@@ -119,9 +119,6 @@ public class BaseStation : BaseSelectable
                     demandMarket.AddDemandSeller(ItemManager.GenerateSpecificBase(item.item.Key));
                 }
             }
-            
-
-            facility.stockpile.PrintContents();
         }
     }
 

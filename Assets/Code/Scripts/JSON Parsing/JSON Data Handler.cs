@@ -12,6 +12,8 @@ public static class JSONDataHandler
     public static JSONFacilities Facilities;
     public static JSONStats Stats;
     public static JSONMainStats MainStats;
+    public static JSONGalaxyList GalaxyList;
+    public static JSONGalaxy currGalaxy;
 
     // Dictionaries
     public static Dictionary<string, ItemData> itemDictionary = new Dictionary<string, ItemData>();
@@ -20,6 +22,7 @@ public static class JSONDataHandler
     public static Dictionary<string, Type> typeDictionary = new Dictionary<string, Type>();
     public static Dictionary<string, StatsData> statDictionary = new Dictionary<string, StatsData>();
     public static Dictionary<string, MainStat> mainStatDictionary = new Dictionary<string, MainStat>();
+    public static List<string> galaxyList = new List<string>();
 
     public static Dictionary<string, ItemData[]> basesFromCategory = new Dictionary<string, ItemData[]>();
 
@@ -86,6 +89,16 @@ public static class JSONDataHandler
             mainStatDictionary.Add(mainStats.key, mainStats);
         }
 
+        var galaxyListFile = Resources.Load<TextAsset>("JSON/Galaxies/GalaxyList");
+        JSONGalaxyList TempGalaxyList = JsonUtility.FromJson<JSONGalaxyList>(galaxyListFile.text);
+
+        foreach (GalaxyListData galaxyListData in TempGalaxyList.data)
+        {
+            galaxyList.Add(galaxyListData.name);
+        }
+
+        LoadGalaxy(0);
+
         FillStatBucket();
     }
 
@@ -143,6 +156,16 @@ public static class JSONDataHandler
             return new List<ItemData>(values);
 
         return null;
+    }
+
+    public static void LoadGalaxy(int index)
+    {
+        string galaxyName = galaxyList[index];
+
+        var galaxyFile = Resources.Load<TextAsset>("JSON/Galaxies/" + galaxyName);
+        JSONGalaxy galaxy = JsonUtility.FromJson<JSONGalaxy>(galaxyFile.text);
+
+        currGalaxy = galaxy;
     }
 
     public static List<Category> FindCategoriesByType(Type type)
