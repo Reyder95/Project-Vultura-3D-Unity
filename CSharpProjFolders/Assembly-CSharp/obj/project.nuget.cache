@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "wneWGtegvriXHLHxezcIZjnhWUhEryA7S25u26hbnSXfghLfyJWRII+vUZQ1cs7yixvTiFQBAfjOujstEqp/bg==",
+  "success": true,
+  "projectFilePath": "c:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Assembly-CSharp\\Assembly-CSharp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\reyd0\\.nuget\\packages\\microsoft.unity.analyzers\\1.17.0\\microsoft.unity.analyzers.1.17.0.nupkg.sha512"
+  ],
+  "logs": []
+}

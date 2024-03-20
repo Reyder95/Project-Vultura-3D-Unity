@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Threading;
 
 [System.Serializable]
 public struct PrefabStruct 
@@ -39,6 +40,7 @@ public class Game : MonoBehaviour
     // Debugging Elements
     public GameObject GRAPHY;
 
+    BFS bfs;
     void Start() 
     {
         DontDestroyOnLoad(this.gameObject); // Keeps the game controller loaded at all times
@@ -68,9 +70,6 @@ public class Game : MonoBehaviour
         InstantiatedShip newShip = ShipFactory.Instance.CreateShip(shipPrefabs[0], "Player Faction", "Player Fleet", "Non AI Fleet", shipStatsComponent, false, new Inventory());
         //newShip.InitializeMounts();
         Fleet playerFleet = new Fleet(System.Guid.NewGuid(), "Player Faction", newShip, new List<InstantiatedShip>());
-
-        // -- Debug -- Add items to inventory
-        // TODO: Do with new system
         
         // -- Debug -- Add a second ship to the player fleet
         shipStatsComponent = shipPrefabs[1].GetComponent<PrefabHandler>().GetShipStats();
@@ -118,7 +117,7 @@ public class Game : MonoBehaviour
         GenerateAsteroidField();
 
         VulturaInstance.currGalaxy = new Galaxy(JSONDataHandler.currGalaxy);
-        VulturaInstance.currSystem = VulturaInstance.currGalaxy.systemList[0];
+        VulturaInstance.currSystem = VulturaInstance.currGalaxy.systemList["olgaia"];
         VulturaInstance.currEntity = VulturaInstance.currSystem.systemEntities[0];
         currPlanet.GetComponent<CurrPlanetHandler>().systemEntity = VulturaInstance.currEntity;
 
@@ -132,8 +131,29 @@ public class Game : MonoBehaviour
         PlaceFleetsInSystem();
         SpawnFleetsInSystem();
 
-        //VulturaInstance.AddSelectableToSystem(VulturaInstance.currentPlayer.GetComponent<PrefabHandler>().currShip);
+        bfs = new BFS();
 
+        Thread bfsThread = new Thread(() =>
+        {
+            bfs.FindShortestPath(VulturaInstance.currGalaxy.galGraph, VulturaInstance.currGalaxy.systemList["olgaia"], VulturaInstance.currGalaxy.systemList["haylo"]);
+        });
+        bfsThread.Start();
+
+    }
+
+    private void Update()
+    {
+        if (bfs != null && bfs.IsDone() )
+        {
+            List<StarSystem> shortestPath = bfs.GetShortestPath(VulturaInstance.currGalaxy.systemList["olgaia"], VulturaInstance.currGalaxy.systemList["haylo"]);
+
+            foreach (var node in shortestPath)
+            {
+                Debug.Log(node.system_name);
+            }
+
+            bfs = null;
+        }
     }
 
     public void WarpHandling()
@@ -143,7 +163,9 @@ public class Game : MonoBehaviour
         VulturaInstance.currEntity = VulturaInstance.currTarget;
         SpawnFleetsFromEntity();
         VulturaInstance.RemoveShipsFromEntities();
+        SpawnEntityInSystem();
         AddShipSelectables();
+        
     }
 
     private void AddShipSelectables()
@@ -197,6 +219,22 @@ public class Game : MonoBehaviour
         {
             shipSpawner.SpawnFleet(fleet.fleet, fleet.originCoords);
         }
+    }
+
+    private void SpawnEntityInSystem()
+    {
+        VulturaInstance.EntityType type = VulturaInstance.currEntity.actualType;
+
+        if (type == VulturaInstance.EntityType.MINING_STATION)
+        {
+            //GameObject spawnedObject = Instantiate(prefabDict["station1"], new Vector3(0, 0, 0), Quaternion.identity);
+            //StationComponent stationComponent = spawnedObject.GetComponent<StationComponent>();
+            //if (stationComponent.station == null)
+            //    stationComponent.SetStation(new MiningStation(VulturaInstance.currEntity.name, "Mining Station", "test"));
+            //stationComponent.station.entity = VulturaInstance.currEntity;
+            //VulturaInstance.currEntity.entity = stationComponent.station;
+        }
+            
     }
 
     public void GenerateAsteroidField()

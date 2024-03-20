@@ -20,9 +20,9 @@ public class PositionReticleHandler : MonoBehaviour
 
             Vector3 elementPos = Camera.main.WorldToScreenPoint(entityRealworldCoords);
 
-            if (elementPos.z < 0)
+            if (elementPos.z < 0 || elementPos.x < 0 || elementPos.x > Screen.width || elementPos.y < 0 || elementPos.y > Screen.height)
             {
-                elementPos *= -1;
+                elementPos = new Vector3(-100, -100, 0);
             }
 
             Vector3 targetScreenPoint = new Vector3(Mathf.Clamp(elementPos.x, -100, Screen.width + 100), Mathf.Clamp(elementPos.y, -100, Screen.height + 100), 0);

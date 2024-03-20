@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "N6pCMq7D2Jx5D24iZ4L3wkY3ACnHo7ZoIsLJzA6XQ+XocFwrzcSOx669GoehdkVA4AjET9/k9j3VqeiwljODjw==",
+  "success": true,
+  "projectFilePath": "c:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\OccaSoftware.Buto\\OccaSoftware.Buto.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\reyd0\\.nuget\\packages\\microsoft.unity.analyzers\\1.17.0\\microsoft.unity.analyzers.1.17.0.nupkg.sha512"
+  ],
+  "logs": []
+}

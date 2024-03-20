@@ -5,4 +5,5 @@ using UnityEngine;
 public class JSONGalaxy
 {
     public SystemData[] data;
+    public SystemConnections[] connections;
 }

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9ZtXlphgm825HGYk2Ai5if6dEi6caEMqEvEai9tfMlkpu5WQS+y2Azm68yYlhd2hV5i6t8oknx78oYMeoIcvrg==",
+  "success": true,
+  "projectFilePath": "c:\\Users\\reyd0\\OneDrive\\Documents\\GitHub\\Project-Vultura-3D-Unity\\CSharpProjFolders\\Tayx.Graphy\\Tayx.Graphy.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\reyd0\\.nuget\\packages\\microsoft.unity.analyzers\\1.17.0\\microsoft.unity.analyzers.1.17.0.nupkg.sha512"
+  ],
+  "logs": []
+}

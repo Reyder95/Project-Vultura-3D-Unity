@@ -9,7 +9,7 @@ public class StarSystem
     public List<SystemEntity> systemEntities = new List<SystemEntity>();
     public List<SystemGate> systemGates = new List<SystemGate>();
 
-    public StarSystem(int size, string system_name, string star, SystemPlanet[] systemPlanets, SystemAsteroid[] systemAsteroids, SystemGates[] gates)
+    public StarSystem(int size, string system_name, string star, SystemPlanet[] systemPlanets, SystemAsteroid[] systemAsteroids)
     {
         this.system_name = system_name;
         this.star = star;
@@ -59,5 +59,25 @@ public class StarSystem
 
             this.systemEntities.Add(asteroidFieldEntity);
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return system_name.GetHashCode();
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is StarSystem other)
+        {
+            return system_name.Equals(other.system_name);
+        }
+
+        return false;
+    }
+
+    public void AddGate(SystemGate gate)
+    {
+        systemGates.Add(gate);
     }
 }

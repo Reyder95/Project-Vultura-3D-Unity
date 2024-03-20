@@ -42,6 +42,200 @@
                     "height": 50
                 }
             ]
+        },
+        {
+            "system_name": "disrectu",
+            "star_type": "class_a",
+            "size": 12000,
+            "gates": [],
+            "planets": [
+                {
+                    "name": "Galleon V",
+                    "type": "ice",
+                    "moons": null,
+                    "bodies": [
+                        {
+                            "name": "Olgaia Mining Station",
+                            "type": "Station",
+                            "sub_type": "Mining Station",
+                            "angle": 120
+                        }
+                    ],
+                    "radius": 95,
+                    "angle": 20,
+                    "height": 75,
+                    "size": "medium"
+                }
+            ],
+            "asteroid_fields": [
+                {
+                    "name": "Olgaia Mining Field A",
+                    "sub_bodies": [
+                        {
+                            "type": "iron",
+                            "amount": 2
+                        },
+                        {
+                            "type": "coal",
+                            "amount": 4
+                        }
+                    ],
+                    "radius": 60,
+                    "angle": 14,
+                    "height": 50
+                }
+            ]
+        },
+        {
+            "system_name": "kallomedia",
+            "star_type": "class_a",
+            "size": 12000,
+            "gates": [],
+            "planets": [
+                {
+                    "name": "Galleon V",
+                    "type": "ice",
+                    "moons": null,
+                    "bodies": [
+                        {
+                            "name": "Olgaia Mining Station",
+                            "type": "Station",
+                            "sub_type": "Mining Station",
+                            "angle": 120
+                        }
+                    ],
+                    "radius": 95,
+                    "angle": 20,
+                    "height": 75,
+                    "size": "medium"
+                }
+            ],
+            "asteroid_fields": [
+                {
+                    "name": "Olgaia Mining Field A",
+                    "sub_bodies": [
+                        {
+                            "type": "iron",
+                            "amount": 2
+                        },
+                        {
+                            "type": "coal",
+                            "amount": 4
+                        }
+                    ],
+                    "radius": 60,
+                    "angle": 14,
+                    "height": 50
+                }
+            ]
+        },
+        {
+            "system_name": "haylo",
+            "star_type": "class_a",
+            "size": 12000,
+            "gates": [],
+            "planets": [
+                {
+                    "name": "Galleon V",
+                    "type": "ice",
+                    "moons": null,
+                    "bodies": [
+                        {
+                            "name": "Olgaia Mining Station",
+                            "type": "Station",
+                            "sub_type": "Mining Station",
+                            "angle": 120
+                        }
+                    ],
+                    "radius": 95,
+                    "angle": 20,
+                    "height": 75,
+                    "size": "medium"
+                }
+            ],
+            "asteroid_fields": [
+                {
+                    "name": "Olgaia Mining Field A",
+                    "sub_bodies": [
+                        {
+                            "type": "iron",
+                            "amount": 2
+                        },
+                        {
+                            "type": "coal",
+                            "amount": 4
+                        }
+                    ],
+                    "radius": 60,
+                    "angle": 14,
+                    "height": 50
+                }
+            ]
+        },
+        {
+            "system_name": "jurmaya",
+            "star_type": "class_a",
+            "size": 12000,
+            "gates": [],
+            "planets": [
+                {
+                    "name": "Galleon V",
+                    "type": "ice",
+                    "moons": null,
+                    "bodies": [
+                        {
+                            "name": "Olgaia Mining Station",
+                            "type": "Station",
+                            "sub_type": "Mining Station",
+                            "angle": 120
+                        }
+                    ],
+                    "radius": 95,
+                    "angle": 20,
+                    "height": 75,
+                    "size": "medium"
+                }
+            ],
+            "asteroid_fields": [
+                {
+                    "name": "Olgaia Mining Field A",
+                    "sub_bodies": [
+                        {
+                            "type": "iron",
+                            "amount": 2
+                        },
+                        {
+                            "type": "coal",
+                            "amount": 4
+                        }
+                    ],
+                    "radius": 60,
+                    "angle": 14,
+                    "height": 50
+                }
+            ]
+        }
+    ],
+    "connections": [
+        {
+            "first": "olgaia",
+            "second": "jurmaya"
+        },
+        {
+            "first": "olgaia",
+            "second": "disrectu"
+        },
+        {
+            "first": "olgaia",
+            "second": "kallomedia"
+        },
+        {
+            "first": "haylo",
+            "second": "disrectu"
+        },
+        {
+            "first": "disrectu",
+            "second": "jurmaya"
         }
     ]
 }
